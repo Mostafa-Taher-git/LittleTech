@@ -14,7 +14,7 @@ import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/game/presentation/screens/achievements_screen.dart';
 import 'package:littletech/src/features/game/presentation/screens/challenge_screen.dart';
 import 'package:littletech/src/features/game/presentation/screens/stats_screen.dart';
-import 'package:littletech/src/features/game/presentation/screens/suptech_concept_sheet.dart';
+import 'package:littletech/src/features/game/presentation/screens/sup_tech_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -120,7 +120,7 @@ SupTechAvatarWrapper(
                               final skin = SkinTierManager.fromId(progress.activeSkinId);
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (_) => SupTechConceptSheet(skin: skin),
+                                  builder: (_) => SupTechPage(skin: skin),
                                 ),
                               );
                             },
@@ -133,10 +133,18 @@ SupTechAvatarWrapper(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.description_outlined, size: 16, color: scheme.onPrimary),
+                                  Text(
+                                    'ST',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w900,
+                                      color: scheme.onPrimary,
+                                      fontFamily: 'Montserrat',
+                                    ),
+                                  ),
                                   const Gap(6),
                                   Text(
-                                    'Concept Sheet',
+                                    'SupTech page',
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,

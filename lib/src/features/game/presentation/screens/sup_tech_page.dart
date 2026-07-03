@@ -5,11 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:littletech/src/features/game/constants/skin_tiers.dart';
 import 'package:littletech/src/features/game/domain/cubit/suptech_customization_cubit.dart';
 import 'package:littletech/src/features/game/domain/models/suptech_customization.dart';
+import 'package:littletech/src/features/game/presentation/widgets/sup_tech_body_renderer.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_renderer.dart';
 
-class SupTechConceptSheet extends StatelessWidget {
+class SupTechPage extends StatelessWidget {
   final SkinDefinition skin;
-  const SupTechConceptSheet({super.key, required this.skin});
+  const SupTechPage({super.key, required this.skin});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,14 @@ class SupTechConceptSheet extends StatelessWidget {
                 ],
               ),
               child: IconButton(
-                icon: const Icon(Icons.close, color: Color(0xFF344256)),
+                icon: const Text('ST',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF344256),
+                    letterSpacing: -1,
+                  ),
+                ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -335,86 +343,12 @@ class _InteractiveConceptPainter extends CustomPainter {
         ]).createShader(Rect.fromCircle(center: Offset.zero, radius: 42 * s)),
     );
 
-    final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-    final outlinePaint = Paint()
-      ..color = Colors.black87
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.25 * s
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-
-    // Drop shadow
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(0, 16 * s), width: 22 * s, height: 2.5 * s),
-      Paint()..color = Colors.black.withValues(alpha: 0.10),
-    );
-
-    // Robe body — vertical sides, rounded bottom
-    final robePath = Path()
-      ..moveTo(-8 * s, -1 * s)
-      ..lineTo(8 * s, -1 * s)
-      ..lineTo(8 * s, 12 * s)
-      ..quadraticBezierTo(5.5 * s, 14 * s, 0, 13 * s)
-      ..quadraticBezierTo(-5.5 * s, 14 * s, -8 * s, 12 * s)
-      ..close();
-    canvas.drawPath(robePath, bodyPaint);
-    canvas.drawPath(robePath, outlinePaint);
-
-    // Center robe fold
-    final foldPaint = Paint()
-      ..color = Colors.black.withValues(alpha: 0.10)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.5 * s
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(
-      Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s),
-      foldPaint,
-    );
-
-    // Glow at robe bottom
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(0, 13.5 * s), width: 20 * s, height: 4 * s),
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter, end: Alignment.bottomCenter,
-          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-        ).createShader(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 20 * s, height: 4 * s))
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
-    );
-
-    // Hood
-    final hoodPath = Path()
-      ..moveTo(-13 * s, -3 * s)
-      ..cubicTo(-13 * s, -18 * s, -10 * s, -27 * s, 0, -28 * s)
-      ..cubicTo(10 * s, -27 * s, 13 * s, -18 * s, 13 * s, -3 * s)
-      ..quadraticBezierTo(7 * s, 1 * s, 0, -0.5 * s)
-      ..quadraticBezierTo(-7 * s, 1 * s, -13 * s, -3 * s)
-      ..close();
-    canvas.drawPath(hoodPath, bodyPaint);
-    canvas.drawPath(hoodPath, outlinePaint);
-
-    // Hood stripe
-    final stripeColor = _stripeColorForAccessory(skin.headAccessory);
-    final stripePath = Path()
-      ..moveTo(-1.5 * s, -28 * s)
-      ..lineTo(1.5 * s, -28 * s)
-      ..lineTo(1.5 * s, -23 * s)
-      ..lineTo(-1.5 * s, -23 * s)
-      ..close();
-    canvas.drawPath(stripePath, Paint()..color = stripeColor..style = PaintingStyle.fill);
-    canvas.drawPath(stripePath, outlinePaint);
-
-    // Hood highlight
-    canvas.drawPath(
-      Path()
-        ..moveTo(-8 * s, -25 * s)
-        ..quadraticBezierTo(0, -29 * s, 8 * s, -25 * s),
-      Paint()
-        ..color = skin.accentColor.withValues(alpha: 0.10)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 0.75 * s
-        ..strokeCap = StrokeCap.round,
-    );
+    // Body + hood (shared variant-aware drawing)
+    if (!drawSupTechBodyVariant(canvas, skin, s, skin.variant)) {
+      drawSupTechBody(canvas, skin, s, -1 * s, 12 * s, 16 * s, 22 * s);
+      drawSupTechHead(canvas, skin, s, -8.8 * s, 11.75 * s, -3 * s, 10 * s, 13 * s, -28 * s,
+        stripeColor: _stripeColorForAccessory(skin.headAccessory));
+    }
 
     // Face
     final headCY = -8.8 * s;
