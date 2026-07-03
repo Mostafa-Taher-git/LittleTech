@@ -32,40 +32,45 @@ class _LittleTechAppState extends State<LittleTechApp> {
     _loadUserId();
   }
 
-  Future<void> _loadUserId() async {
+  Future<int?> _resolveNewUserId() async {
     final userId = await AuthService.getFreshUserId();
-    if (!mounted) return;
+    if (!mounted) return _userId;
     if (userId != null) {
       final user = await AuthService.getCurrentUser();
       if (user == null) {
         await AuthService.logout();
-        if (mounted) setState(() => _userId = null);
-        return;
+        return mounted ? null : _userId;
       }
     }
+    return userId;
+  }
+
+  Future<void> _loadUserId() async {
+    final userId = await _resolveNewUserId();
     if (mounted) setState(() => _userId = userId);
   }
 
   void _onAuthChanged({bool showAccountPicker = false}) {
     final seq = ++_authChangeSeq;
-    _loadUserId().then((_) {
+    _resolveNewUserId().then((newUserId) async {
       if (!mounted || seq != _authChangeSeq) return;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted || seq != _authChangeSeq) return;
-        final nav = _navKey.currentState;
-        if (nav == null) return;
-        if (_userId != null) {
+
+      final nav = _navKey.currentState;
+      if (nav != null) {
+        if (newUserId != null) {
           nav.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const HomeScreen()),
-            (_) => false,
-          );
+            MaterialPageRoute(builder: (_) => const HomeScreen()), (_) => false);
         } else {
           nav.pushAndRemoveUntil(
             MaterialPageRoute(builder: (_) => LoginScreen(showAccountPicker: showAccountPicker)),
             (_) => false,
           );
         }
-      });
+        await WidgetsBinding.instance.endOfFrame;
+      }
+      if (!mounted || seq != _authChangeSeq) return;
+
+      setState(() => _userId = newUserId);
     });
   }
 
