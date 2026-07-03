@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -22,6 +23,15 @@ class _MistakeScreenState extends State<MistakeScreen> {
   int? _selectedIndex;
   bool _solved = false;
   bool _showExplanation = false;
+  late List<Map<String, dynamic>> _shuffledSteps;
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffledSteps = List<Map<String, dynamic>>.from(
+      (_levelMistake['steps'] as List<dynamic>).cast<Map<String, dynamic>>(),
+    )..shuffle(Random());
+  }
 
   Map<String, dynamic> get _levelMistake {
     return PrepData.mistakes[PrepData.key(widget.level.id)] ?? {
@@ -38,8 +48,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
 
   void _selectStep(int index) {
     if (_solved) return;
-    final steps = _levelMistake['steps'] as List<Map<String, dynamic>>;
-    final isWrong = steps[index]['isWrong'] as bool;
+    final isWrong = _shuffledSteps[index]['isWrong'] as bool;
 
     setState(() {
       _selectedIndex = index;
@@ -66,7 +75,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final steps = _levelMistake['steps'] as List<Map<String, dynamic>>;
+    final steps = _shuffledSteps;
     final explanation = _levelMistake['explanation'] as String;
 
     return Scaffold(

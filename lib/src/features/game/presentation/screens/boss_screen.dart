@@ -35,6 +35,8 @@ class _BossScreenState extends State<BossScreen>
   String? _diagnosisResult;
   int _resolveCount = 0;
 
+  List<int>? _diagnosisShuffledOrder;
+
   bool get _isEasy => widget.boss.difficulty == DifficultyLevel.easy;
   bool get _isHard => widget.boss.difficulty == DifficultyLevel.hard;
 
@@ -71,16 +73,18 @@ class _BossScreenState extends State<BossScreen>
     super.dispose();
   }
 
-  void _selectedDiagnosis(int selectedIndex) {
+  void _selectedDiagnosis(int selectedShuffledIndex) {
     if (_diagnosisLocked) return;
     final diagnosis = widget.boss.diagnosis;
     if (diagnosis.isEmpty) return;
 
     _diagnosisLocked = true;
+    final order = _diagnosisShuffledOrder ?? [];
+    final originalIndex = order.isNotEmpty ? order[selectedShuffledIndex] : selectedShuffledIndex;
     final correct = (diagnosis['correct'] as int?) ?? 0;
     final cubit = context.read<GameCubit>();
 
-    if (selectedIndex == correct) {
+    if (originalIndex == correct) {
       cubit.attackBoss(damage: 3);
       setState(() {
         _diagnosisResult = (diagnosis['flavor'] as String?) ?? 'Correct diagnosis.';
@@ -262,32 +266,36 @@ class _BossScreenState extends State<BossScreen>
             ),
           ),
           const Gap(8),
-          ...options.asMap().entries.map((entry) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () => _selectedDiagnosis(entry.key),
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                      ),
-                      child: Text(
-                        entry.value,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
+          ...(_diagnosisShuffledOrder ?? List.generate(options.length, (i) => i)).asMap().entries.map((entry) {
+            final shuffledPos = entry.key;
+            final originalIdx = entry.value;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => _selectedDiagnosis(shuffledPos),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                    ),
+                    child: Text(
+                      options[originalIdx],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                 ),
-              )),
+              ),
+            );
+          }),
         ],
       );
     }
@@ -296,9 +304,14 @@ class _BossScreenState extends State<BossScreen>
       width: double.infinity,
       height: 56,
       child: ElevatedButton.icon(
-        onPressed: () => setState(() {
-          _showDiagnosis = true;
-        }),
+        onPressed: () {
+          final diagnosis = widget.boss.diagnosis;
+          final opts = (diagnosis['options'] as List<dynamic>?) ?? <dynamic>[];
+          _diagnosisShuffledOrder = List.generate(opts.length, (i) => i)..shuffle(Random());
+          setState(() {
+            _showDiagnosis = true;
+          });
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red.shade700,
           foregroundColor: Colors.white,

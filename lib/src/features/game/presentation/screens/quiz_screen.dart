@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -27,6 +28,18 @@ class _QuizScreenState extends State<QuizScreen> {
   bool _gameOver = false;
   bool _showResults = false;
   final List<int> _userAnswers = [];
+  late List<int> _shuffledOrder;
+
+  @override
+  void initState() {
+    super.initState();
+    _initShuffle();
+  }
+
+  void _initShuffle() {
+    final len = (_levelQuestions[_currentQuestion]['options'] as List).length;
+    _shuffledOrder = List.generate(len, (i) => i)..shuffle(Random());
+  }
 
   List<Map<String, dynamic>> get _levelQuestions {
     return PrepData.quiz[PrepData.key(widget.level.id)] ?? [
@@ -39,13 +52,14 @@ class _QuizScreenState extends State<QuizScreen> {
     ];
   }
 
-  void _answer(int index) {
+  void _answer(int shuffledIndex) {
     if (_isAnswered || _gameOver) return;
+    final originalIndex = _shuffledOrder[shuffledIndex];
     setState(() {
-      _selectedAnswer = index;
+      _selectedAnswer = shuffledIndex;
       _isAnswered = true;
-      _userAnswers.add(index);
-      if (index == _levelQuestions[_currentQuestion]['correct']) {
+      _userAnswers.add(originalIndex);
+      if (originalIndex == _levelQuestions[_currentQuestion]['correct']) {
         _correctCount++;
       } else {
         _lives--;
@@ -60,6 +74,7 @@ class _QuizScreenState extends State<QuizScreen> {
         _currentQuestion++;
         _selectedAnswer = null;
         _isAnswered = false;
+        _initShuffle();
       });
     } else {
       setState(() => _showResults = true);
@@ -149,17 +164,18 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
             const Gap(24),
-            ...options.asMap().entries.map((entry) {
-              final i = entry.key;
-              final option = entry.value;
-              final isSelected = _selectedAnswer == i;
+            ..._shuffledOrder.asMap().entries.map((entry) {
+              final shuffledPos = entry.key;
+              final originalIndex = entry.value;
+              final option = options[originalIndex];
+              final isSelected = _selectedAnswer == shuffledPos;
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () => _answer(i),
+                    onTap: () => _answer(shuffledPos),
                     borderRadius: BorderRadius.circular(14),
                     child: Container(
                       width: double.infinity,
@@ -189,7 +205,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              String.fromCharCode(65 + i),
+                              String.fromCharCode(65 + shuffledPos),
                               style: TextStyle(
                                 color: isSelected
                                     ? scheme.onPrimary
@@ -217,7 +233,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                 ),
-              ).animate().fadeIn(delay: (100 * i).ms).slideX(begin: 0.05);
+              ).animate().fadeIn(delay: (100 * shuffledPos).ms).slideX(begin: 0.05);
             }),
             if (_isAnswered && _selectedAnswer != q['correct'])
               Container(
