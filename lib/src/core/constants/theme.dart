@@ -18,6 +18,9 @@ class AppTheme {
           error: AppColors.error,
           outline: AppColors.border,
         ),
+        extensions: const [
+          AppColorExtensions(),
+        ],
         textTheme: GoogleFonts.interTextTheme(),
         appBarTheme: AppBarTheme(
           backgroundColor: AppColors.surface,
@@ -96,4 +99,18 @@ class AppTheme {
           contentTextStyle: GoogleFonts.inter(color: Colors.white, fontSize: 14),
         ),
       );
+}
+
+class AppColorExtensions extends ThemeExtension<AppColorExtensions> {
+  const AppColorExtensions();
+
+  Color get success => AppColors.success;
+  Color get warning => AppColors.warning;
+  Color get info => AppColors.info;
+
+  @override
+  AppColorExtensions copyWith() => this;
+
+  @override
+  AppColorExtensions lerp(AppColorExtensions? other, double t) => this;
 }

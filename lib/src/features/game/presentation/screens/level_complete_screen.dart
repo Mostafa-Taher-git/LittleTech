@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:littletech/src/core/constants/colors.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/game/constants/achievements.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
@@ -315,8 +316,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     final ordering = _prepData!['ordering'] as Map?;
     final traps = _prepData!['traps'] as Map?;
     if (quiz != null) chips.add(_prepChip('Quiz ${quiz['correct']}/${quiz['total']}', const Color(0xFF3B82F6)));
-    if (ordering != null) chips.add(_prepChip('Order ${ordering['passed'] == true ? '✓' : '${ordering['attempts']}x'}', ordering['passed'] == true ? const Color(0xFF22C55E) : const Color(0xFFEF4444)));
-    if (traps != null) chips.add(_prepChip('Traps ${traps['correct']}/${traps['total']} ${traps['passed'] == true ? '✓' : '✗'}', traps['passed'] == true ? const Color(0xFF22C55E) : const Color(0xFFEF4444)));
+    if (ordering != null) chips.add(_prepChip('Order ${ordering['passed'] == true ? '✓' : '${ordering['attempts']}x'}', ordering['passed'] == true ? AppColors.success : AppColors.error));
+    if (traps != null) chips.add(_prepChip('Traps ${traps['correct']}/${traps['total']} ${traps['passed'] == true ? '✓' : '✗'}', traps['passed'] == true ? AppColors.success : AppColors.error));
 
     // Bonus chips
     final progress = context.read<GameCubit>().state.progress;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary palette — Teal (from frog icon background)
-  static const Color primary = Color(0xFF4A9BA8);
+  // Primary palette — Teal (darkened for WCAG AA contrast with white text)
+  static const Color primary = Color(0xFF358591);
   static const Color onPrimary = Color(0xFFFFFFFF);
 
-  // Accent — Gold (from frog icon eyes)
+  // Accent — Gold (dark text on gold for contrast)
   static const Color accent = Color(0xFFE8C840);
   static const Color onAccent = Color(0xFF1A3A3E);
 
@@ -14,17 +14,17 @@ class AppColors {
   static const Color surface = Color(0xFFFFFFFF);
   static const Color surfaceVariant = Color(0xFFD4ECEE);
   static const Color onSurface = Color(0xFF1A3A3E);
-  static const Color onSurfaceMuted = Color(0xFF5A8A8E);
+  static const Color onSurfaceMuted = Color(0xFF4A7A7E);
 
   // Borders / dividers
   static const Color border = Color(0xFFB8D8DC);
   static const Color divider = Color(0xFFD4ECEE);
 
-  // Feedback
-  static const Color success = Color(0xFF7CC860);
-  static const Color error = Color(0xFFEF4444);
-  static const Color warning = Color(0xFFE8C840);
-  static const Color info = Color(0xFF80E0E0);
+  // Feedback — all darkened for white text contrast ≥ 4.5:1
+  static const Color success = Color(0xFF2E7D32);
+  static const Color error = Color(0xFFDC2626);
+  static const Color warning = Color(0xFFB45309);
+  static const Color info = Color(0xFF0E7490);
 
   // Gradient helper
   static const LinearGradient darkGradient = LinearGradient(

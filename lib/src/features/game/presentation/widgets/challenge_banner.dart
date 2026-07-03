@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:littletech/src/core/constants/colors.dart';
 import 'package:littletech/src/features/game/constants/challenges.dart';
 import 'package:littletech/src/features/game/constants/weekly_bosses.dart';
 
@@ -55,8 +56,8 @@ class ChallengeBanner extends StatelessWidget {
           // Weekly challenge
           _ChallengeRow(
             icon: Icons.calendar_month_rounded,
-            iconColor: const Color(0xFFEF4444),
-            iconBgColor: const Color(0xFFEF4444).withValues(alpha: 0.1),
+            iconColor: AppColors.error,
+            iconBgColor: AppColors.error.withValues(alpha: 0.1),
             title: weekly.title,
             subtitle: WeeklyBossManager.getCurrent().name,
             subtitleColor: scheme.onSurface.withValues(alpha: 0.5),
