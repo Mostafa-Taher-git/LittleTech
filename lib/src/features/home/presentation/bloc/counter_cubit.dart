@@ -10,6 +10,8 @@ class CounterCubit extends Cubit<int> {
     emit(await CounterService.load());
   }
 
+  Future<void> reload() => _load();
+
   Future<void> increment() async {
     final v = state + 1;
     emit(v);

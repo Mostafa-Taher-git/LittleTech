@@ -12,6 +12,8 @@ class SupTechCustomizationCubit extends Cubit<SupTechCustomization> {
     emit(await SupTechCustomizationService.load());
   }
 
+  Future<void> reload() => _load();
+
   Future<void> setExpression(SupTechExpression? value) async {
     final next = state.copyWith(expression: value);
     emit(next);

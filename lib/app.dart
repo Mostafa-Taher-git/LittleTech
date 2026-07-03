@@ -26,9 +26,22 @@ class _LittleTechAppState extends State<LittleTechApp> {
   final _navKey = GlobalKey<NavigatorState>();
   int _authChangeSeq = 0;
 
+  late final GameRepository _gameRepo;
+  late final GameCubit _gameCubit;
+  late final CounterCubit _counterCubit;
+  late final SupTechCustomizationCubit _customizationCubit;
+  late final ThemeCubit _themeCubit;
+  late final AuthCubit _authCubit;
+
   @override
   void initState() {
     super.initState();
+    _gameRepo = GameRepository(widget.isar);
+    _gameCubit = GameCubit(_gameRepo, 0);
+    _counterCubit = CounterCubit();
+    _customizationCubit = SupTechCustomizationCubit();
+    _themeCubit = ThemeCubit();
+    _authCubit = AuthCubit();
     _loadUserId();
   }
 
@@ -47,6 +60,8 @@ class _LittleTechAppState extends State<LittleTechApp> {
 
   Future<void> _loadUserId() async {
     final userId = await _resolveNewUserId();
+    if (!mounted) return;
+    await _gameCubit.switchUser(userId);
     if (mounted) setState(() => _userId = userId);
   }
 
@@ -54,6 +69,13 @@ class _LittleTechAppState extends State<LittleTechApp> {
     final seq = ++_authChangeSeq;
     _resolveNewUserId().then((newUserId) async {
       if (!mounted || seq != _authChangeSeq) return;
+
+      await _gameCubit.switchUser(newUserId);
+      await _counterCubit.reload();
+      await _customizationCubit.reload();
+
+      if (!mounted || seq != _authChangeSeq) return;
+      setState(() => _userId = newUserId);
 
       final nav = _navKey.currentState;
       if (nav != null) {
@@ -66,11 +88,7 @@ class _LittleTechAppState extends State<LittleTechApp> {
             (_) => false,
           );
         }
-        await WidgetsBinding.instance.endOfFrame;
       }
-      if (!mounted || seq != _authChangeSeq) return;
-
-      setState(() => _userId = newUserId);
     });
   }
 
@@ -78,23 +96,11 @@ class _LittleTechAppState extends State<LittleTechApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AuthCubit()),
-        if (_userId != null)
-          BlocProvider(
-            key: ValueKey('counter_$_userId'),
-            create: (_) => CounterCubit(),
-          ),
-        BlocProvider(create: (_) => ThemeCubit()),
-        if (_userId != null)
-          BlocProvider(
-            key: ValueKey('supCustom_$_userId'),
-            create: (_) => SupTechCustomizationCubit(),
-          ),
-        if (_userId != null)
-          BlocProvider(
-            key: ValueKey('game_$_userId'),
-            create: (_) => GameCubit(GameRepository(widget.isar), _userId!)..loadGame(),
-          ),
+        BlocProvider.value(value: _authCubit),
+        BlocProvider.value(value: _counterCubit),
+        BlocProvider.value(value: _themeCubit),
+        BlocProvider.value(value: _customizationCubit),
+        BlocProvider.value(value: _gameCubit),
       ],
       child: MultiBlocListener(
         listeners: [

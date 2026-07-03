@@ -86,10 +86,36 @@ class GameState {
 
 class GameCubit extends Cubit<GameState> {
   final GameRepository _repository;
-  final int _userId;
+  int _userId;
 
   GameCubit(this._repository, this._userId)
       : super(GameState(progress: PlayerProgress()..userId = _userId));
+
+  Future<void> switchUser(int? userId) async {
+    if (userId == null) {
+      _userId = 0;
+      emit(GameState(progress: PlayerProgress()..userId = 0));
+      return;
+    }
+    _userId = userId;
+    final progress = await _repository.getOrCreateProgress(userId);
+    WorldDef? world;
+    if (progress.currentCategoryId != null) {
+      world = GameData.worlds.cast<WorldDef?>().firstWhere(
+        (w) => w!.id == progress.currentCategoryId,
+        orElse: () => GameData.worlds.isNotEmpty ? GameData.worlds.first : null,
+      );
+    } else if (progress.currentWorldId < GameData.worlds.length) {
+      world = GameData.worlds[progress.currentWorldId];
+    } else if (GameData.worlds.isNotEmpty) {
+      world = GameData.worlds.first;
+    }
+    final pending = progress.pendingAchievementIds
+        .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
+        .toList();
+    _safePersist([() => _repository.clearPendingAchievements(progress)]);
+    emit(GameState(progress: progress, currentWorld: world, newlyUnlockedAchievements: pending));
+  }
 
   Future<void> loadGame() async {
     final validUsers = await AuthService.getAllUsers();
