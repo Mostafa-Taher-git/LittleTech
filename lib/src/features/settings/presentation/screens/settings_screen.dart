@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                 icon: Icons.face,
                 label: 'Change Avatar',
                 subtitle: user?.avatarIcon ?? '',
-                onTap: () => _showAvatarPicker(context),
+                onTap: () => _showAvatarPicker(context, user?.avatarIcon),
                 scheme: scheme,
               );
             },
@@ -203,12 +203,13 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  void _showAvatarPicker(BuildContext context) {
+  void _showAvatarPicker(BuildContext context, [String? currentIcon]) {
     final scheme = Theme.of(context).colorScheme;
     showDialog(
       context: context,
       builder: (ctx) {
-        String selected = AuthService.currentAvatars.first;
+        final icons = AuthService.currentAvatars;
+        String selected = icons.contains(currentIcon) ? currentIcon! : icons.first;
         return StatefulBuilder(
           builder: (ctx, setDialogState) => AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

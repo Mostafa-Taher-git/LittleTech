@@ -596,7 +596,8 @@ class RewardPool {
     _ensureInit();
     try {
       return rewards.firstWhere((r) => r.id == id);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('RewardPool.byId: failed to find reward: $e');
       return null;
     }
   }

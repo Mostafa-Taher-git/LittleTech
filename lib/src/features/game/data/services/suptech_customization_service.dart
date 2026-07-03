@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/game/domain/models/suptech_customization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,8 @@ class SupTechCustomizationService {
     try {
       final json = jsonDecode(raw) as Map<String, dynamic>;
       return SupTechCustomization.fromJson(json);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('SupTechCustomizationService: failed to load: $e');
       return const SupTechCustomization();
     }
   }

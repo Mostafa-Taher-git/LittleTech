@@ -30,7 +30,8 @@ class ReviewScreen extends StatelessWidget {
           if (raw != null) {
             try {
               prepData = json.decode(raw) as Map<String, dynamic>;
-            } catch (_) {
+            } catch (e) {
+              debugPrint('review_screen: failed to decode prep data: $e');
               prepData = <String, dynamic>{};
             }
           } else {
