@@ -42,6 +42,74 @@ int points = 0;
 
   static const _sep = '\x01';
 
+  PlayerProgress copyWith({
+    int? userId,
+    int? points,
+    int? supTechUsesThisLevel,
+    int? extraSupTechUses,
+    int? currentWorldId,
+    String? currentCategoryId,
+    String? currentLevelId,
+    List<String>? completedLevelIds,
+    List<String>? completedCategoryIds,
+    List<String>? purchasedItemIds,
+    List<String>? earnedRewardIds,
+    List<String>? unlockedSkinIds,
+    List<String>? defeatedBossIds,
+    String? activeSkinId,
+    String? activeFrameId,
+    String? activeIconId,
+    String? activeTitleId,
+    String? themeId,
+    int? levelsCleared,
+    int? bossesDefeated,
+    List<DateTime>? playDates,
+    DateTime? lastActiveDate,
+    int? totalPlayTimeSeconds,
+    int? correctAnswers,
+    int? totalAnswers,
+    int? weeklyBossesDefeated,
+    List<String>? prepResults,
+    DateTime? lastDailyQuestDate,
+    DateTime? lastWeeklyBossDate,
+    List<String>? unlockedAchievementIds,
+    List<String>? pendingAchievementIds,
+  }) {
+    return PlayerProgress()
+      ..id = id
+      ..userId = userId ?? this.userId
+      ..points = points ?? this.points
+      ..supTechUsesThisLevel = supTechUsesThisLevel ?? this.supTechUsesThisLevel
+      ..extraSupTechUses = extraSupTechUses ?? this.extraSupTechUses
+      ..currentWorldId = currentWorldId ?? this.currentWorldId
+      ..currentCategoryId = currentCategoryId ?? this.currentCategoryId
+      ..currentLevelId = currentLevelId ?? this.currentLevelId
+      ..completedLevelIds = List<String>.from(completedLevelIds ?? this.completedLevelIds)
+      ..completedCategoryIds = List<String>.from(completedCategoryIds ?? this.completedCategoryIds)
+      ..purchasedItemIds = List<String>.from(purchasedItemIds ?? this.purchasedItemIds)
+      ..earnedRewardIds = List<String>.from(earnedRewardIds ?? this.earnedRewardIds)
+      ..unlockedSkinIds = List<String>.from(unlockedSkinIds ?? this.unlockedSkinIds)
+      ..defeatedBossIds = List<String>.from(defeatedBossIds ?? this.defeatedBossIds)
+      ..activeSkinId = activeSkinId ?? this.activeSkinId
+      ..activeFrameId = activeFrameId ?? this.activeFrameId
+      ..activeIconId = activeIconId ?? this.activeIconId
+      ..activeTitleId = activeTitleId ?? this.activeTitleId
+      ..themeId = themeId ?? this.themeId
+      ..levelsCleared = levelsCleared ?? this.levelsCleared
+      ..bossesDefeated = bossesDefeated ?? this.bossesDefeated
+      ..playDates = List<DateTime>.from(playDates ?? this.playDates)
+      ..lastActiveDate = lastActiveDate ?? this.lastActiveDate
+      ..totalPlayTimeSeconds = totalPlayTimeSeconds ?? this.totalPlayTimeSeconds
+      ..correctAnswers = correctAnswers ?? this.correctAnswers
+      ..totalAnswers = totalAnswers ?? this.totalAnswers
+      ..weeklyBossesDefeated = weeklyBossesDefeated ?? this.weeklyBossesDefeated
+      ..prepResults = List<String>.from(prepResults ?? this.prepResults)
+      ..lastDailyQuestDate = lastDailyQuestDate ?? this.lastDailyQuestDate
+      ..lastWeeklyBossDate = lastWeeklyBossDate ?? this.lastWeeklyBossDate
+      ..unlockedAchievementIds = List<String>.from(unlockedAchievementIds ?? this.unlockedAchievementIds)
+      ..pendingAchievementIds = List<String>.from(pendingAchievementIds ?? this.pendingAchievementIds);
+  }
+
   String? getPrepResult(String levelId) {
     for (final e in prepResults) {
       final idx = e.indexOf(_sep);

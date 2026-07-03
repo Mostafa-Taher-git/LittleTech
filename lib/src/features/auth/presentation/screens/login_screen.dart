@@ -5,8 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:littletech/src/core/constants/colors.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
-import 'package:littletech/src/features/auth/data/models/user_model.dart';
-import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'register_screen.dart';
 import 'forget_password_screen.dart';
@@ -23,18 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   bool _obscure = true;
-  List<UserModel> _users = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUsers();
-  }
-
-  Future<void> _loadUsers() async {
-    _users = await AuthService.getAllUsers();
-    if (mounted) setState(() {});
-  }
 
   @override
   void dispose() {
@@ -91,44 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const Gap(36),
-
-                      if (_users.isNotEmpty) ...[
-                        const Text('Quick Login', style: TextStyle(color: Colors.white60, fontSize: 12, letterSpacing: 1)),
-                        const Gap(10),
-                        SizedBox(
-                          height: 80,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _users.length,
-                            separatorBuilder: (_, __) => const Gap(12),
-                            itemBuilder: (_, i) {
-                              final u = _users[i];
-                              final selected = _usernameCtrl.text == u.username;
-                              return GestureDetector(
-                                onTap: () => setState(() => _usernameCtrl.text = u.username),
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 200),
-                                  width: 68,
-                                  decoration: BoxDecoration(
-                                    color: selected ? AppColors.accent.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.06),
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: selected ? AppColors.accent : Colors.transparent),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(u.avatarIcon, style: const TextStyle(fontSize: 26)),
-                                      const Gap(4),
-                                      Text(u.username, style: const TextStyle(color: Colors.white70, fontSize: 10), overflow: TextOverflow.ellipsis, maxLines: 1),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const Gap(24),
-                      ],
 
                       TextFormField(
                         controller: _usernameCtrl,

@@ -107,12 +107,12 @@ class GameCubit extends Cubit<GameState> {
     } else if (GameData.worlds.isNotEmpty) {
       world = GameData.worlds.first;
     }
-    _checkAndUnlockProgressionSkins();
-    final pending = progress.pendingAchievementIds
+    final skinProgress = _checkAndUnlockProgressionSkins() ?? progress;
+    final pending = skinProgress.pendingAchievementIds
         .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
         .toList();
-    _safePersist([() => _repository.clearPendingAchievements(progress)]);
-    emit(GameState(progress: progress, currentWorld: world, newlyUnlockedAchievements: pending));
+    _safePersist([() => _repository.clearPendingAchievements(skinProgress)]);
+    emit(GameState(progress: skinProgress, currentWorld: world, newlyUnlockedAchievements: pending));
   }
 
   void selectWorld(WorldDef world) {
@@ -131,26 +131,28 @@ class GameCubit extends Cubit<GameState> {
 
   void completeDailyQuest() {
     final progress = state.progress;
-    progress.setDailyQuestCompleted();
-    _safePersist([() => _repository.saveProgress(progress)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(lastDailyQuestDate: DateTime.now());
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void completeWeeklyBoss() {
     final progress = state.progress;
-    progress.setWeeklyBossCompleted();
-    progress.weeklyBossesDefeated++;
-    _safePersist([() => _repository.saveProgress(progress)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(
+      lastWeeklyBossDate: DateTime.now(),
+      weeklyBossesDefeated: progress.weeklyBossesDefeated + 1,
+    );
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void selectLevel(LevelDef level, {WorldDef? worldOverride}) {
     final progress = state.progress;
     final world = worldOverride ?? state.currentWorld;
-    progress.currentLevelId = level.id;
-    _safePersist([() => _repository.setCurrentCategory(progress, world?.id, level.id)]);
+    final updated = progress.copyWith(currentLevelId: level.id);
+    _safePersist([() => _repository.setCurrentCategory(updated, world?.id, level.id)]);
     emit(state.copyWith(
-      progress: progress,
+      progress: updated,
       currentWorld: world ?? state.currentWorld,
       currentLevel: level,
       currentStepIndex: 0,
@@ -166,9 +168,15 @@ class GameCubit extends Cubit<GameState> {
         ? json.decode(raw) as Map<String, dynamic>
         : <String, dynamic>{};
     data[key] = value;
-    progress.setPrepResult(levelId, json.encode(data));
-    _safePersist([() => _repository.saveProgress(progress)]);
-    emit(state.copyWith(progress: progress));
+    final encoded = json.encode(data);
+    final newPrepResults = List<String>.from(progress.prepResults);
+    const sep = '\x01';
+    final keyPrefix = '$levelId$sep';
+    newPrepResults.removeWhere((e) => e.startsWith(keyPrefix));
+    newPrepResults.add('$keyPrefix$encoded');
+    final updated = progress.copyWith(prepResults: newPrepResults);
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void saveFeedback(String levelId, bool wasHelpful) {
@@ -216,9 +224,16 @@ class GameCubit extends Cubit<GameState> {
       .then((_) {
         if (!isClosed) emit(state.copyWith(persistError: false));
       })
-      .catchError((e, st) {
-        debugPrint('Persist error: $e\n$st');
-        if (!isClosed) emit(state.copyWith(persistError: true));
+      .catchError((_, __) {
+        debugPrint('Persist error — retrying once…');
+        Future.wait(ops.map((op) => op()))
+          .then((_) {
+            if (!isClosed) emit(state.copyWith(persistError: false));
+          })
+          .catchError((e, st) {
+            debugPrint('Persist error after retry: $e\n$st');
+            if (!isClosed) emit(state.copyWith(persistError: true));
+          });
       });
   }
 
@@ -253,16 +268,17 @@ class GameCubit extends Cubit<GameState> {
     ];
 
     if (state.pointsMultiplier > 1) {
-      persistOps.add(() => _repository.saveProgress(progress..setDailyQuestCompleted()));
+      final questProgress = progress.copyWith(lastDailyQuestDate: DateTime.now());
+      persistOps.add(() => _repository.saveProgress(questProgress));
     }
 
     _safePersist(persistOps);
 
-    _checkAndUnlockProgressionSkins();
+    final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
 
     emit(state.copyWith(
-      progress: progress,
+      progress: afterSkins,
       currentStepIndex: finalStepIndex,
       lastDrawnReward: reward,
       hintText: null,
@@ -294,7 +310,7 @@ class GameCubit extends Cubit<GameState> {
       () => _repository.defeatBoss(progress, bossId: boss?.id),
       () => _repository.recordPlayDate(progress),
       if (boss?.id.startsWith('weekly_') == true)
-        () => _repository.saveProgress(progress..setWeeklyBossCompleted()),
+        () => _repository.saveProgress(progress.copyWith(lastWeeklyBossDate: DateTime.now())),
       if (reward != null) () => _repository.addReward(progress, reward.id),
       if (reward?.type == RewardType.skin) () => _repository.unlockSkin(progress, reward!.value),
       if (reward?.type == RewardType.theme) () => _repository.setTheme(progress, reward!.value),
@@ -302,11 +318,11 @@ class GameCubit extends Cubit<GameState> {
 
     _safePersist(persistOps);
 
-    _checkAndUnlockProgressionSkins();
+    final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
 
     emit(state.copyWith(
-      progress: progress,
+      progress: afterSkins,
       currentBossHp: 0,
       lastDrawnReward: reward,
       pointsMultiplier: 1,
@@ -403,9 +419,9 @@ class GameCubit extends Cubit<GameState> {
 
   Future<void> setThemeId(String? themeId) async {
     final progress = state.progress;
-    progress.themeId = themeId;
-    _safePersist([() => _repository.saveProgress(progress)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(themeId: themeId);
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   RewardDef? _drawReward() {
@@ -417,20 +433,24 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void _checkAndUnlockProgressionSkins() {
+  PlayerProgress? _checkAndUnlockProgressionSkins() {
     final progress = state.progress;
+    final newSkinIds = List<String>.from(progress.unlockedSkinIds);
     var changed = false;
     for (final skin in SkinTierManager.skins) {
       if (!skin.isRewardSkin &&
           progress.levelsCleared >= skin.levelsRequired &&
-          !progress.unlockedSkinIds.contains(skin.id)) {
-        progress.unlockedSkinIds.add(skin.id);
+          !newSkinIds.contains(skin.id)) {
+        newSkinIds.add(skin.id);
         changed = true;
       }
     }
     if (changed) {
-      _safePersist([() => _repository.saveProgress(progress)]);
+      final updated = progress.copyWith(unlockedSkinIds: newSkinIds);
+      _safePersist([() => _repository.saveProgress(updated)]);
+      return updated;
     }
+    return null;
   }
 
   String _extractCategoryId(String levelId) {
@@ -477,9 +497,9 @@ class GameCubit extends Cubit<GameState> {
         !progress.purchasedItemIds.contains(skinId)) {
       return; // Can't equip locked skin
     }
-    progress.activeSkinId = skinId;
-    _safePersist([() => _repository.setActiveSkin(progress, skinId)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(activeSkinId: skinId);
+    _safePersist([() => _repository.setActiveSkin(updated, skinId)]);
+    emit(state.copyWith(progress: updated));
   }
 
   Future<void> setActiveFrame(String? frameId) async {
@@ -489,9 +509,9 @@ class GameCubit extends Cubit<GameState> {
         !progress.purchasedItemIds.contains(frameId)) {
       return; // Can't equip locked frame
     }
-    progress.activeFrameId = frameId;
-    _safePersist([() => _repository.setActiveFrame(progress, frameId)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(activeFrameId: frameId);
+    _safePersist([() => _repository.setActiveFrame(updated, frameId)]);
+    emit(state.copyWith(progress: updated));
   }
 
   Future<void> setActiveIcon(String? iconId) async {
@@ -499,9 +519,9 @@ class GameCubit extends Cubit<GameState> {
     if (iconId != null && !progress.earnedRewardIds.contains(iconId)) {
       return; // Can't equip locked icon
     }
-    progress.activeIconId = iconId;
-    _safePersist([() => _repository.setActiveIcon(progress, iconId)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(activeIconId: iconId);
+    _safePersist([() => _repository.setActiveIcon(updated, iconId)]);
+    emit(state.copyWith(progress: updated));
   }
 
   Future<void> setActiveTitle(String? titleId) async {
@@ -509,9 +529,9 @@ class GameCubit extends Cubit<GameState> {
     if (titleId != null && !progress.earnedRewardIds.contains(titleId)) {
       return; // Can't equip locked title
     }
-    progress.activeTitleId = titleId;
-    _safePersist([() => _repository.setActiveTitle(progress, titleId)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(activeTitleId: titleId);
+    _safePersist([() => _repository.setActiveTitle(updated, titleId)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void purchaseItem(String itemId) {
@@ -519,10 +539,12 @@ class GameCubit extends Cubit<GameState> {
     if (progress.points < 1000) return;
     if (progress.purchasedItemIds.contains(itemId)) return;
     if (progress.earnedRewardIds.contains(itemId)) return;
-    progress.points -= 1000;
-    progress.purchasedItemIds = List<String>.from(progress.purchasedItemIds)..add(itemId);
-    _safePersist([() => _repository.saveProgress(progress)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(
+      points: progress.points - 1000,
+      purchasedItemIds: List<String>.from(progress.purchasedItemIds)..add(itemId),
+    );
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void selectWorldById(String worldId) {

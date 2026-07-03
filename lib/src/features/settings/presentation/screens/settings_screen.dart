@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
+import 'package:littletech/src/core/widgets/app_widgets.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:littletech/src/features/auth/presentation/screens/login_screen.dart';
@@ -92,7 +93,10 @@ class SettingsScreen extends StatelessWidget {
           _SettingsTile(
             icon: Icons.swap_horiz,
             label: 'Switch Account',
-            onTap: () => Nav.replaceAll(context, const LoginScreen()),
+            onTap: () async {
+              await context.read<AuthCubit>().logout();
+              if (context.mounted) Nav.replaceAll(context, const LoginScreen());
+            },
             scheme: scheme,
           ),
           const Gap(8),
@@ -185,8 +189,22 @@ class SettingsScreen extends StatelessWidget {
                     if (confirm2 == true && context.mounted) {
                       final uid = await AuthService.getCurrentUserId();
                       if (uid != null && context.mounted) {
-                        await context.read<GameCubit>().terminateAccount();
-                        await AuthService.deleteUser(uid);
+                        try {
+                          await context.read<GameCubit>().terminateAccount();
+                        } catch (e) {
+                          if (context.mounted) {
+                            showErrorToast(context, 'Failed to delete game data: $e');
+                          }
+                          return;
+                        }
+                        try {
+                          await AuthService.deleteUser(uid);
+                        } catch (e) {
+                          if (context.mounted) {
+                            showErrorToast(context, 'Game data deleted, but account removal failed. Please contact support. Error: $e');
+                          }
+                          return;
+                        }
                       }
                       if (context.mounted) {
                         await context.read<AuthCubit>().logout();
