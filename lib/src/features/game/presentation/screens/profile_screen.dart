@@ -238,7 +238,7 @@ const Gap(24),
                           scheme: scheme,
                         ),
                         _ThemeChip(
-                          label: 'Midnight',
+                          label: 'Dark',
                           icon: Icons.dark_mode,
                           isActive: progress.themeId == 'dark',
                           unlocked: progress.earnedRewardIds.contains('theme_dark') || progress.purchasedItemIds.contains('theme_dark'),

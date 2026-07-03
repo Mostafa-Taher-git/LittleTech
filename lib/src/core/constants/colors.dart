@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary palette — Teal (darkened for WCAG AA contrast with white text)
-  static const Color primary = Color(0xFF358591);
+  static const Color primary = Color(0xFF2D7A87);
   static const Color onPrimary = Color(0xFFFFFFFF);
 
   // Accent — Gold (dark text on gold for contrast)

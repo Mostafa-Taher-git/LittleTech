@@ -118,7 +118,7 @@ class ThemeCubit extends Cubit<ThemeData> {
   static const _defaultConfig = _ThemeConfig(
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
-      primary: Color(0xFF358591),
+      primary: Color(0xFF2D7A87),
       onPrimary: Color(0xFFFFFFFF),
       secondary: Color(0xFFE8C840),
       onSecondary: Color(0xFF1A3A3E),
@@ -141,24 +141,24 @@ class ThemeCubit extends Cubit<ThemeData> {
   static const _darkConfig = _ThemeConfig(
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
-      primary: Color(0xFF1A1A2E),
-      onPrimary: Color(0xFFE0E0E0),
+      primary: Color(0xFFF59E0B),
+      onPrimary: Color(0xFF1A1A1A),
       secondary: Color(0xFFF59E0B),
       onSecondary: Color(0xFF1A1A1A),
       surface: Color(0xFF1E1E1E),
       onSurface: Color(0xFFE0E0E0),
-      error: Color(0xFFDC2626),
-      outline: Color(0xFF3A3A3A),
+      error: Color(0xFFFF6B6B),
+      outline: Color(0xFF757575),
     ),
     scaffoldBackground: Color(0xFF121212),
     appBarBackground: Color(0xFF1E1E1E),
     appBarForeground: Colors.white,
     cardColor: Color(0xFF2A2A2A),
-    cardBorder: Color(0xFF3A3A3A),
+    cardBorder: Color(0xFF757575),
     buttonBackground: Color(0xFFF59E0B),
-    buttonForeground: Colors.black,
+    buttonForeground: Color(0xFF1A1A1A),
     inputFill: Color(0xFF2A2A2A),
-    inputBorder: Color(0xFF3A3A3A),
+    inputBorder: Color(0xFF757575),
   );
 
   static const _amberConfig = _ThemeConfig(
