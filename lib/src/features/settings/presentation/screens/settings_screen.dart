@@ -95,7 +95,7 @@ class SettingsScreen extends StatelessWidget {
             label: 'Switch Account',
             onTap: () async {
               await context.read<AuthCubit>().logout();
-              if (context.mounted) Nav.replaceAll(context, const LoginScreen());
+              if (context.mounted) Nav.replaceAll(context, const LoginScreen(showAccountPicker: true));
             },
             scheme: scheme,
           ),
