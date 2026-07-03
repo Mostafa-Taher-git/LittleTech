@@ -349,30 +349,25 @@ class _InteractiveConceptPainter extends CustomPainter {
       Paint()..color = Colors.black.withValues(alpha: 0.10),
     );
 
-    // Robe body
+    // Robe body — vertical sides, rounded bottom
     final robePath = Path()
       ..moveTo(-8 * s, -1 * s)
       ..lineTo(8 * s, -1 * s)
-      ..quadraticBezierTo(10 * s, 6 * s, 11 * s, 12 * s)
+      ..lineTo(8 * s, 12 * s)
       ..quadraticBezierTo(5.5 * s, 14 * s, 0, 13 * s)
-      ..quadraticBezierTo(-5.5 * s, 14 * s, -11 * s, 12 * s)
-      ..quadraticBezierTo(-10 * s, 6 * s, -8 * s, -1 * s)
+      ..quadraticBezierTo(-5.5 * s, 14 * s, -8 * s, 12 * s)
       ..close();
     canvas.drawPath(robePath, bodyPaint);
     canvas.drawPath(robePath, outlinePaint);
 
-    // Robe fold lines
+    // Center robe fold
     final foldPaint = Paint()
       ..color = Colors.black.withValues(alpha: 0.10)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.5 * s
       ..strokeCap = StrokeCap.round;
     canvas.drawPath(
-      Path()..moveTo(-2.5 * s, 0)..quadraticBezierTo(-3.5 * s, 6 * s, -5.5 * s, 12 * s),
-      foldPaint,
-    );
-    canvas.drawPath(
-      Path()..moveTo(2.5 * s, 0)..quadraticBezierTo(3.5 * s, 6 * s, 5.5 * s, 12 * s),
+      Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s),
       foldPaint,
     );
 
@@ -386,14 +381,6 @@ class _InteractiveConceptPainter extends CustomPainter {
         ).createShader(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 20 * s, height: 4 * s))
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
     );
-
-    // Cuff accents
-    final cuffPaint = Paint()
-      ..color = skin.accentColor.withValues(alpha: 0.85)
-      ..strokeWidth = 0.6 * s
-      ..strokeCap = StrokeCap.round;
-    canvas.drawLine(Offset(-8 * s, 0), Offset(-10.5 * s, 4 * s), cuffPaint);
-    canvas.drawLine(Offset(8 * s, 0), Offset(10.5 * s, 4 * s), cuffPaint);
 
     // Hood
     final hoodPath = Path()

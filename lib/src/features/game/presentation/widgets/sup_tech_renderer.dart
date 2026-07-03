@@ -305,59 +305,52 @@ void _drawWizardHat(Canvas canvas, SkinDefinition skin, double s, double hoodPea
 }
 
 void _drawHeadband(Canvas canvas, SkinDefinition skin, double s, double headCY, double headR, double hoodPeakY) {
-  final bandY = headCY - headR * 0.3;
+  final bandY = headCY - headR * 0.55;
   final isLight = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlineColor = isLight ? const Color(0xFF94A3B8) : Colors.black87;
   final outline = Paint()..color = outlineColor..style = PaintingStyle.stroke..strokeWidth = 0.5 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
 
-  final bandH = 3 * s;
+  final bandH = 1.5 * s;
   final bandW = headR * 2 + 4 * s;
 
-  // Dark cloth band with rounded corners
+  // Dark cloth band
   final bandRect = RRect.fromRectAndRadius(
     Rect.fromLTWH(-headR - 2 * s, bandY - bandH / 2, bandW, bandH),
-    Radius.circular(0.6 * s),
+    Radius.circular(0.5 * s),
   );
   canvas.drawRRect(bandRect, Paint()..color = const Color(0xFF1A1A2E));
   canvas.drawRRect(bandRect, outline);
 
-  // Accent trim — small angular chevrons at band ends
-  final accentPaint = Paint()..color = skin.accentColor..style = PaintingStyle.fill;
-  for (final dir in [-1, 1]) {
-    final cx = dir * (headR + 1.5 * s);
-    canvas.drawPath(
-      Path()..moveTo(cx - 1 * s, bandY - bandH / 2)..lineTo(cx, bandY - bandH / 2 - 0.8 * s)..lineTo(cx + 1 * s, bandY - bandH / 2)..close(),
-      accentPaint,
-    );
-    canvas.drawPath(
-      Path()..moveTo(cx - 0.8 * s, bandY + bandH / 2)..lineTo(cx, bandY + bandH / 2 + 0.6 * s)..lineTo(cx + 0.8 * s, bandY + bandH / 2)..close(),
-      accentPaint,
-    );
-  }
+  // Thin accent trim lines top and bottom
+  final accentPaint = Paint()
+    ..color = skin.accentColor.withValues(alpha: 0.6)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.25 * s
+    ..strokeCap = StrokeCap.round;
+  canvas.drawLine(
+    Offset(-headR - 1.5 * s, bandY - bandH / 2),
+    Offset(headR + 1.5 * s, bandY - bandH / 2),
+    accentPaint,
+  );
+  canvas.drawLine(
+    Offset(-headR - 1.5 * s, bandY + bandH / 2),
+    Offset(headR + 1.5 * s, bandY + bandH / 2),
+    accentPaint,
+  );
 
-  // Filled tails with V-notch
+  // Side tails — short, thin fabric strips
   final tailFill = Paint()..color = const Color(0xFF1A1A2E)..style = PaintingStyle.fill;
-  final tailTrim = Paint()..color = skin.accentColor..style = PaintingStyle.stroke..strokeWidth = 0.3 * s..strokeCap = StrokeCap.round;
 
-  // Left tail
-  final leftTail = Path()
-    ..moveTo(-headR - 2 * s, bandY + bandH / 2)
-    ..quadraticBezierTo(-headR - 5 * s, bandY + 5 * s, -headR - 4.5 * s, bandY + 10 * s)
-    ..quadraticBezierTo(-headR - 3.5 * s, bandY + 9 * s, -headR - 2.5 * s, bandY + 3 * s)
-    ..close();
-  canvas.drawPath(leftTail, tailFill);
-  canvas.drawPath(leftTail, outline);
-  canvas.drawLine(Offset(-headR - 2 * s, bandY + bandH / 2 + 0.3 * s), Offset(-headR - 4 * s, bandY + 8 * s), tailTrim);
-
-  // Right tail
-  final rightTail = Path()
-    ..moveTo(headR + 2 * s, bandY + bandH / 2)
-    ..quadraticBezierTo(headR + 5 * s, bandY + 5 * s, headR + 4.5 * s, bandY + 10 * s)
-    ..quadraticBezierTo(headR + 3.5 * s, bandY + 9 * s, headR + 2.5 * s, bandY + 3 * s)
-    ..close();
-  canvas.drawPath(rightTail, tailFill);
-  canvas.drawPath(rightTail, outline);
-  canvas.drawLine(Offset(headR + 2 * s, bandY + bandH / 2 + 0.3 * s), Offset(headR + 4 * s, bandY + 8 * s), tailTrim);
+  for (final dir in [-1, 1]) {
+    final tailX = dir * (headR + 2 * s);
+    final tailPath = Path()
+      ..moveTo(tailX, bandY + bandH / 2)
+      ..quadraticBezierTo(tailX + dir * 2 * s, bandY + 4 * s, tailX + dir * 1.5 * s, bandY + 7 * s)
+      ..quadraticBezierTo(tailX + dir * 0.5 * s, bandY + 5 * s, tailX, bandY + bandH / 2 + 0.5 * s)
+      ..close();
+    canvas.drawPath(tailPath, tailFill);
+    canvas.drawPath(tailPath, outline);
+  }
 }
 
 void _drawVisor(Canvas canvas, SkinDefinition skin, double s, double headCY, double headR) {
@@ -645,7 +638,18 @@ void _drawFlameEmblem(Canvas canvas, SkinDefinition skin, double s, double bodyT
 
 void _drawStaff(Canvas canvas, SkinDefinition skin, double s, double bodyTopY, double bodyBotY) {
   final staffX = 6 * s;
-  canvas.drawLine(Offset(staffX, bodyTopY + 2 * s), Offset(staffX, bodyBotY - 2 * s),
+  final staffTop = bodyTopY + 2 * s;
+  final staffBot = bodyBotY - 2 * s;
+  // Levitation glow beneath staff
+  canvas.drawOval(
+    Rect.fromCenter(center: Offset(staffX, staffBot + 1.5 * s), width: 4 * s, height: 1.5 * s),
+    Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter, end: Alignment.bottomCenter,
+        colors: [skin.accentColor.withValues(alpha: 0.3), skin.accentColor.withValues(alpha: 0.0)],
+      ).createShader(Rect.fromCenter(center: Offset(staffX, staffBot + 1.5 * s), width: 4 * s, height: 1.5 * s)),
+  );
+  canvas.drawLine(Offset(staffX, staffTop), Offset(staffX, staffBot),
     Paint()..color = const Color(0xFF78350F)..strokeWidth = 0.75 * s..strokeCap = StrokeCap.round);
   final crystalCenter = Offset(staffX, bodyTopY + 1 * s);
   canvas.drawCircle(crystalCenter, 2 * s, Paint()..color = skin.accentColor);
@@ -690,54 +694,49 @@ void drawSupTechPoseOverlay(
   SupTechPose pose, double eyeY, double eyeSpacing,
 ) {
   final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
-  final outlinePaint = Paint()
-    ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 1.25 * s
-    ..strokeCap = StrokeCap.round;
+  final outlineColor = isLightBody ? const Color(0xFF94A3B8) : Colors.black87;
 
   switch (pose) {
     case SupTechPose.wave:
-      final armStartX = -8 * s;
-      final armStartY = -1 * s;
-      final handX = -15 * s;
-      final handY = -25 * s;
-      final armPath = Path()
-        ..moveTo(armStartX, armStartY)
-        ..quadraticBezierTo(armStartX - 4 * s, (armStartY + handY) / 2, handX, handY);
-      canvas.drawPath(
-        armPath,
-        Paint()
-          ..color = skin.bodyColor
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 3 * s
-          ..strokeCap = StrokeCap.round,
-      );
-      canvas.drawPath(armPath, outlinePaint);
-      canvas.drawCircle(Offset(handX, handY - 2 * s), 2.5 * s, Paint()..color = skin.bodyColor);
-      canvas.drawCircle(Offset(handX, handY - 2 * s), 2.5 * s, outlinePaint);
+      // Floating wave arcs — no arm, no hand
+      final waveX = -12 * s;
+      final waveY = -22 * s;
+      final glowPaint = Paint()
+        ..shader = RadialGradient(colors: [
+          skin.accentColor.withValues(alpha: 0.15),
+          skin.accentColor.withValues(alpha: 0.0),
+        ]).createShader(Rect.fromCenter(center: Offset(waveX, waveY), width: 10 * s, height: 10 * s));
+      canvas.drawCircle(Offset(waveX, waveY), 5 * s, glowPaint);
       final wavePaint = Paint()
-        ..color = skin.accentColor.withValues(alpha: 0.6)
+        ..color = skin.accentColor.withValues(alpha: 0.5)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 0.4 * s
         ..strokeCap = StrokeCap.round;
       for (final i in [0, 1, 2]) {
         final radius = (3 + i * 1.5) * s;
         canvas.drawArc(
-          Rect.fromCenter(center: Offset(handX, handY - 2 * s), width: radius * 2, height: radius * 2),
+          Rect.fromCenter(center: Offset(waveX, waveY), width: radius * 2, height: radius * 2),
           -pi * 0.2, pi * 0.6, false, wavePaint,
         );
       }
     case SupTechPose.thinking:
-      final handY = -1 * s;
-      final handPaint = Paint()..color = skin.bodyColor;
-      canvas.drawOval(Rect.fromCenter(center: Offset(-2.5 * s, handY), width: 4 * s, height: 3.5 * s), handPaint);
-      canvas.drawOval(Rect.fromCenter(center: Offset(-2.5 * s, handY), width: 4 * s, height: 3.5 * s), outlinePaint);
-      canvas.drawOval(Rect.fromCenter(center: Offset(2.5 * s, handY), width: 4 * s, height: 3.5 * s), handPaint);
-      canvas.drawOval(Rect.fromCenter(center: Offset(2.5 * s, handY), width: 4 * s, height: 3.5 * s), outlinePaint);
-      canvas.drawOval(Rect.fromCenter(center: Offset(0, handY + 2 * s), width: 5.5 * s, height: 4 * s), handPaint);
-      canvas.drawOval(Rect.fromCenter(center: Offset(0, handY + 2 * s), width: 5.5 * s, height: 4 * s), outlinePaint);
+      // Floating thought indicator — no hands
+      const thoughtX = 0.0;
+      final thoughtY = -26 * s;
+      final glowPaint = Paint()
+        ..shader = RadialGradient(colors: [
+          skin.accentColor.withValues(alpha: 0.12),
+          skin.accentColor.withValues(alpha: 0.0),
+        ]).createShader(Rect.fromCenter(center: Offset(thoughtX, thoughtY), width: 8 * s, height: 8 * s));
+      canvas.drawCircle(Offset(thoughtX, thoughtY), 4 * s, glowPaint);
+      final dotPaint = Paint()
+        ..color = skin.accentColor.withValues(alpha: 0.5)
+        ..style = PaintingStyle.fill;
+      for (var i = 0; i < 3; i++) {
+        canvas.drawCircle(Offset(thoughtX - 2.5 * s + i.toDouble() * 2.5 * s, thoughtY), 0.8 * s, dotPaint);
+      }
     case SupTechPose.working:
+      // Floating holographic terminal — no hands
       final screenY = -17 * s;
       final screenRect = RRect.fromRectAndRadius(
         Rect.fromCenter(center: Offset(0, screenY), width: 16 * s, height: 11 * s),
@@ -747,7 +746,7 @@ void drawSupTechPoseOverlay(
       canvas.drawRRect(
         screenRect,
         Paint()
-          ..color = outlinePaint.color
+          ..color = outlineColor
           ..style = PaintingStyle.stroke
           ..strokeWidth = 0.6 * s,
       );
@@ -757,6 +756,15 @@ void drawSupTechPoseOverlay(
           Paint()..color = skin.accentColor.withValues(alpha: 0.45)..strokeWidth = 0.35 * s,
         );
       }
+      // Levitation glow beneath screen
+      canvas.drawOval(
+        Rect.fromCenter(center: Offset(0, screenY + 7 * s), width: 12 * s, height: 3 * s),
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topCenter, end: Alignment.bottomCenter,
+            colors: [skin.accentColor.withValues(alpha: 0.25), skin.accentColor.withValues(alpha: 0.0)],
+          ).createShader(Rect.fromCenter(center: Offset(0, screenY + 7 * s), width: 12 * s, height: 3 * s)),
+      );
     case SupTechPose.none:
     case SupTechPose.neutral:
       break;
@@ -766,157 +774,106 @@ void drawSupTechPoseOverlay(
 void drawNinjaFaceScarf(Canvas canvas, SkinDefinition skin, double s,
     double faceCY, double faceW, double faceH) {
   final color = skin.accentColor;
-  final darker = Color.lerp(color, Colors.black, 0.15)!;
-  final lighter = Color.lerp(color, Colors.white, 0.08)!;
+  final darker = Color.lerp(color, Colors.black, 0.18)!;
+  final darker2 = Color.lerp(color, Colors.black, 0.28)!;
   final isLight = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlineColor = isLight ? const Color(0xFF94A3B8) : Colors.black87;
   final outline = Paint()
     ..color = outlineColor
     ..style = PaintingStyle.stroke
-    ..strokeWidth = 0.4 * s
+    ..strokeWidth = 0.5 * s
     ..strokeCap = StrokeCap.round
     ..strokeJoin = StrokeJoin.round;
 
-  // Face-geometry constants
-  //   Face oval: center (0, faceCY), rx=faceW/2, ry=faceH/2
-  //   Eye bottom: faceCY + (eyeY - faceCY) + eyeR ≈ faceCY + 3.4*s
-  final rx = faceW / 2;          // 11.75 * s
-  final ry = faceH / 2;          //  7.25 * s
-  final upperY = faceCY + 3.2 * s;   // just below eyes
-  final lowerY = faceCY + 7.0 * s;   // under chin
+  final rx = faceW / 2;
+  final ry = faceH / 2;
 
-  // Helper: x-coordinate on the face oval at a given y-offset from center
+  // Mask vertical bounds — just below eyes to under chin
+  final maskTopY = faceCY + 2.6 * s;
+  final maskBotY = faceCY + 6.8 * s;
+
+  // Helper: x on face oval at given y
   double faceEdgeX(double y) {
     final dy = (y - faceCY) / ry;
     if (dy.abs() >= 1) return 0;
     return rx * sqrt(1 - dy * dy);
   }
 
-  final foldPaint = Paint()
-    ..color = darker.withValues(alpha: 0.20)
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 0.3 * s
-    ..strokeCap = StrokeCap.round;
+  // ── Main mask — follows face oval shape snugly ──
+  final topEdge = faceEdgeX(maskTopY);
+  final midEdge = faceEdgeX((maskTopY + maskBotY) / 2);
+  final botEdge = faceEdgeX(maskBotY);
 
-  // ────────────────────────────────────────────
-  // Main cloth layer — tight wrap across cheeks
-  //  Upper edge follows face oval, bottom edge
-  //  has gentle undulations for fabric drape.
-  // ────────────────────────────────────────────
   final mask = Path()
-    ..moveTo(-faceEdgeX(upperY) - 0.3 * s, upperY)
-    ..quadraticBezierTo(-faceEdgeX(upperY) * 0.45, upperY + 0.4 * s, 0, upperY + 0.15 * s)
-    ..quadraticBezierTo(faceEdgeX(upperY) * 0.45, upperY + 0.4 * s, faceEdgeX(upperY) + 0.3 * s, upperY)
-    ..quadraticBezierTo(faceEdgeX(upperY) + 1.2 * s, upperY + 2 * s, faceEdgeX(lowerY - 0.8 * s) + 0.8 * s, lowerY - 1.5 * s)
-    ..quadraticBezierTo(faceEdgeX(lowerY) * 0.6, lowerY - 0.5 * s, faceEdgeX(lowerY) * 0.35, lowerY + 0.3 * s)
-    ..quadraticBezierTo(0, lowerY + 0.8 * s, -faceEdgeX(lowerY) * 0.3, lowerY + 0.1 * s)
-    ..quadraticBezierTo(-faceEdgeX(lowerY) * 0.6, lowerY - 0.4 * s, -faceEdgeX(lowerY) * 0.9, lowerY - 1 * s)
-    ..quadraticBezierTo(-faceEdgeX(upperY) - 1.2 * s, upperY + 2.5 * s, -faceEdgeX(upperY) - 0.3 * s, upperY)
+    ..moveTo(-topEdge, maskTopY)
+    ..quadraticBezierTo(0, maskTopY - 0.3 * s, topEdge, maskTopY)
+    ..cubicTo(topEdge + 0.4 * s, maskTopY + 1.5 * s, midEdge + 0.5 * s, (maskTopY + maskBotY) / 2, botEdge + 0.2 * s, maskBotY - 0.5 * s)
+    ..quadraticBezierTo(0, maskBotY + 0.6 * s, -botEdge - 0.2 * s, maskBotY - 0.5 * s)
+    ..cubicTo(-midEdge - 0.5 * s, (maskTopY + maskBotY) / 2, -topEdge - 0.4 * s, maskTopY + 1.5 * s, -topEdge, maskTopY)
     ..close();
   canvas.drawPath(mask, Paint()..color = color);
   canvas.drawPath(mask, outline);
 
-  // ────────────────────────────────────────────
-  // Overlapping wrap — the visible edge where the
-  //  cloth end was folded across the face.
-  // ────────────────────────────────────────────
-  final wrapCenter = (upperY + lowerY) / 2;
-  final wrapEdgeX = faceEdgeX(wrapCenter) * 0.75;
-  final wrapOverlap = Path()
-    ..moveTo(-wrapEdgeX - 2 * s, lowerY - 1 * s)
-    ..quadraticBezierTo(-wrapEdgeX, wrapCenter, 0, upperY + 0.5 * s)
-    ..quadraticBezierTo(wrapEdgeX, wrapCenter + 1 * s, wrapEdgeX + 2.5 * s, upperY + 0.3 * s)
-    ..quadraticBezierTo(wrapEdgeX + 2.8 * s, upperY + 1.5 * s, wrapEdgeX + 1.5 * s, lowerY - 1.5 * s)
-    ..quadraticBezierTo(0, lowerY - 0.5 * s, -wrapEdgeX - 2 * s, lowerY - 1 * s)
-    ..close();
-  canvas.drawPath(wrapOverlap, Paint()..color = lighter.withValues(alpha: 0.18));
-  canvas.drawPath(wrapOverlap, outline);
-
-  // ────────────────────────────────────────────
-  // Fabric folds & cheek-tension wrinkles
-  // ────────────────────────────────────────────
-  // Nose-bridge vertical dip
+  // ── Top rim fold — slight raised edge ──
   canvas.drawPath(
-    Path()..moveTo(0, upperY + 0.15 * s)..quadraticBezierTo(0.3 * s, upperY + 1.2 * s, -0.2 * s, faceCY + 2.3 * s),
-    foldPaint,
-  );
-  // Left cheek tension pulling outward
-  canvas.drawPath(
-    Path()..moveTo(-3.2 * s, upperY + 0.5 * s)..quadraticBezierTo(-4.5 * s, upperY + 2.5 * s, -5.2 * s, faceCY + 4 * s),
-    foldPaint,
-  );
-  // Right cheek tension pulling outward
-  canvas.drawPath(
-    Path()..moveTo(3.2 * s, upperY + 0.5 * s)..quadraticBezierTo(4.5 * s, upperY + 2.5 * s, 5.2 * s, faceCY + 4 * s),
-    foldPaint,
-  );
-  // Bottom fabric drape folds
-  canvas.drawPath(
-    Path()..moveTo(-3 * s, faceCY + 5.5 * s)..quadraticBezierTo(-1.5 * s, faceCY + 6.5 * s, 0.5 * s, faceCY + 6.8 * s),
-    foldPaint,
-  );
-  canvas.drawPath(
-    Path()..moveTo(2.5 * s, faceCY + 5.5 * s)..quadraticBezierTo(1.5 * s, faceCY + 6.8 * s, 0, faceCY + 7 * s),
-    foldPaint,
-  );
-  // Subtle horizontal wrap line across mid-face
-  canvas.drawPath(
-    Path()..moveTo(-5 * s, faceCY + 3.5 * s)..quadraticBezierTo(0, faceCY + 4 * s, 5 * s, faceCY + 3.5 * s),
+    Path()
+      ..moveTo(-topEdge + 0.6 * s, maskTopY + 0.1 * s)
+      ..quadraticBezierTo(0, maskTopY - 0.4 * s, topEdge - 0.6 * s, maskTopY + 0.1 * s),
     Paint()
-      ..color = darker.withValues(alpha: 0.12)
-      ..style = PaintingStyle.stroke..strokeWidth = 0.25 * s..strokeCap = StrokeCap.round,
+      ..color = darker
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.6 * s
+      ..strokeCap = StrokeCap.round,
   );
 
-  // ────────────────────────────────────────────
-  // Knot — right side, near the jaw hinge
-  // ────────────────────────────────────────────
-  final knotX = faceEdgeX(faceCY + 4.2 * s) + 0.3 * s;
-  final knotY = faceCY + 4.2 * s;
-  canvas.drawCircle(Offset(knotX, knotY), 0.8 * s, Paint()..color = darker);
-  canvas.drawCircle(Offset(knotX, knotY), 0.8 * s, outline);
-  canvas.drawLine(
-    Offset(knotX - 0.3 * s, knotY - 0.4 * s), Offset(knotX + 0.3 * s, knotY + 0.4 * s),
-    Paint()..color = outlineColor..strokeWidth = 0.2 * s,
-  );
-
-  // ────────────────────────────────────────────
-  // Hanging tails — two strips originating from
-  //  the knot, swept downward and to the right.
-  // ────────────────────────────────────────────
-  final tailFill = Paint()..color = color..style = PaintingStyle.fill;
-  final tailOut = Paint()
-    ..color = outlineColor
-    ..style = PaintingStyle.stroke..strokeWidth = 0.35 * s
+  // ── Horizontal cloth folds ──
+  final foldPaint = Paint()
+    ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 
-  // Tail 1 — long, vertical drape
+  // Fold 1 — upper cheek
+  foldPaint..color = darker.withValues(alpha: 0.28)..strokeWidth = 0.4 * s;
   canvas.drawPath(
     Path()
-      ..moveTo(knotX + 0.2 * s, knotY + 0.5 * s)
-      ..cubicTo(knotX + 2.5 * s, knotY + 3 * s, knotX + 2.8 * s, knotY + 7 * s, knotX + 1.8 * s, knotY + 10 * s)
-      ..quadraticBezierTo(knotX + 0.8 * s, knotY + 8 * s, knotX - 0.2 * s, knotY + 0.8 * s)
-      ..close(),
-    tailFill,
+      ..moveTo(-topEdge + 0.5 * s, maskTopY + 1.3 * s)
+      ..quadraticBezierTo(0, maskTopY + 1.0 * s, topEdge - 0.5 * s, maskTopY + 1.3 * s),
+    foldPaint,
   );
+
+  // Fold 2 — mid cheek
+  foldPaint..color = darker2.withValues(alpha: 0.22)..strokeWidth = 0.45 * s;
   canvas.drawPath(
     Path()
-      ..moveTo(knotX + 0.2 * s, knotY + 0.5 * s)
-      ..cubicTo(knotX + 2.5 * s, knotY + 3 * s, knotX + 2.8 * s, knotY + 7 * s, knotX + 1.8 * s, knotY + 10 * s),
-    tailOut,
+      ..moveTo(-midEdge + 0.2 * s, maskTopY + 2.4 * s)
+      ..quadraticBezierTo(0, maskTopY + 2.1 * s, midEdge - 0.2 * s, maskTopY + 2.4 * s),
+    foldPaint,
   );
-  // Tail 2 — shorter, swept more horizontally
+
+  // Fold 3 — nose level
+  foldPaint..color = darker.withValues(alpha: 0.25)..strokeWidth = 0.4 * s;
   canvas.drawPath(
     Path()
-      ..moveTo(knotX + 0.5 * s, knotY - 0.1 * s)
-      ..cubicTo(knotX + 3.5 * s, knotY + 1.5 * s, knotX + 5 * s, knotY + 3 * s, knotX + 4.5 * s, knotY + 5 * s)
-      ..quadraticBezierTo(knotX + 3 * s, knotY + 3 * s, knotX + 0.3 * s, knotY + 0.2 * s)
-      ..close(),
-    tailFill,
+      ..moveTo(-midEdge, maskTopY + 3.4 * s)
+      ..quadraticBezierTo(0, maskTopY + 3.1 * s, midEdge, maskTopY + 3.4 * s),
+    foldPaint,
   );
+
+  // Fold 4 — jaw
+  foldPaint..color = darker.withValues(alpha: 0.20)..strokeWidth = 0.35 * s;
   canvas.drawPath(
     Path()
-      ..moveTo(knotX + 0.5 * s, knotY - 0.1 * s)
-      ..cubicTo(knotX + 3.5 * s, knotY + 1.5 * s, knotX + 5 * s, knotY + 3 * s, knotX + 4.5 * s, knotY + 5 * s),
-    tailOut,
+      ..moveTo(-botEdge + 0.3 * s, maskTopY + 4.3 * s)
+      ..quadraticBezierTo(0, maskTopY + 4.0 * s, botEdge - 0.3 * s, maskTopY + 4.3 * s),
+    foldPaint,
+  );
+
+  // ── Top shadow band — depth under the rim ──
+  canvas.drawRect(
+    Rect.fromLTWH(-topEdge, maskTopY, topEdge * 2, 2 * s),
+    Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter, end: Alignment.bottomCenter,
+        colors: [darker2.withValues(alpha: 0.15), darker2.withValues(alpha: 0.0)],
+      ).createShader(Rect.fromLTWH(-topEdge, maskTopY, topEdge * 2, 2 * s)),
   );
 }

@@ -150,7 +150,7 @@ class SkinTierManager {
       name: 'Network Ninja',
       tier: SkinTier.ninja,
       variant: SkinVariant.ninja,
-      description: 'A purple hooded stealth specialist with a headset',
+      description: 'A purple hooded stealth specialist with a face scarf',
       levelsRequired: 15,
       previewIcon: Icons.auto_awesome_motion,
       bodyColor: Color(0xFF7C3AED),

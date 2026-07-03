@@ -223,35 +223,27 @@ class _SkinPainter extends CustomPainter {
         ..style = PaintingStyle.fill,
     );
 
-    // Robe body (concept sheet shape)
+    // Robe body — vertical sides, rounded bottom
     final robePath = Path()
       ..moveTo(-robeShoulderW / 2, bodyTopY)
       ..lineTo(robeShoulderW / 2, bodyTopY)
-      ..quadraticBezierTo(10 * s, 6 * s, robeBaseW / 2, bodyBotY)
+      ..lineTo(robeShoulderW / 2, bodyBotY)
       ..quadraticBezierTo(5.5 * s, bodyBotY + 2 * s, 0, bodyBotY + 1 * s)
-      ..quadraticBezierTo(-5.5 * s, bodyBotY + 2 * s, -robeBaseW / 2, bodyBotY)
-      ..quadraticBezierTo(-10 * s, 6 * s, -robeShoulderW / 2, bodyTopY)
+      ..quadraticBezierTo(-5.5 * s, bodyBotY + 2 * s, -robeShoulderW / 2, bodyBotY)
       ..close();
     canvas.drawPath(robePath, bodyPaint);
     canvas.drawPath(robePath, outlinePaint);
 
-    // Robe fold lines
+    // Center robe fold
     final foldPaint = Paint()
       ..color = Colors.black.withValues(alpha: 0.10)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.5 * s
       ..strokeCap = StrokeCap.round;
-    final midY = bodyTopY + (bodyBotY - bodyTopY) * 0.5;
     canvas.drawPath(
       Path()
-        ..moveTo(-2.5 * s, bodyTopY + 1 * s)
-        ..quadraticBezierTo(-3.5 * s, midY, -5.5 * s, bodyBotY),
-      foldPaint,
-    );
-    canvas.drawPath(
-      Path()
-        ..moveTo(2.5 * s, bodyTopY + 1 * s)
-        ..quadraticBezierTo(3.5 * s, midY, 5.5 * s, bodyBotY),
+        ..moveTo(0, bodyTopY + 1 * s)
+        ..quadraticBezierTo(0.5 * s, (bodyTopY + bodyBotY) / 2, 0, bodyBotY),
       foldPaint,
     );
 
@@ -386,10 +378,9 @@ class _SkinPainter extends CustomPainter {
     canvas.drawPath(hoodPath, bodyPaint);
     canvas.drawPath(hoodPath, outlinePaint);
 
-    // Fold lines
+    // Center robe fold
     final foldPaint = Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.stroke..strokeWidth = 0.5 * s..strokeCap = StrokeCap.round;
-    canvas.drawPath(Path()..moveTo(-2 * s, 0)..quadraticBezierTo(-3 * s, 6 * s, -5 * s, 12 * s), foldPaint);
-    canvas.drawPath(Path()..moveTo(2 * s, 0)..quadraticBezierTo(3 * s, 6 * s, 5 * s, 12 * s), foldPaint);
+    canvas.drawPath(Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s), foldPaint);
 
     // Bottom glow
     canvas.drawOval(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 16 * s, height: 3 * s),
@@ -443,10 +434,9 @@ class _SkinPainter extends CustomPainter {
     canvas.drawPath(hoodPath, bodyPaint);
     canvas.drawPath(hoodPath, outlinePaint);
 
-    // Fold lines
+    // Center robe fold
     final foldPaint = Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.stroke..strokeWidth = 0.5 * s..strokeCap = StrokeCap.round;
-    canvas.drawPath(Path()..moveTo(-3 * s, 0)..quadraticBezierTo(-5 * s, 6 * s, -7 * s, 13 * s), foldPaint);
-    canvas.drawPath(Path()..moveTo(3 * s, 0)..quadraticBezierTo(5 * s, 6 * s, 7 * s, 13 * s), foldPaint);
+    canvas.drawPath(Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s), foldPaint);
 
     // Bottom glow
     canvas.drawOval(Rect.fromCenter(center: Offset(0, 14.5 * s), width: 24 * s, height: 4 * s),
@@ -1042,13 +1032,10 @@ class _SkinPainter extends CustomPainter {
   }
 
   void _drawTitanDetail(Canvas canvas, SkinDefinition skin, double s) {
-    final armorPaint = Paint()..color = skin.accentColor.withValues(alpha: 0.3)..style = PaintingStyle.stroke..strokeWidth = 0.6 * s..strokeCap = StrokeCap.round;
-    canvas.drawLine(Offset(-7 * s, -2 * s), Offset(-5 * s, 0), armorPaint);
-    canvas.drawLine(Offset(7 * s, -2 * s), Offset(5 * s, 0), armorPaint);
-    canvas.drawLine(Offset(-6 * s, 0), Offset(-4 * s, 2 * s), armorPaint);
-    canvas.drawLine(Offset(6 * s, 0), Offset(4 * s, 2 * s), armorPaint);
     final platePaint = Paint()..color = skin.accentColor.withValues(alpha: 0.12)..style = PaintingStyle.fill;
     canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(0, 4 * s), width: 6 * s, height: 4 * s), Radius.circular(1 * s)), platePaint);
+    final plateOutline = Paint()..color = skin.accentColor.withValues(alpha: 0.3)..style = PaintingStyle.stroke..strokeWidth = 0.6 * s;
+    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(0, 4 * s), width: 6 * s, height: 4 * s), Radius.circular(1 * s)), plateOutline);
   }
 
   void _drawVoidDetail(Canvas canvas, SkinDefinition skin, double s) {
