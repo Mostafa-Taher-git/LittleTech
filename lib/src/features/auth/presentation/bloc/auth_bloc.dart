@@ -20,7 +20,10 @@ class RegisterSuccess extends AuthState {
   const RegisterSuccess(this.user);
 }
 
-class LogoutSuccess extends AuthState {}
+class LogoutSuccess extends AuthState {
+  final bool showAccountPicker;
+  const LogoutSuccess({this.showAccountPicker = false});
+}
 
 class AuthError extends AuthState {
   final String message;
@@ -96,6 +99,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     await AuthService.logout();
-    emit(LogoutSuccess());
+    emit(const LogoutSuccess());
+  }
+
+  Future<void> switchAccount() async {
+    await AuthService.logout();
+    emit(const LogoutSuccess(showAccountPicker: true));
   }
 }

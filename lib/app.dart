@@ -46,7 +46,7 @@ class _LittleTechAppState extends State<LittleTechApp> {
     if (mounted) setState(() => _userId = userId);
   }
 
-  void _onAuthChanged() {
+  void _onAuthChanged({bool showAccountPicker = false}) {
     final seq = ++_authChangeSeq;
     _loadUserId().then((_) {
       if (!mounted || seq != _authChangeSeq) return;
@@ -61,7 +61,7 @@ class _LittleTechAppState extends State<LittleTechApp> {
           );
         } else {
           nav.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const LoginScreen()),
+            MaterialPageRoute(builder: (_) => LoginScreen(showAccountPicker: showAccountPicker)),
             (_) => false,
           );
         }
@@ -95,8 +95,10 @@ class _LittleTechAppState extends State<LittleTechApp> {
         listeners: [
           BlocListener<AuthCubit, AuthState>(
             listener: (_, state) {
-              if (state is LoginSuccess || state is LogoutSuccess) {
-                _onAuthChanged();
+              if (state is LoginSuccess) {
+                _onAuthChanged(showAccountPicker: false);
+              } else if (state is LogoutSuccess) {
+                _onAuthChanged(showAccountPicker: state.showAccountPicker);
               }
             },
           ),

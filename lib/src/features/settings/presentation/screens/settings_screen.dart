@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:littletech/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/presentation/widgets/framed_username.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
@@ -93,10 +91,7 @@ class SettingsScreen extends StatelessWidget {
           _SettingsTile(
             icon: Icons.swap_horiz,
             label: 'Switch Account',
-            onTap: () async {
-              await context.read<AuthCubit>().logout();
-              if (context.mounted) Nav.replaceAll(context, const LoginScreen(showAccountPicker: true));
-            },
+            onTap: () => context.read<AuthCubit>().switchAccount(),
             scheme: scheme,
           ),
           const Gap(8),
