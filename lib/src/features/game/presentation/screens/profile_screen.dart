@@ -609,8 +609,8 @@ const Gap(24),
   }
 
   void _applyTheme(BuildContext context, String themeId) {
-    context.read<ThemeCubit>().applyTheme(themeId);
     context.read<GameCubit>().setThemeId(themeId == 'default' ? null : themeId);
+    context.read<ThemeCubit>().applyTheme(themeId);
   }
 }
 
