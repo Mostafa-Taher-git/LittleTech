@@ -62,7 +62,15 @@ class _LittleTechAppState extends State<LittleTechApp> {
     final userId = await _resolveNewUserId();
     if (!mounted) return;
     await _gameCubit.switchUser(userId);
-    if (mounted) setState(() => _userId = userId);
+    if (mounted) {
+      setState(() => _userId = userId);
+      final themeId = _gameCubit.state.progress.themeId;
+      if (themeId != null) {
+        _themeCubit.applyTheme(themeId);
+      } else {
+        _themeCubit.resetToDefault();
+      }
+    }
   }
 
   void _onAuthChanged({bool showAccountPicker = false}) {
