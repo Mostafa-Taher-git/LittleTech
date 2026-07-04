@@ -4,8 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:littletech/src/core/constants/colors.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
+import 'package:littletech/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:littletech/src/features/home/presentation/screens/home_screen.dart';
 import 'package:littletech/src/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,6 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (isLoggedIn) {
       Nav.replaceAll(context, const HomeScreen());
+      return;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    if (prefs.getBool('lt_has_seen_onboarding') == true) {
+      Nav.replaceAll(context, const LoginScreen());
     } else {
       Nav.replaceAll(context, const OnboardingScreen());
     }

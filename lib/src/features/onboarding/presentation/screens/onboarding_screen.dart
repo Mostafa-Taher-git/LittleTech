@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:littletech/src/core/constants/colors.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -49,7 +50,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
-                  onPressed: () => Nav.replaceAll(context, const LoginScreen()),
+                  onPressed: () async {
+                    await (await SharedPreferences.getInstance()).setBool('lt_has_seen_onboarding', true);
+                    if (context.mounted) Nav.replaceAll(context, const LoginScreen());
+                  },
                   child: const Text('Skip', style: TextStyle(color: Colors.white54)),
                 ),
               ),
@@ -121,14 +125,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       foregroundColor: AppColors.onAccent,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_page < _pages.length - 1) {
                         _controller.nextPage(
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         );
                       } else {
-                        Nav.replaceAll(context, const LoginScreen());
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('lt_has_seen_onboarding', true);
+                        if (context.mounted) Nav.replaceAll(context, const LoginScreen());
                       }
                     },
                     child: Text(

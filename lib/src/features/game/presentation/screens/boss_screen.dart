@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
+import 'package:littletech/src/features/game/presentation/screens/level_complete_screen.dart';
 import 'package:littletech/src/features/game/presentation/screens/reward_spin_screen.dart';
 import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
@@ -139,25 +140,23 @@ class _BossScreenState extends State<BossScreen>
   }
 
   Widget _buildDefeatedButton() {
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: 56,
-      child: ElevatedButton.icon(
-        onPressed: null,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green.shade700,
-          foregroundColor: Colors.white,
-          disabledBackgroundColor: Colors.grey.shade800,
-          disabledForegroundColor: Colors.grey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+      decoration: BoxDecoration(
+        color: Colors.green.shade700,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check, size: 22, color: Colors.white),
+          SizedBox(width: 8),
+          Text(
+            'Defeated!',
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white),
           ),
-        ),
-        icon: const Icon(Icons.check, size: 22),
-        label: const Text(
-          'Defeated!',
-          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-        ),
+        ],
       ),
     );
   }
@@ -507,14 +506,23 @@ class _BossScreenState extends State<BossScreen>
           final hpLeft = state.currentBossHp;
           final isDefeated = hpLeft <= 0;
 
-          if (isDefeated && state.lastDrawnReward != null && !_navigatedToReward) {
+          if (isDefeated && !_navigatedToReward) {
             _navigatedToReward = true;
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (mounted) {
-                Nav.pushReplacement(
-                  context,
-                  RewardSpinScreen(reward: state.lastDrawnReward!),
-                );
+                if (state.lastDrawnReward != null) {
+                  Nav.pushReplacement(context, RewardSpinScreen(reward: state.lastDrawnReward!));
+                } else if (state.currentWorld != null && state.currentLevel != null) {
+                  Nav.pushReplacement(
+                    context,
+                    LevelCompleteScreen(
+                      world: state.currentWorld!,
+                      level: state.currentLevel!,
+                      newAchievements: state.newlyUnlockedAchievements,
+                      reward: null,
+                    ),
+                  );
+                }
               }
             });
           }
