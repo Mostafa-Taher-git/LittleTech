@@ -121,32 +121,51 @@ class _LittleTechAppState extends State<LittleTechApp> {
               }
             },
           ),
-          if (_userId != null)
-            BlocListener<GameCubit, GameState>(
-              listenWhen: (prev, curr) =>
-                  prev.progress.themeId != curr.progress.themeId ||
-                  (prev.progress.userId != curr.progress.userId),
-              listener: (context, state) {
-                final themeId = state.progress.themeId;
-                if (themeId != null) {
-                  context.read<ThemeCubit>().applyTheme(themeId);
-                } else {
-                  context.read<ThemeCubit>().resetToDefault();
-                }
-              },
-            ),
-          if (_userId != null)
-            BlocListener<GameCubit, GameState>(
-              listenWhen: (prev, curr) => !prev.persistError && curr.persistError,
-              listener: (context, state) {
-                final navCtx = _navKey.currentContext;
-                if (navCtx != null) {
-                  ScaffoldMessenger.of(navCtx).showSnackBar(
-                    const SnackBar(content: Text('Failed to save progress')),
-                  );
-                }
-              },
-            ),
+          BlocListener<GameCubit, GameState>(
+            listenWhen: (prev, curr) =>
+                curr.progress.userId != 0 &&
+                (prev.progress.themeId != curr.progress.themeId ||
+                 prev.progress.userId != curr.progress.userId),
+            listener: (context, state) {
+              final themeId = state.progress.themeId;
+              if (themeId != null) {
+                context.read<ThemeCubit>().applyTheme(themeId);
+              } else {
+                context.read<ThemeCubit>().resetToDefault();
+              }
+            },
+          ),
+          BlocListener<GameCubit, GameState>(
+            listenWhen: (prev, curr) =>
+                curr.progress.userId != 0 &&
+                !prev.persistError && curr.persistError,
+            listener: (context, state) {
+              final navCtx = _navKey.currentContext;
+              if (navCtx == null) return;
+              if (state.persistErrorCritical) {
+                showDialog(
+                  context: navCtx,
+                  builder: (_) => AlertDialog(
+                    title: const Text('Progress not saved'),
+                    content: const Text(
+                      'Your level completion could not be saved. '
+                      'Please restart the app and check your storage.',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(navCtx).pop(),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(navCtx).showSnackBar(
+                  const SnackBar(content: Text('Failed to save progress')),
+                );
+              }
+            },
+          ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(
           builder: (_, theme) => MaterialApp(

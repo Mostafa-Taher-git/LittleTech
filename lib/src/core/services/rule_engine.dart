@@ -19,6 +19,17 @@ class RuleEngine {
     }).toList();
   }
 
+  /// Maps a problem key to its category name from CategoryManager.
+  static final Map<String, String> _problemCategory = () {
+    final map = <String, String>{};
+    for (final cat in CategoryManager.all) {
+      for (final key in cat.problemKeys) {
+        map[key] = cat.name;
+      }
+    }
+    return map;
+  }();
+
   /// Maps a problem string → list of solution steps.
   static final Map<String, List<String>> _solutions = {
     // ── CPU ──────────────────────────────────────────────────────────────────
@@ -1300,19 +1311,19 @@ class RuleEngine {
 
     // 1. Exact match
     if (_solutions.containsKey(p)) {
-      return ProblemSolution(problem: problem, category: 'General', steps: _solutions[p]!);
+      return ProblemSolution(problem: problem, category: _problemCategory[p] ?? 'General', steps: _solutions[p]!);
     }
 
     // 2. Alias lookup
     final aliasTarget = _aliases[p];
     if (aliasTarget != null && _solutions.containsKey(aliasTarget)) {
-      return ProblemSolution(problem: problem, category: 'General', steps: _solutions[aliasTarget]!);
+      return ProblemSolution(problem: problem, category: _problemCategory[aliasTarget] ?? 'General', steps: _solutions[aliasTarget]!);
     }
 
     // 3. Substring match in solutions
     for (final entry in _solutions.entries) {
       if (p.contains(entry.key) || entry.key.contains(p)) {
-        return ProblemSolution(problem: problem, category: 'General', steps: entry.value);
+        return ProblemSolution(problem: problem, category: _problemCategory[entry.key] ?? 'General', steps: entry.value);
       }
     }
 
@@ -1321,7 +1332,7 @@ class RuleEngine {
       if (p.contains(alias.key) || alias.key.contains(p)) {
         final target = alias.value;
         if (_solutions.containsKey(target)) {
-          return ProblemSolution(problem: problem, category: 'General', steps: _solutions[target]!);
+          return ProblemSolution(problem: problem, category: _problemCategory[target] ?? 'General', steps: _solutions[target]!);
         }
       }
     }

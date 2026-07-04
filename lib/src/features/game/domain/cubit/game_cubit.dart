@@ -25,6 +25,7 @@ class GameState {
   final BossEncounterDef? currentBoss;
   final List<Achievement> newlyUnlockedAchievements;
   final bool persistError;
+  final bool persistErrorCritical;
 
   const GameState({
     required this.progress,
@@ -40,6 +41,7 @@ class GameState {
     this.currentBoss,
     this.newlyUnlockedAchievements = const [],
     this.persistError = false,
+    this.persistErrorCritical = false,
   });
 
   GameState copyWith({
@@ -56,6 +58,7 @@ class GameState {
     BossEncounterDef? currentBoss,
     List<Achievement>? newlyUnlockedAchievements,
     bool? persistError,
+    bool? persistErrorCritical,
   }) {
     return GameState(
       progress: progress ?? this.progress,
@@ -71,6 +74,7 @@ class GameState {
       currentBoss: currentBoss ?? this.currentBoss,
       newlyUnlockedAchievements: newlyUnlockedAchievements ?? this.newlyUnlockedAchievements,
       persistError: persistError ?? this.persistError,
+      persistErrorCritical: persistErrorCritical ?? this.persistErrorCritical,
     );
   }
 
@@ -245,20 +249,20 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void _safePersist(List<Future<void> Function()> ops) {
+  void _safePersist(List<Future<void> Function()> ops, {bool isCritical = false}) {
     Future.wait(ops.map((op) => op()))
       .then((_) {
-        if (!isClosed) emit(state.copyWith(persistError: false));
+        if (!isClosed) emit(state.copyWith(persistError: false, persistErrorCritical: false));
       })
       .catchError((_, __) {
         debugPrint('Persist error — retrying once…');
         Future.wait(ops.map((op) => op()))
           .then((_) {
-            if (!isClosed) emit(state.copyWith(persistError: false));
+            if (!isClosed) emit(state.copyWith(persistError: false, persistErrorCritical: false));
           })
           .catchError((e, st) {
             debugPrint('Persist error after retry: $e\n$st');
-            if (!isClosed) emit(state.copyWith(persistError: true));
+            if (!isClosed) emit(state.copyWith(persistError: true, persistErrorCritical: isCritical));
           });
       });
   }
@@ -298,7 +302,7 @@ class GameCubit extends Cubit<GameState> {
       persistOps.add(() => _repository.saveProgress(questProgress));
     }
 
-    _safePersist(persistOps);
+    _safePersist(persistOps, isCritical: true);
 
     final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
@@ -342,7 +346,7 @@ class GameCubit extends Cubit<GameState> {
       if (reward?.type == RewardType.theme) () => _repository.setTheme(progress, reward!.value),
     ];
 
-    _safePersist(persistOps);
+    _safePersist(persistOps, isCritical: true);
 
     final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
