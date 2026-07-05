@@ -248,55 +248,6 @@ void drawSupTechEyes(
   }
 }
 
-void drawSupTechMouth(Canvas canvas, SkinDefinition skin, double s, double mouthCY,
-    [SupTechExpression expression = SupTechExpression.neutral]) {
-  final mouthY = mouthCY + 8 * s;
-  final mouthPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 0.6 * s
-    ..strokeCap = StrokeCap.round;
-
-  switch (expression) {
-    case SupTechExpression.happy:
-      mouthPaint.color = skin.accentColor.withValues(alpha: 0.6);
-      canvas.drawPath(
-        Path()
-          ..moveTo(-2.5 * s, mouthY)
-          ..quadraticBezierTo(0, mouthY + 2.5 * s, 2.5 * s, mouthY),
-        mouthPaint,
-      );
-    case SupTechExpression.surprised:
-      mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-      canvas.drawOval(
-        Rect.fromCenter(
-            center: Offset(0, mouthY + 1 * s), width: 2.5 * s, height: 3 * s),
-        mouthPaint,
-      );
-    case SupTechExpression.angry:
-      mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-      canvas.drawPath(
-        Path()
-          ..moveTo(-2.5 * s, mouthY + 1 * s)
-          ..quadraticBezierTo(0, mouthY - 1 * s, 2.5 * s, mouthY + 1 * s),
-        mouthPaint,
-      );
-    case SupTechExpression.error:
-      mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-      canvas.drawLine(
-        Offset(-2 * s, mouthY + 1 * s),
-        Offset(2 * s, mouthY + 1 * s),
-        mouthPaint,
-      );
-    default:
-      mouthPaint.color = Colors.black.withValues(alpha: 0.25);
-      canvas.drawLine(
-        Offset(-2 * s, mouthY + 1 * s),
-        Offset(2 * s, mouthY + 1 * s),
-        mouthPaint,
-      );
-  }
-}
-
 void drawSupTechFocusedEyes(Canvas canvas, double s, double eyeY, double eyeSpacing) {
   final eyePaint = Paint()
     ..color = Colors.white

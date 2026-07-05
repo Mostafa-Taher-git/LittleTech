@@ -344,7 +344,7 @@ class _BossDungeonDoor extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
-          onTap: isUnlocked ? onEnter : null,
+          onTap: isUnlocked && !isDefeated ? onEnter : null,
           borderRadius: BorderRadius.circular(20),
           child: Padding(
             padding: const EdgeInsets.all(20),

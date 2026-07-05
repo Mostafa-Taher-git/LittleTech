@@ -204,9 +204,6 @@ class SupTechPage extends StatelessWidget {
         const SizedBox(height: 14),
         _selectorRow('Chest', SupTechChestAccessory.values, c.chestAccessory,
             (v) => cubit.setChestAccessory(v)),
-        const SizedBox(height: 14),
-        _selectorRow('Pose', SupTechPose.values, c.pose,
-            (v) => cubit.setPose(v)),
       ],
     );
   }
@@ -472,7 +469,6 @@ class _InteractiveConceptPainter extends CustomPainter {
       final eyeSpacing = 5.2 * s;
       final eyeR = 3.1 * s;
       drawSupTechEyes(canvas, skin, s, eyeY, eyeSpacing, eyeR, expression);
-      drawSupTechMouth(canvas, skin, s, headCY, expression);
       if (skin.variant == SkinVariant.ninja) {
         drawNinjaFaceScarf(canvas, skin, s, headCY, 23.5 * s, 14.5 * s);
       }

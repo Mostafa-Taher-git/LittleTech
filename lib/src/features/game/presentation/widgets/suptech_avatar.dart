@@ -159,7 +159,6 @@ class _SkinPainter extends CustomPainter {
       );
       _drawEyesWithOverride(canvas, skin, s, eyeY, eyeSpacing, eyeR, faceCY,
           resolvedState, resolvedPose);
-      _drawMouth(canvas, skin, s, faceCY, resolvedExpression);
       if (skin.variant == SkinVariant.ninja) {
         drawNinjaFaceScarf(canvas, skin, s, faceCY, faceW, faceH);
       }
@@ -267,64 +266,6 @@ class _SkinPainter extends CustomPainter {
   }
 
   // ─────────────────────────────────────────────
-  // Mouth
-  // ─────────────────────────────────────────────
-
-  void _drawMouth(Canvas canvas, SkinDefinition skin, double s, double faceCY,
-      [SupTechExpression? overrideExpression]) {
-    final effectiveExpression = overrideExpression ?? state.expression;
-    final mouthY = faceCY + 8 * s;
-    final mouthPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.6 * s
-      ..strokeCap = StrokeCap.round;
-
-    switch (effectiveExpression) {
-      case SupTechExpression.happy:
-        mouthPaint.color = skin.accentColor.withValues(alpha: 0.6);
-        canvas.drawPath(
-          Path()
-            ..moveTo(-2.5 * s, mouthY)
-            ..quadraticBezierTo(0, mouthY + 2.5 * s, 2.5 * s, mouthY),
-          mouthPaint,
-        );
-        break;
-      case SupTechExpression.surprised:
-        mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-        canvas.drawOval(
-          Rect.fromCenter(
-              center: Offset(0, mouthY + 1 * s), width: 2.5 * s, height: 3 * s),
-          mouthPaint,
-        );
-        break;
-      case SupTechExpression.angry:
-        mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-        canvas.drawPath(
-          Path()
-            ..moveTo(-2.5 * s, mouthY + 1 * s)
-            ..quadraticBezierTo(0, mouthY - 1 * s, 2.5 * s, mouthY + 1 * s),
-          mouthPaint,
-        );
-        break;
-      case SupTechExpression.error:
-        mouthPaint.color = skin.accentColor.withValues(alpha: 0.5);
-        canvas.drawLine(
-          Offset(-2 * s, mouthY + 1 * s),
-          Offset(2 * s, mouthY + 1 * s),
-          mouthPaint,
-        );
-        break;
-      default:
-        mouthPaint.color = Colors.black.withValues(alpha: 0.25);
-        canvas.drawLine(
-          Offset(-2 * s, mouthY + 1 * s),
-          Offset(2 * s, mouthY + 1 * s),
-          mouthPaint,
-        );
-        break;
-    }
-  }
-
   // ─────────────────────────────────────────────
   // Head Accessory (antenna)
   // ─────────────────────────────────────────────

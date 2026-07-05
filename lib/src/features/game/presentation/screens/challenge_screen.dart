@@ -47,7 +47,10 @@ class ChallengeScreen extends StatelessWidget {
             builder: (_, state) {
               final dailyCompleted = state.progress.getDailyQuestCompleted();
               final streak = StreakTracker.calculateStreak(state.progress.playDates);
-              final daily = ChallengeManager.getDailyChallenge(streak: streak);
+              final daily = ChallengeManager.getDailyChallenge(
+                streak: streak,
+                excludeIds: state.progress.completedLevelIds,
+              );
               final level = GameData.worlds
                   .expand((w) => w.levels)
                   .where((l) => l.id == daily.levelId)

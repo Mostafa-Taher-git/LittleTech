@@ -41,7 +41,7 @@ class WeeklyBoss {
 }
 
 class ChallengeManager {
-  static DailyChallenge getDailyChallenge({int streak = 0}) {
+  static DailyChallenge getDailyChallenge({int streak = 0, List<String> excludeIds = const []}) {
     final today = DateTime.now();
     final seed = today.year * 10000 + today.month * 100 + today.day;
     final rng = Random(_hashSeed(seed));
@@ -49,7 +49,12 @@ class ChallengeManager {
     final allLevelIds = GameData.worlds
         .expand((w) => w.levels)
         .map((l) => l.id)
+        .where((id) => !excludeIds.contains(id))
         .toList();
+
+    if (allLevelIds.isEmpty) {
+      return const DailyChallenge(levelId: 'default', title: 'All cleared!', description: 'Great work today!');
+    }
 
     final levelId = allLevelIds[rng.nextInt(allLevelIds.length)];
 
