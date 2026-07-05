@@ -36,7 +36,6 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
   late List<_Particle> _particles;
   final _rng = Random();
   int _displayPoints = 0;
-  int _totalPoints = 0;
   Map<String, dynamic>? _prepData;
 
   @override
@@ -59,19 +58,14 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     ));
   }
 
+  int get _totalPoints => context.read<GameCubit>().state.lastLevelPointsEarned;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller.isAnimating) return;
     final raw = context.read<GameCubit>().state.progress.getPrepResult(widget.level.id);
     _prepData = raw != null ? json.decode(raw) as Map<String, dynamic> : null;
-    final quizPts = _prepData?['quiz'] != null ? 20 : 0;
-    final orderPts = _prepData?['ordering']?['passed'] == true ? 15 : 0;
-    final trapPts = _prepData?['traps']?['passed'] == true ? 15 : 0;
-    final progress = context.read<GameCubit>().state.progress;
-    final noSupTechBonus = progress.supTechUsesThisLevel >= 1 ? 25 : 0;
-    const firstAttemptBonus = 25;
-    _totalPoints = quizPts + orderPts + trapPts + noSupTechBonus + firstAttemptBonus + 10 * widget.level.steps.length + widget.level.points;
 
     _controller.addListener(() {
       final t = _controller.value;
@@ -320,8 +314,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     if (traps != null) chips.add(_prepChip('Traps ${traps['correct']}/${traps['total']} ${traps['passed'] == true ? '✓' : '✗'}', traps['passed'] == true ? AppColors.success : AppColors.error));
 
     // Bonus chips
-    final progress = context.read<GameCubit>().state.progress;
-    if (progress.supTechUsesThisLevel >= 1) {
+    final cubitState = context.read<GameCubit>().state;
+    if (cubitState.earnedNoSupTechBonus) {
       chips.add(_prepChip('+25 No SupTech', const Color(0xFF22C55E)));
     }
     chips.add(_prepChip('+25 First Attempt', const Color(0xFF22C55E)));

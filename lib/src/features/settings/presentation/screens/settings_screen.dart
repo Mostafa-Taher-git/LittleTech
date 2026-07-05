@@ -238,7 +238,7 @@ class SettingsScreen extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: sel ? scheme.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.06),
+                      color: sel ? scheme.primary.withValues(alpha: 0.2) : scheme.onSurface.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: sel ? scheme.primary : Colors.transparent, width: 1.5),
                     ),
@@ -296,15 +296,15 @@ class SettingsScreen extends StatelessWidget {
             const Text('LittleTech'),
           ],
         ),
-        content: const Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('You Are The Only Expert', style: TextStyle(fontWeight: FontWeight.w600)),
-            Gap(4),
-            Text('Version 2.0.0', style: TextStyle(color: Colors.white60, fontSize: 13)),
-            Gap(12),
-            Text(
+            const Text('You Are The Only Expert', style: TextStyle(fontWeight: FontWeight.w600)),
+            const Gap(4),
+            Text('Version 2.0.0', style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
+            const Gap(12),
+            const Text(
               'It was Developed by : www.linkedin.com/in/mostafa-taher-ahmed-59b60b318',
               style: TextStyle(fontSize: 14, height: 1.5),
             ),

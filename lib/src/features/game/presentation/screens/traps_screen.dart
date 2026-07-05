@@ -250,7 +250,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 ),
                 const Gap(4),
                 Text(
-                  _passed ? 'Passed!' : 'Failed â€” continue anyway',
+                  _passed ? 'Passed!' : 'Failed — continue anyway',
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],

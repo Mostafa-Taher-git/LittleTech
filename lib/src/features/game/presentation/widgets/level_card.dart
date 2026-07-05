@@ -220,8 +220,8 @@ class LevelCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.black.withValues(alpha: 0.08),
                 ),
-                child: const Center(
-                  child: Icon(Icons.lock_outline, color: Colors.white54, size: 20),
+                child: Center(
+                  child: Icon(Icons.lock_outline, color: scheme.onSurface.withValues(alpha: 0.45), size: 20),
                 ),
               ),
             ),

@@ -65,6 +65,7 @@ class _QuizScreenState extends State<QuizScreen> {
         _lives--;
         if (_lives <= 0) _gameOver = true;
       }
+      if (_gameOver) _showResults = true;
     });
   }
 
@@ -332,7 +333,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
                 const Gap(4),
                 Text(
-                  passed ? 'Passed!' : 'Failed â€” continue anyway',
+                  passed ? 'Passed!' : 'Failed — continue anyway',
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 14,
@@ -404,7 +405,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                   const Gap(8),
                   Text(
-                    'Your answer: ${userAnswer >= 0 ? options[userAnswer] : 'â€”'}',
+                    'Your answer: ${userAnswer >= 0 ? options[userAnswer] : '—'}',
                     style: TextStyle(
                       color: isCorrect ? Colors.green.shade300 : Colors.red.shade300,
                       fontSize: 12,

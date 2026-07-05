@@ -26,6 +26,9 @@ class GameState {
   final List<Achievement> newlyUnlockedAchievements;
   final bool persistError;
   final bool persistErrorCritical;
+  final Set<int> paidStepIndices;
+  final int lastLevelPointsEarned;
+  final bool earnedNoSupTechBonus;
 
   const GameState({
     required this.progress,
@@ -42,6 +45,9 @@ class GameState {
     this.newlyUnlockedAchievements = const [],
     this.persistError = false,
     this.persistErrorCritical = false,
+    this.paidStepIndices = const {},
+    this.lastLevelPointsEarned = 0,
+    this.earnedNoSupTechBonus = false,
   });
 
   static const _sentinel = Object();
@@ -61,6 +67,9 @@ class GameState {
     List<Achievement>? newlyUnlockedAchievements,
     bool? persistError,
     bool? persistErrorCritical,
+    Set<int>? paidStepIndices,
+    int? lastLevelPointsEarned,
+    bool? earnedNoSupTechBonus,
   }) {
     return GameState(
       progress: progress ?? this.progress,
@@ -77,6 +86,9 @@ class GameState {
       newlyUnlockedAchievements: newlyUnlockedAchievements ?? this.newlyUnlockedAchievements,
       persistError: persistError ?? this.persistError,
       persistErrorCritical: persistErrorCritical ?? this.persistErrorCritical,
+      paidStepIndices: paidStepIndices ?? this.paidStepIndices,
+      lastLevelPointsEarned: lastLevelPointsEarned ?? this.lastLevelPointsEarned,
+      earnedNoSupTechBonus: earnedNoSupTechBonus ?? this.earnedNoSupTechBonus,
     );
   }
 
@@ -190,6 +202,7 @@ class GameCubit extends Cubit<GameState> {
       currentStepIndex: 0,
       isBossMode: false,
       hintText: null,
+      paidStepIndices: const {},
     ));
   }
 
@@ -238,8 +251,12 @@ class GameCubit extends Cubit<GameState> {
     final steps = state.currentLevel!.steps;
     final nextIndex = state.currentStepIndex + 1;
     final progress = state.progress;
+    final paid = Set<int>.from(state.paidStepIndices);
 
-    _safePersist([() => _repository.addPoints(progress, 10)]);
+    if (!paid.contains(state.currentStepIndex)) {
+      _safePersist([() => _repository.addPoints(progress, 10)]);
+      paid.add(state.currentStepIndex);
+    }
     if (nextIndex >= steps.length) {
       _completeLevel(progress, nextIndex);
     } else {
@@ -247,6 +264,7 @@ class GameCubit extends Cubit<GameState> {
         progress: progress,
         currentStepIndex: nextIndex,
         hintText: null,
+        paidStepIndices: paid,
       ));
     }
   }
@@ -256,16 +274,9 @@ class GameCubit extends Cubit<GameState> {
       .then((_) {
         if (!isClosed) emit(state.copyWith(persistError: false, persistErrorCritical: false));
       })
-      .catchError((_, __) {
-        debugPrint('Persist error — retrying once…');
-        Future.wait(ops.map((op) => op()))
-          .then((_) {
-            if (!isClosed) emit(state.copyWith(persistError: false, persistErrorCritical: false));
-          })
-          .catchError((e, st) {
-            debugPrint('Persist error after retry: $e\n$st');
-            if (!isClosed) emit(state.copyWith(persistError: true, persistErrorCritical: isCritical));
-          });
+      .catchError((e, st) {
+        debugPrint('Persist error: $e\n$st');
+        if (!isClosed) emit(state.copyWith(persistError: true, persistErrorCritical: isCritical));
       });
   }
 
@@ -274,7 +285,8 @@ class GameCubit extends Cubit<GameState> {
     final basePoints = level.points * state.pointsMultiplier;
 
     int bonusPoints = 0;
-    if (progress.supTechUsesThisLevel >= 1) {
+    final noSupTech = progress.supTechUsesThisLevel >= 1;
+    if (noSupTech) {
       bonusPoints += 25;
     }
     // First attempt bonus — completed without retrying (linear game = always true)
@@ -316,6 +328,9 @@ class GameCubit extends Cubit<GameState> {
       hintText: null,
       pointsMultiplier: 1,
       newlyUnlockedAchievements: newAchievements,
+      paidStepIndices: const {},
+      lastLevelPointsEarned: totalPoints,
+      earnedNoSupTechBonus: noSupTech,
     ));
   }
 

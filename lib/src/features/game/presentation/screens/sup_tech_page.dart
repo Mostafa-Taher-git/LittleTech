@@ -131,6 +131,11 @@ class SupTechPage extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         _labeledPanel(
+          'Accessories',
+          _buildAccessorySelectors(context, cubit, c),
+        ),
+        const SizedBox(height: 24),
+        _labeledPanel(
           'Expressions',
           _buildExpressionsRow(context, cubit, c),
           padding: const EdgeInsets.fromLTRB(22, 16, 22, 18),
@@ -146,6 +151,8 @@ class SupTechPage extends StatelessWidget {
         _labeledPanel('Traits', _buildTraitsSection()),
         const SizedBox(height: 20),
         _labeledPanel('Character', _buildMainCharacter(context, cubit, c)),
+        const SizedBox(height: 20),
+        _labeledPanel('Accessories', _buildAccessorySelectors(context, cubit, c)),
         const SizedBox(height: 20),
         _labeledPanel('About', _buildAboutSection()),
         const SizedBox(height: 20),
@@ -181,6 +188,70 @@ class SupTechPage extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildAccessorySelectors(
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _selectorRow('Head', SupTechHeadAccessory.values, c.headAccessory,
+            (v) => cubit.setHeadAccessory(v)),
+        const SizedBox(height: 14),
+        _selectorRow('Ears', SupTechEarAccessory.values, c.earAccessory,
+            (v) => cubit.setEarAccessory(v)),
+        const SizedBox(height: 14),
+        _selectorRow('Chest', SupTechChestAccessory.values, c.chestAccessory,
+            (v) => cubit.setChestAccessory(v)),
+        const SizedBox(height: 14),
+        _selectorRow('Pose', SupTechPose.values, c.pose,
+            (v) => cubit.setPose(v)),
+      ],
+    );
+  }
+
+  Widget _selectorRow<T>(
+    String label,
+    List<T> values,
+    T? selected,
+    void Function(T?) onSelected,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(
+          fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFF4B5563),
+        )),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 6, runSpacing: 6,
+          children: values.map((v) {
+            final isSel = selected == v;
+            final noneLabel = v.toString().contains('none');
+            return GestureDetector(
+              onTap: () => onSelected(isSel ? null : v),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: isSel ? const Color(0xFF4777EA).withValues(alpha: 0.12) : Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: isSel ? const Color(0xFF4777EA) : const Color(0xFFE5E7EB),
+                  ),
+                ),
+                child: Text(
+                  noneLabel ? 'None' : v.toString().split('.').last,
+                  style: TextStyle(
+                    fontSize: 12, fontWeight: FontWeight.w600,
+                    color: isSel ? const Color(0xFF4777EA) : const Color(0xFF6B7280),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 
@@ -308,7 +379,13 @@ class SupTechPage extends StatelessWidget {
       child: SizedBox(
         width: maxWidth, height: height,
         child: CustomPaint(
-          painter: _InteractiveConceptPainter(skin: skin, expression: expression),
+          painter: _InteractiveConceptPainter(
+            skin: skin,
+            expression: expression,
+            headAccessory: c.headAccessory ?? SupTechHeadAccessory.none,
+            earAccessory: c.earAccessory ?? SupTechEarAccessory.none,
+            chestAccessory: c.chestAccessory ?? SupTechChestAccessory.none,
+          ),
           size: Size(maxWidth, height),
         ),
       ),
@@ -323,8 +400,17 @@ class SupTechPage extends StatelessWidget {
 class _InteractiveConceptPainter extends CustomPainter {
   final SkinDefinition skin;
   final SupTechExpression expression;
+  final SupTechHeadAccessory headAccessory;
+  final SupTechEarAccessory earAccessory;
+  final SupTechChestAccessory chestAccessory;
 
-  _InteractiveConceptPainter({required this.skin, required this.expression});
+  _InteractiveConceptPainter({
+    required this.skin,
+    required this.expression,
+    this.headAccessory = SupTechHeadAccessory.none,
+    this.earAccessory = SupTechEarAccessory.none,
+    this.chestAccessory = SupTechChestAccessory.none,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -344,10 +430,11 @@ class _InteractiveConceptPainter extends CustomPainter {
     );
 
     // Body + hood (shared variant-aware drawing)
+    final headAcc = headAccessory != SupTechHeadAccessory.none ? headAccessory : skin.headAccessory;
     if (!drawSupTechBodyVariant(canvas, skin, s, skin.variant)) {
       drawSupTechBody(canvas, skin, s, -1 * s, 12 * s, 16 * s, 22 * s);
       drawSupTechHead(canvas, skin, s, -8.8 * s, 11.75 * s, -3 * s, 10 * s, 13 * s, -28 * s,
-        stripeColor: _stripeColorForAccessory(skin.headAccessory));
+        stripeColor: _stripeColorForAccessory(headAcc));
     }
 
     // Face
@@ -385,13 +472,16 @@ class _InteractiveConceptPainter extends CustomPainter {
       final eyeSpacing = 5.2 * s;
       final eyeR = 3.1 * s;
       drawSupTechEyes(canvas, skin, s, eyeY, eyeSpacing, eyeR, expression);
+      drawSupTechMouth(canvas, skin, s, headCY, expression);
       if (skin.variant == SkinVariant.ninja) {
         drawNinjaFaceScarf(canvas, skin, s, headCY, 23.5 * s, 14.5 * s);
       }
     }
-    drawSupTechHeadAccessory(canvas, skin, s, headCY, headR, hoodPeakY, skin.headAccessory);
-    drawSupTechEarAccessory(canvas, skin, s, headCY, headR, skin.earAccessory, hoodPeakY: hoodPeakY);
-    drawSupTechChestAccessory(canvas, skin, s, bodyTopY, bodyBotY, skin.chestAccessory);
+    final earAcc = earAccessory != SupTechEarAccessory.none ? earAccessory : skin.earAccessory;
+    final chestAcc = chestAccessory != SupTechChestAccessory.none ? chestAccessory : skin.chestAccessory;
+    drawSupTechHeadAccessory(canvas, skin, s, headCY, headR, hoodPeakY, headAcc);
+    drawSupTechEarAccessory(canvas, skin, s, headCY, headR, earAcc, hoodPeakY: hoodPeakY);
+    drawSupTechChestAccessory(canvas, skin, s, bodyTopY, bodyBotY, chestAcc);
 
     canvas.restore();
   }
@@ -411,7 +501,11 @@ class _InteractiveConceptPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _InteractiveConceptPainter old) =>
-      old.skin.id != skin.id || old.expression != expression;
+      old.skin.id != skin.id ||
+      old.expression != expression ||
+      old.headAccessory != headAccessory ||
+      old.earAccessory != earAccessory ||
+      old.chestAccessory != chestAccessory;
 }
 
 // ═══════════════════════════════════════════════════════

@@ -356,7 +356,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 ),
                 const Gap(4),
                 Text(
-                  passed ? 'Passed! +15 points' : 'Not quite â€” keep learning!',
+                  passed ? 'Passed! +15 points' : 'Not quite — keep learning!',
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],

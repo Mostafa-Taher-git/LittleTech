@@ -130,7 +130,7 @@ class ProblemTile extends StatelessWidget {
                   color: scheme.surface,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.help_outline, size: 18, color: Colors.white70),
+                child: Icon(Icons.help_outline, size: 18, color: scheme.onSurface.withValues(alpha: 0.6)),
               ),
               const Gap(14),
               Expanded(

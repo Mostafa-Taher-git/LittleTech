@@ -8,6 +8,7 @@ import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/presentation/screens/level_complete_screen.dart';
 import 'package:littletech/src/features/game/presentation/screens/reward_spin_screen.dart';
+import 'package:littletech/src/features/game/presentation/screens/suptech_dialog.dart';
 import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
 
@@ -34,6 +35,7 @@ class _BossScreenState extends State<BossScreen>
   bool _showDiagnosis = false;
   bool _diagnosisLocked = false;
   String? _diagnosisResult;
+  bool _diagnosisCorrect = false;
   int _resolveCount = 0;
 
   List<int>? _diagnosisShuffledOrder;
@@ -86,18 +88,22 @@ class _BossScreenState extends State<BossScreen>
     final cubit = context.read<GameCubit>();
 
     if (originalIndex == correct) {
-      cubit.attackBoss(damage: 3);
       setState(() {
         _diagnosisResult = (diagnosis['flavor'] as String?) ?? 'Correct diagnosis.';
+        _diagnosisCorrect = true;
       });
     } else {
       setState(() {
         _diagnosisResult = (diagnosis['failFlavor'] as String?) ?? 'Incorrect diagnosis.';
+        _diagnosisCorrect = false;
       });
     }
 
     Future.delayed(1500.ms, () {
       if (mounted) {
+        if (_diagnosisCorrect) {
+          cubit.attackBoss(damage: 3);
+        }
         setState(() {
           _showDiagnosis = false;
           _diagnosisResult = null;
@@ -187,7 +193,7 @@ class _BossScreenState extends State<BossScreen>
     final diagnosis = widget.boss.diagnosis;
     if (_showDiagnosis) {
       if (_diagnosisResult != null) {
-        final isCorrect = _diagnosisResult == diagnosis['flavor'];
+        final isCorrect = _diagnosisCorrect;
         return Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
@@ -673,11 +679,12 @@ class _BossScreenState extends State<BossScreen>
                             _buildPhaseStrategy()
                           else
                             _buildPhaseResolve(),
-                          if (state.availableSupTechUses > 0 && !isDefeated) ...[
+                          if (!isDefeated) ...[
                             const Gap(16),
                             Center(
                               child: SupTechAvatarWrapper(
                                 size: 48,
+                                onTap: () => _showSupTechDialog(context),
                                 child: SupTechAvatar(
                                   size: 48,
                                   skinId: state.progress.activeSkinId,
@@ -722,6 +729,15 @@ class _BossScreenState extends State<BossScreen>
           );
         },
       ),
+    );
+  }
+
+  void _showSupTechDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const SupTechDialog(),
     );
   }
 }

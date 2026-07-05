@@ -78,7 +78,8 @@ class SupTechDialog extends StatelessWidget {
                 label: 'Hint',
                 description: 'Get a helpful tip',
                 color: scheme.tertiary,
-                onTap: () => _useAction(context, 'hint'),
+                enabled: state.canUseSupTech,
+                onTap: state.canUseSupTech ? () => _useAction(context, 'hint') : null,
               ),
               const Gap(10),
               _ActionButton(
@@ -86,7 +87,8 @@ class SupTechDialog extends StatelessWidget {
                 label: 'Skip Step',
                 description: 'Auto-solve this step',
                 color: scheme.error,
-                onTap: () => _useAction(context, 'skip'),
+                enabled: state.canUseSupTech,
+                onTap: state.canUseSupTech ? () => _useAction(context, 'skip') : null,
               ),
               const Gap(10),
               _ActionButton(
@@ -94,7 +96,8 @@ class SupTechDialog extends StatelessWidget {
                 label: 'Diagnose',
                 description: 'Ask guided questions',
                 color: scheme.secondary,
-                onTap: () => _useAction(context, 'diagnose'),
+                enabled: state.canUseSupTech,
+                onTap: state.canUseSupTech ? () => _useAction(context, 'diagnose') : null,
               ),
               const Gap(10),
               _ActionButton(
@@ -102,7 +105,8 @@ class SupTechDialog extends StatelessWidget {
                 label: 'Explain',
                 description: 'Simple explanation of this step',
                 color: scheme.primary,
-                onTap: () => _useAction(context, 'explain'),
+                enabled: state.canUseSupTech,
+                onTap: state.canUseSupTech ? () => _useAction(context, 'explain') : null,
               ),
               const Gap(12),
             ],
@@ -125,22 +129,25 @@ class _ActionButton extends StatelessWidget {
   final String label;
   final String description;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool enabled;
 
   const _ActionButton({
     required this.icon,
     required this.label,
     required this.description,
     required this.color,
-    required this.onTap,
+    this.onTap,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final alpha = enabled ? 1.0 : 0.35;
 
     return Material(
-      color: color.withValues(alpha: 0.06),
+      color: color.withValues(alpha: 0.06 * alpha),
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: onTap,
@@ -148,7 +155,7 @@ class _ActionButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            border: Border.all(color: color.withValues(alpha: 0.15)),
+            border: Border.all(color: color.withValues(alpha: 0.15 * alpha)),
             borderRadius: BorderRadius.circular(14),
           ),
           child: Row(
@@ -156,10 +163,10 @@ class _ActionButton extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
+                  color: color.withValues(alpha: 0.1 * alpha),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, color: color, size: 22),
+                child: Icon(icon, color: color.withValues(alpha: alpha), size: 22),
               ),
               const Gap(14),
               Expanded(
@@ -171,20 +178,20 @@ class _ActionButton extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
-                        color: scheme.onSurface,
+                        color: scheme.onSurface.withValues(alpha: alpha),
                       ),
                     ),
                     Text(
                       description,
                       style: TextStyle(
                         fontSize: 12,
-                        color: scheme.onSurface.withValues(alpha: 0.5),
+                        color: scheme.onSurface.withValues(alpha: 0.5 * alpha),
                       ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: color, size: 20),
+              Icon(Icons.chevron_right, color: color.withValues(alpha: alpha), size: 20),
             ],
           ),
         ),

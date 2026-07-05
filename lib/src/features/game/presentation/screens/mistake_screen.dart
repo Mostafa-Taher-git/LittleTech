@@ -223,7 +223,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
                     const Gap(8),
                     Expanded(
                       child: Text(
-                        'Not quite â€” that step is correct. Try again!',
+                        'Not quite — that step is correct. Try again!',
                         style: TextStyle(
                           color: Colors.red.shade300,
                           fontSize: 13,

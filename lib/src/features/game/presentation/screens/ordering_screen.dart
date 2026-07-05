@@ -21,8 +21,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
   late List<String> _shuffled;
   bool _isVerified = false;
   bool _isCorrect = false;
-  int _lives = 3;
+  bool _showError = false;
   int _attempts = 0;
+  int _lives = 3;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
       setState(() {
         _isVerified = true;
         _isCorrect = true;
+        _showError = false;
       });
       context.read<GameCubit>().saveOrderingResult(widget.level.id, _attempts, true);
       context.read<GameCubit>().addPoints(15);
@@ -62,6 +64,10 @@ class _OrderingScreenState extends State<OrderingScreen> {
     } else {
       setState(() {
         _lives--;
+        _showError = true;
+      });
+      Future.delayed(2000.ms, () {
+        if (mounted) setState(() => _showError = false);
       });
       if (_lives <= 0) {
         context.read<GameCubit>().saveOrderingResult(widget.level.id, _attempts, false);
@@ -173,6 +179,28 @@ class _OrderingScreenState extends State<OrderingScreen> {
               },
             ),
           ),
+          if (_showError)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.red.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.error_outline, color: Colors.red.shade700, size: 18),
+                    const Gap(8),
+                    Text(
+                      'Incorrect order — try rearranging the steps',
+                      style: TextStyle(color: Colors.red.shade700, fontSize: 13),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
             child: SizedBox(
