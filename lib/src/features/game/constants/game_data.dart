@@ -197,8 +197,9 @@ class GameData {
     CategoryManager.all.expand((cat) => cat.problemKeys.map((pk) {
       final id = levelId(cat.id, pk);
       return MapEntry(id, [
-        'Start with the most common causes first.',
-        'Check the basics before diving deeper.',
+        'Think about what part of the system might be involved here.',
+        'Start with the simplest possible cause — it often is.',
+        'Check for loose connections, power, and signal first.',
       ]);
     })),
   );

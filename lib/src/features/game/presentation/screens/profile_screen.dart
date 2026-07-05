@@ -242,7 +242,10 @@ const Gap(24),
                           icon: Icons.dark_mode,
                           isActive: progress.themeId == 'dark',
                           unlocked: progress.earnedRewardIds.contains('theme_dark') || progress.purchasedItemIds.contains('theme_dark'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_dark'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_dark');
+                            _applyTheme(context, 'dark');
+                          },
                           onTap: () => _applyTheme(context, 'dark'),
                           scheme: scheme,
                         ),
@@ -251,7 +254,10 @@ const Gap(24),
                           icon: Icons.light_mode,
                           isActive: progress.themeId == 'amber',
                           unlocked: progress.earnedRewardIds.contains('theme_amber') || progress.purchasedItemIds.contains('theme_amber'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_amber'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_amber');
+                            _applyTheme(context, 'amber');
+                          },
                           onTap: () => _applyTheme(context, 'amber'),
                           scheme: scheme,
                         ),
@@ -260,7 +266,10 @@ const Gap(24),
                           icon: Icons.water_drop,
                           isActive: progress.themeId == 'ocean',
                           unlocked: progress.earnedRewardIds.contains('theme_ocean') || progress.purchasedItemIds.contains('theme_ocean'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_ocean'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_ocean');
+                            _applyTheme(context, 'ocean');
+                          },
                           onTap: () => _applyTheme(context, 'ocean'),
                           scheme: scheme,
                         ),
@@ -269,7 +278,10 @@ const Gap(24),
                           icon: Icons.nights_stay,
                           isActive: progress.themeId == 'neon',
                           unlocked: progress.earnedRewardIds.contains('theme_neon') || progress.purchasedItemIds.contains('theme_neon'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_neon'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_neon');
+                            _applyTheme(context, 'neon');
+                          },
                           onTap: () => _applyTheme(context, 'neon'),
                           scheme: scheme,
                         ),
@@ -278,7 +290,10 @@ const Gap(24),
                           icon: Icons.castle,
                           isActive: progress.themeId == 'medieval',
                           unlocked: progress.purchasedItemIds.contains('theme_medieval'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_medieval'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_medieval');
+                            _applyTheme(context, 'medieval');
+                          },
                           onTap: () => _applyTheme(context, 'medieval'),
                           scheme: scheme,
                         ),
@@ -287,7 +302,10 @@ const Gap(24),
                           icon: Icons.door_front_door,
                           isActive: progress.themeId == 'dungeon',
                           unlocked: progress.purchasedItemIds.contains('theme_dungeon'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_dungeon'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_dungeon');
+                            _applyTheme(context, 'dungeon');
+                          },
                           onTap: () => _applyTheme(context, 'dungeon'),
                           scheme: scheme,
                         ),
@@ -296,7 +314,10 @@ const Gap(24),
                           icon: Icons.auto_awesome,
                           isActive: progress.themeId == 'arcane',
                           unlocked: progress.purchasedItemIds.contains('theme_arcane'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_arcane'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_arcane');
+                            _applyTheme(context, 'arcane');
+                          },
                           onTap: () => _applyTheme(context, 'arcane'),
                           scheme: scheme,
                         ),
@@ -305,7 +326,10 @@ const Gap(24),
                           icon: Icons.local_fire_department,
                           isActive: progress.themeId == 'dragon_fire',
                           unlocked: progress.purchasedItemIds.contains('theme_dragon_fire'),
-                          onUnlockTap: () => context.read<GameCubit>().purchaseItem('theme_dragon_fire'),
+                          onUnlockTap: () {
+                            context.read<GameCubit>().purchaseItem('theme_dragon_fire');
+                            _applyTheme(context, 'dragon_fire');
+                          },
                           onTap: () => _applyTheme(context, 'dragon_fire'),
                           scheme: scheme,
                         ),

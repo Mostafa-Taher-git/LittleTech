@@ -181,11 +181,11 @@ void drawSupTechNinjaVariant(Canvas canvas, SkinDefinition skin, double s) {
 
   // Tight flat hood — lower dome, wider base
   final hoodPath = Path()
-    ..moveTo(-12 * s, -2 * s)
-    ..cubicTo(-12 * s, -14 * s, -9 * s, -22 * s, 0, -24 * s)
-    ..cubicTo(9 * s, -22 * s, 12 * s, -14 * s, 12 * s, -2 * s)
-    ..quadraticBezierTo(6 * s, 1 * s, 0, 0.5 * s)
-    ..quadraticBezierTo(-6 * s, 1 * s, -12 * s, -2 * s)
+    ..moveTo(-12 * s, -3 * s)
+    ..cubicTo(-12 * s, -16 * s, -9 * s, -25 * s, 0, -28 * s)
+    ..cubicTo(9 * s, -25 * s, 12 * s, -16 * s, 12 * s, -3 * s)
+    ..quadraticBezierTo(6 * s, 0.5 * s, 0, 0 * s)
+    ..quadraticBezierTo(-6 * s, 0.5 * s, -12 * s, -3 * s)
     ..close();
   canvas.drawPath(hoodPath, bodyPaint);
   canvas.drawPath(hoodPath, outlinePaint);

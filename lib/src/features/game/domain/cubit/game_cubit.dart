@@ -400,19 +400,22 @@ class GameCubit extends Cubit<GameState> {
         _safePersist([() => _repository.useSupTech(progress)]);
         solveStep();
       case 'diagnose':
+        final world = state.currentWorld;
+        final area = world != null ? ' in this ${world.name} scenario' : '';
         _safePersist([() => _repository.useSupTech(progress)]);
         emit(state.copyWith(
           progress: progress,
-          hintText: 'Try checking the most common causes first. '
-              'Is the device powered on? Are cables secure? Is the driver updated?',
+          hintText: 'Start by identifying what\'s working and what isn\'t$area. '
+              'Check for error messages, unusual behavior, or missing output.',
         ));
       case 'explain':
         if (state.currentLevel != null &&
             state.currentStepIndex < state.currentLevel!.steps.length) {
+          final step = state.currentLevel!.steps[state.currentStepIndex];
           _safePersist([() => _repository.useSupTech(progress)]);
           emit(state.copyWith(
             progress: progress,
-            hintText: state.currentLevel!.steps[state.currentStepIndex],
+            hintText: step,
           ));
         }
     }
