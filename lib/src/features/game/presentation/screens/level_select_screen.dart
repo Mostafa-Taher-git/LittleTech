@@ -102,9 +102,13 @@ class LevelSelectScreen extends StatelessWidget {
                         bossVisualType: level.boss?.visualType ?? bosses.firstOrNull?.visualType ?? 1,
                         onTap: () {
                           if (level.isBossLevel && level.boss != null) {
-                            context.read<GameCubit>().selectWorld(world);
-                            context.read<GameCubit>().startBoss(level.boss!);
-                            Nav.push(context, BossScreen(boss: level.boss!));
+                            if (isCompleted) {
+                              Nav.push(context, ReviewScreen(world: world, level: level));
+                            } else {
+                              context.read<GameCubit>().selectWorld(world);
+                              context.read<GameCubit>().startBoss(level.boss!);
+                              Nav.push(context, BossScreen(boss: level.boss!));
+                            }
                           } else {
                             context.read<GameCubit>().selectLevel(level, worldOverride: world);
                             if (isCompleted) {
@@ -191,7 +195,7 @@ class _DungeonHeader extends StatelessWidget {
                 ),
                 const Gap(4),
                 Text(
-                  '$levelsCleared / $totalLevels dungeon rooms cleared',
+                  '$levelsCleared / $totalLevels levels cleared',
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,

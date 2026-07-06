@@ -46,16 +46,17 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
   Future<void> _toggleSave() async {
     if (_solution == null) return;
     if (_isSaved) {
-      showSuccessToast(context, 'Already saved.');
-      return;
+      await SavedSolutionsService.removeByTitle(widget.problemName);
+      if (mounted) showSuccessToast(context, 'Bookmark removed.');
+    } else {
+      await SavedSolutionsService.save(SavedSolution(
+        problemTitle: widget.problemName,
+        category: widget.categoryName,
+        steps: _solution!.steps,
+        savedAt: DateTime.now(),
+      ));
+      if (mounted) showSuccessToast(context, 'Solution saved!');
     }
-    await SavedSolutionsService.save(SavedSolution(
-      problemTitle: widget.problemName,
-      category: widget.categoryName,
-      steps: _solution!.steps,
-      savedAt: DateTime.now(),
-    ));
-    if (mounted) showSuccessToast(context, 'Solution saved!');
     _checkSaved();
   }
 

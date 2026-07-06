@@ -20,15 +20,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _pages = const [
     _OnboardingPage(
       icon: Icons.door_front_door,
-      title: 'Your Quest Begins',
+      title: 'Your Training Begins',
     ),
     _OnboardingPage(
-      icon: Icons.shield,
-      title: 'Slay the Beast',
+      icon: Icons.bug_report,
+      title: 'Debug the Boss',
     ),
     _OnboardingPage(
       icon: Icons.emoji_events,
-      title: 'Claim Your Tech Glory',
+      title: 'Earn Your Certification',
     ),
   ];
 

@@ -232,7 +232,6 @@ class AuthService {
     await prefs.remove('${_sessionKey}_id');
   }
 
-  /// Reset all users for testing - call this to start fresh
   static Future<bool> updateAvatarIcon(int userId, String newIcon) async {
     final users = await _loadUsers();
     final idx = users.indexWhere((u) => u.id == userId);

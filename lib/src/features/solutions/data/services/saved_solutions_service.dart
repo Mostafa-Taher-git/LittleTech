@@ -69,4 +69,10 @@ class SavedSolutionsService {
     final all = await getAll();
     return all.any((s) => s.problemTitle == title);
   }
+
+  static Future<void> removeByTitle(String title) async {
+    final all = await getAll();
+    all.removeWhere((s) => s.problemTitle == title);
+    await _persist(all);
+  }
 }

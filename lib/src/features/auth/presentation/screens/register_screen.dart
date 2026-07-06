@@ -6,7 +6,7 @@ import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
-import 'login_screen.dart';
+import 'package:littletech/src/features/home/presentation/screens/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -40,8 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: BlocListener<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is RegisterSuccess) {
-                Nav.pushReplacement(context, const LoginScreen());
-                showSuccessToast(context, 'Account created! Please login.');
+                Nav.pushReplacement(context, const HomeScreen());
               } else if (state is AuthError) {
                 showErrorToast(context, state.message);
               }

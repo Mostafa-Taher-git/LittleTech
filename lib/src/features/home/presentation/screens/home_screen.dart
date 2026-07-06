@@ -197,8 +197,8 @@ class HomeScreen extends StatelessWidget {
                   const Gap(12),
                   Expanded(
                     child: _CTAButton(
-                      icon: Icons.castle_rounded,
-                      label: 'Enter Dungeon',
+                      icon: Icons.terminal_rounded,
+                      label: 'Start Troubleshooting',
                       isPrimary: true,
                       onTap: () {
                         context.read<GameCubit>().loadGame();
@@ -414,7 +414,6 @@ class _PlayerStatsRow extends StatelessWidget {
                   value: title,
                   label: 'Rank',
                   scheme: scheme,
-                  isExpanded: true,
                 ),
               ),
             ],
@@ -431,7 +430,6 @@ class _StatItem extends StatelessWidget {
   final String value;
   final String label;
   final ColorScheme scheme;
-  final bool isExpanded;
 
   const _StatItem({
     required this.icon,
@@ -439,13 +437,12 @@ class _StatItem extends StatelessWidget {
     required this.value,
     required this.label,
     required this.scheme,
-    this.isExpanded = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final content = Row(
-      mainAxisSize: isExpanded ? MainAxisSize.min : MainAxisSize.min,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           padding: const EdgeInsets.all(6),
@@ -486,7 +483,7 @@ class _StatItem extends StatelessWidget {
       ],
     );
 
-    return isExpanded ? content : content;
+    return content;
   }
 }
 

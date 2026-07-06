@@ -385,37 +385,57 @@ class GameCubit extends Cubit<GameState> {
     final progress = state.progress;
     if (state.availableSupTechUses <= 0) return;
 
+    final isBoss = state.isBossMode;
+
     switch (action) {
       case 'hint':
-        final hints = GameData.levelHints[state.currentLevel?.id];
-        if (hints != null && hints.isNotEmpty) {
+        if (isBoss) {
+          final boss = state.currentBoss;
           _safePersist([() => _repository.useSupTech(progress)]);
           emit(state.copyWith(
             progress: progress,
-            hintText: hints[state.currentStepIndex % hints.length],
+            hintText: 'Watch ${boss?.name ?? 'the boss'}\'s behavior carefully — '
+                'every attack pattern has a tell. Find the right counter and strike.',
           ));
+        } else {
+          final hints = GameData.levelHints[state.currentLevel?.id];
+          if (hints != null && hints.isNotEmpty) {
+            _safePersist([() => _repository.useSupTech(progress)]);
+            emit(state.copyWith(
+              progress: progress,
+              hintText: hints[state.currentStepIndex % hints.length],
+            ));
+          }
         }
       case 'skip':
-        if (state.currentLevel == null) return;
+        if (isBoss || state.currentLevel == null) return;
         _safePersist([() => _repository.useSupTech(progress)]);
         solveStep();
       case 'diagnose':
-        final world = state.currentWorld;
-        final area = world != null ? ' in this ${world.name} scenario' : '';
         _safePersist([() => _repository.useSupTech(progress)]);
+        final area = isBoss
+            ? ' in this battle'
+            : state.currentWorld != null
+                ? ' in this ${state.currentWorld!.name} scenario'
+                : '';
         emit(state.copyWith(
           progress: progress,
           hintText: 'Start by identifying what\'s working and what isn\'t$area. '
               'Check for error messages, unusual behavior, or missing output.',
         ));
       case 'explain':
-        if (state.currentLevel != null &&
-            state.currentStepIndex < state.currentLevel!.steps.length) {
-          final step = state.currentLevel!.steps[state.currentStepIndex];
+        if (isBoss) {
           _safePersist([() => _repository.useSupTech(progress)]);
           emit(state.copyWith(
             progress: progress,
-            hintText: step,
+            hintText: state.currentBoss?.lore ?? 'Every boss has a weakness. Observe and adapt.',
+          ));
+        } else if (state.currentLevel != null &&
+            state.currentStepIndex < state.currentLevel!.steps.length) {
+          _safePersist([() => _repository.useSupTech(progress)]);
+          emit(state.copyWith(
+            progress: progress,
+            hintText: state.currentLevel!.steps[state.currentStepIndex],
           ));
         }
     }

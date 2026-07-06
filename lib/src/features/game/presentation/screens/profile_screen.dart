@@ -163,7 +163,7 @@ SupTechAvatarWrapper(
                       children: [
                         _StatCard(
                           icon: Icons.emoji_events,
-                          label: 'Dungeons',
+                          label: 'Levels',
                           value: '${progress.levelsCleared}',
                           scheme: scheme,
                         ),
@@ -227,113 +227,31 @@ const Gap(24),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
-                      children: [
-                        _ThemeChip(
-                          label: 'Default',
-                          icon: Icons.palette,
-                          isActive: progress.themeId == null || progress.themeId == 'default',
-                          unlocked: true,
-                          onUnlockTap: null,
-                          onTap: () => _applyTheme(context, 'default'),
+                      children: _themes.map((t) {
+                        final isDefault = t.id == 'default';
+                        final rewardId = 'theme_${t.id}';
+                        final unlocked = isDefault || (t.shopOnly
+                            ? progress.purchasedItemIds.contains(rewardId)
+                            : progress.earnedRewardIds.contains(rewardId) ||
+                                progress.purchasedItemIds.contains(rewardId));
+                        final isActive = isDefault
+                            ? (progress.themeId == null || progress.themeId == 'default')
+                            : progress.themeId == t.id;
+                        return _ThemeChip(
+                          label: t.label,
+                          icon: t.icon,
+                          isActive: isActive,
+                          unlocked: unlocked,
+                          onUnlockTap: isDefault
+                              ? null
+                              : () {
+                                  context.read<GameCubit>().purchaseItem(rewardId);
+                                  _applyTheme(context, t.id);
+                                },
+                          onTap: () => _applyTheme(context, t.id),
                           scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Dark',
-                          icon: Icons.dark_mode,
-                          isActive: progress.themeId == 'dark',
-                          unlocked: progress.earnedRewardIds.contains('theme_dark') || progress.purchasedItemIds.contains('theme_dark'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_dark');
-                            _applyTheme(context, 'dark');
-                          },
-                          onTap: () => _applyTheme(context, 'dark'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Amber',
-                          icon: Icons.light_mode,
-                          isActive: progress.themeId == 'amber',
-                          unlocked: progress.earnedRewardIds.contains('theme_amber') || progress.purchasedItemIds.contains('theme_amber'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_amber');
-                            _applyTheme(context, 'amber');
-                          },
-                          onTap: () => _applyTheme(context, 'amber'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Ocean',
-                          icon: Icons.water_drop,
-                          isActive: progress.themeId == 'ocean',
-                          unlocked: progress.earnedRewardIds.contains('theme_ocean') || progress.purchasedItemIds.contains('theme_ocean'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_ocean');
-                            _applyTheme(context, 'ocean');
-                          },
-                          onTap: () => _applyTheme(context, 'ocean'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Neon',
-                          icon: Icons.nights_stay,
-                          isActive: progress.themeId == 'neon',
-                          unlocked: progress.earnedRewardIds.contains('theme_neon') || progress.purchasedItemIds.contains('theme_neon'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_neon');
-                            _applyTheme(context, 'neon');
-                          },
-                          onTap: () => _applyTheme(context, 'neon'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Medieval',
-                          icon: Icons.castle,
-                          isActive: progress.themeId == 'medieval',
-                          unlocked: progress.purchasedItemIds.contains('theme_medieval'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_medieval');
-                            _applyTheme(context, 'medieval');
-                          },
-                          onTap: () => _applyTheme(context, 'medieval'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Dungeon',
-                          icon: Icons.door_front_door,
-                          isActive: progress.themeId == 'dungeon',
-                          unlocked: progress.purchasedItemIds.contains('theme_dungeon'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_dungeon');
-                            _applyTheme(context, 'dungeon');
-                          },
-                          onTap: () => _applyTheme(context, 'dungeon'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Arcane',
-                          icon: Icons.auto_awesome,
-                          isActive: progress.themeId == 'arcane',
-                          unlocked: progress.purchasedItemIds.contains('theme_arcane'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_arcane');
-                            _applyTheme(context, 'arcane');
-                          },
-                          onTap: () => _applyTheme(context, 'arcane'),
-                          scheme: scheme,
-                        ),
-                        _ThemeChip(
-                          label: 'Dragon Fire',
-                          icon: Icons.local_fire_department,
-                          isActive: progress.themeId == 'dragon_fire',
-                          unlocked: progress.purchasedItemIds.contains('theme_dragon_fire'),
-                          onUnlockTap: () {
-                            context.read<GameCubit>().purchaseItem('theme_dragon_fire');
-                            _applyTheme(context, 'dragon_fire');
-                          },
-                          onTap: () => _applyTheme(context, 'dragon_fire'),
-                          scheme: scheme,
-                        ),
-],
+                        );
+                      }).toList(),
                     ),
                     const Gap(24),
                     Text(
@@ -734,6 +652,32 @@ class _ProfileAction extends StatelessWidget {
     );
   }
 }
+
+class _ThemeOption {
+  final String id;
+  final String label;
+  final IconData icon;
+  final bool shopOnly;
+
+  const _ThemeOption({
+    required this.id,
+    required this.label,
+    required this.icon,
+    this.shopOnly = false,
+  });
+}
+
+const _themes = [
+  _ThemeOption(id: 'default', label: 'Default', icon: Icons.palette),
+  _ThemeOption(id: 'dark', label: 'Dark', icon: Icons.dark_mode),
+  _ThemeOption(id: 'amber', label: 'Amber', icon: Icons.light_mode),
+  _ThemeOption(id: 'ocean', label: 'Ocean', icon: Icons.water_drop),
+  _ThemeOption(id: 'neon', label: 'Neon', icon: Icons.nights_stay),
+  _ThemeOption(id: 'medieval', label: 'Medieval', icon: Icons.castle, shopOnly: true),
+  _ThemeOption(id: 'dungeon', label: 'Dungeon', icon: Icons.door_front_door, shopOnly: true),
+  _ThemeOption(id: 'arcane', label: 'Arcane', icon: Icons.auto_awesome, shopOnly: true),
+  _ThemeOption(id: 'dragon_fire', label: 'Dragon Fire', icon: Icons.local_fire_department, shopOnly: true),
+];
 
 class _ThemeChip extends StatelessWidget {
   final String label;

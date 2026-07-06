@@ -22,7 +22,6 @@ class LittleTechApp extends StatefulWidget {
 }
 
 class _LittleTechAppState extends State<LittleTechApp> {
-  int? _userId;
   final _navKey = GlobalKey<NavigatorState>();
   int _authChangeSeq = 0;
 
@@ -47,12 +46,12 @@ class _LittleTechAppState extends State<LittleTechApp> {
 
   Future<int?> _resolveNewUserId() async {
     final userId = await AuthService.getFreshUserId();
-    if (!mounted) return _userId;
+    if (!mounted) return null;
     if (userId != null) {
       final user = await AuthService.getCurrentUser();
       if (user == null) {
         await AuthService.logout();
-        return mounted ? null : _userId;
+        return null;
       }
     }
     return userId;
@@ -63,7 +62,6 @@ class _LittleTechAppState extends State<LittleTechApp> {
     if (!mounted) return;
     await _gameCubit.switchUser(userId);
     if (mounted) {
-      setState(() => _userId = userId);
       final themeId = _gameCubit.state.progress.themeId;
       if (themeId != null) {
         _themeCubit.applyTheme(themeId);
@@ -83,7 +81,6 @@ class _LittleTechAppState extends State<LittleTechApp> {
       await _customizationCubit.reload();
 
       if (!mounted || seq != _authChangeSeq) return;
-      setState(() => _userId = newUserId);
 
       final nav = _navKey.currentState;
       if (nav != null) {
