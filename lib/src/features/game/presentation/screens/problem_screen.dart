@@ -156,34 +156,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   ],
                 ),
               ),
-              if (state.hintText != null)
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: scheme.tertiary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: scheme.tertiary.withValues(alpha: 0.2)),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.lightbulb_outline, color: scheme.tertiary, size: 18),
-                      const Gap(10),
-                      Expanded(
-                        child: Text(
-                          state.hintText!,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: scheme.tertiary,
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ).animate().fadeIn().slideX(begin: -0.1),
+
               if (!allSolved)
                 VisualAid(level: widget.level, stepIndex: solvedCount.clamp(0, widget.level.steps.length - 1)),
               if (_showingAltForStep)
@@ -384,7 +357,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SupTechDialog(),
+      builder: (_) => const SupTechDialog(contextType: SupTechContext.problem),
     );
   }
 }

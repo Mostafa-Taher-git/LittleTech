@@ -3,12 +3,71 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 
+class _ActionDef {
+  final String id;
+  final String label;
+  final IconData icon;
+  final String description;
+
+  const _ActionDef({
+    required this.id,
+    required this.label,
+    required this.icon,
+    required this.description,
+  });
+}
+
+final _contextActions = {
+  SupTechContext.problem: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Get a helpful tip'),
+    _ActionDef(id: 'skip', label: 'Skip Step', icon: Icons.skip_next, description: 'Auto-solve this step'),
+    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Ask guided questions'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Simple explanation of this step'),
+  ],
+  SupTechContext.quiz: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Eliminate one wrong answer'),
+    _ActionDef(id: 'skip', label: 'Skip Question', icon: Icons.skip_next, description: 'Auto-answer this question'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Explain the concept being tested'),
+  ],
+  SupTechContext.ordering: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Reveal correct position for one step'),
+    _ActionDef(id: 'skip', label: 'Auto-Arrange', icon: Icons.skip_next, description: 'Automatically arrange correctly'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Why this sequence matters'),
+  ],
+  SupTechContext.scenario: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Nudge toward the better response'),
+    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Auto-pick the correct response'),
+    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Walk through the reasoning'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Why the correct response is right'),
+  ],
+  SupTechContext.traps: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Point toward which area has the issue'),
+    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Reveal the trap directly'),
+    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Questions to track down the issue'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'What the trap is and why it is wrong'),
+  ],
+  SupTechContext.mistake: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Point toward which area has the issue'),
+    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Mark the mistake directly'),
+    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Questions to track down the issue'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'What the mistake is and why it is wrong'),
+  ],
+  SupTechContext.boss: const [
+    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Get a boss-fighting tip'),
+    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Analyze the situation'),
+    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Lore and strategy context'),
+  ],
+};
+
 class SupTechDialog extends StatelessWidget {
-  const SupTechDialog({super.key});
+  final SupTechContext contextType;
+
+  const SupTechDialog({super.key, required this.contextType});
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final actions = _contextActions[contextType] ?? _contextActions[SupTechContext.problem]!;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -18,98 +77,83 @@ class SupTechDialog extends StatelessWidget {
       ),
       child: BlocBuilder<GameCubit, GameState>(
         builder: (_, state) {
-           return ConstrainedBox(
+          final poolZero = state.availableSupTechUses <= 0;
+          final questionKey = _questionKeyFor(state);
+
+          return ConstrainedBox(
             constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: scheme.outline.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-              const Gap(16),
-              Row(
-                children: [
-                  Text(
-                    'SupTech',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: scheme.onSurface,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: scheme.secondary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      '${state.availableSupTechUses} left',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: scheme.secondary,
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: scheme.outline.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
                       ),
                     ),
                   ),
+                  const Gap(16),
+                  Row(
+                    children: [
+                      Text(
+                        'SupTech',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: scheme.secondary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '${state.availableSupTechUses} left',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: scheme.secondary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(4),
+                  Text(
+                    'Pick an action to help with this step',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: scheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  const Gap(20),
+                  ...actions.map((a) {
+                    final alreadyUsed = state.usedSupTechActions[questionKey]?.contains(a.id) ?? false;
+                    final enabled = alreadyUsed || !poolZero;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: _ActionButton(
+                        icon: a.icon,
+                        label: a.label,
+                        description: alreadyUsed ? 'Already used — tap to reopen' : a.description,
+                        color: _actionColor(scheme, a.id),
+                        enabled: enabled,
+                        onTap: enabled
+                            ? () => _useAction(context, a.id)
+                            : null,
+                      ),
+                    );
+                  }),
+                  const Gap(12),
                 ],
-              ),
-              const Gap(4),
-              Text(
-                'Pick an action to help with this step',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: scheme.onSurface.withValues(alpha: 0.5),
-                ),
-              ),
-              const Gap(20),
-              _ActionButton(
-                icon: Icons.lightbulb_outline,
-                label: 'Hint',
-                description: 'Get a helpful tip',
-                color: scheme.tertiary,
-                enabled: state.canUseSupTech,
-                onTap: state.canUseSupTech ? () => _useAction(context, 'hint') : null,
-              ),
-              const Gap(10),
-              _ActionButton(
-                icon: Icons.skip_next,
-                label: 'Skip Step',
-                description: 'Auto-solve this step',
-                color: scheme.error,
-                enabled: state.canUseSupTech,
-                onTap: state.canUseSupTech ? () => _useAction(context, 'skip') : null,
-              ),
-              const Gap(10),
-              _ActionButton(
-                icon: Icons.quiz_outlined,
-                label: 'Diagnose',
-                description: 'Ask guided questions',
-                color: scheme.secondary,
-                enabled: state.canUseSupTech,
-                onTap: state.canUseSupTech ? () => _useAction(context, 'diagnose') : null,
-              ),
-              const Gap(10),
-              _ActionButton(
-                icon: Icons.description_outlined,
-                label: 'Explain',
-                description: 'Simple explanation of this step',
-                color: scheme.primary,
-                enabled: state.canUseSupTech,
-                onTap: state.canUseSupTech ? () => _useAction(context, 'explain') : null,
-              ),
-              const Gap(12),
-            ],
               ),
             ),
           );
@@ -118,9 +162,83 @@ class SupTechDialog extends StatelessWidget {
     );
   }
 
+  String _questionKeyFor(GameState state) {
+    switch (state.supTechContext) {
+      case SupTechContext.problem:
+        return '${state.currentLevel?.id}_step${state.currentStepIndex}';
+      case SupTechContext.boss:
+        return 'boss_${state.currentBoss?.id}';
+      case SupTechContext.quiz:
+      case SupTechContext.ordering:
+      case SupTechContext.scenario:
+      case SupTechContext.traps:
+      case SupTechContext.mistake:
+        return '${state.currentLevel?.id}';
+    }
+  }
+
+  Color _actionColor(ColorScheme scheme, String actionId) {
+    switch (actionId) {
+      case 'hint':
+        return scheme.tertiary;
+      case 'skip':
+        return scheme.error;
+      case 'diagnose':
+        return scheme.secondary;
+      case 'explain':
+        return scheme.primary;
+      default:
+        return scheme.primary;
+    }
+  }
+
+  String _labelFor(String actionId) {
+    switch (actionId) {
+      case 'hint':
+        return 'Hint';
+      case 'skip':
+        return 'Skipped';
+      case 'diagnose':
+        return 'Diagnosis';
+      case 'explain':
+        return 'Explanation';
+      default:
+        return 'Result';
+    }
+  }
+
   void _useAction(BuildContext context, String action) {
-    context.read<GameCubit>().useSupTech(action);
+    final cubit = context.read<GameCubit>();
+    cubit.useSupTech(action);
     Navigator.pop(context);
+
+    if (action == 'skip') return;
+
+    final hintText = cubit.state.hintText;
+    if (hintText != null) {
+      Future.microtask(() {
+        if (!context.mounted) return;
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Row(
+              children: [
+                Icon(Icons.lightbulb_outline, size: 20, color: _actionColor(Theme.of(ctx).colorScheme, action)),
+                const Gap(8),
+                Text(_labelFor(action)),
+              ],
+            ),
+            content: Text(hintText),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      });
+    }
   }
 }
 

@@ -111,7 +111,7 @@ class _LittleTechAppState extends State<LittleTechApp> {
         listeners: [
           BlocListener<AuthCubit, AuthState>(
             listener: (_, state) {
-              if (state is LoginSuccess) {
+              if (state is LoginSuccess || state is RegisterSuccess) {
                 _onAuthChanged(showAccountPicker: false);
               } else if (state is LogoutSuccess) {
                 _onAuthChanged(showAccountPicker: state.showAccountPicker);

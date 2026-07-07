@@ -6,6 +6,9 @@ import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/presentation/screens/mistake_screen.dart';
+import 'package:littletech/src/features/game/presentation/screens/suptech_dialog.dart';
+import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
+import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
 
 class OrderingScreen extends StatefulWidget {
   final WorldDef world;
@@ -109,6 +112,13 @@ class _OrderingScreenState extends State<OrderingScreen> {
                 );
               }),
             ),
+          ),
+          SupTechAvatarWrapper(
+            size: 32,
+            onTap: context.read<GameCubit>().state.canUseSupTech
+                ? () => _showSupTechDialog(context)
+                : null,
+            child: const SupTechAvatar(size: 32),
           ),
         ],
       ),
@@ -231,6 +241,14 @@ class _OrderingScreenState extends State<OrderingScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showSupTechDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const SupTechDialog(contextType: SupTechContext.ordering),
     );
   }
 }

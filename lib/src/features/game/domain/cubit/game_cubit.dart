@@ -11,6 +11,8 @@ import 'package:littletech/src/features/game/data/repositories/game_repository.d
 import 'package:littletech/src/features/game/constants/streak_tracker.dart';
 import 'package:littletech/src/core/constants/category_manager.dart';
 
+enum SupTechContext { problem, quiz, ordering, scenario, traps, mistake, boss }
+
 class GameState {
   final PlayerProgress progress;
   final WorldDef? currentWorld;
@@ -19,7 +21,7 @@ class GameState {
   final int currentBossHp;
   final int bossHpMultiplier;
   final RewardDef? lastDrawnReward;
-  final bool isBossMode;
+  final SupTechContext supTechContext;
   final String? hintText;
   final int pointsMultiplier;
   final BossEncounterDef? currentBoss;
@@ -29,6 +31,7 @@ class GameState {
   final Set<int> paidStepIndices;
   final int lastLevelPointsEarned;
   final bool earnedNoSupTechBonus;
+  final Map<String, Set<String>> usedSupTechActions;
 
   const GameState({
     required this.progress,
@@ -38,7 +41,7 @@ class GameState {
     this.currentBossHp = 0,
     this.bossHpMultiplier = 1,
     this.lastDrawnReward,
-    this.isBossMode = false,
+    this.supTechContext = SupTechContext.problem,
     this.hintText,
     this.pointsMultiplier = 1,
     this.currentBoss,
@@ -48,6 +51,7 @@ class GameState {
     this.paidStepIndices = const {},
     this.lastLevelPointsEarned = 0,
     this.earnedNoSupTechBonus = false,
+    this.usedSupTechActions = const {},
   });
 
   static const _sentinel = Object();
@@ -60,7 +64,7 @@ class GameState {
     int? currentBossHp,
     int? bossHpMultiplier,
     Object? lastDrawnReward = _sentinel,
-    bool? isBossMode,
+    SupTechContext? supTechContext,
     Object? hintText = _sentinel,
     int? pointsMultiplier,
     Object? currentBoss = _sentinel,
@@ -70,6 +74,7 @@ class GameState {
     Set<int>? paidStepIndices,
     int? lastLevelPointsEarned,
     bool? earnedNoSupTechBonus,
+    Map<String, Set<String>>? usedSupTechActions,
   }) {
     return GameState(
       progress: progress ?? this.progress,
@@ -79,7 +84,7 @@ class GameState {
       currentBossHp: currentBossHp ?? this.currentBossHp,
       bossHpMultiplier: bossHpMultiplier ?? this.bossHpMultiplier,
       lastDrawnReward: lastDrawnReward == _sentinel ? this.lastDrawnReward : lastDrawnReward as RewardDef?,
-      isBossMode: isBossMode ?? this.isBossMode,
+      supTechContext: supTechContext ?? this.supTechContext,
       hintText: hintText == _sentinel ? this.hintText : hintText as String?,
       pointsMultiplier: pointsMultiplier ?? this.pointsMultiplier,
       currentBoss: currentBoss == _sentinel ? this.currentBoss : currentBoss as BossEncounterDef?,
@@ -89,6 +94,7 @@ class GameState {
       paidStepIndices: paidStepIndices ?? this.paidStepIndices,
       lastLevelPointsEarned: lastLevelPointsEarned ?? this.lastLevelPointsEarned,
       earnedNoSupTechBonus: earnedNoSupTechBonus ?? this.earnedNoSupTechBonus,
+      usedSupTechActions: usedSupTechActions ?? this.usedSupTechActions,
     );
   }
 
@@ -200,9 +206,10 @@ class GameCubit extends Cubit<GameState> {
       currentWorld: world ?? state.currentWorld,
       currentLevel: level,
       currentStepIndex: 0,
-      isBossMode: false,
+      supTechContext: SupTechContext.problem,
       hintText: null,
       paidStepIndices: const {},
+      usedSupTechActions: const {},
     ));
   }
 
@@ -239,10 +246,11 @@ class GameCubit extends Cubit<GameState> {
 
   void startBoss(BossEncounterDef boss) {
     emit(state.copyWith(
-      isBossMode: true,
+      supTechContext: SupTechContext.boss,
       currentBossHp: boss.hp * state.bossHpMultiplier,
       currentBoss: boss,
       hintText: null,
+      usedSupTechActions: const {},
     ));
   }
 
@@ -335,7 +343,7 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void attackBoss({int damage = 1}) {
-    if (!state.isBossMode) return;
+    if (state.supTechContext != SupTechContext.boss) return;
     final hpLeft = state.currentBossHp - damage;
     final progress = state.progress;
 
@@ -381,63 +389,99 @@ class GameCubit extends Cubit<GameState> {
     emit(state.copyWith(lastDrawnReward: null));
   }
 
-  void useSupTech(String action) {
-    final progress = state.progress;
-    if (state.availableSupTechUses <= 0) return;
+  String _questionKey() {
+    final s = state;
+    switch (s.supTechContext) {
+      case SupTechContext.problem:
+        return '${s.currentLevel?.id}_step${s.currentStepIndex}';
+      case SupTechContext.boss:
+        return 'boss_${s.currentBoss?.id}';
+      case SupTechContext.quiz:
+      case SupTechContext.ordering:
+      case SupTechContext.scenario:
+      case SupTechContext.traps:
+      case SupTechContext.mistake:
+        return '${s.currentLevel?.id}';
+    }
+  }
 
-    final isBoss = state.isBossMode;
-
+  String? _hintTextFor(String action) {
+    final s = state;
     switch (action) {
       case 'hint':
-        if (isBoss) {
-          final boss = state.currentBoss;
-          _safePersist([() => _repository.useSupTech(progress)]);
-          emit(state.copyWith(
-            progress: progress,
-            hintText: 'Watch ${boss?.name ?? 'the boss'}\'s behavior carefully — '
-                'every attack pattern has a tell. Find the right counter and strike.',
-          ));
-        } else {
-          final hints = GameData.levelHints[state.currentLevel?.id];
-          if (hints != null && hints.isNotEmpty) {
-            _safePersist([() => _repository.useSupTech(progress)]);
-            emit(state.copyWith(
-              progress: progress,
-              hintText: hints[state.currentStepIndex % hints.length],
-            ));
-          }
+        if (s.supTechContext == SupTechContext.boss) {
+          final boss = s.currentBoss;
+          return 'Watch ${boss?.name ?? 'the boss'}\'s behavior carefully — '
+              'every attack pattern has a tell. Find the right counter and strike.';
         }
-      case 'skip':
-        if (isBoss || state.currentLevel == null) return;
-        _safePersist([() => _repository.useSupTech(progress)]);
-        solveStep();
+        final hints = GameData.levelHints[s.currentLevel?.id];
+        if (hints != null && hints.isNotEmpty) {
+          return hints[s.currentStepIndex % hints.length];
+        }
+        return null;
       case 'diagnose':
-        _safePersist([() => _repository.useSupTech(progress)]);
-        final area = isBoss
+        final area = s.supTechContext == SupTechContext.boss
             ? ' in this battle'
-            : state.currentWorld != null
-                ? ' in this ${state.currentWorld!.name} scenario'
+            : s.currentWorld != null
+                ? ' in this ${s.currentWorld!.name} scenario'
                 : '';
-        emit(state.copyWith(
-          progress: progress,
-          hintText: 'Start by identifying what\'s working and what isn\'t$area. '
-              'Check for error messages, unusual behavior, or missing output.',
-        ));
+        return 'Start by identifying what\'s working and what isn\'t$area. '
+            'Check for error messages, unusual behavior, or missing output.';
       case 'explain':
-        if (isBoss) {
-          _safePersist([() => _repository.useSupTech(progress)]);
-          emit(state.copyWith(
-            progress: progress,
-            hintText: state.currentBoss?.lore ?? 'Every boss has a weakness. Observe and adapt.',
-          ));
-        } else if (state.currentLevel != null &&
-            state.currentStepIndex < state.currentLevel!.steps.length) {
-          _safePersist([() => _repository.useSupTech(progress)]);
-          emit(state.copyWith(
-            progress: progress,
-            hintText: state.currentLevel!.steps[state.currentStepIndex],
-          ));
+        if (s.supTechContext == SupTechContext.boss) {
+          return s.currentBoss?.lore ?? 'Every boss has a weakness. Observe and adapt.';
         }
+        if (s.currentLevel != null &&
+            s.currentStepIndex < s.currentLevel!.steps.length) {
+          return s.currentLevel!.steps[s.currentStepIndex];
+        }
+        return null;
+    }
+    return null;
+  }
+
+  void useSupTech(String action) {
+    final progress = state.progress;
+    final questionKey = _questionKey();
+
+    final alreadyUsed =
+        state.usedSupTechActions[questionKey]?.contains(action) ?? false;
+
+    if (alreadyUsed) {
+      final hintText = _hintTextFor(action);
+      if (hintText != null) {
+        emit(state.copyWith(hintText: hintText));
+      }
+      return;
+    }
+
+    if (state.availableSupTechUses <= 0) return;
+
+    final used = Map<String, Set<String>>.from(state.usedSupTechActions);
+    used.update(questionKey, (set) => Set<String>.from(set)..add(action),
+        ifAbsent: () => {action});
+
+    final hintText = _hintTextFor(action);
+
+    if (action == 'skip') {
+      if (state.supTechContext == SupTechContext.boss ||
+          state.currentLevel == null) {
+        return;
+      }
+      _safePersist([() => _repository.useSupTech(progress)]);
+      emit(state.copyWith(
+        progress: progress,
+        usedSupTechActions: used,
+      ));
+      solveStep();
+    } else {
+      if (hintText == null) return;
+      _safePersist([() => _repository.useSupTech(progress)]);
+      emit(state.copyWith(
+        progress: progress,
+        hintText: hintText,
+        usedSupTechActions: used,
+      ));
     }
   }
 

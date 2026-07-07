@@ -737,7 +737,7 @@ class _BossScreenState extends State<BossScreen>
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SupTechDialog(),
+      builder: (_) => const SupTechDialog(contextType: SupTechContext.boss),
     );
   }
 }

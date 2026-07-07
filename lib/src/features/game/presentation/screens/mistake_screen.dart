@@ -8,6 +8,9 @@ import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/constants/prep_data.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/presentation/screens/scenario_screen.dart';
+import 'package:littletech/src/features/game/presentation/screens/suptech_dialog.dart';
+import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
+import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
 
 class MistakeScreen extends StatefulWidget {
   final WorldDef world;
@@ -83,6 +86,15 @@ class _MistakeScreenState extends State<MistakeScreen> {
       appBar: AppBar(
         title: const Text('Spot the Mistake'),
         backgroundColor: Colors.transparent,
+        actions: [
+          SupTechAvatarWrapper(
+            size: 32,
+            onTap: context.read<GameCubit>().state.canUseSupTech
+                ? () => _showSupTechDialog(context)
+                : null,
+            child: const SupTechAvatar(size: 32),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -293,6 +305,14 @@ class _MistakeScreenState extends State<MistakeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showSupTechDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const SupTechDialog(contextType: SupTechContext.mistake),
     );
   }
 }

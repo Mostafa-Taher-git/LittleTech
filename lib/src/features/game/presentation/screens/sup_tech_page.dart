@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:littletech/src/features/game/constants/skin_tiers.dart';
+import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/domain/cubit/suptech_customization_cubit.dart';
 import 'package:littletech/src/features/game/domain/models/suptech_customization.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_body_renderer.dart';
@@ -120,7 +121,7 @@ class SupTechPage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _labeledPanel('Traits', _buildTraitsSection())),
+            Expanded(child: _labeledPanel('Skins', _buildSkinsSection(context))),
             const SizedBox(width: 24),
             Expanded(
               child: _labeledPanel('Character', _buildMainCharacter(context, cubit, c)),
@@ -148,7 +149,7 @@ class SupTechPage extends StatelessWidget {
       BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
     return Column(
       children: [
-        _labeledPanel('Traits', _buildTraitsSection()),
+        _labeledPanel('Skins', _buildSkinsSection(context)),
         const SizedBox(height: 20),
         _labeledPanel('Character', _buildMainCharacter(context, cubit, c)),
         const SizedBox(height: 20),
@@ -306,34 +307,74 @@ class SupTechPage extends StatelessWidget {
     SupTechExpression.error => 'Error',
   };
 
-  Widget _buildTraitsSection() {
+  Widget _buildSkinsSection(BuildContext context) {
+    final progress = context.watch<GameCubit>().state.progress;
     return Wrap(
-      spacing: 10, runSpacing: 10,
-      children: [
-        _traitChip(Icons.psychology, 'Smart', const Color(0xFF4777EA)),
-        _traitChip(Icons.emoji_emotions, 'Helpful', const Color(0xFF11A36A)),
-        _traitChip(Icons.lock, 'Secure', const Color(0xFF2777C8)),
-        _traitChip(Icons.sentiment_satisfied, 'Friendly', const Color(0xFFD58B17)),
-      ],
-    );
-  }
-
-  Widget _traitChip(IconData icon, String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: color.withValues(alpha: 0.18)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 17, color: color),
-          const SizedBox(width: 8),
-          Text(label, style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w700)),
-        ],
-      ),
+      spacing: 8, runSpacing: 8,
+      children: SkinTierManager.skins.map((s) {
+        final purchased = progress.purchasedItemIds.contains(s.id);
+        final earnedAsReward = progress.earnedRewardIds.contains('skin_${s.id}');
+        final unlocked = progress.unlockedSkinIds.contains(s.id) || earnedAsReward || purchased;
+        final isActive = progress.activeSkinId == s.id;
+        return GestureDetector(
+          onTap: unlocked ? () => context.read<GameCubit>().setActiveSkin(s.id) : null,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: isActive
+                  ? s.color.withValues(alpha: 0.2)
+                  : unlocked
+                      ? Colors.white
+                      : Colors.white.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isActive
+                    ? s.color
+                    : unlocked
+                        ? const Color(0xFFD4DCE8).withValues(alpha: 0.5)
+                        : const Color(0xFFD4DCE8).withValues(alpha: 0.2),
+                width: isActive ? 2 : 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(s.previewIcon, color: unlocked ? s.color : const Color(0xFF738197).withValues(alpha: 0.4), size: 18),
+                const SizedBox(width: 8),
+                Text(
+                  s.name,
+                  style: TextStyle(
+                    color: unlocked ? s.color : const Color(0xFF738197).withValues(alpha: 0.4),
+                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                ),
+                if (isActive) ...[
+                  const SizedBox(width: 6),
+                  Icon(Icons.check_circle, color: s.color, size: 16),
+                ] else if (!unlocked) ...[
+                  const SizedBox(width: 6),
+                  GestureDetector(
+                    onTap: () => context.read<GameCubit>().purchaseItem(s.id),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8C840).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        'Buy',
+                        style: TextStyle(color: Color(0xFFE8C840), fontSize: 10, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 
