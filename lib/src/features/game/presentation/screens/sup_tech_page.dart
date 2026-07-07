@@ -134,7 +134,7 @@ class SupTechPage extends StatelessWidget {
         const SizedBox(height: 24),
         _labeledPanel(
           'Accessories',
-          _buildAccessorySelectors(context, cubit, c),
+          _buildAccessorySelectors(context, cubit, c, skin),
         ),
         const SizedBox(height: 24),
         _labeledPanel(
@@ -154,7 +154,7 @@ class SupTechPage extends StatelessWidget {
         const SizedBox(height: 20),
         _labeledPanel('Character', _buildMainCharacter(context, cubit, c, skin)),
         const SizedBox(height: 20),
-        _labeledPanel('Accessories', _buildAccessorySelectors(context, cubit, c)),
+        _labeledPanel('Accessories', _buildAccessorySelectors(context, cubit, c, skin)),
         const SizedBox(height: 20),
         _labeledPanel('About', _buildAboutSection(skin)),
         const SizedBox(height: 20),
@@ -194,17 +194,17 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildAccessorySelectors(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _selectorRow('Head', SupTechHeadAccessory.values, c.headAccessory,
+        _selectorRow('Head', SupTechHeadAccessory.values, c.headAccessory ?? skin.headAccessory,
             (v) => cubit.setHeadAccessory(v)),
         const SizedBox(height: 14),
-        _selectorRow('Ears', SupTechEarAccessory.values, c.earAccessory,
+        _selectorRow('Ears', SupTechEarAccessory.values, c.earAccessory ?? skin.earAccessory,
             (v) => cubit.setEarAccessory(v)),
         const SizedBox(height: 14),
-        _selectorRow('Chest', SupTechChestAccessory.values, c.chestAccessory,
+        _selectorRow('Chest', SupTechChestAccessory.values, c.chestAccessory ?? skin.chestAccessory,
             (v) => cubit.setChestAccessory(v)),
       ],
     );
@@ -229,7 +229,13 @@ class SupTechPage extends StatelessWidget {
             final isSel = selected == v;
             final noneLabel = v.toString().contains('none');
             return GestureDetector(
-              onTap: () => onSelected(isSel ? null : v),
+              onTap: () {
+                final noneVal = values.firstWhere(
+                  (v) => v.toString().contains('none'),
+                  orElse: () => values.first,
+                );
+                onSelected(isSel ? noneVal : v);
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
@@ -318,7 +324,12 @@ class SupTechPage extends StatelessWidget {
         final unlocked = progress.unlockedSkinIds.contains(s.id) || earnedAsReward || purchased;
         final isActive = progress.activeSkinId == s.id;
         return GestureDetector(
-          onTap: unlocked ? () => context.read<GameCubit>().setActiveSkin(s.id) : null,
+          onTap: unlocked
+              ? () {
+                  context.read<GameCubit>().setActiveSkin(s.id);
+                  context.read<SupTechCustomizationCubit>().reset();
+                }
+              : null,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -421,9 +432,9 @@ class SupTechPage extends StatelessWidget {
           painter: _InteractiveConceptPainter(
             skin: skin,
             expression: expression,
-            headAccessory: c.headAccessory ?? SupTechHeadAccessory.none,
-            earAccessory: c.earAccessory ?? SupTechEarAccessory.none,
-            chestAccessory: c.chestAccessory ?? SupTechChestAccessory.none,
+            headAccessory: c.headAccessory,
+            earAccessory: c.earAccessory,
+            chestAccessory: c.chestAccessory,
           ),
           size: Size(maxWidth, height),
         ),
@@ -439,16 +450,16 @@ class SupTechPage extends StatelessWidget {
 class _InteractiveConceptPainter extends CustomPainter {
   final SkinDefinition skin;
   final SupTechExpression expression;
-  final SupTechHeadAccessory headAccessory;
-  final SupTechEarAccessory earAccessory;
-  final SupTechChestAccessory chestAccessory;
+  final SupTechHeadAccessory? headAccessory;
+  final SupTechEarAccessory? earAccessory;
+  final SupTechChestAccessory? chestAccessory;
 
   _InteractiveConceptPainter({
     required this.skin,
     required this.expression,
-    this.headAccessory = SupTechHeadAccessory.none,
-    this.earAccessory = SupTechEarAccessory.none,
-    this.chestAccessory = SupTechChestAccessory.none,
+    this.headAccessory,
+    this.earAccessory,
+    this.chestAccessory,
   });
 
   @override
@@ -469,7 +480,7 @@ class _InteractiveConceptPainter extends CustomPainter {
     );
 
     // Body + hood (shared variant-aware drawing)
-    final headAcc = headAccessory != SupTechHeadAccessory.none ? headAccessory : skin.headAccessory;
+    final headAcc = headAccessory ?? skin.headAccessory;
     if (!drawSupTechBodyVariant(canvas, skin, s, skin.variant)) {
       drawSupTechBody(canvas, skin, s, -1 * s, 12 * s, 16 * s, 22 * s);
       drawSupTechHead(canvas, skin, s, -8.8 * s, 11.75 * s, -3 * s, 10 * s, 13 * s, -28 * s,
@@ -515,8 +526,8 @@ class _InteractiveConceptPainter extends CustomPainter {
         drawNinjaFaceScarf(canvas, skin, s, headCY, 23.5 * s, 14.5 * s);
       }
     }
-    final earAcc = earAccessory != SupTechEarAccessory.none ? earAccessory : skin.earAccessory;
-    final chestAcc = chestAccessory != SupTechChestAccessory.none ? chestAccessory : skin.chestAccessory;
+    final earAcc = earAccessory ?? skin.earAccessory;
+    final chestAcc = chestAccessory ?? skin.chestAccessory;
     drawSupTechHeadAccessory(canvas, skin, s, headCY, headR, hoodPeakY, headAcc);
     drawSupTechEarAccessory(canvas, skin, s, headCY, headR, earAcc, hoodPeakY: hoodPeakY);
     drawSupTechChestAccessory(canvas, skin, s, bodyTopY, bodyBotY, chestAcc);
