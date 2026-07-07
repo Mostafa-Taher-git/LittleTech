@@ -22,7 +22,7 @@ class StatsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: scheme.surface,
       appBar: AppBar(
-        title: const Text('Character Sheet'),
+        title: const Text('Stats'),
         backgroundColor: Colors.transparent,
       ),
       body: Builder(
@@ -38,7 +38,6 @@ class StatsScreen extends StatelessWidget {
                   .length;
               final totalLevels = GameData.worlds.fold(0, (s, w) => s + w.levels.length);
               final worldsCompleted = p.completedCategoryIds.length;
-              final currentSkin = SkinTierManager.skinForLevelsCleared(p.levelsCleared);
 
               return ListView(
                 padding: const EdgeInsets.all(16),
@@ -73,23 +72,6 @@ class StatsScreen extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                           textAlign: TextAlign.center,
                         ),
-                        const Gap(4),
-                        if (currentSkin != null)
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: currentSkin.color.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              currentSkin.tierLabel,
-                              style: TextStyle(
-                                color: currentSkin.color,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
                       ],
                     ),
                   ),
@@ -140,93 +122,6 @@ class StatsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Gap(24),
-                  Text(
-                    'Skins',
-                    style: TextStyle(
-                      color: scheme.onSurface,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const Gap(12),
-                  ...SkinTierManager.skins.map((skin) {
-                    final isProgression = !skin.isRewardSkin;
-                    final unlocked = isProgression
-                        ? p.levelsCleared >= skin.levelsRequired
-                        : p.unlockedSkinIds.contains(skin.id) || p.earnedRewardIds.contains('skin_${skin.id}');
-                    final isActive = p.activeSkinId == skin.id;
-                    return GestureDetector(
-                      onTap: unlocked
-                          ? () => context.read<GameCubit>().setActiveSkin(skin.id)
-                          : null,
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isActive
-                              ? skin.color.withValues(alpha: 0.15)
-                              : unlocked
-                                  ? skin.color.withValues(alpha: 0.05)
-                                  : scheme.surface,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: isActive
-                                ? skin.color
-                                : unlocked
-                                    ? skin.color.withValues(alpha: 0.3)
-                                    : scheme.outline.withValues(alpha: 0.15),
-                            width: isActive ? 2 : 1,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: skin.color.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Icon(skin.previewIcon, color: unlocked ? skin.color : scheme.onSurface.withValues(alpha: 0.3), size: 18),
-                            ),
-                            const Gap(12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    skin.name,
-                                    style: TextStyle(
-                                      color: unlocked ? skin.color : scheme.onSurface.withValues(alpha: 0.5),
-                                      fontWeight: isActive ? FontWeight.w700 : FontWeight.w600,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                  Text(
-                                    isProgression
-                                        ? (unlocked ? 'Unlocked at ${skin.levelsRequired} levels' : '${p.levelsCleared}/${skin.levelsRequired} levels')
-                                        : 'Reward skin',
-                                    style: TextStyle(
-                                      color: scheme.onSurface.withValues(alpha: 0.4),
-                                      fontSize: 11,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (isActive)
-                              Icon(Icons.check_circle, color: skin.color, size: 20)
-                            else if (unlocked)
-                              Icon(Icons.radio_button_unchecked, color: scheme.onSurface.withValues(alpha: 0.4), size: 20)
-                            else
-                              Icon(Icons.lock, color: scheme.onSurface.withValues(alpha: 0.3), size: 20),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
                 ],
               );
             },
