@@ -32,6 +32,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
   void initState() {
     super.initState();
     _shuffled = List<String>.from(widget.level.steps)..shuffle();
+    context.read<GameCubit>().setSupTechContext(SupTechContext.ordering);
   }
 
   void _moveItem(int oldIndex, int newIndex) {

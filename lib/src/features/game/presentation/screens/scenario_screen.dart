@@ -30,6 +30,12 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
   final List<int> _userAnswers = [];
   final List<bool> _questionResults = [];
 
+  @override
+  void initState() {
+    super.initState();
+    context.read<GameCubit>().setSupTechContext(SupTechContext.scenario);
+  }
+
   List<Map<String, dynamic>> get _levelScenarios {
     return [
       PrepData.scenarios[PrepData.key(widget.level.id)] ?? {
@@ -447,7 +453,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SupTechDialog(contextType: SupTechContext.scenario),
+      builder: (_) => SupTechDialog(contextType: SupTechContext.scenario, questionIndex: _currentQuestion),
     );
   }
 }

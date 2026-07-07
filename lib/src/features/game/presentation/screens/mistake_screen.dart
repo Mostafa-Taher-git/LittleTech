@@ -34,6 +34,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
     _shuffledSteps = List<Map<String, dynamic>>.from(
       (_levelMistake['steps'] as List<dynamic>).cast<Map<String, dynamic>>(),
     )..shuffle(Random());
+    context.read<GameCubit>().setSupTechContext(SupTechContext.mistake);
   }
 
   Map<String, dynamic> get _levelMistake {

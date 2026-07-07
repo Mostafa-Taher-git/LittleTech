@@ -37,6 +37,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void initState() {
     super.initState();
     _initShuffle();
+    context.read<GameCubit>().setSupTechContext(SupTechContext.quiz);
   }
 
   void _initShuffle() {
@@ -464,7 +465,7 @@ class _QuizScreenState extends State<QuizScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SupTechDialog(contextType: SupTechContext.quiz),
+      builder: (_) => SupTechDialog(contextType: SupTechContext.quiz, questionIndex: _currentQuestion),
     );
   }
 }

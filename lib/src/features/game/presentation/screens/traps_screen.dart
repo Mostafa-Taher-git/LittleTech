@@ -30,6 +30,12 @@ class _TrapsScreenState extends State<TrapsScreen> {
   final List<bool> _userAnswers = [];
   final List<bool> _trapResults = [];
 
+  @override
+  void initState() {
+    super.initState();
+    context.read<GameCubit>().setSupTechContext(SupTechContext.traps);
+  }
+
   List<Map<String, dynamic>> get _levelTraps {
     return PrepData.traps[PrepData.key(widget.level.id)] ?? [
       {'statement': 'Identifying symptoms is the first troubleshooting step', 'isTrue': true},
@@ -361,7 +367,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SupTechDialog(contextType: SupTechContext.traps),
+      builder: (_) => SupTechDialog(contextType: SupTechContext.traps, questionIndex: _currentIndex),
     );
   }
 }

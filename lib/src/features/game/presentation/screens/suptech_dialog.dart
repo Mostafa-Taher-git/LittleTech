@@ -61,8 +61,9 @@ final _contextActions = {
 
 class SupTechDialog extends StatelessWidget {
   final SupTechContext contextType;
+  final int questionIndex;
 
-  const SupTechDialog({super.key, required this.contextType});
+  const SupTechDialog({super.key, required this.contextType, this.questionIndex = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,13 @@ class SupTechDialog extends StatelessWidget {
       child: BlocBuilder<GameCubit, GameState>(
         builder: (_, state) {
           final poolZero = state.availableSupTechUses <= 0;
-          final questionKey = _questionKeyFor(state);
+          final questionKey = GameState.questionKey(
+            context: state.supTechContext,
+            levelId: state.currentLevel?.id,
+            stepIndex: state.currentStepIndex,
+            bossId: state.currentBoss?.id,
+            itemIndex: questionIndex,
+          );
 
           return ConstrainedBox(
             constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
@@ -162,21 +169,6 @@ class SupTechDialog extends StatelessWidget {
     );
   }
 
-  String _questionKeyFor(GameState state) {
-    switch (state.supTechContext) {
-      case SupTechContext.problem:
-        return '${state.currentLevel?.id}_step${state.currentStepIndex}';
-      case SupTechContext.boss:
-        return 'boss_${state.currentBoss?.id}';
-      case SupTechContext.quiz:
-      case SupTechContext.ordering:
-      case SupTechContext.scenario:
-      case SupTechContext.traps:
-      case SupTechContext.mistake:
-        return '${state.currentLevel?.id}';
-    }
-  }
-
   Color _actionColor(ColorScheme scheme, String actionId) {
     switch (actionId) {
       case 'hint':
@@ -209,7 +201,7 @@ class SupTechDialog extends StatelessWidget {
 
   void _useAction(BuildContext context, String action) {
     final cubit = context.read<GameCubit>();
-    cubit.useSupTech(action);
+    cubit.useSupTech(action, questionIndex: questionIndex);
     Navigator.pop(context);
 
     if (action == 'skip') return;

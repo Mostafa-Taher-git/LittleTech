@@ -98,6 +98,31 @@ class GameState {
     );
   }
 
+  static String questionKey({
+    required SupTechContext context,
+    String? levelId,
+    int stepIndex = 0,
+    String? bossId,
+    int itemIndex = 0,
+  }) {
+    switch (context) {
+      case SupTechContext.problem:
+        return '${levelId}_step$stepIndex';
+      case SupTechContext.boss:
+        return 'boss_$bossId';
+      case SupTechContext.quiz:
+        return '${levelId}_q$itemIndex';
+      case SupTechContext.ordering:
+        return '$levelId';
+      case SupTechContext.scenario:
+        return '${levelId}_s$itemIndex';
+      case SupTechContext.traps:
+        return '${levelId}_t$itemIndex';
+      case SupTechContext.mistake:
+        return '$levelId';
+    }
+  }
+
   bool get canUseSupTech =>
       progress.supTechUsesThisLevel > 0 || progress.extraSupTechUses > 0;
 
@@ -177,6 +202,10 @@ class GameCubit extends Cubit<GameState> {
 
   void setPointsMultiplier(int multiplier) {
     emit(state.copyWith(pointsMultiplier: multiplier));
+  }
+
+  void setSupTechContext(SupTechContext context) {
+    emit(state.copyWith(supTechContext: context));
   }
 
   void completeDailyQuest() {
@@ -389,20 +418,15 @@ class GameCubit extends Cubit<GameState> {
     emit(state.copyWith(lastDrawnReward: null));
   }
 
-  String _questionKey() {
+  String _questionKey({int itemIndex = 0}) {
     final s = state;
-    switch (s.supTechContext) {
-      case SupTechContext.problem:
-        return '${s.currentLevel?.id}_step${s.currentStepIndex}';
-      case SupTechContext.boss:
-        return 'boss_${s.currentBoss?.id}';
-      case SupTechContext.quiz:
-      case SupTechContext.ordering:
-      case SupTechContext.scenario:
-      case SupTechContext.traps:
-      case SupTechContext.mistake:
-        return '${s.currentLevel?.id}';
-    }
+    return GameState.questionKey(
+      context: s.supTechContext,
+      levelId: s.currentLevel?.id,
+      stepIndex: s.currentStepIndex,
+      bossId: s.currentBoss?.id,
+      itemIndex: itemIndex,
+    );
   }
 
   String? _hintTextFor(String action) {
@@ -440,9 +464,9 @@ class GameCubit extends Cubit<GameState> {
     return null;
   }
 
-  void useSupTech(String action) {
+  void useSupTech(String action, {int questionIndex = 0}) {
     final progress = state.progress;
-    final questionKey = _questionKey();
+    final questionKey = _questionKey(itemIndex: questionIndex);
 
     final alreadyUsed =
         state.usedSupTechActions[questionKey]?.contains(action) ?? false;
