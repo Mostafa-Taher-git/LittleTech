@@ -637,7 +637,7 @@ void _drawFlameEmblem(Canvas canvas, SkinDefinition skin, double s, double bodyT
 }
 
 void _drawStaff(Canvas canvas, SkinDefinition skin, double s, double bodyTopY, double bodyBotY) {
-  final staffX = 6 * s;
+  final staffX = 14 * s;
   final staffTop = bodyTopY + 2 * s;
   final staffBot = bodyBotY - 2 * s;
   // Levitation glow beneath staff
