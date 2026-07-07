@@ -10,13 +10,14 @@ import 'package:littletech/src/features/game/presentation/widgets/sup_tech_body_
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_renderer.dart';
 
 class SupTechPage extends StatelessWidget {
-  final SkinDefinition skin;
-  const SupTechPage({super.key, required this.skin});
+  const SupTechPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<SupTechCustomizationCubit>();
     final c = cubit.state;
+    final progress = context.watch<GameCubit>().state.progress;
+    final skin = SkinTierManager.fromId(progress.activeSkinId);
     final isWide = MediaQuery.sizeOf(context).width > 720;
 
     return Scaffold(
@@ -31,8 +32,8 @@ class SupTechPage extends StatelessWidget {
               36,
             ),
             child: isWide
-                ? _buildWideLayout(context, cubit, c)
-                : _buildNarrowLayout(context, cubit, c),
+                ? _buildWideLayout(context, cubit, c, skin)
+                : _buildNarrowLayout(context, cubit, c, skin),
           ),
           Positioned(
             top: MediaQuery.paddingOf(context).top + 12,
@@ -115,7 +116,7 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildWideLayout(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     return Column(
       children: [
         Row(
@@ -124,10 +125,10 @@ class SupTechPage extends StatelessWidget {
             Expanded(child: _labeledPanel('Skins', _buildSkinsSection(context))),
             const SizedBox(width: 24),
             Expanded(
-              child: _labeledPanel('Character', _buildMainCharacter(context, cubit, c)),
+              child: _labeledPanel('Character', _buildMainCharacter(context, cubit, c, skin)),
             ),
             const SizedBox(width: 24),
-            Expanded(child: _labeledPanel('About', _buildAboutSection())),
+            Expanded(child: _labeledPanel('About', _buildAboutSection(skin))),
           ],
         ),
         const SizedBox(height: 24),
@@ -138,7 +139,7 @@ class SupTechPage extends StatelessWidget {
         const SizedBox(height: 24),
         _labeledPanel(
           'Expressions',
-          _buildExpressionsRow(context, cubit, c),
+          _buildExpressionsRow(context, cubit, c, skin),
           padding: const EdgeInsets.fromLTRB(22, 16, 22, 18),
         ),
       ],
@@ -146,20 +147,20 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildNarrowLayout(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     return Column(
       children: [
         _labeledPanel('Skins', _buildSkinsSection(context)),
         const SizedBox(height: 20),
-        _labeledPanel('Character', _buildMainCharacter(context, cubit, c)),
+        _labeledPanel('Character', _buildMainCharacter(context, cubit, c, skin)),
         const SizedBox(height: 20),
         _labeledPanel('Accessories', _buildAccessorySelectors(context, cubit, c)),
         const SizedBox(height: 20),
-        _labeledPanel('About', _buildAboutSection()),
+        _labeledPanel('About', _buildAboutSection(skin)),
         const SizedBox(height: 20),
         _labeledPanel(
           'Expressions',
-          _buildExpressionsRow(context, cubit, c),
+          _buildExpressionsRow(context, cubit, c, skin),
           padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
         ),
       ],
@@ -167,7 +168,7 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildExpressionsRow(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     final expressions = [
       SupTechExpression.neutral,
       SupTechExpression.happy,
@@ -183,7 +184,7 @@ class SupTechPage extends StatelessWidget {
             for (var i = 0; i < expressions.length; i++) ...[
               if (i > 0) const SizedBox(width: 10),
               Expanded(
-                child: _expressionCard(expressions[i], cubit, c),
+                child: _expressionCard(expressions[i], cubit, c, skin),
               ),
             ],
           ],
@@ -254,7 +255,7 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _expressionCard(
-      SupTechExpression expr, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      SupTechExpression expr, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     final isSelected = (c.expression ?? SupTechExpression.neutral) == expr;
     return GestureDetector(
       onTap: () => cubit.setExpression(isSelected ? null : expr),
@@ -378,7 +379,7 @@ class SupTechPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAboutSection() {
+  Widget _buildAboutSection(SkinDefinition skin) {
     return Column(
       children: [
         _aboutRow('Name', skin.name),
@@ -408,7 +409,7 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildMainCharacter(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c) {
+      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
     final maxWidth = min(280.0, MediaQuery.sizeOf(context).width - 36);
     final height = maxWidth * (516 / 386);
     final expression = c.expression ?? SupTechExpression.neutral;

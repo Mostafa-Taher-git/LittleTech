@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:littletech/src/features/game/constants/reward_pool.dart';
-import 'package:littletech/src/features/game/constants/skin_tiers.dart';
 import 'package:littletech/src/features/game/constants/streak_tracker.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/domain/cubit/theme_cubit.dart';
@@ -117,10 +116,9 @@ SupTechAvatarWrapper(
                           const Gap(12),
                           GestureDetector(
                             onTap: () {
-                              final skin = SkinTierManager.fromId(progress.activeSkinId);
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (_) => SupTechPage(skin: skin),
+                                  builder: (_) => const SupTechPage(),
                                 ),
                               );
                             },
