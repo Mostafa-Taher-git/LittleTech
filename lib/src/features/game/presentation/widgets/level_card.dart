@@ -113,13 +113,13 @@ class LevelCard extends StatelessWidget {
                                   level.title,
                                   style: theme.textTheme.titleSmall?.copyWith(
                                     color: isLocked
-                                        ? scheme.onSurface.withValues(alpha: 0.3)
+                                        ? scheme.onSurface
+                                            .withValues(alpha: 0.3)
                                         : isBossLevel
                                             ? bossColor
                                             : scheme.onSurface,
-                                    fontWeight: isBossLevel
-                                        ? FontWeight.w800
-                                        : null,
+                                    fontWeight:
+                                        isBossLevel ? FontWeight.w800 : null,
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -132,7 +132,8 @@ class LevelCard extends StatelessWidget {
                             children: [
                               Icon(Icons.arrow_right_alt,
                                   size: 14,
-                                  color: scheme.onSurface.withValues(alpha: 0.3)),
+                                  color:
+                                      scheme.onSurface.withValues(alpha: 0.3)),
                               const Gap(2),
                               Flexible(
                                 child: Text(
@@ -140,8 +141,10 @@ class LevelCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: isLocked
-                                        ? scheme.onSurface.withValues(alpha: 0.2)
-                                        : scheme.onSurface.withValues(alpha: 0.5),
+                                        ? scheme.onSurface
+                                            .withValues(alpha: 0.2)
+                                        : scheme.onSurface
+                                            .withValues(alpha: 0.5),
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -164,7 +167,10 @@ class LevelCard extends StatelessWidget {
                         shape: BoxShape.circle,
                         gradient: isBossLevel
                             ? RadialGradient(
-                                colors: [bossColor, bossColor.withValues(alpha: 0.6)],
+                                colors: [
+                                  bossColor,
+                                  bossColor.withValues(alpha: 0.6)
+                                ],
                               )
                             : const RadialGradient(
                                 colors: [Color(0xFFFFD700), Color(0xFFB8860B)],
@@ -221,7 +227,9 @@ class LevelCard extends StatelessWidget {
                   color: Colors.black.withValues(alpha: 0.08),
                 ),
                 child: Center(
-                  child: Icon(Icons.lock_outline, color: scheme.onSurface.withValues(alpha: 0.45), size: 20),
+                  child: Icon(Icons.lock_outline,
+                      color: scheme.onSurface.withValues(alpha: 0.45),
+                      size: 20),
                 ),
               ),
             ),
@@ -414,8 +422,10 @@ class _DoorArchPainter extends CustomPainter {
       ..moveTo(size.width * 0.2, size.height)
       ..lineTo(size.width * 0.2, size.height * 0.3)
       ..quadraticBezierTo(
-        size.width * 0.5, size.height * 0.05,
-        size.width * 0.8, size.height * 0.3,
+        size.width * 0.5,
+        size.height * 0.05,
+        size.width * 0.8,
+        size.height * 0.3,
       )
       ..lineTo(size.width * 0.8, size.height);
 
@@ -443,7 +453,8 @@ class _DoorArchPainter extends CustomPainter {
       final w = 4 + rng.nextDouble() * 8;
       final h = 2 + rng.nextDouble() * 3;
       final stonePaint = Paint()
-        ..color = scheme.primary.withValues(alpha: 0.04 + rng.nextDouble() * 0.04);
+        ..color =
+            scheme.primary.withValues(alpha: 0.04 + rng.nextDouble() * 0.04);
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(x, y, w, h),
@@ -526,15 +537,21 @@ class _BossDoorPainter extends CustomPainter {
         ..style = PaintingStyle.fill;
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-          Rect.fromCenter(center: Offset(cx, cy - 2 * s), width: 16 * s, height: 14 * s),
+          Rect.fromCenter(
+              center: Offset(cx, cy - 2 * s), width: 16 * s, height: 14 * s),
           Radius.circular(3 * s),
         ),
         cupPaint,
       );
       // Cup handle left
       canvas.drawArc(
-        Rect.fromCenter(center: Offset(cx - 10 * s, cy - 2 * s), width: 6 * s, height: 8 * s),
-        -pi * 0.5, pi, false,
+        Rect.fromCenter(
+            center: Offset(cx - 10 * s, cy - 2 * s),
+            width: 6 * s,
+            height: 8 * s),
+        -pi * 0.5,
+        pi,
+        false,
         Paint()
           ..color = const Color(0xFFFFD700)
           ..style = PaintingStyle.stroke
@@ -542,8 +559,13 @@ class _BossDoorPainter extends CustomPainter {
       );
       // Cup handle right
       canvas.drawArc(
-        Rect.fromCenter(center: Offset(cx + 10 * s, cy - 2 * s), width: 6 * s, height: 8 * s),
-        pi * 0.5, pi, false,
+        Rect.fromCenter(
+            center: Offset(cx + 10 * s, cy - 2 * s),
+            width: 6 * s,
+            height: 8 * s),
+        pi * 0.5,
+        pi,
+        false,
         Paint()
           ..color = const Color(0xFFFFD700)
           ..style = PaintingStyle.stroke
@@ -556,7 +578,8 @@ class _BossDoorPainter extends CustomPainter {
         ..strokeCap = StrokeCap.round;
       canvas.drawLine(Offset(cx, cy + 5 * s), Offset(cx, cy + 10 * s), paint);
       // Base
-      canvas.drawLine(Offset(cx - 6 * s, cy + 10 * s), Offset(cx + 6 * s, cy + 10 * s), paint);
+      canvas.drawLine(Offset(cx - 6 * s, cy + 10 * s),
+          Offset(cx + 6 * s, cy + 10 * s), paint);
       // Star
       paint
         ..color = Colors.white.withValues(alpha: 0.8)
@@ -567,14 +590,18 @@ class _BossDoorPainter extends CustomPainter {
       paint.color = isLocked ? Colors.grey.withValues(alpha: 0.15) : color;
       // Skull shape
       canvas.drawOval(
-        Rect.fromCenter(center: Offset(cx, cy - 3 * s), width: 14 * s, height: 16 * s),
+        Rect.fromCenter(
+            center: Offset(cx, cy - 3 * s), width: 14 * s, height: 16 * s),
         paint,
       );
       // Jaw
-      paint.color = isLocked ? Colors.grey.withValues(alpha: 0.12) : color.withValues(alpha: 0.7);
+      paint.color = isLocked
+          ? Colors.grey.withValues(alpha: 0.12)
+          : color.withValues(alpha: 0.7);
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-          Rect.fromCenter(center: Offset(cx, cy + 8 * s), width: 10 * s, height: 6 * s),
+          Rect.fromCenter(
+              center: Offset(cx, cy + 8 * s), width: 10 * s, height: 6 * s),
           Radius.circular(2 * s),
         ),
         paint,
@@ -591,7 +618,9 @@ class _BossDoorPainter extends CustomPainter {
       canvas.drawCircle(Offset(cx + 3 * s, cy - 5 * s), 2 * s, eyePaint);
       // Nose
       final nosePaint = Paint()
-        ..color = isLocked ? Colors.black.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.3)
+        ..color = isLocked
+            ? Colors.black.withValues(alpha: 0.1)
+            : Colors.black.withValues(alpha: 0.3)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(Offset(cx, cy), 1 * s, nosePaint);
     }
@@ -639,8 +668,11 @@ class _DungeonTorchState extends State<_DungeonTorch>
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final color = widget.isLit ? scheme.secondary : scheme.outline.withValues(alpha: 0.2);
-    final stickColor = Color.lerp(scheme.primary, const Color(0xFF3E2723), 0.4) ?? const Color(0xFF3E2723);
+    final color =
+        widget.isLit ? scheme.secondary : scheme.outline.withValues(alpha: 0.2);
+    final stickColor =
+        Color.lerp(scheme.primary, const Color(0xFF3E2723), 0.4) ??
+            const Color(0xFF3E2723);
 
     return Container(
       width: 20,
@@ -708,12 +740,16 @@ class _TorchPainter extends CustomPainter {
       final flamePath = Path()
         ..moveTo(size.width / 2 - 4 * flicker, size.height * 0.55)
         ..quadraticBezierTo(
-          size.width / 2 - 2 * flicker, size.height * 0.3,
-          size.width / 2, size.height * 0.15 * (1 / flicker),
+          size.width / 2 - 2 * flicker,
+          size.height * 0.3,
+          size.width / 2,
+          size.height * 0.15 * (1 / flicker),
         )
         ..quadraticBezierTo(
-          size.width / 2 + 2 * flicker, size.height * 0.3,
-          size.width / 2 + 4 * flicker, size.height * 0.55,
+          size.width / 2 + 2 * flicker,
+          size.height * 0.3,
+          size.width / 2 + 4 * flicker,
+          size.height * 0.55,
         )
         ..close();
 

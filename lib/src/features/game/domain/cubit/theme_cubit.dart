@@ -69,7 +69,10 @@ class ThemeCubit extends Cubit<ThemeData> {
         elevation: 0,
         centerTitle: false,
         titleTextStyle: cfg.titleStyle ??
-            GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w700, color: cfg.appBarForeground),
+            GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: cfg.appBarForeground),
       ),
       cardTheme: CardThemeData(
         color: cfg.cardColor,
@@ -85,7 +88,8 @@ class ThemeCubit extends Cubit<ThemeData> {
           foregroundColor: cfg.buttonForeground,
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
@@ -96,7 +100,8 @@ class ThemeCubit extends Cubit<ThemeData> {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: cfg.inputFill,
-        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: cfg.inputBorder),
@@ -253,7 +258,10 @@ class ThemeCubit extends Cubit<ThemeData> {
     inputFill: const Color(0xFFFFF8E1),
     inputBorder: const Color(0xFFC4A97D),
     textTheme: GoogleFonts.cinzelTextTheme(),
-    titleStyle: GoogleFonts.cinzel(fontSize: 20, fontWeight: FontWeight.w700, color: const Color(0xFF2C1810)),
+    titleStyle: GoogleFonts.cinzel(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        color: const Color(0xFF2C1810)),
   );
 
   static const _dungeonConfig = _ThemeConfig(

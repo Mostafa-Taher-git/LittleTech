@@ -46,16 +46,18 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
       duration: const Duration(seconds: 8),
     );
 
-    _particles = List.generate(30, (_) => _Particle(
-      x: _rng.nextDouble(),
-      y: 1.0 + _rng.nextDouble() * 0.3,
-      speed: 0.003 + _rng.nextDouble() * 0.005,
-      size: 2 + _rng.nextDouble() * 4,
-      opacity: 0.3 + _rng.nextDouble() * 0.5,
-      color: _rng.nextDouble() > 0.5
-          ? const Color(0xFFFFD700)
-          : const Color(0xFFFFA000),
-    ));
+    _particles = List.generate(
+        30,
+        (_) => _Particle(
+              x: _rng.nextDouble(),
+              y: 1.0 + _rng.nextDouble() * 0.3,
+              speed: 0.003 + _rng.nextDouble() * 0.005,
+              size: 2 + _rng.nextDouble() * 4,
+              opacity: 0.3 + _rng.nextDouble() * 0.5,
+              color: _rng.nextDouble() > 0.5
+                  ? const Color(0xFFFFD700)
+                  : const Color(0xFFFFA000),
+            ));
   }
 
   int get _totalPoints => context.read<GameCubit>().state.lastLevelPointsEarned;
@@ -64,7 +66,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller.isAnimating) return;
-    final raw = context.read<GameCubit>().state.progress.getPrepResult(widget.level.id);
+    final raw =
+        context.read<GameCubit>().state.progress.getPrepResult(widget.level.id);
     _prepData = raw != null ? json.decode(raw) as Map<String, dynamic> : null;
 
     _controller.addListener(() {
@@ -132,136 +135,142 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                 children: [
                   const SizedBox(height: 32),
                   Opacity(
-                  opacity: (t - 0.2).clamp(0.0, 1.0),
-                  child: Transform.scale(
-                    scale: 0.5 + 0.5 * ((t - 0.2) / 0.2).clamp(0.0, 1.0),
-                    child: Text(
-                      'LEVEL COMPLETE',
-                      style: TextStyle(
-                        color: const Color(0xFFF59E0B),
-                        fontSize: 36,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 6,
-                        shadows: [
-                          Shadow(
-                            color: const Color(0xFFF59E0B).withValues(alpha: 0.4),
-                            blurRadius: 20,
-                          ),
-                        ],
+                    opacity: (t - 0.2).clamp(0.0, 1.0),
+                    child: Transform.scale(
+                      scale: 0.5 + 0.5 * ((t - 0.2) / 0.2).clamp(0.0, 1.0),
+                      child: Text(
+                        'LEVEL COMPLETE',
+                        style: TextStyle(
+                          color: const Color(0xFFF59E0B),
+                          fontSize: 36,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 6,
+                          shadows: [
+                            Shadow(
+                              color: const Color(0xFFF59E0B)
+                                  .withValues(alpha: 0.4),
+                              blurRadius: 20,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const Gap(8),
-                Opacity(
-                  opacity: (t - 0.3).clamp(0.0, 1.0),
-                  child: Text(
-                    widget.level.title,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const Gap(40),
-                Opacity(
-                  opacity: (t - 0.4).clamp(0.0, 1.0),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 48),
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          '+$_displayPoints',
-                          style: TextStyle(
-                            color: const Color(0xFFF59E0B),
-                            fontSize: 42,
-                            fontWeight: FontWeight.w900,
-                            shadows: [
-                              Shadow(
-                                color: const Color(0xFFF59E0B).withValues(alpha: 0.3),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Gap(4),
-                        Text(
-                          'POINTS EARNED',
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.4),
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                ..._buildPrepChips(t),
-                if (widget.reward != null)
+                  const Gap(8),
                   Opacity(
-                    opacity: (t - 0.5).clamp(0.0, 1.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 24),
+                    opacity: (t - 0.3).clamp(0.0, 1.0),
+                    child: Text(
+                      widget.level.title,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const Gap(40),
+                  Opacity(
+                    opacity: (t - 0.4).clamp(0.0, 1.0),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 48),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.1)),
+                      ),
                       child: Column(
                         children: [
-                          Icon(
-                            widget.reward!.icon,
-                            color: Colors.amber,
-                            size: 48,
-                          ).animate().scale(
-                            begin: const Offset(0, 0),
-                            duration: 600.ms,
-                            curve: Curves.elasticOut,
-                          ),
-                          const Gap(8),
                           Text(
-                            widget.reward!.displayName,
+                            '+$_displayPoints',
                             style: TextStyle(
-                              color: Colors.amber.shade300,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFFF59E0B),
+                              fontSize: 42,
+                              fontWeight: FontWeight.w900,
+                              shadows: [
+                                Shadow(
+                                  color: const Color(0xFFF59E0B)
+                                      .withValues(alpha: 0.3),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Gap(4),
+                          Text(
+                            'POINTS EARNED',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.4),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 3,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                if (widget.newAchievements.isNotEmpty)
-                  Opacity(
-                    opacity: (t - 0.6).clamp(0.0, 1.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: Column(
-                        children: widget.newAchievements.map((a) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.emoji_events, color: Colors.amber, size: 20),
-                              const Gap(8),
-                              Text(
-                                a.name,
-                                style: TextStyle(
-                                  color: Colors.amber.shade200,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
+                  ..._buildPrepChips(t),
+                  if (widget.reward != null)
+                    Opacity(
+                      opacity: (t - 0.5).clamp(0.0, 1.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 24),
+                        child: Column(
+                          children: [
+                            Icon(
+                              widget.reward!.icon,
+                              color: Colors.amber,
+                              size: 48,
+                            ).animate().scale(
+                                  begin: const Offset(0, 0),
+                                  duration: 600.ms,
+                                  curve: Curves.elasticOut,
                                 ),
+                            const Gap(8),
+                            Text(
+                              widget.reward!.displayName,
+                              style: TextStyle(
+                                color: Colors.amber.shade300,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ],
-                          ),
-                        )).toList(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                  if (widget.newAchievements.isNotEmpty)
+                    Opacity(
+                      opacity: (t - 0.6).clamp(0.0, 1.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 24),
+                        child: Column(
+                          children: widget.newAchievements
+                              .map((a) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(Icons.emoji_events,
+                                            color: Colors.amber, size: 20),
+                                        const Gap(8),
+                                        Text(
+                                          a.name,
+                                          style: TextStyle(
+                                            color: Colors.amber.shade200,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                    ),
                   const SizedBox(height: 40),
                   Opacity(
                     opacity: (t - 0.75).clamp(0.0, 1.0),
@@ -271,16 +280,19 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton.icon(
-                          onPressed: t >= 0.75 ? () {
-                            Nav.pushReplacement(
-                              context,
-                              LevelSelectScreen(world: widget.world),
-                            );
-                          } : null,
+                          onPressed: t >= 0.75
+                              ? () {
+                                  Nav.pushReplacement(
+                                    context,
+                                    LevelSelectScreen(world: widget.world),
+                                  );
+                                }
+                              : null,
                           icon: const Icon(Icons.arrow_forward, size: 20),
                           label: const Text(
                             'Continue',
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.w700),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFF59E0B),
@@ -294,7 +306,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                     ),
                   ),
                   const SizedBox(height: 24),
-              ],
+                ],
               ),
             ),
           ),
@@ -309,9 +321,20 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     final quiz = _prepData!['quiz'] as Map?;
     final ordering = _prepData!['ordering'] as Map?;
     final traps = _prepData!['traps'] as Map?;
-    if (quiz != null) chips.add(_prepChip('Quiz ${quiz['correct']}/${quiz['total']}', const Color(0xFF3B82F6)));
-    if (ordering != null) chips.add(_prepChip('Order ${ordering['passed'] == true ? '✓' : '${ordering['attempts']}x'}', ordering['passed'] == true ? AppColors.success : AppColors.error));
-    if (traps != null) chips.add(_prepChip('Traps ${traps['correct']}/${traps['total']} ${traps['passed'] == true ? '✓' : '✗'}', traps['passed'] == true ? AppColors.success : AppColors.error));
+    if (quiz != null) {
+      chips.add(_prepChip(
+          'Quiz ${quiz['correct']}/${quiz['total']}', const Color(0xFF3B82F6)));
+    }
+    if (ordering != null) {
+      chips.add(_prepChip(
+          'Order ${ordering['passed'] == true ? '✓' : '${ordering['attempts']}x'}',
+          ordering['passed'] == true ? AppColors.success : AppColors.error));
+    }
+    if (traps != null) {
+      chips.add(_prepChip(
+          'Traps ${traps['correct']}/${traps['total']} ${traps['passed'] == true ? '✓' : '✗'}',
+          traps['passed'] == true ? AppColors.success : AppColors.error));
+    }
 
     // Bonus chips
     final cubitState = context.read<GameCubit>().state;
@@ -348,7 +371,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+        style:
+            TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
       ),
     );
   }

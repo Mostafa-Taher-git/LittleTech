@@ -80,14 +80,16 @@ class _SplashScreenState extends State<SplashScreen> {
               effects: [FadeEffect(delay: 500.ms)],
               child: const Text(
                 'You Are The Only Expert',
-                style: TextStyle(fontSize: 14, color: Colors.white54, letterSpacing: 2),
+                style: TextStyle(
+                    fontSize: 14, color: Colors.white54, letterSpacing: 2),
               ),
             ),
             const Gap(60),
             const SizedBox(
               width: 28,
               height: 28,
-              child: CircularProgressIndicator(strokeWidth: 2.5, color: AppColors.accent),
+              child: CircularProgressIndicator(
+                  strokeWidth: 2.5, color: AppColors.accent),
             ).animate(delay: 700.ms).fadeIn(),
           ],
         ),

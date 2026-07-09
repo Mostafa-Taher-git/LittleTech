@@ -604,7 +604,7 @@ class RewardPool {
 
   static List<RewardDef> get badges {
     _ensureInit();
-    return List.unmodifiable(rewards.where((r) => r.type == RewardType.icon || r.type == RewardType.title));
+    return List.unmodifiable(rewards
+        .where((r) => r.type == RewardType.icon || r.type == RewardType.title));
   }
-
 }

@@ -5,414 +5,1217 @@ class WeeklyBossManager {
     BossEncounterDef(
       id: 'weekly_boss_1',
       name: 'The Cache Titan',
-      lore: 'A massive entity born from corrupted cache lines, hoarding data and refusing to release it. Born in the silicon depths where L1 meets L2, it learned to bind stale bytes to its iron will. Heroes who underestimate its grip on memory find their systems frozen in eternal reads.',
-      hp: 7, points: 700, armor: 16, challengeRating: 6,
-      visualType: 1, difficulty: DifficultyLevel.hard,
+      lore:
+          'A massive entity born from corrupted cache lines, hoarding data and refusing to release it. Born in the silicon depths where L1 meets L2, it learned to bind stale bytes to its iron will. Heroes who underestimate its grip on memory find their systems frozen in eternal reads.',
+      hp: 7,
+      points: 700,
+      armor: 16,
+      challengeRating: 6,
+      visualType: 1,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_1',
-      introText: 'The earth shakes as corrupted cache lines coalesce into a towering form. It clutches stale data in massive fists — data that belongs to your system, not to it.',
-      phaseShiftText: 'The Titan roars and slams its fists into the ground, locking every cache line in range — not even stale reads can escape now.',
+      introText:
+          'The earth shakes as corrupted cache lines coalesce into a towering form. It clutches stale data in massive fists — data that belongs to your system, not to it.',
+      phaseShiftText:
+          'The Titan roars and slams its fists into the ground, locking every cache line in range — not even stale reads can escape now.',
       abilities: [
-        {'name': 'Cache Lock', 'description': 'Seizes a cache line and holds it hostage, forcing all reads to stall until the lock expires.', 'effect': 'debuff'},
-        {'name': 'Data Hoarding', 'description': 'Absorbs fresh writes into a void, causing subsequent reads to return garbage values.', 'effect': 'damage'},
-        {'name': 'Stale Read', 'description': 'Forces the system to read outdated data, creating cascading logic errors across dependent processes.', 'effect': 'debuff'},
+        {
+          'name': 'Cache Lock',
+          'description':
+              'Seizes a cache line and holds it hostage, forcing all reads to stall until the lock expires.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'Data Hoarding',
+          'description':
+              'Absorbs fresh writes into a void, causing subsequent reads to return garbage values.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Stale Read',
+          'description':
+              'Forces the system to read outdated data, creating cascading logic errors across dependent processes.',
+          'effect': 'debuff'
+        },
       ],
       diagnosis: {
-        'symptoms': 'L2 cache hit rate drops below 40% despite warm-up. MESI transitions show constant Invalid-to-Modified bouncing. Read latency on shared variables spikes by 300% compared to single-core baseline.',
-        'options': ['Cache coherency failure across cores', 'RAM module failing', 'Disk read/write bottleneck'],
+        'symptoms':
+            'L2 cache hit rate drops below 40% despite warm-up. MESI transitions show constant Invalid-to-Modified bouncing. Read latency on shared variables spikes by 300% compared to single-core baseline.',
+        'options': [
+          'Cache coherency failure across cores',
+          'RAM module failing',
+          'Disk read/write bottleneck'
+        ],
         'correct': 0,
-        'flavor': 'You trace the stale reads to the L2 cache! The Titan\'s grip weakens!',
+        'flavor':
+            'You trace the stale reads to the L2 cache! The Titan\'s grip weakens!',
         'failFlavor': 'Wrong! The Titan locks more cache lines.',
       },
       strategies: [
-        {'name': 'Cache flush', 'success': 70, 'damage': 2, 'flavor': 'Flushed! Stale data purged!', 'failFlavor': 'The Titan resists the flush command.'},
-        {'name': 'Write-through bypass', 'success': 55, 'damage': 3, 'flavor': 'Writes bypass the corrupted cache!', 'failFlavor': 'The Titan intercepts the bypass.'},
-        {'name': 'Cache line invalidation', 'success': 50, 'damage': 3, 'flavor': 'Invalidated! Lines cleared!', 'failFlavor': 'The Titan revalidates instantly.'},
-        {'name': 'Full cache rebuild', 'success': 40, 'damage': 4, 'flavor': 'Cache rebuilt from clean source!', 'failFlavor': 'The Titan corrupts the rebuild.'},
-        {'name': 'Hardware cache reset', 'success': 35, 'damage': 5, 'flavor': 'Hardware reset destroys the Titan\'s hold!', 'failFlavor': 'The Titan survives the reset.'},
+        {
+          'name': 'Cache flush',
+          'success': 70,
+          'damage': 2,
+          'flavor': 'Flushed! Stale data purged!',
+          'failFlavor': 'The Titan resists the flush command.'
+        },
+        {
+          'name': 'Write-through bypass',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Writes bypass the corrupted cache!',
+          'failFlavor': 'The Titan intercepts the bypass.'
+        },
+        {
+          'name': 'Cache line invalidation',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Invalidated! Lines cleared!',
+          'failFlavor': 'The Titan revalidates instantly.'
+        },
+        {
+          'name': 'Full cache rebuild',
+          'success': 40,
+          'damage': 4,
+          'flavor': 'Cache rebuilt from clean source!',
+          'failFlavor': 'The Titan corrupts the rebuild.'
+        },
+        {
+          'name': 'Hardware cache reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Hardware reset destroys the Titan\'s hold!',
+          'failFlavor': 'The Titan survives the reset.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_2',
       name: 'The Memory Devourer',
-      lore: 'A ravenous beast that consumes RAM byte by byte, leaving nothing but crash dumps in its wake. It first appeared when a developer forgot to free a single pointer — and it has been growing ever since. Entire systems have been reduced to kernel panics by its insatiable hunger.',
-      hp: 7, points: 750, armor: 16, challengeRating: 6,
-      visualType: 2, difficulty: DifficultyLevel.hard,
+      lore:
+          'A ravenous beast that consumes RAM byte by byte, leaving nothing but crash dumps in its wake. It first appeared when a developer forgot to free a single pointer — and it has been growing ever since. Entire systems have been reduced to kernel panics by its insatiable hunger.',
+      hp: 7,
+      points: 750,
+      armor: 16,
+      challengeRating: 6,
+      visualType: 2,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_2',
-      introText: 'Your system tray flickers as free memory plummets in real time. A shadowy maw emerges from the heap, each byte it swallows making it larger.',
-      phaseShiftText: 'The Devourer splits into two smaller forms, each draining memory from a different address space simultaneously.',
+      introText:
+          'Your system tray flickers as free memory plummets in real time. A shadowy maw emerges from the heap, each byte it swallows making it larger.',
+      phaseShiftText:
+          'The Devourer splits into two smaller forms, each draining memory from a different address space simultaneously.',
       abilities: [
-        {'name': 'Memory Leak', 'description': 'Allocates memory that is never freed, silently draining available RAM over time until the system becomes unresponsive.', 'effect': 'damage'},
-        {'name': 'Heap Overflow', 'description': 'Writes past allocated boundaries, corrupting adjacent heap metadata and causing unpredictable crashes.', 'effect': 'damage'},
-        {'name': 'Swap Storm', 'description': 'Triggers excessive page faults, flooding the swap partition and grinding the system to a crawl.', 'effect': 'debuff'},
+        {
+          'name': 'Memory Leak',
+          'description':
+              'Allocates memory that is never freed, silently draining available RAM over time until the system becomes unresponsive.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Heap Overflow',
+          'description':
+              'Writes past allocated boundaries, corrupting adjacent heap metadata and causing unpredictable crashes.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Swap Storm',
+          'description':
+              'Triggers excessive page faults, flooding the swap partition and grinding the system to a crawl.',
+          'effect': 'debuff'
+        },
       ],
       diagnosis: {
-        'symptoms': 'Available memory drops from 8GB to 200MB over 3 hours with no user-facing change. heaptrack shows 47,000 unfreed allocations in a single daemon. OOM killer has terminated 12 processes in the last hour.',
-        'options': ['Memory leak in a running process', 'Faulty RAM stick', 'Page file corruption'],
+        'symptoms':
+            'Available memory drops from 8GB to 200MB over 3 hours with no user-facing change. heaptrack shows 47,000 unfreed allocations in a single daemon. OOM killer has terminated 12 processes in the last hour.',
+        'options': [
+          'Memory leak in a running process',
+          'Faulty RAM stick',
+          'Page file corruption'
+        ],
         'correct': 0,
-        'flavor': 'You find the leak source! The Devourer\'s feast is interrupted!',
+        'flavor':
+            'You find the leak source! The Devourer\'s feast is interrupted!',
         'failFlavor': 'Wrong! The Devourer consumes more memory.',
       },
       strategies: [
-        {'name': 'Process memory profiling', 'success': 70, 'damage': 2, 'flavor': 'Profiling reveals the leak!', 'failFlavor': 'The Devourer hides its allocations.'},
-        {'name': 'Garbage collection force', 'success': 55, 'damage': 3, 'flavor': 'GC reclaims abandoned objects!', 'failFlavor': 'The Devourer prevents collection.'},
-        {'name': 'Memory pool isolation', 'success': 50, 'damage': 3, 'flavor': 'Isolated! The leak is contained!', 'failFlavor': 'The Devourer spreads to new pools.'},
-        {'name': 'OOM killer activation', 'success': 45, 'damage': 4, 'flavor': 'The killer terminates the leaking process!', 'failFlavor': 'The Devourer protects its host process.'},
-        {'name': 'Full memory realloc', 'success': 35, 'damage': 5, 'flavor': 'Complete realloc starves the Devourer!', 'failFlavor': 'The Devourer feeds on the realloc itself.'},
+        {
+          'name': 'Process memory profiling',
+          'success': 70,
+          'damage': 2,
+          'flavor': 'Profiling reveals the leak!',
+          'failFlavor': 'The Devourer hides its allocations.'
+        },
+        {
+          'name': 'Garbage collection force',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'GC reclaims abandoned objects!',
+          'failFlavor': 'The Devourer prevents collection.'
+        },
+        {
+          'name': 'Memory pool isolation',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Isolated! The leak is contained!',
+          'failFlavor': 'The Devourer spreads to new pools.'
+        },
+        {
+          'name': 'OOM killer activation',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'The killer terminates the leaking process!',
+          'failFlavor': 'The Devourer protects its host process.'
+        },
+        {
+          'name': 'Full memory realloc',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Complete realloc starves the Devourer!',
+          'failFlavor': 'The Devourer feeds on the realloc itself.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_3',
       name: 'The Kernel Wraith',
-      lore: 'A spectral force that haunts the kernel space, corrupting system calls and destabilizing the OS from within. It was summoned by a buggy driver that never should have passed code review. Once inside Ring Zero, it became nearly impossible to exorcise without a full reboot.',
-      hp: 8, points: 800, armor: 17, challengeRating: 7,
-      visualType: 3, difficulty: DifficultyLevel.hard,
+      lore:
+          'A spectral force that haunts the kernel space, corrupting system calls and destabilizing the OS from within. It was summoned by a buggy driver that never should have passed code review. Once inside Ring Zero, it became nearly impossible to exorcise without a full reboot.',
+      hp: 8,
+      points: 800,
+      armor: 17,
+      challengeRating: 7,
+      visualType: 3,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_3',
-      introText: 'The screen goes black. Then a blue screen screams its death rattle. Through the static, a wraithlike figure rises from the kernel\'s core.',
-      phaseShiftText: 'The Wraith dissolves into the system call table itself — every function pointer now leads to its lair.',
+      introText:
+          'The screen goes black. Then a blue screen screams its death rattle. Through the static, a wraithlike figure rises from the kernel\'s core.',
+      phaseShiftText:
+          'The Wraith dissolves into the system call table itself — every function pointer now leads to its lair.',
       abilities: [
-        {'name': 'Kernel Panic', 'description': 'Triggers a fatal kernel exception, halting all processes and dumping the system into a crash handler.', 'effect': 'damage'},
-        {'name': 'System Call Corruption', 'description': 'Intercepts and modifies system call arguments mid-flight, returning wrong results or crashing the caller.', 'effect': 'debuff'},
-        {'name': 'Ring Zero Invasion', 'description': 'Escalates into kernel-mode execution, bypassing all user-space security boundaries.', 'effect': 'damage'},
+        {
+          'name': 'Kernel Panic',
+          'description':
+              'Triggers a fatal kernel exception, halting all processes and dumping the system into a crash handler.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'System Call Corruption',
+          'description':
+              'Intercepts and modifies system call arguments mid-flight, returning wrong results or crashing the caller.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'Ring Zero Invasion',
+          'description':
+              'Escalates into kernel-mode execution, bypassing all user-space security boundaries.',
+          'effect': 'damage'
+        },
       ],
       diagnosis: {
-        'symptoms': 'dmesg shows null pointer dereference at address 0x0000000000000010 in module nvidia_gpu_v47. Panic frequency correlates with GPU driver load. Boot into single-user mode succeeds but normal boot fails 9/10 times.',
-        'options': ['Faulty kernel module or driver', 'Hard drive failure', 'Power supply instability'],
+        'symptoms':
+            'dmesg shows null pointer dereference at address 0x0000000000000010 in module nvidia_gpu_v47. Panic frequency correlates with GPU driver load. Boot into single-user mode succeeds but normal boot fails 9/10 times.',
+        'options': [
+          'Faulty kernel module or driver',
+          'Hard drive failure',
+          'Power supply instability'
+        ],
         'correct': 0,
-        'flavor': 'You isolate the corrupt module! The Wraith\'s form flickers!',
+        'flavor':
+            'You isolate the corrupt module! The Wraith\'s form flickers!',
         'failFlavor': 'Wrong! The Wraith deepens its corruption.',
       },
       strategies: [
-        {'name': 'Safe mode boot', 'success': 70, 'damage': 2, 'flavor': 'Safe mode bypasses the Wraith!', 'failFlavor': 'The Wraith follows into safe mode.'},
-        {'name': 'Driver rollback', 'success': 55, 'damage': 3, 'flavor': 'Rolled back to clean driver!', 'failFlavor': 'The Wraith corrupted the backup.'},
-        {'name': 'Kernel debug session', 'success': 50, 'damage': 3, 'flavor': 'Debug traces reveal the Wraith!', 'failFlavor': 'The Wraith obscures the traces.'},
-        {'name': 'System file restore', 'success': 45, 'damage': 4, 'flavor': 'Clean kernel files restored!', 'failFlavor': 'The Wraith infects the restore.'},
-        {'name': 'Full kernel rebuild', 'success': 35, 'damage': 5, 'flavor': 'Fresh kernel banishes the Wraith!', 'failFlavor': 'The Wraith embeds in the build.'},
+        {
+          'name': 'Safe mode boot',
+          'success': 70,
+          'damage': 2,
+          'flavor': 'Safe mode bypasses the Wraith!',
+          'failFlavor': 'The Wraith follows into safe mode.'
+        },
+        {
+          'name': 'Driver rollback',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Rolled back to clean driver!',
+          'failFlavor': 'The Wraith corrupted the backup.'
+        },
+        {
+          'name': 'Kernel debug session',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Debug traces reveal the Wraith!',
+          'failFlavor': 'The Wraith obscures the traces.'
+        },
+        {
+          'name': 'System file restore',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Clean kernel files restored!',
+          'failFlavor': 'The Wraith infects the restore.'
+        },
+        {
+          'name': 'Full kernel rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Fresh kernel banishes the Wraith!',
+          'failFlavor': 'The Wraith embeds in the build.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_4',
       name: 'The Feedback Phantom',
-      lore: 'A shrieking specter that weaponizes audio feedback, deafening systems and shattering speaker cones. It thrives in poorly configured meeting rooms and livestreams where microphone and speaker outputs overlap. One screech from it can blow out every speaker on the floor.',
-      hp: 7, points: 700, armor: 16, challengeRating: 6,
-      visualType: 4, difficulty: DifficultyLevel.hard,
+      lore:
+          'A shrieking specter that weaponizes audio feedback, deafening systems and shattering speaker cones. It thrives in poorly configured meeting rooms and livestreams where microphone and speaker outputs overlap. One screech from it can blow out every speaker on the floor.',
+      hp: 7,
+      points: 700,
+      armor: 16,
+      challengeRating: 6,
+      visualType: 4,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_4',
-      introText: 'A deafening screech erupts from every audio device in the room. The waveform on the oscilloscope spikes into a howling figure made of pure sound.',
-      phaseShiftText: 'The Phantom splits its feedback loop across three frequencies simultaneously — muting one only makes the others louder.',
+      introText:
+          'A deafening screech erupts from every audio device in the room. The waveform on the oscilloscope spikes into a howling figure made of pure sound.',
+      phaseShiftText:
+          'The Phantom splits its feedback loop across three frequencies simultaneously — muting one only makes the others louder.',
       abilities: [
-        {'name': 'Feedback Loop', 'description': 'Creates an infinite loop between audio input and output, amplifying noise to ear-splitting levels.', 'effect': 'damage'},
-        {'name': 'Waveform Distortion', 'description': 'Scrambles the output waveform, turning clean audio into garbled static and artifacts.', 'effect': 'debuff'},
-        {'name': 'Speaker Shatter', 'description': 'Overloads speaker diaphragms with extreme amplitude, risking permanent hardware damage.', 'effect': 'damage'},
+        {
+          'name': 'Feedback Loop',
+          'description':
+              'Creates an infinite loop between audio input and output, amplifying noise to ear-splitting levels.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Waveform Distortion',
+          'description':
+              'Scrambles the output waveform, turning clean audio into garbled static and artifacts.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'Speaker Shatter',
+          'description':
+              'Overloads speaker diaphragms with extreme amplitude, risking permanent hardware damage.',
+          'effect': 'damage'
+        },
       ],
       diagnosis: {
-        'symptoms': 'RTA shows a sharp 3.2kHz peak at -6dBFS correlating with mic activation. PulseAudio loopback monitor confirms output→input cycle. Removing any single device from the audio graph breaks the loop.',
-        'options': ['Audio feedback loop between mic and speakers', 'Corrupted audio codec', 'Damaged speaker hardware'],
+        'symptoms':
+            'RTA shows a sharp 3.2kHz peak at -6dBFS correlating with mic activation. PulseAudio loopback monitor confirms output→input cycle. Removing any single device from the audio graph breaks the loop.',
+        'options': [
+          'Audio feedback loop between mic and speakers',
+          'Corrupted audio codec',
+          'Damaged speaker hardware'
+        ],
         'correct': 0,
         'flavor': 'You break the feedback loop! The Phantom\'s scream falters!',
         'failFlavor': 'Wrong! The Phantom amplifies the feedback.',
       },
       strategies: [
-        {'name': 'Mute microphone', 'success': 75, 'damage': 2, 'flavor': 'Mic muted! Loop broken!', 'failFlavor': 'The Phantom routes audio through another path.'},
-        {'name': 'Noise cancellation', 'success': 55, 'damage': 3, 'flavor': 'Cancellation waveform neutralizes feedback!', 'failFlavor': 'The Phantom shifts frequency.'},
-        {'name': 'Audio driver restart', 'success': 50, 'damage': 3, 'flavor': 'Driver reset clears the distortion!', 'failFlavor': 'The Phantom persists across resets.'},
-        {'name': 'Hardware isolation', 'success': 45, 'damage': 4, 'flavor': 'Isolated audio device stops the loop!', 'failFlavor': 'The Phantom jumps to another device.'},
-        {'name': 'Full audio stack rebuild', 'success': 35, 'damage': 5, 'flavor': 'Clean audio stack banishes the Phantom!', 'failFlavor': 'The Phantom haunts the new stack.'},
+        {
+          'name': 'Mute microphone',
+          'success': 75,
+          'damage': 2,
+          'flavor': 'Mic muted! Loop broken!',
+          'failFlavor': 'The Phantom routes audio through another path.'
+        },
+        {
+          'name': 'Noise cancellation',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Cancellation waveform neutralizes feedback!',
+          'failFlavor': 'The Phantom shifts frequency.'
+        },
+        {
+          'name': 'Audio driver restart',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Driver reset clears the distortion!',
+          'failFlavor': 'The Phantom persists across resets.'
+        },
+        {
+          'name': 'Hardware isolation',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Isolated audio device stops the loop!',
+          'failFlavor': 'The Phantom jumps to another device.'
+        },
+        {
+          'name': 'Full audio stack rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Clean audio stack banishes the Phantom!',
+          'failFlavor': 'The Phantom haunts the new stack.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_5',
       name: 'The Input Overlord',
-      lore: 'A tyrant that seizes control of all input devices, typing its own commands and moving cursors at will. It began as a simple driver glitch that reversed scroll directions, but evolved into a fully sentient hijacker. Now it types its own manifesto across every connected keyboard.',
-      hp: 7, points: 750, armor: 16, challengeRating: 6,
-      visualType: 5, difficulty: DifficultyLevel.hard,
+      lore:
+          'A tyrant that seizes control of all input devices, typing its own commands and moving cursors at will. It began as a simple driver glitch that reversed scroll directions, but evolved into a fully sentient hijacker. Now it types its own manifesto across every connected keyboard.',
+      hp: 7,
+      points: 750,
+      armor: 16,
+      challengeRating: 6,
+      visualType: 5,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_5',
-      introText: 'The mouse cursor drifts toward the Start menu on its own. On the screen, text begins appearing letter by letter: "I am in control now."',
-      phaseShiftText: 'The Overlord manifests in the Device Manager as an unknown HID device — disconnecting it only spawns two more.',
+      introText:
+          'The mouse cursor drifts toward the Start menu on its own. On the screen, text begins appearing letter by letter: "I am in control now."',
+      phaseShiftText:
+          'The Overlord manifests in the Device Manager as an unknown HID device — disconnecting it only spawns two more.',
       abilities: [
-        {'name': 'Input Hijack', 'description': 'Takes exclusive control of input devices, preventing the user from issuing any commands.', 'effect': 'block'},
-        {'name': 'Keystroke Injection', 'description': 'Injects arbitrary keypresses into the input buffer, typing commands the user never authorized.', 'effect': 'damage'},
-        {'name': 'Cursor Possession', 'description': 'Moves the mouse pointer autonomously, clicking buttons and dragging windows against the user\'s will.', 'effect': 'debuff'},
+        {
+          'name': 'Input Hijack',
+          'description':
+              'Takes exclusive control of input devices, preventing the user from issuing any commands.',
+          'effect': 'block'
+        },
+        {
+          'name': 'Keystroke Injection',
+          'description':
+              'Injects arbitrary keypresses into the input buffer, typing commands the user never authorized.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Cursor Possession',
+          'description':
+              'Moves the mouse pointer autonomously, clicking buttons and dragging windows against the user\'s will.',
+          'effect': 'debuff'
+        },
       ],
       diagnosis: {
-        'symptoms': 'HID descriptor shows mouse reporting 12,000 CPI when set to 800. evdev log captures synthetic BTN_LEFT events at 47ms intervals. All USB HID devices share a single vendor ID 0x046D that doesn\'t match any connected hardware.',
-        'options': ['Input device driver hijack or malware', 'Loose USB connection', 'Electromagnetic interference'],
+        'symptoms':
+            'HID descriptor shows mouse reporting 12,000 CPI when set to 800. evdev log captures synthetic BTN_LEFT events at 47ms intervals. All USB HID devices share a single vendor ID 0x046D that doesn\'t match any connected hardware.',
+        'options': [
+          'Input device driver hijack or malware',
+          'Loose USB connection',
+          'Electromagnetic interference'
+        ],
         'correct': 0,
         'flavor': 'You find the hijack source! The Overlord loses its grip!',
         'failFlavor': 'Wrong! The Overlord seizes more devices.',
       },
       strategies: [
-        {'name': 'Device manager disable', 'success': 70, 'damage': 2, 'flavor': 'Disabled! Overlord loses control!', 'failFlavor': 'The Overlord re-enables the device.'},
-        {'name': 'USB selective suspend', 'success': 55, 'damage': 3, 'flavor': 'Suspended! Input redirected to user!', 'failFlavor': 'The Overlord bypasses the suspend.'},
-        {'name': 'Driver reinstall', 'success': 50, 'damage': 3, 'flavor': 'Clean driver installed!', 'failFlavor': 'The Overlord corrupts the installer.'},
-        {'name': 'Input filter driver', 'success': 45, 'damage': 4, 'flavor': 'Filter blocks Overlord commands!', 'failFlavor': 'The Overlord bypasses the filter.'},
-        {'name': 'Full HID stack reset', 'success': 35, 'damage': 5, 'flavor': 'HID reset destroys the Overlord!', 'failFlavor': 'The Overlord survives the reset.'},
+        {
+          'name': 'Device manager disable',
+          'success': 70,
+          'damage': 2,
+          'flavor': 'Disabled! Overlord loses control!',
+          'failFlavor': 'The Overlord re-enables the device.'
+        },
+        {
+          'name': 'USB selective suspend',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Suspended! Input redirected to user!',
+          'failFlavor': 'The Overlord bypasses the suspend.'
+        },
+        {
+          'name': 'Driver reinstall',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Clean driver installed!',
+          'failFlavor': 'The Overlord corrupts the installer.'
+        },
+        {
+          'name': 'Input filter driver',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Filter blocks Overlord commands!',
+          'failFlavor': 'The Overlord bypasses the filter.'
+        },
+        {
+          'name': 'Full HID stack reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'HID reset destroys the Overlord!',
+          'failFlavor': 'The Overlord survives the reset.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_6',
       name: 'The Dependency Demon',
-      lore: 'A cunning trickster that corrupts package dependencies, causing cascading failures across entire software stacks. It was born when a developer ran npm install without checking compatibility. Its web of broken links spans hundreds of packages across four registries.',
-      hp: 8, points: 850, armor: 18, challengeRating: 7,
-      visualType: 6, difficulty: DifficultyLevel.hard,
+      lore:
+          'A cunning trickster that corrupts package dependencies, causing cascading failures across entire software stacks. It was born when a developer ran npm install without checking compatibility. Its web of broken links spans hundreds of packages across four registries.',
+      hp: 8,
+      points: 850,
+      armor: 18,
+      challengeRating: 7,
+      visualType: 6,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_6',
-      introText: 'Red error messages cascade across your terminal like a waterfall of despair. Each failed import summons another demon into the package tree.',
-      phaseShiftText: 'The Demon reveals its true form — a massive tangled web of peer dependency warnings stretching across every installed package.',
+      introText:
+          'Red error messages cascade across your terminal like a waterfall of despair. Each failed import summons another demon into the package tree.',
+      phaseShiftText:
+          'The Demon reveals its true form — a massive tangled web of peer dependency warnings stretching across every installed package.',
       abilities: [
-        {'name': 'Version Conflict', 'description': 'Forces incompatible package versions to coexist, causing runtime exceptions and silent failures.', 'effect': 'damage'},
-        {'name': 'Dependency Hell', 'description': 'Creates circular dependency chains that prevent any package from initializing correctly.', 'effect': 'block'},
-        {'name': 'Package Corruption', 'description': 'Alters downloaded package contents, introducing subtle bugs that only manifest under specific conditions.', 'effect': 'damage'},
+        {
+          'name': 'Version Conflict',
+          'description':
+              'Forces incompatible package versions to coexist, causing runtime exceptions and silent failures.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Dependency Hell',
+          'description':
+              'Creates circular dependency chains that prevent any package from initializing correctly.',
+          'effect': 'block'
+        },
+        {
+          'name': 'Package Corruption',
+          'description':
+              'Alters downloaded package contents, introducing subtle bugs that only manifest under specific conditions.',
+          'effect': 'damage'
+        },
       ],
       diagnosis: {
-        'symptoms': 'pnpm ls shows 147 peer dependency conflicts. package-lock.json contains 3 different versions of lodash. `npm audit` reports 23 critical vulnerabilities from transitive dependencies installed 18 months ago.',
-        'options': ['Dependency version conflict or corruption', 'Disk space exhaustion', 'Network connectivity issue'],
+        'symptoms':
+            'pnpm ls shows 147 peer dependency conflicts. package-lock.json contains 3 different versions of lodash. `npm audit` reports 23 critical vulnerabilities from transitive dependencies installed 18 months ago.',
+        'options': [
+          'Dependency version conflict or corruption',
+          'Disk space exhaustion',
+          'Network connectivity issue'
+        ],
         'correct': 0,
-        'flavor': 'You resolve the version conflict! The Demon\'s web unravels!',
+        'flavor':
+            'You resolve the version conflict! The Demon\'s web unravels!',
         'failFlavor': 'Wrong! The Demon creates more conflicts.',
       },
       strategies: [
-        {'name': 'Clean reinstall', 'success': 65, 'damage': 2, 'flavor': 'Fresh install with correct deps!', 'failFlavor': 'The Demon corrupts the reinstall.'},
-        {'name': 'Dependency tree audit', 'success': 55, 'damage': 3, 'flavor': 'Audit finds the broken link!', 'failFlavor': 'The Demon hides the broken deps.'},
-        {'name': 'Version pinning', 'success': 50, 'damage': 3, 'flavor': 'Pinned versions stop conflicts!', 'failFlavor': 'The Demon forces version resolution.'},
-        {'name': 'Virtual environment isolation', 'success': 45, 'damage': 4, 'flavor': 'Isolated env contains the Demon!', 'failFlavor': 'The Demon escapes the environment.'},
-        {'name': 'Full dependency rebuild', 'success': 35, 'damage': 5, 'flavor': 'Complete rebuild banishes the Demon!', 'failFlavor': 'The Demon infects the rebuild.'},
+        {
+          'name': 'Clean reinstall',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Fresh install with correct deps!',
+          'failFlavor': 'The Demon corrupts the reinstall.'
+        },
+        {
+          'name': 'Dependency tree audit',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Audit finds the broken link!',
+          'failFlavor': 'The Demon hides the broken deps.'
+        },
+        {
+          'name': 'Version pinning',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Pinned versions stop conflicts!',
+          'failFlavor': 'The Demon forces version resolution.'
+        },
+        {
+          'name': 'Virtual environment isolation',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Isolated env contains the Demon!',
+          'failFlavor': 'The Demon escapes the environment.'
+        },
+        {
+          'name': 'Full dependency rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Complete rebuild banishes the Demon!',
+          'failFlavor': 'The Demon infects the rebuild.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_7',
       name: 'The Latency Leviathan',
-      lore: 'A colossal sea beast dwelling in the depths of network stacks, dragging every packet through miles of virtual mud. It first surfaced when a misconfigured QoS policy prioritized YouTube over VoIP. Now it lurks in every overloaded router between here and the server.',
-      hp: 8, points: 900, armor: 18, challengeRating: 7,
-      visualType: 7, difficulty: DifficultyLevel.hard,
+      lore:
+          'A colossal sea beast dwelling in the depths of network stacks, dragging every packet through miles of virtual mud. It first surfaced when a misconfigured QoS policy prioritized YouTube over VoIP. Now it lurks in every overloaded router between here and the server.',
+      hp: 8,
+      points: 900,
+      armor: 18,
+      challengeRating: 7,
+      visualType: 7,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_7',
-      introText: 'Your ping spikes from 12ms to 4,700ms. Packets you sent minutes ago finally arrive — out of order. From the depth of the network stack, something massive rises.',
-      phaseShiftText: 'The Leviathan plunges beneath the packet queue, becoming invisible to traceroute — but every packet still passes through it.',
+      introText:
+          'Your ping spikes from 12ms to 4,700ms. Packets you sent minutes ago finally arrive — out of order. From the depth of the network stack, something massive rises.',
+      phaseShiftText:
+          'The Leviathan plunges beneath the packet queue, becoming invisible to traceroute — but every packet still passes through it.',
       abilities: [
-        {'name': 'Packet Delay', 'description': 'Holds packets in a deep buffer for seconds before releasing them, destroying real-time communication.', 'effect': 'debuff'},
-        {'name': 'Buffer Bloat', 'description': 'Inflates network buffers to capacity, creating massive queuing delay that affects every connected device.', 'effect': 'damage'},
-        {'name': 'Route Congestion', 'description': 'Floods the optimal path with junk traffic, forcing legitimate packets into slow, overloaded alternate routes.', 'effect': 'block'},
+        {
+          'name': 'Packet Delay',
+          'description':
+              'Holds packets in a deep buffer for seconds before releasing them, destroying real-time communication.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'Buffer Bloat',
+          'description':
+              'Inflates network buffers to capacity, creating massive queuing delay that affects every connected device.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Route Congestion',
+          'description':
+              'Floods the optimal path with junk traffic, forcing legitimate packets into slow, overloaded alternate routes.',
+          'effect': 'block'
+        },
       ],
       diagnosis: {
-        'symptoms': 'bufferbloat test shows 2,300ms bloat under load. tc qdisc dump reveals fq_codel configured but overridden by ISP modem NAT. traceroute shows 34ms baseline but 890ms under 10 concurrent TCP streams.',
-        'options': ['Network buffer bloat or route congestion', 'DNS resolution failure', 'Firewall blocking packets'],
+        'symptoms':
+            'bufferbloat test shows 2,300ms bloat under load. tc qdisc dump reveals fq_codel configured but overridden by ISP modem NAT. traceroute shows 34ms baseline but 890ms under 10 concurrent TCP streams.',
+        'options': [
+          'Network buffer bloat or route congestion',
+          'DNS resolution failure',
+          'Firewall blocking packets'
+        ],
         'correct': 0,
         'flavor': 'You clear the congestion! The Leviathan surfaces!',
         'failFlavor': 'Wrong! The Leviathan deepens the lag.',
       },
       strategies: [
-        {'name': 'QoS prioritization', 'success': 65, 'damage': 2, 'flavor': 'Priority queues clear the backlog!', 'failFlavor': 'The Leviathan floods the queues.'},
-        {'name': 'Buffer tuning', 'success': 55, 'damage': 3, 'flavor': 'Smaller buffers reduce delay!', 'failFlavor': 'The Leviathan overflows the buffers.'},
-        {'name': 'Route optimization', 'success': 50, 'damage': 3, 'flavor': 'Shorter route found!', 'failFlavor': 'The Leviathan blocks the new route.'},
-        {'name': 'Traffic shaping', 'success': 45, 'damage': 4, 'flavor': 'Shaping controls the flood!', 'failFlavor': 'The Leviathan overwhelms the shaper.'},
-        {'name': 'Full network stack reset', 'success': 35, 'damage': 5, 'flavor': 'Reset clears all congestion!', 'failFlavor': 'The Leviathan survives the reset.'},
+        {
+          'name': 'QoS prioritization',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Priority queues clear the backlog!',
+          'failFlavor': 'The Leviathan floods the queues.'
+        },
+        {
+          'name': 'Buffer tuning',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Smaller buffers reduce delay!',
+          'failFlavor': 'The Leviathan overflows the buffers.'
+        },
+        {
+          'name': 'Route optimization',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Shorter route found!',
+          'failFlavor': 'The Leviathan blocks the new route.'
+        },
+        {
+          'name': 'Traffic shaping',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Shaping controls the flood!',
+          'failFlavor': 'The Leviathan overwhelms the shaper.'
+        },
+        {
+          'name': 'Full network stack reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Reset clears all congestion!',
+          'failFlavor': 'The Leviathan survives the reset.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_8',
       name: 'The Bit Rot Behemoth',
-      lore: 'An ancient horror that slowly decays data on disk, turning valid files into unreadable garbage over time. It has existed since the first magnetic platter began to degrade. Patient and relentless, it can wait years before a single flipped bit brings down an entire database.',
-      hp: 9, points: 950, armor: 19, challengeRating: 8,
-      visualType: 8, difficulty: DifficultyLevel.hard,
+      lore:
+          'An ancient horror that slowly decays data on disk, turning valid files into unreadable garbage over time. It has existed since the first magnetic platter began to degrade. Patient and relentless, it can wait years before a single flipped bit brings down an entire database.',
+      hp: 9,
+      points: 950,
+      armor: 19,
+      challengeRating: 8,
+      visualType: 8,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_8',
-      introText: 'A checksum fails. Then another. Then a hundred. Beneath the disk surface, something ancient stirs as bit after bit flips from 1 to 0.',
-      phaseShiftText: 'The Behemoth reveals rot spreading to redundant drives — RAID parity can no longer reconstruct the damage.',
+      introText:
+          'A checksum fails. Then another. Then a hundred. Beneath the disk surface, something ancient stirs as bit after bit flips from 1 to 0.',
+      phaseShiftText:
+          'The Behemoth reveals rot spreading to redundant drives — RAID parity can no longer reconstruct the damage.',
       abilities: [
-        {'name': 'Data Decay', 'description': 'Slowly flips random bits across stored data, creating silent corruption that accumulates over time.', 'effect': 'damage'},
-        {'name': 'Sector Corruption', 'description': 'Destroys entire disk sectors, rendering them unreadable and forcing reallocation of bad blocks.', 'effect': 'damage'},
-        {'name': 'File Entropy', 'description': 'Increases the entropy of stored files until they become indistinguishable from random noise.', 'effect': 'debuff'},
+        {
+          'name': 'Data Decay',
+          'description':
+              'Slowly flips random bits across stored data, creating silent corruption that accumulates over time.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Sector Corruption',
+          'description':
+              'Destroys entire disk sectors, rendering them unreadable and forcing reallocation of bad blocks.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'File Entropy',
+          'description':
+              'Increases the entropy of stored files until they become indistinguishable from random noise.',
+          'effect': 'debuff'
+        },
       ],
       diagnosis: {
-        'symptoms': 'smartctl shows 4,217 reallocated sectors on /dev/sda. md5sum of /var/log/syslog returns different hashes on consecutive reads. Badblocks scan reveals 0.3% surface degradation. ZFS scrub reports 847 data errors.',
-        'options': ['Physical disk degradation or bit rot', 'File system corruption', 'Power surge damage'],
+        'symptoms':
+            'smartctl shows 4,217 reallocated sectors on /dev/sda. md5sum of /var/log/syslog returns different hashes on consecutive reads. Badblocks scan reveals 0.3% surface degradation. ZFS scrub reports 847 data errors.',
+        'options': [
+          'Physical disk degradation or bit rot',
+          'File system corruption',
+          'Power surge damage'
+        ],
         'correct': 0,
         'flavor': 'You find the decaying sectors! The Behemoth weakens!',
         'failFlavor': 'Wrong! The Behemoth spreads the rot.',
       },
       strategies: [
-        {'name': 'S.M.A.R.T. diagnostics', 'success': 65, 'damage': 2, 'flavor': 'Diagnostics reveal failing sectors!', 'failFlavor': 'The Behemoth masks the S.M.A.R.T. data.'},
-        {'name': 'Sector reallocation', 'success': 55, 'damage': 3, 'flavor': 'Bad sectors reallocated!', 'failFlavor': 'The Behemoth corrupts new sectors.'},
-        {'name': 'File system check', 'success': 50, 'damage': 3, 'flavor': 'fsck repairs the damage!', 'failFlavor': 'The Behemoth hides the corruption.'},
-        {'name': 'Data migration', 'success': 45, 'damage': 4, 'flavor': 'Data moved to healthy disk!', 'failFlavor': 'The Behemoth follows the data.'},
-        {'name': 'Full disk rebuild', 'success': 35, 'damage': 5, 'flavor': 'Fresh disk destroys the Behemoth!', 'failFlavor': 'The Behemoth embeds in the firmware.'},
+        {
+          'name': 'S.M.A.R.T. diagnostics',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Diagnostics reveal failing sectors!',
+          'failFlavor': 'The Behemoth masks the S.M.A.R.T. data.'
+        },
+        {
+          'name': 'Sector reallocation',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Bad sectors reallocated!',
+          'failFlavor': 'The Behemoth corrupts new sectors.'
+        },
+        {
+          'name': 'File system check',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'fsck repairs the damage!',
+          'failFlavor': 'The Behemoth hides the corruption.'
+        },
+        {
+          'name': 'Data migration',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Data moved to healthy disk!',
+          'failFlavor': 'The Behemoth follows the data.'
+        },
+        {
+          'name': 'Full disk rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Fresh disk destroys the Behemoth!',
+          'failFlavor': 'The Behemoth embeds in the firmware.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_9',
       name: 'The Pixel Punisher',
-      lore: 'A distorted entity that attacks display outputs, scrambling pixels and turning screens into walls of static. It was born from a GPU firmware bug that corrupted the framebuffer during high refresh-rate gaming. Every monitor it touches displays its mocking grin in RGB artifacts.',
-      hp: 8, points: 850, armor: 18, challengeRating: 7,
-      visualType: 9, difficulty: DifficultyLevel.hard,
+      lore:
+          'A distorted entity that attacks display outputs, scrambling pixels and turning screens into walls of static. It was born from a GPU firmware bug that corrupted the framebuffer during high refresh-rate gaming. Every monitor it touches displays its mocking grin in RGB artifacts.',
+      hp: 8,
+      points: 850,
+      armor: 18,
+      challengeRating: 7,
+      visualType: 9,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_9',
-      introText: 'Your monitor flickers once, twice, then displays a mosaic of corrupted pixels arranged in a grotesque smile. The GPU temperature reads normal — but the image is anything but.',
-      phaseShiftText: 'The Punisher merges with the display controller, corrupting the signal before it even leaves the GPU — cable swaps are useless now.',
+      introText:
+          'Your monitor flickers once, twice, then displays a mosaic of corrupted pixels arranged in a grotesque smile. The GPU temperature reads normal — but the image is anything but.',
+      phaseShiftText:
+          'The Punisher merges with the display controller, corrupting the signal before it even leaves the GPU — cable swaps are useless now.',
       abilities: [
-        {'name': 'Pixel Corruption', 'description': 'Randomly corrupts pixel values in the framebuffer, creating visual artifacts across the display.', 'effect': 'damage'},
-        {'name': 'Signal Scramble', 'description': 'Interferes with the display signal, causing color shifts, banding, and complete signal loss.', 'effect': 'debuff'},
-        {'name': 'Refresh Rate Attack', 'description': 'Desynchronizes the display refresh rate from the GPU output, creating tearing and frame duplication.', 'effect': 'block'},
+        {
+          'name': 'Pixel Corruption',
+          'description':
+              'Randomly corrupts pixel values in the framebuffer, creating visual artifacts across the display.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Signal Scramble',
+          'description':
+              'Interferes with the display signal, causing color shifts, banding, and complete signal loss.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'Refresh Rate Attack',
+          'description':
+              'Desynchronizes the display refresh rate from the GPU output, creating tearing and frame duplication.',
+          'effect': 'block'
+        },
       ],
       diagnosis: {
-        'symptoms': 'nvidia-smi shows VRAM ECC error count at 1,847. DisplayPort link training fails at 144Hz but succeeds at 60Hz. GPU-Z reports ROP count mismatch. Framebuffer dump shows repeating tile corruption at 64-byte boundaries.',
-        'options': ['GPU driver corruption or signal issue', 'Monitor hardware failure', 'Cable connection problem'],
+        'symptoms':
+            'nvidia-smi shows VRAM ECC error count at 1,847. DisplayPort link training fails at 144Hz but succeeds at 60Hz. GPU-Z reports ROP count mismatch. Framebuffer dump shows repeating tile corruption at 64-byte boundaries.',
+        'options': [
+          'GPU driver corruption or signal issue',
+          'Monitor hardware failure',
+          'Cable connection problem'
+        ],
         'correct': 0,
         'flavor': 'You restore the signal! The Punisher\'s distortion fades!',
         'failFlavor': 'Wrong! The Punisher corrupts more pixels.',
       },
       strategies: [
-        {'name': 'Driver reinstall', 'success': 65, 'damage': 2, 'flavor': 'Clean driver restores display!', 'failFlavor': 'The Punisher corrupts the install.'},
-        {'name': 'Signal re-sync', 'success': 55, 'damage': 3, 'flavor': 'Sync restored! Clear image!', 'failFlavor': 'The Punisher desynchronizes again.'},
-        {'name': 'GPU memory test', 'success': 50, 'damage': 3, 'flavor': 'VRAM errors found and corrected!', 'failFlavor': 'The Punisher hides the errors.'},
-        {'name': 'Display pipeline reset', 'success': 45, 'damage': 4, 'flavor': 'Pipeline reset clears artifacts!', 'failFlavor': 'The Punisher reasserts control.'},
-        {'name': 'Full graphics stack rebuild', 'success': 35, 'damage': 5, 'flavor': 'Fresh stack banishes the Punisher!', 'failFlavor': 'The Punisher survives in firmware.'},
+        {
+          'name': 'Driver reinstall',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Clean driver restores display!',
+          'failFlavor': 'The Punisher corrupts the install.'
+        },
+        {
+          'name': 'Signal re-sync',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Sync restored! Clear image!',
+          'failFlavor': 'The Punisher desynchronizes again.'
+        },
+        {
+          'name': 'GPU memory test',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'VRAM errors found and corrected!',
+          'failFlavor': 'The Punisher hides the errors.'
+        },
+        {
+          'name': 'Display pipeline reset',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Pipeline reset clears artifacts!',
+          'failFlavor': 'The Punisher reasserts control.'
+        },
+        {
+          'name': 'Full graphics stack rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Fresh stack banishes the Punisher!',
+          'failFlavor': 'The Punisher survives in firmware.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_10',
       name: 'The Battery Banshee',
-      lore: 'A wailing phantom that drains battery life at impossible rates, leaving devices dead in minutes. It was first witnessed on a laptop running a cryptocurrency miner disguised as a screensaver. Its cry is the low-battery warning that never stops.',
-      hp: 8, points: 800, armor: 17, challengeRating: 7,
-      visualType: 10, difficulty: DifficultyLevel.hard,
+      lore:
+          'A wailing phantom that drains battery life at impossible rates, leaving devices dead in minutes. It was first witnessed on a laptop running a cryptocurrency miner disguised as a screensaver. Its cry is the low-battery warning that never stops.',
+      hp: 8,
+      points: 800,
+      armor: 17,
+      challengeRating: 7,
+      visualType: 10,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_10',
-      introText: 'The battery icon plummets from 87% to 14% in thirty seconds. The charging LED flickers uselessly. Through the heat haze rising from the keyboard, a spectral form takes shape.',
-      phaseShiftText: 'The Banshee stops draining power and begins generating heat instead — the CPU thermal limit becomes its new weapon.',
+      introText:
+          'The battery icon plummets from 87% to 14% in thirty seconds. The charging LED flickers uselessly. Through the heat haze rising from the keyboard, a spectral form takes shape.',
+      phaseShiftText:
+          'The Banshee stops draining power and begins generating heat instead — the CPU thermal limit becomes its new weapon.',
       abilities: [
-        {'name': 'Power Drain', 'description': 'Secretly maximizes power consumption across all subsystems, draining the battery at 10x normal rate.', 'effect': 'damage'},
-        {'name': 'Thermal Spike', 'description': 'Forces CPU and GPU to run at maximum clock speed, generating dangerous levels of heat.', 'effect': 'damage'},
-        {'name': 'Sleep Prevention', 'description': 'Blocks all sleep and hibernate calls, keeping the system fully powered even when the lid is closed.', 'effect': 'block'},
+        {
+          'name': 'Power Drain',
+          'description':
+              'Secretly maximizes power consumption across all subsystems, draining the battery at 10x normal rate.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Thermal Spike',
+          'description':
+              'Forces CPU and GPU to run at maximum clock speed, generating dangerous levels of heat.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Sleep Prevention',
+          'description':
+              'Blocks all sleep and hibernate calls, keeping the system fully powered even when the lid is closed.',
+          'effect': 'block'
+        },
       ],
       diagnosis: {
-        'symptoms': 'powertop reports 42W average draw at idle (expected: 8W). turbostat shows all cores stuck at turbo frequency. systemd-logind has 847 failed sleep entries. batterystat shows discharge rate of 8,700mW vs rated 4,500mW capacity.',
-        'options': ['Background process drain or thermal issue', 'Faulty battery cell', 'Charging circuit failure'],
+        'symptoms':
+            'powertop reports 42W average draw at idle (expected: 8W). turbostat shows all cores stuck at turbo frequency. systemd-logind has 847 failed sleep entries. batterystat shows discharge rate of 8,700mW vs rated 4,500mW capacity.',
+        'options': [
+          'Background process drain or thermal issue',
+          'Faulty battery cell',
+          'Charging circuit failure'
+        ],
         'correct': 0,
         'flavor': 'You find the drain source! The Banshee\'s wail weakens!',
         'failFlavor': 'Wrong! The Banshee drains more power.',
       },
       strategies: [
-        {'name': 'Process audit', 'success': 70, 'damage': 2, 'flavor': 'Killing rogue process restores battery!', 'failFlavor': 'The Banshee hides the process.'},
-        {'name': 'Power profile reset', 'success': 55, 'damage': 3, 'flavor': 'Balanced profile reduces drain!', 'failFlavor': 'The Banshee overrides the profile.'},
-        {'name': 'Thermal throttling', 'success': 50, 'damage': 3, 'flavor': 'Throttling cools the device!', 'failFlavor': 'The Banshee bypasses throttling.'},
-        {'name': 'Driver power management', 'success': 45, 'damage': 4, 'flavor': 'Power management restored!', 'failFlavor': 'The Banshee corrupts the driver.'},
-        {'name': 'Full power stack rebuild', 'success': 35, 'damage': 5, 'flavor': 'Fresh power stack banishes Banshee!', 'failFlavor': 'The Banshee survives the rebuild.'},
+        {
+          'name': 'Process audit',
+          'success': 70,
+          'damage': 2,
+          'flavor': 'Killing rogue process restores battery!',
+          'failFlavor': 'The Banshee hides the process.'
+        },
+        {
+          'name': 'Power profile reset',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Balanced profile reduces drain!',
+          'failFlavor': 'The Banshee overrides the profile.'
+        },
+        {
+          'name': 'Thermal throttling',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Throttling cools the device!',
+          'failFlavor': 'The Banshee bypasses throttling.'
+        },
+        {
+          'name': 'Driver power management',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Power management restored!',
+          'failFlavor': 'The Banshee corrupts the driver.'
+        },
+        {
+          'name': 'Full power stack rebuild',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Fresh power stack banishes Banshee!',
+          'failFlavor': 'The Banshee survives the rebuild.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_11',
       name: 'The Lag Dragon',
-      lore: 'A fire-breathing beast that scorches frame rates, leaving nothing but stuttering slideshows in its path. It was awakened when a gamer tried to run ultra settings on integrated graphics. Its flames are measured in milliseconds per frame.',
-      hp: 9, points: 1000, armor: 19, challengeRating: 8,
-      visualType: 11, difficulty: DifficultyLevel.hard,
+      lore:
+          'A fire-breathing beast that scorches frame rates, leaving nothing but stuttering slideshows in its path. It was awakened when a gamer tried to run ultra settings on integrated graphics. Its flames are measured in milliseconds per frame.',
+      hp: 9,
+      points: 1000,
+      armor: 19,
+      challengeRating: 8,
+      visualType: 11,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_11',
-      introText: 'Your game drops from 144fps to 11fps. Input lag stretches to half a second. From the GPU die, a dragon of molten silicon rises, each wingbeat dropping another frame.',
-      phaseShiftText: 'The Dragon stops attacking frame rates and targets the GPU command queue directly — every draw call now waits for its permission.',
+      introText:
+          'Your game drops from 144fps to 11fps. Input lag stretches to half a second. From the GPU die, a dragon of molten silicon rises, each wingbeat dropping another frame.',
+      phaseShiftText:
+          'The Dragon stops attacking frame rates and targets the GPU command queue directly — every draw call now waits for its permission.',
       abilities: [
-        {'name': 'Frame Drop', 'description': 'Forces the GPU to skip rendering frames, creating visible stuttering and reduced visual smoothness.', 'effect': 'damage'},
-        {'name': 'Input Lag Burst', 'description': 'Injects massive delay between user input and on-screen response, making controls feel unresponsive.', 'effect': 'debuff'},
-        {'name': 'GPU Overload', 'description': 'Maxes out GPU utilization with phantom workloads, leaving no capacity for actual rendering.', 'effect': 'damage'},
+        {
+          'name': 'Frame Drop',
+          'description':
+              'Forces the GPU to skip rendering frames, creating visible stuttering and reduced visual smoothness.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Input Lag Burst',
+          'description':
+              'Injects massive delay between user input and on-screen response, making controls feel unresponsive.',
+          'effect': 'debuff'
+        },
+        {
+          'name': 'GPU Overload',
+          'description':
+              'Maxes out GPU utilization with phantom workloads, leaving no capacity for actual rendering.',
+          'effect': 'damage'
+        },
       ],
       diagnosis: {
-        'symptoms': 'GPU render time per frame: 89ms (target: 6.9ms). GPU clock stuck at 300MHz despite thermal headroom. Nsight shows 94% of SMs occupied by an unknown compute workload. VRAM bandwidth saturated at 100% utilization.',
-        'options': ['GPU bottleneck or thermal throttling', 'Network latency issue', 'Hard drive bottleneck'],
+        'symptoms':
+            'GPU render time per frame: 89ms (target: 6.9ms). GPU clock stuck at 300MHz despite thermal headroom. Nsight shows 94% of SMs occupied by an unknown compute workload. VRAM bandwidth saturated at 100% utilization.',
+        'options': [
+          'GPU bottleneck or thermal throttling',
+          'Network latency issue',
+          'Hard drive bottleneck'
+        ],
         'correct': 0,
         'flavor': 'You clear the GPU bottleneck! The Dragon\'s flames dim!',
         'failFlavor': 'Wrong! The Dragon increases the heat.',
       },
       strategies: [
-        {'name': 'Graphics settings reduction', 'success': 65, 'damage': 2, 'flavor': 'Lower settings boost frames!', 'failFlavor': 'The Dragon adapts to new settings.'},
-        {'name': 'Driver optimization', 'success': 55, 'damage': 3, 'flavor': 'Optimized driver improves performance!', 'failFlavor': 'The Dragon corrupts the optimization.'},
-        {'name': 'Background process kill', 'success': 50, 'damage': 3, 'flavor': 'Freed GPU resources!', 'failFlavor': 'The Dragon spawns new processes.'},
-        {'name': 'GPU overclock', 'success': 45, 'damage': 4, 'flavor': 'Extra power burns through the Dragon!', 'failFlavor': 'The Dragon absorbs the extra power.'},
-        {'name': 'Full graphics pipeline reset', 'success': 35, 'damage': 5, 'flavor': 'Pipeline reset destroys the Dragon!', 'failFlavor': 'The Dragon survives the reset.'},
+        {
+          'name': 'Graphics settings reduction',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Lower settings boost frames!',
+          'failFlavor': 'The Dragon adapts to new settings.'
+        },
+        {
+          'name': 'Driver optimization',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Optimized driver improves performance!',
+          'failFlavor': 'The Dragon corrupts the optimization.'
+        },
+        {
+          'name': 'Background process kill',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Freed GPU resources!',
+          'failFlavor': 'The Dragon spawns new processes.'
+        },
+        {
+          'name': 'GPU overclock',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Extra power burns through the Dragon!',
+          'failFlavor': 'The Dragon absorbs the extra power.'
+        },
+        {
+          'name': 'Full graphics pipeline reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Pipeline reset destroys the Dragon!',
+          'failFlavor': 'The Dragon survives the reset.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_12',
       name: 'The Signal Specter',
-      lore: 'A ghostly presence that haunts wireless networks, causing devices to lose connection at the worst moments. It was conjured by a microwave oven sitting directly next to a 2.4GHz router. It feeds on interference between overlapping channels.',
-      hp: 8, points: 900, armor: 18, challengeRating: 7,
-      visualType: 12, difficulty: DifficultyLevel.hard,
+      lore:
+          'A ghostly presence that haunts wireless networks, causing devices to lose connection at the worst moments. It was conjured by a microwave oven sitting directly next to a 2.4GHz router. It feeds on interference between overlapping channels.',
+      hp: 8,
+      points: 900,
+      armor: 18,
+      challengeRating: 7,
+      visualType: 12,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_12',
-      introText: 'Wi-Fi bars drop to zero. Then one bar. Then zero again. In the empty frequency spectrum, a translucent figure materializes, warping the radio waves around it.',
-      phaseShiftText: 'The Specter splits across both 2.4GHz and 5GHz bands — switching bands no longer escapes its interference.',
+      introText:
+          'Wi-Fi bars drop to zero. Then one bar. Then zero again. In the empty frequency spectrum, a translucent figure materializes, warping the radio waves around it.',
+      phaseShiftText:
+          'The Specter splits across both 2.4GHz and 5GHz bands — switching bands no longer escapes its interference.',
       abilities: [
-        {'name': 'Signal Jam', 'description': 'Overwhelms wireless frequencies with noise, causing all nearby devices to lose connection.', 'effect': 'block'},
-        {'name': 'Interference Burst', 'description': 'Creates short, intense bursts of electromagnetic interference that corrupt wireless packets mid-transmission.', 'effect': 'damage'},
-        {'name': 'Drop Disconnect', 'description': 'Forces random disconnections at critical moments, interrupting downloads and video calls.', 'effect': 'debuff'},
+        {
+          'name': 'Signal Jam',
+          'description':
+              'Overwhelms wireless frequencies with noise, causing all nearby devices to lose connection.',
+          'effect': 'block'
+        },
+        {
+          'name': 'Interference Burst',
+          'description':
+              'Creates short, intense bursts of electromagnetic interference that corrupt wireless packets mid-transmission.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Drop Disconnect',
+          'description':
+              'Forces random disconnections at critical moments, interrupting downloads and video calls.',
+          'effect': 'debuff'
+        },
       ],
       diagnosis: {
-        'symptoms': 'iwconfig shows signal strength oscillating between -30dBm and -85dBm every 4 seconds. Channel 11 SNR at 2dB (channel 1 at 31dB). Microwave leak detector reads 4.7W at 2.4GHz. 14 APs detected on overlapping channels.',
-        'options': ['Wireless interference or channel congestion', 'Router hardware failure', 'ISP outage'],
+        'symptoms':
+            'iwconfig shows signal strength oscillating between -30dBm and -85dBm every 4 seconds. Channel 11 SNR at 2dB (channel 1 at 31dB). Microwave leak detector reads 4.7W at 2.4GHz. 14 APs detected on overlapping channels.',
+        'options': [
+          'Wireless interference or channel congestion',
+          'Router hardware failure',
+          'ISP outage'
+        ],
         'correct': 0,
         'flavor': 'You clear the interference! The Specter\'s signal fades!',
         'failFlavor': 'Wrong! The Specter jams more channels.',
       },
       strategies: [
-        {'name': 'Channel scan and switch', 'success': 65, 'damage': 2, 'flavor': 'Clean channel found!', 'failFlavor': 'The Specter follows to the new channel.'},
-        {'name': 'Signal boost', 'success': 55, 'damage': 3, 'flavor': 'Stronger signal overpowers interference!', 'failFlavor': 'The Specter amplifies the jamming.'},
-        {'name': 'Band steering', 'success': 50, 'damage': 3, 'flavor': '5GHz band avoids the Specter!', 'failFlavor': 'The Specter jams both bands.'},
-        {'name': 'Antenna repositioning', 'success': 45, 'damage': 4, 'flavor': 'Better position clears the signal!', 'failFlavor': 'The Specter repositions the interference.'},
-        {'name': 'Full wireless stack reset', 'success': 35, 'damage': 5, 'flavor': 'Reset banishes the Specter!', 'failFlavor': 'The Specter survives the reset.'},
+        {
+          'name': 'Channel scan and switch',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Clean channel found!',
+          'failFlavor': 'The Specter follows to the new channel.'
+        },
+        {
+          'name': 'Signal boost',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Stronger signal overpowers interference!',
+          'failFlavor': 'The Specter amplifies the jamming.'
+        },
+        {
+          'name': 'Band steering',
+          'success': 50,
+          'damage': 3,
+          'flavor': '5GHz band avoids the Specter!',
+          'failFlavor': 'The Specter jams both bands.'
+        },
+        {
+          'name': 'Antenna repositioning',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Better position clears the signal!',
+          'failFlavor': 'The Specter repositions the interference.'
+        },
+        {
+          'name': 'Full wireless stack reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Reset banishes the Specter!',
+          'failFlavor': 'The Specter survives the reset.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_13',
       name: 'The Exploit Emperor',
-      lore: 'A tyrannical overlord that discovers and weaponizes zero-day vulnerabilities, conquering systems before defenders even know they exist. It has toppled firewalls that were considered impenetrable. Every patch released against it merely teaches it a new way in.',
-      hp: 10, points: 1100, armor: 20, challengeRating: 8,
-      visualType: 13, difficulty: DifficultyLevel.hard,
+      lore:
+          'A tyrannical overlord that discovers and weaponizes zero-day vulnerabilities, conquering systems before defenders even know they exist. It has toppled firewalls that were considered impenetrable. Every patch released against it merely teaches it a new way in.',
+      hp: 10,
+      points: 1100,
+      armor: 20,
+      challengeRating: 8,
+      visualType: 13,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_13',
-      introText: 'Security logs scroll at impossible speed — every entry a different exploit. The Emperor sits on a throne of compromised credentials, wearing a crown forged from stolen root keys.',
-      phaseShiftText: 'The Emperor sheds its current form and inhabits a different vulnerability entirely — every patch applied so far is now useless.',
+      introText:
+          'Security logs scroll at impossible speed — every entry a different exploit. The Emperor sits on a throne of compromised credentials, wearing a crown forged from stolen root keys.',
+      phaseShiftText:
+          'The Emperor sheds its current form and inhabits a different vulnerability entirely — every patch applied so far is now useless.',
       abilities: [
-        {'name': 'Zero-Day Strike', 'description': 'Exploits an unknown vulnerability with no available patch, bypassing all known security measures.', 'effect': 'damage'},
-        {'name': 'Privilege Escalation', 'description': 'Elevates from user-level access to root/admin by chaining multiple exploit primitives together.', 'effect': 'damage'},
-        {'name': 'Backdoor Creation', 'description': 'Installs hidden persistence mechanisms that survive reboots and security scans.', 'effect': 'block'},
+        {
+          'name': 'Zero-Day Strike',
+          'description':
+              'Exploits an unknown vulnerability with no available patch, bypassing all known security measures.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Privilege Escalation',
+          'description':
+              'Elevates from user-level access to root/admin by chaining multiple exploit primitives together.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'Backdoor Creation',
+          'description':
+              'Installs hidden persistence mechanisms that survive reboots and security scans.',
+          'effect': 'block'
+        },
       ],
       diagnosis: {
-        'symptoms': 'ss shows outbound connection to 185.234.xx.xx on port 4443. /proc/self/maps shows injected RWX pages in sshd. audit.log reveals setuid escalation from www-data to root at 03:14:07. Firmware integrity check fails on BMC module.',
-        'options': ['Zero-day exploit with privilege escalation', 'Weak password attack', 'Physical security breach'],
+        'symptoms':
+            'ss shows outbound connection to 185.234.xx.xx on port 4443. /proc/self/maps shows injected RWX pages in sshd. audit.log reveals setuid escalation from www-data to root at 03:14:07. Firmware integrity check fails on BMC module.',
+        'options': [
+          'Zero-day exploit with privilege escalation',
+          'Weak password attack',
+          'Physical security breach'
+        ],
         'correct': 0,
         'flavor': 'You trace the exploit chain! The Emperor\'s throne cracks!',
         'failFlavor': 'Wrong! The Emperor escalates further.',
       },
       strategies: [
-        {'name': 'Patch deployment', 'success': 60, 'damage': 2, 'flavor': 'Patch closes the vulnerability!', 'failFlavor': 'The Emperor exploits a different vector.'},
-        {'name': 'Privilege audit', 'success': 55, 'damage': 3, 'flavor': 'Revoked excess privileges!', 'failFlavor': 'The Emperor re-escalates.'},
-        {'name': 'Process termination', 'success': 50, 'damage': 3, 'flavor': 'Killed the malicious process!', 'failFlavor': 'The Emperor spawns a new process.'},
-        {'name': 'Backdoor detection', 'success': 45, 'damage': 4, 'flavor': 'Found and closed the backdoor!', 'failFlavor': 'The Emperor creates another backdoor.'},
-        {'name': 'Full system lockdown', 'success': 35, 'damage': 5, 'flavor': 'Lockdown traps the Emperor!', 'failFlavor': 'The Emperor overrides the lockdown.'},
+        {
+          'name': 'Patch deployment',
+          'success': 60,
+          'damage': 2,
+          'flavor': 'Patch closes the vulnerability!',
+          'failFlavor': 'The Emperor exploits a different vector.'
+        },
+        {
+          'name': 'Privilege audit',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Revoked excess privileges!',
+          'failFlavor': 'The Emperor re-escalates.'
+        },
+        {
+          'name': 'Process termination',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Killed the malicious process!',
+          'failFlavor': 'The Emperor spawns a new process.'
+        },
+        {
+          'name': 'Backdoor detection',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Found and closed the backdoor!',
+          'failFlavor': 'The Emperor creates another backdoor.'
+        },
+        {
+          'name': 'Full system lockdown',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Lockdown traps the Emperor!',
+          'failFlavor': 'The Emperor overrides the lockdown.'
+        },
       ],
     ),
     BossEncounterDef(
       id: 'weekly_boss_14',
       name: 'The Packet Storm',
-      lore: 'A swirling vortex of corrupted packets that overwhelms network infrastructure, drowning all communication in noise. It was unleashed by a misconfigured load balancer that started reflecting SYN requests back at the source. Now it grows stronger with every device it recruits into its botnet.',
-      hp: 9, points: 1000, armor: 19, challengeRating: 8,
-      visualType: 14, difficulty: DifficultyLevel.hard,
+      lore:
+          'A swirling vortex of corrupted packets that overwhelms network infrastructure, drowning all communication in noise. It was unleashed by a misconfigured load balancer that started reflecting SYN requests back at the source. Now it grows stronger with every device it recruits into its botnet.',
+      hp: 9,
+      points: 1000,
+      armor: 19,
+      challengeRating: 8,
+      visualType: 14,
+      difficulty: DifficultyLevel.hard,
       bossKey: 'weekly_boss_14',
-      introText: 'Every network interface on the machine hits 100% utilization simultaneously. Legitimate traffic drowns in a flood of malformed packets. The Storm has arrived.',
-      phaseShiftText: 'The Storm adapts its attack vector — rate limiting works for a moment before it switches to application-layer flooding that bypasses every packet filter.',
+      introText:
+          'Every network interface on the machine hits 100% utilization simultaneously. Legitimate traffic drowns in a flood of malformed packets. The Storm has arrived.',
+      phaseShiftText:
+          'The Storm adapts its attack vector — rate limiting works for a moment before it switches to application-layer flooding that bypasses every packet filter.',
       abilities: [
-        {'name': 'Packet Flood', 'description': 'Sends millions of malformed packets per second, saturating network bandwidth and crashing routers.', 'effect': 'damage'},
-        {'name': 'DNS Amplification', 'description': 'Amplifies DNS responses 50x their original size, reflecting enormous traffic at the target.', 'effect': 'damage'},
-        {'name': 'SYN Attack', 'description': 'Opens millions of TCP half-connections, exhausting server resources and blocking legitimate users.', 'effect': 'block'},
+        {
+          'name': 'Packet Flood',
+          'description':
+              'Sends millions of malformed packets per second, saturating network bandwidth and crashing routers.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'DNS Amplification',
+          'description':
+              'Amplifies DNS responses 50x their original size, reflecting enormous traffic at the target.',
+          'effect': 'damage'
+        },
+        {
+          'name': 'SYN Attack',
+          'description':
+              'Opens millions of TCP half-connections, exhausting server resources and blocking legitimate users.',
+          'effect': 'block'
+        },
       ],
       diagnosis: {
-        'symptoms': 'iftop shows 4.2Gbps inbound from 2,847 unique source IPs. SYN_RECV socket count at 65,535. iptables dropped packet rate: 1.2Mpps. DNS response rate: 47,000/sec on port 53. Legitimate TCP handshake success rate: 0.02%.',
-        'options': ['DDoS attack or packet flood', 'Network loop causing broadcast storm', 'Misconfigured load balancer'],
+        'symptoms':
+            'iftop shows 4.2Gbps inbound from 2,847 unique source IPs. SYN_RECV socket count at 65,535. iptables dropped packet rate: 1.2Mpps. DNS response rate: 47,000/sec on port 53. Legitimate TCP handshake success rate: 0.02%.',
+        'options': [
+          'DDoS attack or packet flood',
+          'Network loop causing broadcast storm',
+          'Misconfigured load balancer'
+        ],
         'correct': 0,
         'flavor': 'You identify the flood source! The Storm weakens!',
         'failFlavor': 'Wrong! The Storm intensifies.',
       },
       strategies: [
-        {'name': 'Rate limiting', 'success': 65, 'damage': 2, 'flavor': 'Rate limits control the flood!', 'failFlavor': 'The Storm overwhelms the limits.'},
-        {'name': 'Firewall rules', 'success': 55, 'damage': 3, 'flavor': 'Rules block malicious packets!', 'failFlavor': 'The Storm finds allowed ports.'},
-        {'name': 'Traffic analysis', 'success': 50, 'damage': 3, 'flavor': 'Analysis identifies attack pattern!', 'failFlavor': 'The Storm changes its pattern.'},
-        {'name': 'BGP blackhole routing', 'success': 45, 'damage': 4, 'flavor': 'Blackhole drops attack traffic!', 'failFlavor': 'The Storm redirects through peers.'},
-        {'name': 'Full network stack reset', 'success': 35, 'damage': 5, 'flavor': 'Reset clears the Storm!', 'failFlavor': 'The Storm rebuilds from backup.'},
+        {
+          'name': 'Rate limiting',
+          'success': 65,
+          'damage': 2,
+          'flavor': 'Rate limits control the flood!',
+          'failFlavor': 'The Storm overwhelms the limits.'
+        },
+        {
+          'name': 'Firewall rules',
+          'success': 55,
+          'damage': 3,
+          'flavor': 'Rules block malicious packets!',
+          'failFlavor': 'The Storm finds allowed ports.'
+        },
+        {
+          'name': 'Traffic analysis',
+          'success': 50,
+          'damage': 3,
+          'flavor': 'Analysis identifies attack pattern!',
+          'failFlavor': 'The Storm changes its pattern.'
+        },
+        {
+          'name': 'BGP blackhole routing',
+          'success': 45,
+          'damage': 4,
+          'flavor': 'Blackhole drops attack traffic!',
+          'failFlavor': 'The Storm redirects through peers.'
+        },
+        {
+          'name': 'Full network stack reset',
+          'success': 35,
+          'damage': 5,
+          'flavor': 'Reset clears the Storm!',
+          'failFlavor': 'The Storm rebuilds from backup.'
+        },
       ],
     ),
   ];
 
   static BossEncounterDef getCurrent() {
     final now = DateTime.now();
-    final daysSinceEpoch = now.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
+    final daysSinceEpoch =
+        now.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
     final weekNumber = daysSinceEpoch ~/ 7;
     final index = weekNumber % _bosses.length;
     return _bosses[index];

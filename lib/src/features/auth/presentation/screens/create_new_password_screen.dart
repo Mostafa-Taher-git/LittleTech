@@ -11,7 +11,8 @@ class CreateNewPasswordScreen extends StatefulWidget {
   const CreateNewPasswordScreen({super.key, required this.username});
 
   @override
-  State<CreateNewPasswordScreen> createState() => _CreateNewPasswordScreenState();
+  State<CreateNewPasswordScreen> createState() =>
+      _CreateNewPasswordScreenState();
 }
 
 class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
@@ -42,20 +43,27 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                     const Gap(20),
                     const Text(
                       'New Password',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white),
                     ),
                     const Gap(8),
                     RichText(
                       text: TextSpan(
-                        style: const TextStyle(color: Colors.white54, fontSize: 14),
+                        style: const TextStyle(
+                            color: Colors.white54, fontSize: 14),
                         children: [
                           const TextSpan(text: 'Setting password for '),
-                          TextSpan(text: widget.username, style: const TextStyle(color: AppColors.accent, fontWeight: FontWeight.w600)),
+                          TextSpan(
+                              text: widget.username,
+                              style: const TextStyle(
+                                  color: AppColors.accent,
+                                  fontWeight: FontWeight.w600)),
                         ],
                       ),
                     ),
                     const Gap(40),
-
                     TextFormField(
                       controller: _passwordCtrl,
                       obscureText: true,
@@ -65,21 +73,28 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         hintText: '••••••••',
                         labelStyle: const TextStyle(color: Colors.white54),
                         hintStyle: const TextStyle(color: Colors.white30),
-                        prefixIcon: const Icon(Icons.lock_outline, color: Colors.white54),
+                        prefixIcon: const Icon(Icons.lock_outline,
+                            color: Colors.white54),
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.06),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide.none),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide.none),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
+                          borderSide: const BorderSide(
+                              color: AppColors.accent, width: 1.5),
                         ),
                         errorStyle: const TextStyle(color: AppColors.error),
                       ),
-                      validator: (v) => (v == null || v.length < 6) ? 'Min 6 characters' : null,
+                      validator: (v) => (v == null || v.length < 6)
+                          ? 'Min 6 characters'
+                          : null,
                     ),
                     const Gap(32),
-
                     SizedBox(
                       width: double.infinity,
                       height: 56,
@@ -87,7 +102,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.accent,
                           foregroundColor: AppColors.onAccent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                         ),
                         onPressed: _loading
                             ? null
@@ -101,16 +117,25 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                   setState(() => _loading = false);
                                   if (!context.mounted) return;
                                   if (ok) {
-                                    showSuccessToast(context, 'Password updated!');
-                                    Nav.replaceAll(context, const LoginScreen());
+                                    showSuccessToast(
+                                        context, 'Password updated!');
+                                    Nav.replaceAll(
+                                        context, const LoginScreen());
                                   } else {
-                                    showErrorToast(context, 'Failed to update password.');
+                                    showErrorToast(
+                                        context, 'Failed to update password.');
                                   }
                                 }
                               },
                         child: _loading
-                            ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.onAccent))
-                            : const Text('Update Password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                            ? const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2, color: AppColors.onAccent))
+                            : const Text('Update Password',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w700)),
                       ),
                     ),
                     const Gap(20),

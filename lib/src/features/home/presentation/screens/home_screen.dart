@@ -56,21 +56,27 @@ class HomeScreen extends StatelessWidget {
                       AchievementType.bosses => progress.bossesDefeated,
                       AchievementType.points => progress.points,
                       AchievementType.rewards => earnedIds.length,
-                      AchievementType.streak => StreakTracker.calculateStreak(progress.playDates),
-                      AchievementType.categories => progress.completedCategoryIds.length,
-                      AchievementType.weeklyBosses => progress.weeklyBossesDefeated,
+                      AchievementType.streak =>
+                        StreakTracker.calculateStreak(progress.playDates),
+                      AchievementType.categories =>
+                        progress.completedCategoryIds.length,
+                      AchievementType.weeklyBosses =>
+                        progress.weeklyBossesDefeated,
                     };
                     return progressVal >= a.requirement;
                   }).toList();
 
-                  final earnedBadges = RewardPool.badges.where((b) => earnedIds.contains(b.id)).toList();
+                  final earnedBadges = RewardPool.badges
+                      .where((b) => earnedIds.contains(b.id))
+                      .toList();
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.emoji_events, color: scheme.secondary, size: 18),
+                          Icon(Icons.emoji_events,
+                              color: scheme.secondary, size: 18),
                           const Gap(6),
                           Text(
                             'Honors & Badges',
@@ -97,31 +103,38 @@ class HomeScreen extends StatelessWidget {
                           runSpacing: 8,
                           children: [
                             ...earnedAchievements.map((a) => Tooltip(
-                              message: a.name,
-                              child: Container(
-                                width: 36,
-                                height: 36,
-                                decoration: BoxDecoration(
-                                  color: Colors.green.withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
-                                ),
-                                child: Icon(a.icon, color: Colors.green.shade300, size: 18),
-                              ),
-                            )),
+                                  message: a.name,
+                                  child: Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          Colors.green.withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.green
+                                              .withValues(alpha: 0.3)),
+                                    ),
+                                    child: Icon(a.icon,
+                                        color: Colors.green.shade300, size: 18),
+                                  ),
+                                )),
                             ...earnedBadges.map((b) => Tooltip(
-                              message: b.displayName,
-                              child: Container(
-                                width: 36,
-                                height: 36,
-                                decoration: BoxDecoration(
-                                  color: b.color.withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: b.color.withValues(alpha: 0.3)),
-                                ),
-                                child: Icon(b.icon, color: b.color, size: 18),
-                              ),
-                            )),
+                                  message: b.displayName,
+                                  child: Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      color: b.color.withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color:
+                                              b.color.withValues(alpha: 0.3)),
+                                    ),
+                                    child:
+                                        Icon(b.icon, color: b.color, size: 18),
+                                  ),
+                                )),
                           ],
                         ),
                     ],
@@ -137,11 +150,14 @@ class HomeScreen extends StatelessWidget {
               // Challenge banner
               BlocBuilder<GameCubit, GameState>(
                 builder: (_, state) {
-                  final streak = StreakTracker.calculateStreak(state.progress.playDates);
+                  final streak =
+                      StreakTracker.calculateStreak(state.progress.playDates);
                   return ChallengeBanner(
                     streak: streak,
-                    onDailyTap: () => Nav.push(context, const ChallengeScreen()),
-                    onWeeklyTap: () => Nav.push(context, const ChallengeScreen()),
+                    onDailyTap: () =>
+                        Nav.push(context, const ChallengeScreen()),
+                    onWeeklyTap: () =>
+                        Nav.push(context, const ChallengeScreen()),
                   );
                 },
               ),
@@ -229,7 +245,11 @@ class _Header extends StatelessWidget {
           child: Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
-              final user = (authState is LoginSuccess) ? authState.user : (authState is RegisterSuccess) ? authState.user : null;
+              final user = (authState is LoginSuccess)
+                  ? authState.user
+                  : (authState is RegisterSuccess)
+                      ? authState.user
+                      : null;
               return Row(
                 children: [
                   Flexible(
@@ -281,6 +301,7 @@ class _Header extends StatelessWidget {
         _IconButton(
           icon: Icons.bookmark_outline_rounded,
           onTap: () => Nav.push(context, const SavedSolutionsScreen()),
+          label: 'Saved solutions',
         ),
         const Gap(4),
 
@@ -288,6 +309,7 @@ class _Header extends StatelessWidget {
         _IconButton(
           icon: Icons.settings_outlined,
           onTap: () => Nav.push(context, const SettingsScreen()),
+          label: 'Settings',
         ),
       ],
     );
@@ -297,26 +319,36 @@ class _Header extends StatelessWidget {
 class _IconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
+  final String label;
 
-  const _IconButton({required this.icon, required this.onTap});
+  const _IconButton({
+    required this.icon,
+    required this.onTap,
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: scheme.surface,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
+    return Semantics(
+      label: label,
+      button: true,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: scheme.surface,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
+            ),
+            child: Icon(icon,
+                size: 18, color: scheme.onSurface.withValues(alpha: 0.7)),
           ),
-          child: Icon(icon, size: 18, color: scheme.onSurface.withValues(alpha: 0.7)),
         ),
       ),
     );
@@ -335,7 +367,9 @@ class _PlayerTitle {
   }
 
   static IconData getIcon(int levelsCleared, int bossesDefeated) {
-    if (levelsCleared >= 20 && bossesDefeated >= 8) return Icons.workspace_premium;
+    if (levelsCleared >= 20 && bossesDefeated >= 8) {
+      return Icons.workspace_premium;
+    }
     if (levelsCleared >= 20) return Icons.star;
     if (levelsCleared >= 10) return Icons.star_half;
     if (levelsCleared >= 5) return Icons.star_border;
@@ -558,7 +592,8 @@ class _StatsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(10),
@@ -566,7 +601,8 @@ class _StatsCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.celebration, size: 14, color: scheme.secondary),
+                      Icon(Icons.celebration,
+                          size: 14, color: scheme.secondary),
                       const Gap(4),
                       Text(
                         'Great job!',

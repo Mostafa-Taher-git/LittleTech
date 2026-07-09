@@ -1,19 +1,63 @@
 import 'package:flutter/material.dart';
 
 enum SkinTier {
-  default_, rookie, ninja, wizard, golden, hacker, engineer, grandmaster,
-  cyber, shadow, neon, phoenix, titan, void_, glitch, frost, chrono, spectre, viper, spark
+  default_,
+  rookie,
+  ninja,
+  wizard,
+  golden,
+  hacker,
+  engineer,
+  grandmaster,
+  cyber,
+  shadow,
+  neon,
+  phoenix,
+  titan,
+  void_,
+  glitch,
+  frost,
+  chrono,
+  spectre,
+  viper,
+  spark
 }
 
-enum SupTechExpression { neutral, happy, angry, surprised, determined, wink, sleep, error }
+enum SupTechExpression {
+  neutral,
+  happy,
+  angry,
+  surprised,
+  determined,
+  wink,
+  sleep,
+  error
+}
 
 enum SkinVariant { default_, ninja, wizard, tech, armored, phoenix, void_ }
 
-enum SupTechHeadAccessory { none, antenna, crown, wizardHat, ninjaHeadband, visor, horns, crest }
+enum SupTechHeadAccessory {
+  none,
+  antenna,
+  crown,
+  wizardHat,
+  ninjaHeadband,
+  visor,
+  horns,
+  crest
+}
 
 enum SupTechEarAccessory { none, headset, earGlow }
 
-enum SupTechChestAccessory { none, badge, cape, codeScroll, gear, flameEmblem, staff }
+enum SupTechChestAccessory {
+  none,
+  badge,
+  cape,
+  codeScroll,
+  gear,
+  flameEmblem,
+  staff
+}
 
 enum SupTechPose { none, neutral, wave, thinking, working }
 

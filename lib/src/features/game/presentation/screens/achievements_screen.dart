@@ -54,12 +54,15 @@ class AchievementsScreen extends StatelessWidget {
                   AchievementType.bosses => progress.bossesDefeated,
                   AchievementType.points => progress.points,
                   AchievementType.rewards => earnedIds.length,
-                  AchievementType.streak => StreakTracker.calculateStreak(progress.playDates),
-                  AchievementType.categories => progress.completedCategoryIds.length,
+                  AchievementType.streak =>
+                    StreakTracker.calculateStreak(progress.playDates),
+                  AchievementType.categories =>
+                    progress.completedCategoryIds.length,
                   AchievementType.weeklyBosses => progress.weeklyBossesDefeated,
                 };
                 final isDone = progress.unlockedAchievementIds.contains(a.id);
-                final progressFraction = (progressVal / a.requirement).clamp(0.0, 1.0);
+                final progressFraction =
+                    (progressVal / a.requirement).clamp(0.0, 1.0);
 
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
@@ -92,7 +95,9 @@ class AchievementsScreen extends StatelessWidget {
                             ),
                             child: Icon(
                               a.icon,
-                              color: isDone ? Colors.green : scheme.onSurface.withValues(alpha: 0.4),
+                              color: isDone
+                                  ? Colors.green
+                                  : scheme.onSurface.withValues(alpha: 0.4),
                               size: 20,
                             ),
                           ),
@@ -114,7 +119,8 @@ class AchievementsScreen extends StatelessWidget {
                                 Text(
                                   a.description,
                                   style: TextStyle(
-                                    color: scheme.onSurface.withValues(alpha: 0.5),
+                                    color:
+                                        scheme.onSurface.withValues(alpha: 0.5),
                                     fontSize: 12,
                                   ),
                                 ),
@@ -122,7 +128,8 @@ class AchievementsScreen extends StatelessWidget {
                             ),
                           ),
                           if (isDone)
-                            Icon(Icons.check_circle, color: Colors.green.shade400, size: 22)
+                            Icon(Icons.check_circle,
+                                color: Colors.green.shade400, size: 22)
                           else
                             Text(
                               '$progressVal/${a.requirement}',
@@ -141,9 +148,12 @@ class AchievementsScreen extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: progressFraction,
                             minHeight: 4,
-                            backgroundColor: scheme.outline.withValues(alpha: 0.15),
+                            backgroundColor:
+                                scheme.outline.withValues(alpha: 0.15),
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              isDone ? Colors.green : scheme.primary.withValues(alpha: 0.5),
+                              isDone
+                                  ? Colors.green
+                                  : scheme.primary.withValues(alpha: 0.5),
                             ),
                           ),
                         ),
@@ -155,12 +165,15 @@ class AchievementsScreen extends StatelessWidget {
                           runSpacing: 4,
                           children: a.rewards.map((r) {
                             final rewardDef = RewardPool.byId(r.rewardId);
-                            final isUnlocked = progress.earnedRewardIds.contains(r.rewardId);
+                            final isUnlocked =
+                                progress.earnedRewardIds.contains(r.rewardId);
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 3),
                               decoration: BoxDecoration(
                                 color: isUnlocked
-                                    ? (rewardDef?.color ?? Colors.green).withValues(alpha: 0.1)
+                                    ? (rewardDef?.color ?? Colors.green)
+                                        .withValues(alpha: 0.1)
                                     : scheme.outline.withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -172,7 +185,8 @@ class AchievementsScreen extends StatelessWidget {
                                     size: 12,
                                     color: isUnlocked
                                         ? (rewardDef?.color ?? Colors.green)
-                                        : scheme.onSurface.withValues(alpha: 0.3),
+                                        : scheme.onSurface
+                                            .withValues(alpha: 0.3),
                                   ),
                                   const Gap(4),
                                   Text(
@@ -182,7 +196,8 @@ class AchievementsScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                       color: isUnlocked
                                           ? (rewardDef?.color ?? Colors.green)
-                                          : scheme.onSurface.withValues(alpha: 0.3),
+                                          : scheme.onSurface
+                                              .withValues(alpha: 0.3),
                                     ),
                                   ),
                                 ],
@@ -193,7 +208,9 @@ class AchievementsScreen extends StatelessWidget {
                       ],
                     ],
                   ),
-                ).animate().fadeIn(delay: (30 * AchievementManager.all.indexOf(a)).ms);
+                )
+                    .animate()
+                    .fadeIn(delay: (30 * AchievementManager.all.indexOf(a)).ms);
               }),
               const Gap(24),
               Text(
@@ -237,7 +254,9 @@ class AchievementsScreen extends StatelessWidget {
                         ),
                         child: Icon(
                           badge.icon,
-                          color: isEarned ? badge.color : scheme.onSurface.withValues(alpha: 0.3),
+                          color: isEarned
+                              ? badge.color
+                              : scheme.onSurface.withValues(alpha: 0.3),
                           size: 20,
                         ),
                       ),
@@ -249,7 +268,9 @@ class AchievementsScreen extends StatelessWidget {
                             Text(
                               badge.displayName,
                               style: TextStyle(
-                                color: isEarned ? badge.color : scheme.onSurface.withValues(alpha: 0.6),
+                                color: isEarned
+                                    ? badge.color
+                                    : scheme.onSurface.withValues(alpha: 0.6),
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),
@@ -257,7 +278,9 @@ class AchievementsScreen extends StatelessWidget {
                             Text(
                               isEarned ? 'Earned Badge' : 'Locked',
                               style: TextStyle(
-                                color: isEarned ? badge.color.withValues(alpha: 0.7) : scheme.onSurface.withValues(alpha: 0.4),
+                                color: isEarned
+                                    ? badge.color.withValues(alpha: 0.7)
+                                    : scheme.onSurface.withValues(alpha: 0.4),
                                 fontSize: 12,
                               ),
                             ),

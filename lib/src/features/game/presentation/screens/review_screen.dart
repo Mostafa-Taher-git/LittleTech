@@ -51,7 +51,10 @@ class ReviewScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [scheme.primary, scheme.primary.withValues(alpha: 0.8)],
+                    colors: [
+                      scheme.primary,
+                      scheme.primary.withValues(alpha: 0.8)
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -101,7 +104,8 @@ class ReviewScreen extends StatelessWidget {
                       '${quiz['correct']}/${quiz['total']} correct',
                       '${quiz['hearts']}/3 lives remaining',
                     ],
-                    passed: (quiz['correct'] as int) >= (quiz['total'] as int) ~/ 2 + 1,
+                    passed: (quiz['correct'] as int) >=
+                        (quiz['total'] as int) ~/ 2 + 1,
                     scheme: scheme,
                   ),
                 if (ordering != null) ...[
@@ -150,11 +154,13 @@ class ReviewScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                    border:
+                        Border.all(color: Colors.green.withValues(alpha: 0.2)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                      const Icon(Icons.check_circle,
+                          color: Colors.green, size: 20),
                       const Gap(12),
                       Expanded(
                         child: Column(
@@ -198,15 +204,29 @@ class ReviewScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: scheme.onSurface.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
+                  border:
+                      Border.all(color: scheme.outline.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
-                    _PointRow(label: 'Step points', points: stepPoints, accentColor: scheme.secondary, scheme: scheme),
+                    _PointRow(
+                        label: 'Step points',
+                        points: stepPoints,
+                        accentColor: scheme.secondary,
+                        scheme: scheme),
                     const Divider(height: 20),
-                    _PointRow(label: 'Level bonus', points: levelPoints, accentColor: scheme.secondary, scheme: scheme),
+                    _PointRow(
+                        label: 'Level bonus',
+                        points: levelPoints,
+                        accentColor: scheme.secondary,
+                        scheme: scheme),
                     const Divider(height: 20),
-                    _PointRow(label: 'Total', points: total, isTotal: true, accentColor: scheme.secondary, scheme: scheme),
+                    _PointRow(
+                        label: 'Total',
+                        points: total,
+                        isTotal: true,
+                        accentColor: scheme.secondary,
+                        scheme: scheme),
                   ],
                 ),
               ),
@@ -267,7 +287,9 @@ class _PrepResultCard extends StatelessWidget {
         color: scheme.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: passed ? Colors.green.withValues(alpha: 0.3) : Colors.red.withValues(alpha: 0.3),
+          color: passed
+              ? Colors.green.withValues(alpha: 0.3)
+              : Colors.red.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -294,12 +316,12 @@ class _PrepResultCard extends StatelessWidget {
                   ),
                 ),
                 ...lines.map((l) => Text(
-                  l,
-                  style: TextStyle(
-                    color: scheme.onSurface.withValues(alpha: 0.5),
-                    fontSize: 12,
-                  ),
-                )),
+                      l,
+                      style: TextStyle(
+                        color: scheme.onSurface.withValues(alpha: 0.5),
+                        fontSize: 12,
+                      ),
+                    )),
               ],
             ),
           ),
@@ -338,7 +360,9 @@ class _PointRow extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: isTotal ? accentColor : scheme.onSurface.withValues(alpha: 0.7),
+              color: isTotal
+                  ? accentColor
+                  : scheme.onSurface.withValues(alpha: 0.7),
               fontWeight: isTotal ? FontWeight.w700 : FontWeight.w400,
               fontSize: isTotal ? 16 : 14,
             ),

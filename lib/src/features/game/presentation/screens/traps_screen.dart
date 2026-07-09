@@ -37,11 +37,22 @@ class _TrapsScreenState extends State<TrapsScreen> {
   }
 
   List<Map<String, dynamic>> get _levelTraps {
-    return PrepData.traps[PrepData.key(widget.level.id)] ?? [
-      {'statement': 'Identifying symptoms is the first troubleshooting step', 'isTrue': true},
-      {'statement': 'You should replace a device before trying to fix it', 'isTrue': false},
-      {'statement': 'Restarting can fix many tech problems', 'isTrue': true},
-    ];
+    return PrepData.traps[PrepData.key(widget.level.id)] ??
+        [
+          {
+            'statement':
+                'Identifying symptoms is the first troubleshooting step',
+            'isTrue': true
+          },
+          {
+            'statement': 'You should replace a device before trying to fix it',
+            'isTrue': false
+          },
+          {
+            'statement': 'Restarting can fix many tech problems',
+            'isTrue': true
+          },
+        ];
   }
 
   void _answer(bool userSaysTrue) {
@@ -69,7 +80,8 @@ class _TrapsScreenState extends State<TrapsScreen> {
 
   void _continueToQuest() {
     _passed = _correctCount >= _levelTraps.length ~/ 2 + 1;
-    context.read<GameCubit>().saveTrapsResult(widget.level.id, _correctCount, _levelTraps.length, _passed);
+    context.read<GameCubit>().saveTrapsResult(
+        widget.level.id, _correctCount, _levelTraps.length, _passed);
     if (_passed) context.read<GameCubit>().addPoints(15);
     Nav.pushReplacement(
       context,
@@ -108,7 +120,8 @@ class _TrapsScreenState extends State<TrapsScreen> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.tertiary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
@@ -140,11 +153,13 @@ class _TrapsScreenState extends State<TrapsScreen> {
               decoration: BoxDecoration(
                 color: scheme.primary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
+                border:
+                    Border.all(color: scheme.outline.withValues(alpha: 0.2)),
               ),
               child: Column(
                 children: [
-                  Icon(Icons.psychology_outlined, color: scheme.tertiary, size: 36),
+                  Icon(Icons.psychology_outlined,
+                      color: scheme.tertiary, size: 36),
                   const Gap(16),
                   Text(
                     statement,
@@ -176,7 +191,9 @@ class _TrapsScreenState extends State<TrapsScreen> {
                           ),
                         ),
                         icon: const Icon(Icons.check, size: 24),
-                        label: const Text('TRUE', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                        label: const Text('TRUE',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w800)),
                       ),
                     ).animate().fadeIn(delay: 200.ms).slideX(begin: -0.1),
                   ),
@@ -194,7 +211,9 @@ class _TrapsScreenState extends State<TrapsScreen> {
                           ),
                         ),
                         icon: const Icon(Icons.close, size: 24),
-                        label: const Text('FALSE', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                        label: const Text('FALSE',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w800)),
                       ),
                     ).animate().fadeIn(delay: 300.ms).slideX(begin: 0.1),
                   ),
@@ -214,8 +233,11 @@ class _TrapsScreenState extends State<TrapsScreen> {
                     ),
                   ),
                   child: Text(
-                    _currentIndex < _levelTraps.length - 1 ? 'Next Trap' : 'Review Results',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    _currentIndex < _levelTraps.length - 1
+                        ? 'Next Trap'
+                        : 'Review Results',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -279,7 +301,8 @@ class _TrapsScreenState extends State<TrapsScreen> {
             final i = entry.key;
             final trap = entry.value;
             final isCorrect = i < _trapResults.length ? _trapResults[i] : false;
-            final userAnswer = i < _userAnswers.length ? _userAnswers[i] : false;
+            final userAnswer =
+                i < _userAnswers.length ? _userAnswers[i] : false;
 
             return Container(
               margin: const EdgeInsets.only(bottom: 10),
@@ -322,7 +345,9 @@ class _TrapsScreenState extends State<TrapsScreen> {
                   Text(
                     'You said: ${userAnswer ? "TRUE" : "FALSE"}',
                     style: TextStyle(
-                      color: isCorrect ? Colors.green.shade300 : Colors.red.shade300,
+                      color: isCorrect
+                          ? Colors.green.shade300
+                          : Colors.red.shade300,
                       fontSize: 12,
                     ),
                   ),
@@ -367,7 +392,8 @@ class _TrapsScreenState extends State<TrapsScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => SupTechDialog(contextType: SupTechContext.traps, questionIndex: _currentIndex),
+      builder: (_) => SupTechDialog(
+          contextType: SupTechContext.traps, questionIndex: _currentIndex),
     );
   }
 }

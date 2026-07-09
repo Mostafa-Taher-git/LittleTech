@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/game/constants/achievements.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/constants/reward_pool.dart';
+import 'package:littletech/src/features/game/constants/game_constants.dart';
 import 'package:littletech/src/features/game/constants/skin_tiers.dart';
 import 'package:littletech/src/features/game/data/models/player_progress.dart';
 import 'package:littletech/src/features/game/data/repositories/game_repository.dart';
@@ -13,7 +15,7 @@ import 'package:littletech/src/core/constants/category_manager.dart';
 
 enum SupTechContext { problem, quiz, ordering, scenario, traps, mistake, boss }
 
-class GameState {
+class GameState with Equatable {
   final PlayerProgress progress;
   final WorldDef? currentWorld;
   final LevelDef? currentLevel;
@@ -32,6 +34,28 @@ class GameState {
   final int lastLevelPointsEarned;
   final bool earnedNoSupTechBonus;
   final Map<String, Set<String>> usedSupTechActions;
+
+  @override
+  List<Object?> get props => [
+        progress,
+        currentWorld,
+        currentLevel,
+        currentStepIndex,
+        currentBossHp,
+        bossHpMultiplier,
+        lastDrawnReward,
+        supTechContext,
+        hintText,
+        pointsMultiplier,
+        currentBoss,
+        newlyUnlockedAchievements,
+        persistError,
+        persistErrorCritical,
+        paidStepIndices,
+        lastLevelPointsEarned,
+        earnedNoSupTechBonus,
+        usedSupTechActions,
+      ];
 
   const GameState({
     required this.progress,
@@ -78,21 +102,31 @@ class GameState {
   }) {
     return GameState(
       progress: progress ?? this.progress,
-      currentWorld: currentWorld == _sentinel ? this.currentWorld : currentWorld as WorldDef?,
-      currentLevel: currentLevel == _sentinel ? this.currentLevel : currentLevel as LevelDef?,
+      currentWorld: currentWorld == _sentinel
+          ? this.currentWorld
+          : currentWorld as WorldDef?,
+      currentLevel: currentLevel == _sentinel
+          ? this.currentLevel
+          : currentLevel as LevelDef?,
       currentStepIndex: currentStepIndex ?? this.currentStepIndex,
       currentBossHp: currentBossHp ?? this.currentBossHp,
       bossHpMultiplier: bossHpMultiplier ?? this.bossHpMultiplier,
-      lastDrawnReward: lastDrawnReward == _sentinel ? this.lastDrawnReward : lastDrawnReward as RewardDef?,
+      lastDrawnReward: lastDrawnReward == _sentinel
+          ? this.lastDrawnReward
+          : lastDrawnReward as RewardDef?,
       supTechContext: supTechContext ?? this.supTechContext,
       hintText: hintText == _sentinel ? this.hintText : hintText as String?,
       pointsMultiplier: pointsMultiplier ?? this.pointsMultiplier,
-      currentBoss: currentBoss == _sentinel ? this.currentBoss : currentBoss as BossEncounterDef?,
-      newlyUnlockedAchievements: newlyUnlockedAchievements ?? this.newlyUnlockedAchievements,
+      currentBoss: currentBoss == _sentinel
+          ? this.currentBoss
+          : currentBoss as BossEncounterDef?,
+      newlyUnlockedAchievements:
+          newlyUnlockedAchievements ?? this.newlyUnlockedAchievements,
       persistError: persistError ?? this.persistError,
       persistErrorCritical: persistErrorCritical ?? this.persistErrorCritical,
       paidStepIndices: paidStepIndices ?? this.paidStepIndices,
-      lastLevelPointsEarned: lastLevelPointsEarned ?? this.lastLevelPointsEarned,
+      lastLevelPointsEarned:
+          lastLevelPointsEarned ?? this.lastLevelPointsEarned,
       earnedNoSupTechBonus: earnedNoSupTechBonus ?? this.earnedNoSupTechBonus,
       usedSupTechActions: usedSupTechActions ?? this.usedSupTechActions,
     );
@@ -126,8 +160,7 @@ class GameState {
   bool get canUseSupTech =>
       progress.supTechUsesThisLevel > 0 || progress.extraSupTechUses > 0;
 
-  int get totalPoints =>
-      progress.points;
+  int get totalPoints => progress.points;
 
   int get availableSupTechUses =>
       progress.supTechUsesThisLevel + progress.extraSupTechUses;
@@ -151,9 +184,10 @@ class GameCubit extends Cubit<GameState> {
     WorldDef? world;
     if (progress.currentCategoryId != null) {
       world = GameData.worlds.cast<WorldDef?>().firstWhere(
-        (w) => w!.id == progress.currentCategoryId,
-        orElse: () => GameData.worlds.isNotEmpty ? GameData.worlds.first : null,
-      );
+            (w) => w!.id == progress.currentCategoryId,
+            orElse: () =>
+                GameData.worlds.isNotEmpty ? GameData.worlds.first : null,
+          );
     } else if (progress.currentWorldId < GameData.worlds.length) {
       world = GameData.worlds[progress.currentWorldId];
     } else if (GameData.worlds.isNotEmpty) {
@@ -163,7 +197,10 @@ class GameCubit extends Cubit<GameState> {
         .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
         .toList();
     _safePersist([() => _repository.clearPendingAchievements(progress)]);
-    emit(GameState(progress: progress, currentWorld: world, newlyUnlockedAchievements: pending));
+    emit(GameState(
+        progress: progress,
+        currentWorld: world,
+        newlyUnlockedAchievements: pending));
   }
 
   Future<void> loadGame() async {
@@ -174,9 +211,10 @@ class GameCubit extends Cubit<GameState> {
     WorldDef? world;
     if (progress.currentCategoryId != null) {
       world = GameData.worlds.cast<WorldDef?>().firstWhere(
-        (w) => w!.id == progress.currentCategoryId,
-        orElse: () => GameData.worlds.isNotEmpty ? GameData.worlds.first : null,
-      );
+            (w) => w!.id == progress.currentCategoryId,
+            orElse: () =>
+                GameData.worlds.isNotEmpty ? GameData.worlds.first : null,
+          );
     } else if (progress.currentWorldId < GameData.worlds.length) {
       world = GameData.worlds[progress.currentWorldId];
     } else if (GameData.worlds.isNotEmpty) {
@@ -187,13 +225,18 @@ class GameCubit extends Cubit<GameState> {
         .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
         .toList();
     _safePersist([() => _repository.clearPendingAchievements(skinProgress)]);
-    emit(GameState(progress: skinProgress, currentWorld: world, newlyUnlockedAchievements: pending));
+    emit(GameState(
+        progress: skinProgress,
+        currentWorld: world,
+        newlyUnlockedAchievements: pending));
   }
 
   void selectWorld(WorldDef world) {
     final progress = state.progress;
-    _safePersist([() => _repository.setCurrentCategory(progress, world.id, null)]);
-    emit(state.copyWith(progress: progress, currentWorld: world, bossHpMultiplier: 1));
+    _safePersist(
+        [() => _repository.setCurrentCategory(progress, world.id, null)]);
+    emit(state.copyWith(
+        progress: progress, currentWorld: world, bossHpMultiplier: 1));
   }
 
   void setBossMultiplier(int multiplier) {
@@ -229,7 +272,8 @@ class GameCubit extends Cubit<GameState> {
     final progress = state.progress;
     final world = worldOverride ?? state.currentWorld;
     final updated = progress.copyWith(currentLevelId: level.id);
-    _safePersist([() => _repository.setCurrentCategory(updated, world?.id, level.id)]);
+    _safePersist(
+        [() => _repository.setCurrentCategory(updated, world?.id, level.id)]);
     emit(state.copyWith(
       progress: updated,
       currentWorld: world ?? state.currentWorld,
@@ -242,7 +286,8 @@ class GameCubit extends Cubit<GameState> {
     ));
   }
 
-  void _savePrepResultData(String levelId, String key, Map<String, dynamic> value) {
+  void _savePrepResultData(
+      String levelId, String key, Map<String, dynamic> value) {
     final progress = state.progress;
     final raw = progress.getPrepResult(levelId);
     final data = raw != null
@@ -291,7 +336,8 @@ class GameCubit extends Cubit<GameState> {
     final paid = Set<int>.from(state.paidStepIndices);
 
     if (!paid.contains(state.currentStepIndex)) {
-      _safePersist([() => _repository.addPoints(progress, 10)]);
+      _safePersist(
+          [() => _repository.addPoints(progress, GameConstants.stepPoints)]);
       paid.add(state.currentStepIndex);
     }
     if (nextIndex >= steps.length) {
@@ -306,15 +352,19 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void _safePersist(List<Future<void> Function()> ops, {bool isCritical = false}) {
-    Future.wait(ops.map((op) => op()))
-      .then((_) {
-        if (!isClosed) emit(state.copyWith(persistError: false, persistErrorCritical: false));
-      })
-      .catchError((e, st) {
-        debugPrint('Persist error: $e\n$st');
-        if (!isClosed) emit(state.copyWith(persistError: true, persistErrorCritical: isCritical));
-      });
+  void _safePersist(List<Future<void> Function()> ops,
+      {bool isCritical = false}) {
+    Future.wait(ops.map((op) => op())).then((_) {
+      if (!isClosed) {
+        emit(state.copyWith(persistError: false, persistErrorCritical: false));
+      }
+    }).catchError((e, st) {
+      debugPrint('Persist error: $e\n$st');
+      if (!isClosed) {
+        emit(state.copyWith(
+            persistError: true, persistErrorCritical: isCritical));
+      }
+    });
   }
 
   void _completeLevel(PlayerProgress progress, int finalStepIndex) {
@@ -324,36 +374,50 @@ class GameCubit extends Cubit<GameState> {
     int bonusPoints = 0;
     final noSupTech = progress.supTechUsesThisLevel >= 1;
     if (noSupTech) {
-      bonusPoints += 25;
+      bonusPoints += GameConstants.noSupTechBonus;
     }
-    // First attempt bonus — completed without retrying (linear game = always true)
-    bonusPoints += 25;
+    bonusPoints += GameConstants.firstAttemptBonus;
 
     final totalPoints = basePoints + bonusPoints;
     final world = state.currentWorld;
     final completedWithCurrent = [...progress.completedLevelIds, level.id];
-    final isWorldComplete = world != null && GameData.isWorldComplete(world, completedWithCurrent);
+    final isWorldComplete =
+        world != null && GameData.isWorldComplete(world, completedWithCurrent);
 
-    final reward = _drawReward();
-    final persistOps = <Future<void> Function()>[
-      () => _repository.addPoints(progress, totalPoints),
-      () => _repository.completeLevel(progress, level.id),
-      () => _repository.resetLevelUses(progress),
-      if (isWorldComplete) ...[
-        () => _repository.completeCategory(progress, world.id),
-      ],
-      if (reward != null) () => _repository.addReward(progress, reward.id),
-      if (reward?.type == RewardType.skin) () => _repository.unlockSkin(progress, reward!.value),
-      if (reward?.type == RewardType.theme) () => _repository.setTheme(progress, reward!.value),
-      () => _repository.recordPlayDate(progress),
-    ];
-
-    if (state.pointsMultiplier > 1) {
-      final questProgress = progress.copyWith(lastDailyQuestDate: DateTime.now());
-      persistOps.add(() => _repository.saveProgress(questProgress));
+    progress.points += totalPoints;
+    if (!progress.completedLevelIds.contains(level.id)) {
+      progress.completedLevelIds.add(level.id);
+      progress.levelsCleared++;
+    }
+    progress.supTechUsesThisLevel = 1 + progress.extraSupTechUses;
+    if (isWorldComplete && !progress.completedCategoryIds.contains(world.id)) {
+      progress.completedCategoryIds.add(world.id);
     }
 
-    _safePersist(persistOps, isCritical: true);
+    final reward = _drawReward();
+    if (reward != null && !progress.earnedRewardIds.contains(reward.id)) {
+      progress.earnedRewardIds.add(reward.id);
+      if (reward.type == RewardType.skin &&
+          !progress.unlockedSkinIds.contains(reward.value)) {
+        progress.unlockedSkinIds.add(reward.value);
+      }
+      if (reward.type == RewardType.theme) {
+        progress.themeId = reward.value;
+      }
+    }
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    if (!progress.playDates.any((d) =>
+        d.year == today.year && d.month == today.month && d.day == today.day)) {
+      progress.playDates.add(today);
+    }
+    progress.lastActiveDate = now;
+    if (state.pointsMultiplier > 1) {
+      progress.lastDailyQuestDate = now;
+    }
+
+    _safePersist([() => _repository.saveBatch(progress)], isCritical: true);
 
     final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
@@ -376,7 +440,9 @@ class GameCubit extends Cubit<GameState> {
     final hpLeft = state.currentBossHp - damage;
     final progress = state.progress;
 
-    _safePersist([() => _repository.addPoints(progress, 10)]);
+    _safePersist([
+      () => _repository.addPoints(progress, GameConstants.bossAttackPoints)
+    ]);
     if (hpLeft <= 0) {
       _defeatBoss(progress);
     } else {
@@ -386,21 +452,41 @@ class GameCubit extends Cubit<GameState> {
 
   void _defeatBoss(PlayerProgress progress) {
     final boss = state.currentBoss;
-    final bossPoints = boss?.points ?? state.currentWorld?.boss.points ?? 500;
+    final bossPoints = boss?.points ??
+        state.currentWorld?.boss.points ??
+        GameConstants.fallbackBossPoints;
+
+    progress.points += bossPoints * state.pointsMultiplier;
+    progress.bossesDefeated++;
+    progress.extraSupTechUses++;
+    if (boss?.id != null && !progress.defeatedBossIds.contains(boss!.id)) {
+      progress.defeatedBossIds.add(boss.id);
+    }
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    if (!progress.playDates.any((d) =>
+        d.year == today.year && d.month == today.month && d.day == today.day)) {
+      progress.playDates.add(today);
+    }
+    progress.lastActiveDate = now;
+    if (boss?.id.startsWith('weekly_') == true) {
+      progress.lastWeeklyBossDate = DateTime.now();
+    }
 
     final reward = _drawReward();
-    final persistOps = <Future<void> Function()>[
-      () => _repository.addPoints(progress, bossPoints * state.pointsMultiplier),
-      () => _repository.defeatBoss(progress, bossId: boss?.id),
-      () => _repository.recordPlayDate(progress),
-      if (boss?.id.startsWith('weekly_') == true)
-        () => _repository.saveProgress(progress.copyWith(lastWeeklyBossDate: DateTime.now())),
-      if (reward != null) () => _repository.addReward(progress, reward.id),
-      if (reward?.type == RewardType.skin) () => _repository.unlockSkin(progress, reward!.value),
-      if (reward?.type == RewardType.theme) () => _repository.setTheme(progress, reward!.value),
-    ];
+    if (reward != null && !progress.earnedRewardIds.contains(reward.id)) {
+      progress.earnedRewardIds.add(reward.id);
+      if (reward.type == RewardType.skin &&
+          !progress.unlockedSkinIds.contains(reward.value)) {
+        progress.unlockedSkinIds.add(reward.value);
+      }
+      if (reward.type == RewardType.theme) {
+        progress.themeId = reward.value;
+      }
+    }
 
-    _safePersist(persistOps, isCritical: true);
+    _safePersist([() => _repository.saveBatch(progress)], isCritical: true);
 
     final afterSkins = _checkAndUnlockProgressionSkins() ?? progress;
     final newAchievements = _checkAchievements();
@@ -453,7 +539,8 @@ class GameCubit extends Cubit<GameState> {
             'Check for error messages, unusual behavior, or missing output.';
       case 'explain':
         if (s.supTechContext == SupTechContext.boss) {
-          return s.currentBoss?.lore ?? 'Every boss has a weakness. Observe and adapt.';
+          return s.currentBoss?.lore ??
+              'Every boss has a weakness. Observe and adapt.';
         }
         if (s.currentLevel != null &&
             s.currentStepIndex < s.currentLevel!.steps.length) {
@@ -543,7 +630,8 @@ class GameCubit extends Cubit<GameState> {
     });
   }
 
-  void saveScenariosResult(String levelId, int correct, int total, bool passed) {
+  void saveScenariosResult(
+      String levelId, int correct, int total, bool passed) {
     _savePrepResultData(levelId, 'scenarios', {
       'correct': correct,
       'total': total,
@@ -621,7 +709,10 @@ class GameCubit extends Cubit<GameState> {
     for (final a in newAchievements) {
       _safePersist([() => _repository.unlockAchievement(progress, a.id)]);
       for (final reward in a.rewards) {
-        _safePersist([() => _repository.unlockRewardFromAchievement(progress, reward.rewardId)]);
+        _safePersist([
+          () =>
+              _repository.unlockRewardFromAchievement(progress, reward.rewardId)
+        ]);
       }
     }
     return newAchievements;
@@ -674,12 +765,13 @@ class GameCubit extends Cubit<GameState> {
 
   void purchaseItem(String itemId) {
     final progress = state.progress;
-    if (progress.points < 1000) return;
+    if (progress.points < GameConstants.itemPurchaseCost) return;
     if (progress.purchasedItemIds.contains(itemId)) return;
     if (progress.earnedRewardIds.contains(itemId)) return;
     final updated = progress.copyWith(
-      points: progress.points - 1000,
-      purchasedItemIds: List<String>.from(progress.purchasedItemIds)..add(itemId),
+      points: progress.points - GameConstants.itemPurchaseCost,
+      purchasedItemIds: List<String>.from(progress.purchasedItemIds)
+        ..add(itemId),
     );
     _safePersist([() => _repository.saveProgress(updated)]);
     emit(state.copyWith(progress: updated));
@@ -687,9 +779,9 @@ class GameCubit extends Cubit<GameState> {
 
   void selectWorldById(String worldId) {
     final world = GameData.worlds.cast<WorldDef?>().firstWhere(
-      (w) => w!.id == worldId,
-      orElse: () => null,
-    );
+          (w) => w!.id == worldId,
+          orElse: () => null,
+        );
     if (world != null) {
       selectWorld(world);
     }

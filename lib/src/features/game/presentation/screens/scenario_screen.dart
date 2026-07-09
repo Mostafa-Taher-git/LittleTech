@@ -38,26 +38,45 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
 
   List<Map<String, dynamic>> get _levelScenarios {
     return [
-      PrepData.scenarios[PrepData.key(widget.level.id)] ?? {
-        'scenario': 'A troubleshooting situation has arisen. What is your first step?',
-        'correctAction': 'Identify the symptoms and gather information',
-        'wrongActions': ['Replace all components', 'Ignore the problem', 'Buy a new device'],
-        'explanation': 'Gathering information is always the first step in effective troubleshooting.',
-        'followUps': [
+      PrepData.scenarios[PrepData.key(widget.level.id)] ??
           {
-            'scenario': 'You have identified the symptoms. What do you do next?',
-            'correctAction': 'Research the symptoms to find common causes',
-            'wrongActions': ['Replace random parts', 'Guess the problem', 'Give up'],
-            'explanation': 'Researching symptoms helps narrow down the possible causes before taking action.',
+            'scenario':
+                'A troubleshooting situation has arisen. What is your first step?',
+            'correctAction': 'Identify the symptoms and gather information',
+            'wrongActions': [
+              'Replace all components',
+              'Ignore the problem',
+              'Buy a new device'
+            ],
+            'explanation':
+                'Gathering information is always the first step in effective troubleshooting.',
+            'followUps': [
+              {
+                'scenario':
+                    'You have identified the symptoms. What do you do next?',
+                'correctAction': 'Research the symptoms to find common causes',
+                'wrongActions': [
+                  'Replace random parts',
+                  'Guess the problem',
+                  'Give up'
+                ],
+                'explanation':
+                    'Researching symptoms helps narrow down the possible causes before taking action.',
+              },
+              {
+                'scenario':
+                    'You found a potential cause. What is the best next step?',
+                'correctAction': 'Try the least invasive fix first',
+                'wrongActions': [
+                  'Replace everything',
+                  'Reinstall the OS',
+                  'Buy new hardware'
+                ],
+                'explanation':
+                    'Starting with simple fixes saves time and money. Only escalate to more complex solutions if needed.',
+              },
+            ],
           },
-          {
-            'scenario': 'You found a potential cause. What is the best next step?',
-            'correctAction': 'Try the least invasive fix first',
-            'wrongActions': ['Replace everything', 'Reinstall the OS', 'Buy new hardware'],
-            'explanation': 'Starting with simple fixes saves time and money. Only escalate to more complex solutions if needed.',
-          },
-        ],
-      },
     ];
   }
 
@@ -87,7 +106,9 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
 
   void _finish() {
     final passed = _correctCount >= 2;
-    context.read<GameCubit>().saveScenariosResult(widget.level.id, _correctCount, 3, passed);
+    context
+        .read<GameCubit>()
+        .saveScenariosResult(widget.level.id, _correctCount, 3, passed);
     if (passed) context.read<GameCubit>().addPoints(15);
     Nav.pushReplacement(
       context,
@@ -135,19 +156,22 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.tertiary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                    child: Text(
-                      isFollowUp ? 'Follow-up $_currentQuestion/2' : 'Scenario 1/3',
-                      style: TextStyle(
-                        color: scheme.tertiary,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  child: Text(
+                    isFollowUp
+                        ? 'Follow-up $_currentQuestion/2'
+                        : 'Scenario 1/3',
+                    style: TextStyle(
+                      color: scheme.tertiary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                     ),
+                  ),
                 ),
                 const Spacer(),
                 Text(
@@ -167,7 +191,8 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
               decoration: BoxDecoration(
                 color: scheme.primary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
+                border:
+                    Border.all(color: scheme.outline.withValues(alpha: 0.2)),
               ),
               child: Text(
                 scenario,
@@ -240,17 +265,21 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                       ? Colors.green
                                       : showFeedback && isSelected
                                           ? Colors.red
-                                          : scheme.primary.withValues(alpha: 0.1),
+                                          : scheme.primary
+                                              .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: showFeedback && isCorrectOption
-                                    ? const Icon(Icons.check, color: Colors.white, size: 16)
+                                    ? const Icon(Icons.check,
+                                        color: Colors.white, size: 16)
                                     : showFeedback && isSelected
-                                        ? const Icon(Icons.close, color: Colors.white, size: 16)
+                                        ? const Icon(Icons.close,
+                                            color: Colors.white, size: 16)
                                         : Text(
                                             String.fromCharCode(65 + i),
                                             style: TextStyle(
-                                              color: scheme.onSurface.withValues(alpha: 0.5),
+                                              color: scheme.onSurface
+                                                  .withValues(alpha: 0.5),
                                               fontWeight: FontWeight.w700,
                                               fontSize: 13,
                                             ),
@@ -314,14 +343,18 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: scheme.secondary,
                   foregroundColor: scheme.onSecondary,
-                  disabledBackgroundColor: scheme.outline.withValues(alpha: 0.2),
+                  disabledBackgroundColor:
+                      scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: Text(
-                  _currentQuestion < _levelScenarios.length - 1 ? 'Next Scenario' : 'Review Results',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  _currentQuestion < _levelScenarios.length - 1
+                      ? 'Next Scenario'
+                      : 'Review Results',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
             ),
@@ -384,7 +417,8 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
           ..._levelScenarios.asMap().entries.map((entry) {
             final i = entry.key;
             final q = entry.value;
-            final isCorrect = i < _questionResults.length ? _questionResults[i] : false;
+            final isCorrect =
+                i < _questionResults.length ? _questionResults[i] : false;
 
             return Container(
               margin: const EdgeInsets.only(bottom: 10),
@@ -453,7 +487,9 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => SupTechDialog(contextType: SupTechContext.scenario, questionIndex: _currentQuestion),
+      builder: (_) => SupTechDialog(
+          contextType: SupTechContext.scenario,
+          questionIndex: _currentQuestion),
     );
   }
 }

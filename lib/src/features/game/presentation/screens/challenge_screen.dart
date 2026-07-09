@@ -46,7 +46,8 @@ class ChallengeScreen extends StatelessWidget {
           BlocBuilder<GameCubit, GameState>(
             builder: (_, state) {
               final dailyCompleted = state.progress.getDailyQuestCompleted();
-              final streak = StreakTracker.calculateStreak(state.progress.playDates);
+              final streak =
+                  StreakTracker.calculateStreak(state.progress.playDates);
               final daily = ChallengeManager.getDailyChallenge(
                 streak: streak,
                 excludeIds: state.progress.completedLevelIds,
@@ -66,7 +67,9 @@ class ChallengeScreen extends StatelessWidget {
                 completed: dailyCompleted,
                 onTap: () {
                   if (level == null) return;
-                  final world = GameData.worlds.firstWhere((w) => w.levels.contains(level), orElse: () => GameData.worlds.first);
+                  final world = GameData.worlds.firstWhere(
+                      (w) => w.levels.contains(level),
+                      orElse: () => GameData.worlds.first);
                   context.read<GameCubit>()
                     ..selectLevel(level, worldOverride: world)
                     ..setPointsMultiplier(daily.pointsMultiplier)
@@ -195,8 +198,8 @@ class _ChallengeCard extends StatelessWidget {
                         const Spacer(),
                         if (completed)
                           Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.green.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),
@@ -212,8 +215,8 @@ class _ChallengeCard extends StatelessWidget {
                           )
                         else
                           Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.amber.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),

@@ -14,7 +14,8 @@ class SolutionDetailScreen extends StatefulWidget {
   final String problemName;
   final String categoryName;
 
-  const SolutionDetailScreen({super.key, required this.problemName, required this.categoryName});
+  const SolutionDetailScreen(
+      {super.key, required this.problemName, required this.categoryName});
 
   @override
   State<SolutionDetailScreen> createState() => _SolutionDetailScreenState();
@@ -70,9 +71,12 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
         actions: [
           IconButton(
             onPressed: _toggleSave,
+            tooltip: _isSaved ? 'Unsave' : 'Save',
             icon: Icon(
               _isSaved ? Icons.bookmark : Icons.bookmark_outline,
-              color: _isSaved ? scheme.secondary : scheme.onSurface.withValues(alpha: 0.6),
+              color: _isSaved
+                  ? scheme.secondary
+                  : scheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
         ],
@@ -81,7 +85,8 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
           ? const EmptyState(
               icon: Icons.search_off,
               title: 'No Solution Found',
-              subtitle: 'We couldn\'t find a solution for this problem yet. Try searching with different keywords.',
+              subtitle:
+                  'We couldn\'t find a solution for this problem yet. Try searching with different keywords.',
             )
           : ListView(
               padding: const EdgeInsets.all(20),
@@ -104,17 +109,26 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Text(widget.categoryName, style: const TextStyle(color: Colors.white60, fontSize: 11, fontWeight: FontWeight.w600)),
+                        child: Text(widget.categoryName,
+                            style: const TextStyle(
+                                color: Colors.white60,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600)),
                       ),
                       const Gap(10),
                       Text(
                         _solution!.problem,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, height: 1.3),
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            height: 1.3),
                       ),
                     ],
                   ),
@@ -129,7 +143,10 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                   return SolutionStepCard(
                     stepNumber: e.key + 1,
                     text: e.value,
-                  ).animate(delay: Duration(milliseconds: 100 * e.key)).fadeIn().slideX(begin: 0.05);
+                  )
+                      .animate(delay: Duration(milliseconds: 100 * e.key))
+                      .fadeIn()
+                      .slideX(begin: 0.05);
                 }),
                 const Gap(28),
                 Container(
@@ -143,7 +160,10 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                     children: [
                       Text(
                         'Did this solve your problem?',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: scheme.onSurface),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: scheme.onSurface),
                       ),
                       const Gap(16),
                       Row(
@@ -155,18 +175,29 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                   ? null
                                   : () async {
                                       setState(() => _isSolved = true);
-                                      await SolvedProblemsService.markSolved(widget.problemName);
+                                      await SolvedProblemsService.markSolved(
+                                          widget.problemName);
                                       if (!context.mounted) return;
                                       context.read<CounterCubit>().increment();
-                                      showSuccessToast(context, 'Great! Problem solved.');
+                                      showSuccessToast(
+                                          context, 'Great! Problem solved.');
                                     },
-                              icon: Icon(_isSolved ? Icons.check_circle : Icons.check_circle_outline, size: 18),
+                              icon: Icon(
+                                  _isSolved
+                                      ? Icons.check_circle
+                                      : Icons.check_circle_outline,
+                                  size: 18),
                               label: Text(_isSolved ? 'Solved!' : 'Yes, Fixed'),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.green.shade600,
-                                side: BorderSide(color: _isSolved ? Colors.green.shade600 : scheme.outline),
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                side: BorderSide(
+                                    color: _isSolved
+                                        ? Colors.green.shade600
+                                        : scheme.outline),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
                               ),
                             ),
                           ),
@@ -176,18 +207,23 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                               onPressed: _isSolved
                                   ? () async {
                                       setState(() => _isSolved = false);
-                                      await SolvedProblemsService.unmarkSolved(widget.problemName);
+                                      await SolvedProblemsService.unmarkSolved(
+                                          widget.problemName);
                                       if (!context.mounted) return;
                                       context.read<CounterCubit>().decrement();
-                                      showSuccessToast(context, 'Problem marked as unsolved.');
+                                      showSuccessToast(context,
+                                          'Problem marked as unsolved.');
                                     }
                                   : null,
                               icon: const Icon(Icons.cancel_outlined, size: 18),
                               label: const Text('Not Yet'),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: scheme.onSurface.withValues(alpha: 0.6),
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                foregroundColor:
+                                    scheme.onSurface.withValues(alpha: 0.6),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
                               ),
                             ),
                           ),

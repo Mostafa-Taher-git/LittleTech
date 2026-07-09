@@ -19,43 +19,143 @@ class _ActionDef {
 
 final _contextActions = {
   SupTechContext.problem: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Get a helpful tip'),
-    _ActionDef(id: 'skip', label: 'Skip Step', icon: Icons.skip_next, description: 'Auto-solve this step'),
-    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Ask guided questions'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Simple explanation of this step'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Get a helpful tip'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Skip Step',
+        icon: Icons.skip_next,
+        description: 'Auto-solve this step'),
+    _ActionDef(
+        id: 'diagnose',
+        label: 'Diagnose',
+        icon: Icons.quiz_outlined,
+        description: 'Ask guided questions'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'Simple explanation of this step'),
   ],
   SupTechContext.quiz: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Eliminate one wrong answer'),
-    _ActionDef(id: 'skip', label: 'Skip Question', icon: Icons.skip_next, description: 'Auto-answer this question'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Explain the concept being tested'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Eliminate one wrong answer'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Skip Question',
+        icon: Icons.skip_next,
+        description: 'Auto-answer this question'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'Explain the concept being tested'),
   ],
   SupTechContext.ordering: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Reveal correct position for one step'),
-    _ActionDef(id: 'skip', label: 'Auto-Arrange', icon: Icons.skip_next, description: 'Automatically arrange correctly'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Why this sequence matters'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Reveal correct position for one step'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Auto-Arrange',
+        icon: Icons.skip_next,
+        description: 'Automatically arrange correctly'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'Why this sequence matters'),
   ],
   SupTechContext.scenario: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Nudge toward the better response'),
-    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Auto-pick the correct response'),
-    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Walk through the reasoning'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Why the correct response is right'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Nudge toward the better response'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Skip',
+        icon: Icons.skip_next,
+        description: 'Auto-pick the correct response'),
+    _ActionDef(
+        id: 'diagnose',
+        label: 'Diagnose',
+        icon: Icons.quiz_outlined,
+        description: 'Walk through the reasoning'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'Why the correct response is right'),
   ],
   SupTechContext.traps: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Point toward which area has the issue'),
-    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Reveal the trap directly'),
-    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Questions to track down the issue'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'What the trap is and why it is wrong'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Point toward which area has the issue'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Skip',
+        icon: Icons.skip_next,
+        description: 'Reveal the trap directly'),
+    _ActionDef(
+        id: 'diagnose',
+        label: 'Diagnose',
+        icon: Icons.quiz_outlined,
+        description: 'Questions to track down the issue'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'What the trap is and why it is wrong'),
   ],
   SupTechContext.mistake: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Point toward which area has the issue'),
-    _ActionDef(id: 'skip', label: 'Skip', icon: Icons.skip_next, description: 'Mark the mistake directly'),
-    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Questions to track down the issue'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'What the mistake is and why it is wrong'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Point toward which area has the issue'),
+    _ActionDef(
+        id: 'skip',
+        label: 'Skip',
+        icon: Icons.skip_next,
+        description: 'Mark the mistake directly'),
+    _ActionDef(
+        id: 'diagnose',
+        label: 'Diagnose',
+        icon: Icons.quiz_outlined,
+        description: 'Questions to track down the issue'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'What the mistake is and why it is wrong'),
   ],
   SupTechContext.boss: const [
-    _ActionDef(id: 'hint', label: 'Hint', icon: Icons.lightbulb_outline, description: 'Get a boss-fighting tip'),
-    _ActionDef(id: 'diagnose', label: 'Diagnose', icon: Icons.quiz_outlined, description: 'Analyze the situation'),
-    _ActionDef(id: 'explain', label: 'Explain', icon: Icons.description_outlined, description: 'Lore and strategy context'),
+    _ActionDef(
+        id: 'hint',
+        label: 'Hint',
+        icon: Icons.lightbulb_outline,
+        description: 'Get a boss-fighting tip'),
+    _ActionDef(
+        id: 'diagnose',
+        label: 'Diagnose',
+        icon: Icons.quiz_outlined,
+        description: 'Analyze the situation'),
+    _ActionDef(
+        id: 'explain',
+        label: 'Explain',
+        icon: Icons.description_outlined,
+        description: 'Lore and strategy context'),
   ],
 };
 
@@ -63,12 +163,14 @@ class SupTechDialog extends StatelessWidget {
   final SupTechContext contextType;
   final int questionIndex;
 
-  const SupTechDialog({super.key, required this.contextType, this.questionIndex = 0});
+  const SupTechDialog(
+      {super.key, required this.contextType, this.questionIndex = 0});
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final actions = _contextActions[contextType] ?? _contextActions[SupTechContext.problem]!;
+    final actions = _contextActions[contextType] ??
+        _contextActions[SupTechContext.problem]!;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -88,7 +190,8 @@ class SupTechDialog extends StatelessWidget {
           );
 
           return ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.6),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -117,7 +220,8 @@ class SupTechDialog extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: scheme.secondary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
@@ -143,19 +247,21 @@ class SupTechDialog extends StatelessWidget {
                   ),
                   const Gap(20),
                   ...actions.map((a) {
-                    final alreadyUsed = state.usedSupTechActions[questionKey]?.contains(a.id) ?? false;
+                    final alreadyUsed =
+                        state.usedSupTechActions[questionKey]?.contains(a.id) ??
+                            false;
                     final enabled = alreadyUsed || !poolZero;
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: _ActionButton(
                         icon: a.icon,
                         label: a.label,
-                        description: alreadyUsed ? 'Already used — tap to reopen' : a.description,
+                        description: alreadyUsed
+                            ? 'Already used — tap to reopen'
+                            : a.description,
                         color: _actionColor(scheme, a.id),
                         enabled: enabled,
-                        onTap: enabled
-                            ? () => _useAction(context, a.id)
-                            : null,
+                        onTap: enabled ? () => _useAction(context, a.id) : null,
                       ),
                     );
                   }),
@@ -215,7 +321,9 @@ class SupTechDialog extends StatelessWidget {
           builder: (ctx) => AlertDialog(
             title: Row(
               children: [
-                Icon(Icons.lightbulb_outline, size: 20, color: _actionColor(Theme.of(ctx).colorScheme, action)),
+                Icon(Icons.lightbulb_outline,
+                    size: 20,
+                    color: _actionColor(Theme.of(ctx).colorScheme, action)),
                 const Gap(8),
                 Text(_labelFor(action)),
               ],
@@ -276,7 +384,8 @@ class _ActionButton extends StatelessWidget {
                   color: color.withValues(alpha: 0.1 * alpha),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, color: color.withValues(alpha: alpha), size: 22),
+                child:
+                    Icon(icon, color: color.withValues(alpha: alpha), size: 22),
               ),
               const Gap(14),
               Expanded(
@@ -301,7 +410,8 @@ class _ActionButton extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: color.withValues(alpha: alpha), size: 20),
+              Icon(Icons.chevron_right,
+                  color: color.withValues(alpha: alpha), size: 20),
             ],
           ),
         ),

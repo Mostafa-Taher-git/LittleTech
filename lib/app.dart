@@ -86,10 +86,13 @@ class _LittleTechAppState extends State<LittleTechApp> {
       if (nav != null) {
         if (newUserId != null) {
           nav.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const HomeScreen()), (_) => false);
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              (_) => false);
         } else {
           nav.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => LoginScreen(showAccountPicker: showAccountPicker)),
+            MaterialPageRoute(
+                builder: (_) =>
+                    LoginScreen(showAccountPicker: showAccountPicker)),
             (_) => false,
           );
         }
@@ -122,7 +125,7 @@ class _LittleTechAppState extends State<LittleTechApp> {
             listenWhen: (prev, curr) =>
                 curr.progress.userId != 0 &&
                 (prev.progress.themeId != curr.progress.themeId ||
-                 prev.progress.userId != curr.progress.userId),
+                    prev.progress.userId != curr.progress.userId),
             listener: (context, state) {
               final themeId = state.progress.themeId;
               if (themeId != null) {
@@ -135,7 +138,8 @@ class _LittleTechAppState extends State<LittleTechApp> {
           BlocListener<GameCubit, GameState>(
             listenWhen: (prev, curr) =>
                 curr.progress.userId != 0 &&
-                !prev.persistError && curr.persistError,
+                !prev.persistError &&
+                curr.persistError,
             listener: (context, state) {
               final navCtx = _navKey.currentContext;
               if (navCtx == null) return;

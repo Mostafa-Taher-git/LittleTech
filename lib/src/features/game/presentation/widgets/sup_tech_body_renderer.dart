@@ -32,7 +32,8 @@ void drawSupTechBody(Canvas canvas, SkinDefinition skin, double s,
     ..lineTo(robeShoulderW / 2, bodyTopY)
     ..lineTo(robeShoulderW / 2, bodyBotY)
     ..quadraticBezierTo(5.5 * s, bodyBotY + 2 * s, 0, bodyBotY + 1 * s)
-    ..quadraticBezierTo(-5.5 * s, bodyBotY + 2 * s, -robeShoulderW / 2, bodyBotY)
+    ..quadraticBezierTo(
+        -5.5 * s, bodyBotY + 2 * s, -robeShoulderW / 2, bodyBotY)
     ..close();
   canvas.drawPath(robePath, bodyPaint);
   canvas.drawPath(robePath, outlinePaint);
@@ -52,19 +53,29 @@ void drawSupTechBody(Canvas canvas, SkinDefinition skin, double s,
 
   // Blue glow at robe bottom
   canvas.drawOval(
-    Rect.fromCenter(center: Offset(0, bodyBotY + 1.5 * s), width: 20 * s, height: 4 * s),
+    Rect.fromCenter(
+        center: Offset(0, bodyBotY + 1.5 * s), width: 20 * s, height: 4 * s),
     Paint()
       ..shader = LinearGradient(
-        begin: Alignment.topCenter, end: Alignment.bottomCenter,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-      ).createShader(Rect.fromCenter(center: Offset(0, bodyBotY + 1.5 * s), width: 20 * s, height: 4 * s))
+      ).createShader(Rect.fromCenter(
+          center: Offset(0, bodyBotY + 1.5 * s), width: 20 * s, height: 4 * s))
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
   );
 }
 
-void drawSupTechHead(Canvas canvas, SkinDefinition skin, double s,
-    double headCY, double headR, double hoodBaseY,
-    double hoodTopR, double hoodBottomR, double hoodPeakY,
+void drawSupTechHead(
+    Canvas canvas,
+    SkinDefinition skin,
+    double s,
+    double headCY,
+    double headR,
+    double hoodBaseY,
+    double hoodTopR,
+    double hoodBottomR,
+    double hoodPeakY,
     {Color? stripeColor}) {
   final bodyPaint = Paint()
     ..color = skin.bodyColor
@@ -81,10 +92,10 @@ void drawSupTechHead(Canvas canvas, SkinDefinition skin, double s,
   // Smooth dome hood (cubic bezier matching concept sheet)
   final hoodPath = Path()
     ..moveTo(-hoodBottomR, hoodBaseY)
-    ..cubicTo(-hoodBottomR, hoodBaseY - 15 * s,
-        -hoodTopR, hoodPeakY + 1 * s, 0, hoodPeakY)
-    ..cubicTo(hoodTopR, hoodPeakY + 1 * s,
-        hoodBottomR, hoodBaseY - 15 * s, hoodBottomR, hoodBaseY)
+    ..cubicTo(-hoodBottomR, hoodBaseY - 15 * s, -hoodTopR, hoodPeakY + 1 * s, 0,
+        hoodPeakY)
+    ..cubicTo(hoodTopR, hoodPeakY + 1 * s, hoodBottomR, hoodBaseY - 15 * s,
+        hoodBottomR, hoodBaseY)
     ..quadraticBezierTo(7 * s, 1 * s, 0, -0.5 * s)
     ..quadraticBezierTo(-7 * s, 1 * s, -hoodBottomR, hoodBaseY)
     ..close();
@@ -117,8 +128,8 @@ void drawSupTechHead(Canvas canvas, SkinDefinition skin, double s,
     ..quadraticBezierTo(-hoodBottomR + 2 * s, hoodBaseY - 16 * s,
         -hoodTopR + 2 * s, hoodPeakY + 5 * s)
     ..quadraticBezierTo(-8 * s, hoodPeakY + 1 * s, 0, hoodPeakY + 1 * s)
-    ..quadraticBezierTo(8 * s, hoodPeakY + 1 * s,
-        hoodTopR - 2 * s, hoodPeakY + 5 * s)
+    ..quadraticBezierTo(
+        8 * s, hoodPeakY + 1 * s, hoodTopR - 2 * s, hoodPeakY + 5 * s)
     ..quadraticBezierTo(hoodBottomR - 2 * s, hoodBaseY - 16 * s,
         hoodBottomR - 2 * s, hoodBaseY - 1 * s);
   canvas.drawPath(innerPath, innerShadowPaint);
@@ -132,8 +143,10 @@ void drawSupTechHead(Canvas canvas, SkinDefinition skin, double s,
   canvas.drawPath(
     Path()
       ..moveTo(-8 * s, hoodPeakY + 3 * s)
-      ..quadraticBezierTo(-headR / 2, hoodPeakY - 1.5 * s, 0, hoodPeakY - 0.5 * s)
-      ..quadraticBezierTo(headR / 2, hoodPeakY - 1.5 * s, 8 * s, hoodPeakY + 3 * s),
+      ..quadraticBezierTo(
+          -headR / 2, hoodPeakY - 1.5 * s, 0, hoodPeakY - 0.5 * s)
+      ..quadraticBezierTo(
+          headR / 2, hoodPeakY - 1.5 * s, 8 * s, hoodPeakY + 3 * s),
     highlightPaint,
   );
 }
@@ -146,26 +159,38 @@ void drawSupTechStar(Canvas canvas, Offset center, double r, Paint paint) {
     final outerR = r;
     final innerR = r * 0.4;
     if (i == 0) {
-      path.moveTo(center.dx + outerR * cos(angle), center.dy + outerR * sin(angle));
+      path.moveTo(
+          center.dx + outerR * cos(angle), center.dy + outerR * sin(angle));
     } else {
-      path.lineTo(center.dx + outerR * cos(angle), center.dy + outerR * sin(angle));
+      path.lineTo(
+          center.dx + outerR * cos(angle), center.dy + outerR * sin(angle));
     }
-    path.lineTo(center.dx + innerR * cos(innerAngle), center.dy + innerR * sin(innerAngle));
+    path.lineTo(center.dx + innerR * cos(innerAngle),
+        center.dy + innerR * sin(innerAngle));
   }
   path.close();
   canvas.drawPath(path, paint);
 }
 
 void drawSupTechNinjaVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14 * s), width: 18 * s, height: 2 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(center: Offset(0, 14 * s), width: 18 * s, height: 2 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Slim robe body
   final robePath = Path()
@@ -191,27 +216,51 @@ void drawSupTechNinjaVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(hoodPath, outlinePaint);
 
   // Center robe fold
-  final foldPaint = Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.stroke..strokeWidth = 0.5 * s..strokeCap = StrokeCap.round;
-  canvas.drawPath(Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s), foldPaint);
+  final foldPaint = Paint()
+    ..color = Colors.black.withValues(alpha: 0.10)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.5 * s
+    ..strokeCap = StrokeCap.round;
+  canvas.drawPath(
+      Path()
+        ..moveTo(0, 0)
+        ..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s),
+      foldPaint);
 
   // Bottom glow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 16 * s, height: 3 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-    ).createShader(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 16 * s, height: 3 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 13.5 * s), width: 16 * s, height: 3 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 13.5 * s), width: 16 * s, height: 3 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
 }
 
 void drawSupTechWizardVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 15 * s), width: 26 * s, height: 2.5 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 15 * s), width: 26 * s, height: 2.5 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Wide flowing robe
   final robePath = Path()
@@ -226,8 +275,14 @@ void drawSupTechWizardVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(robePath, outlinePaint);
 
   // Stars pattern on robe
-  final starPaint = Paint()..color = skin.accentColor.withValues(alpha: 0.3)..style = PaintingStyle.fill;
-  for (final pos in [Offset(-4 * s, 5 * s), Offset(3 * s, 8 * s), Offset(-2 * s, 11 * s)]) {
+  final starPaint = Paint()
+    ..color = skin.accentColor.withValues(alpha: 0.3)
+    ..style = PaintingStyle.fill;
+  for (final pos in [
+    Offset(-4 * s, 5 * s),
+    Offset(3 * s, 8 * s),
+    Offset(-2 * s, 11 * s)
+  ]) {
     drawSupTechStar(canvas, pos, 1.2 * s, starPaint);
   }
 
@@ -243,27 +298,51 @@ void drawSupTechWizardVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(hoodPath, outlinePaint);
 
   // Center robe fold
-  final foldPaint = Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.stroke..strokeWidth = 0.5 * s..strokeCap = StrokeCap.round;
-  canvas.drawPath(Path()..moveTo(0, 0)..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s), foldPaint);
+  final foldPaint = Paint()
+    ..color = Colors.black.withValues(alpha: 0.10)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.5 * s
+    ..strokeCap = StrokeCap.round;
+  canvas.drawPath(
+      Path()
+        ..moveTo(0, 0)
+        ..quadraticBezierTo(0.5 * s, 6 * s, -0.5 * s, 12 * s),
+      foldPaint);
 
   // Bottom glow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14.5 * s), width: 24 * s, height: 4 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-    ).createShader(Rect.fromCenter(center: Offset(0, 14.5 * s), width: 24 * s, height: 4 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 14.5 * s), width: 24 * s, height: 4 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 14.5 * s), width: 24 * s, height: 4 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
 }
 
 void drawSupTechTechVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14 * s), width: 22 * s, height: 2.5 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 14 * s), width: 22 * s, height: 2.5 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Medium robe
   final robePath = Path()
@@ -278,14 +357,24 @@ void drawSupTechTechVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(robePath, outlinePaint);
 
   // Circuit lines on robe
-  final circuitPaint = Paint()..color = skin.accentColor.withValues(alpha: 0.25)..style = PaintingStyle.stroke..strokeWidth = 0.4 * s..strokeCap = StrokeCap.round;
+  final circuitPaint = Paint()
+    ..color = skin.accentColor.withValues(alpha: 0.25)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.4 * s
+    ..strokeCap = StrokeCap.round;
   canvas.drawLine(Offset(-3 * s, 2 * s), Offset(-3 * s, 8 * s), circuitPaint);
   canvas.drawLine(Offset(-3 * s, 8 * s), Offset(0, 10 * s), circuitPaint);
   canvas.drawLine(Offset(3 * s, 3 * s), Offset(3 * s, 7 * s), circuitPaint);
   canvas.drawLine(Offset(3 * s, 7 * s), Offset(1 * s, 9 * s), circuitPaint);
   // Circuit nodes
-  for (final pos in [Offset(-3 * s, 8 * s), Offset(0, 10 * s), Offset(3 * s, 7 * s), Offset(1 * s, 9 * s)]) {
-    canvas.drawCircle(pos, 0.8 * s, Paint()..color = skin.accentColor.withValues(alpha: 0.4));
+  for (final pos in [
+    Offset(-3 * s, 8 * s),
+    Offset(0, 10 * s),
+    Offset(3 * s, 7 * s),
+    Offset(1 * s, 9 * s)
+  ]) {
+    canvas.drawCircle(
+        pos, 0.8 * s, Paint()..color = skin.accentColor.withValues(alpha: 0.4));
   }
 
   // Hoodie hood — slightly wider, with hood lip at bottom
@@ -305,29 +394,53 @@ void drawSupTechTechVariant(Canvas canvas, SkinDefinition skin, double s) {
       ..moveTo(-10 * s, -2 * s)
       ..quadraticBezierTo(-5 * s, 2 * s, 0, 1 * s)
       ..quadraticBezierTo(5 * s, 2 * s, 10 * s, -2 * s),
-    Paint()..color = skin.accentColor.withValues(alpha: 0.3)..style = PaintingStyle.stroke..strokeWidth = 0.75 * s..strokeCap = StrokeCap.round,
+    Paint()
+      ..color = skin.accentColor.withValues(alpha: 0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.75 * s
+      ..strokeCap = StrokeCap.round,
   );
 
   // Bottom glow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 18 * s, height: 3.5 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-    ).createShader(Rect.fromCenter(center: Offset(0, 13.5 * s), width: 18 * s, height: 3.5 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 13.5 * s), width: 18 * s, height: 3.5 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 13.5 * s), width: 18 * s, height: 3.5 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
 }
 
 void drawSupTechArmoredVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
-  final platePaint = Paint()..color = skin.accentColor.withValues(alpha: 0.3)..style = PaintingStyle.fill;
-  final plateOutline = Paint()..color = Colors.black87..style = PaintingStyle.stroke..strokeWidth = 0.4 * s;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
+  final platePaint = Paint()
+    ..color = skin.accentColor.withValues(alpha: 0.3)
+    ..style = PaintingStyle.fill;
+  final plateOutline = Paint()
+    ..color = Colors.black87
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.4 * s;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 15 * s), width: 26 * s, height: 3 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(center: Offset(0, 15 * s), width: 26 * s, height: 3 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Bulky robe
   final robePath = Path()
@@ -355,11 +468,15 @@ void drawSupTechArmoredVariant(Canvas canvas, SkinDefinition skin, double s) {
 
   // Chest plate
   canvas.drawRRect(
-    RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(0, 4 * s), width: 8 * s, height: 6 * s), Radius.circular(1.5 * s)),
+    RRect.fromRectAndRadius(
+        Rect.fromCenter(center: Offset(0, 4 * s), width: 8 * s, height: 6 * s),
+        Radius.circular(1.5 * s)),
     platePaint,
   );
   canvas.drawRRect(
-    RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(0, 4 * s), width: 8 * s, height: 6 * s), Radius.circular(1.5 * s)),
+    RRect.fromRectAndRadius(
+        Rect.fromCenter(center: Offset(0, 4 * s), width: 8 * s, height: 6 * s),
+        Radius.circular(1.5 * s)),
     plateOutline,
   );
 
@@ -379,30 +496,54 @@ void drawSupTechArmoredVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(hoodPath, outlinePaint);
 
   // Helmet ridge
-  canvas.drawLine(Offset(0, -29 * s), Offset(0, -10 * s),
-    Paint()..color = skin.accentColor..style = PaintingStyle.stroke..strokeWidth = 1 * s..strokeCap = StrokeCap.round);
+  canvas.drawLine(
+      Offset(0, -29 * s),
+      Offset(0, -10 * s),
+      Paint()
+        ..color = skin.accentColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1 * s
+        ..strokeCap = StrokeCap.round);
 
   // Bottom glow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14.5 * s), width: 22 * s, height: 4 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-    ).createShader(Rect.fromCenter(center: Offset(0, 14.5 * s), width: 22 * s, height: 4 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 14.5 * s), width: 22 * s, height: 4 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 14.5 * s), width: 22 * s, height: 4 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
 }
 
 void drawSupTechPhoenixVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14 * s), width: 24 * s, height: 2.5 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 14 * s), width: 24 * s, height: 2.5 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Wing cape (behind body)
-  final wingPaint = Paint()..color = skin.accentColor.withValues(alpha: 0.35)..style = PaintingStyle.fill;
+  final wingPaint = Paint()
+    ..color = skin.accentColor.withValues(alpha: 0.35)
+    ..style = PaintingStyle.fill;
   // Left wing
   final leftWing = Path()
     ..moveTo(-7 * s, 0)
@@ -410,7 +551,12 @@ void drawSupTechPhoenixVariant(Canvas canvas, SkinDefinition skin, double s) {
     ..quadraticBezierTo(-16 * s, 10 * s, -10 * s, 12 * s)
     ..close();
   canvas.drawPath(leftWing, wingPaint);
-  canvas.drawPath(leftWing, Paint()..color = skin.accentColor..style = PaintingStyle.stroke..strokeWidth = 0.4 * s);
+  canvas.drawPath(
+      leftWing,
+      Paint()
+        ..color = skin.accentColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.4 * s);
   // Right wing
   final rightWing = Path()
     ..moveTo(7 * s, 0)
@@ -418,7 +564,12 @@ void drawSupTechPhoenixVariant(Canvas canvas, SkinDefinition skin, double s) {
     ..quadraticBezierTo(16 * s, 10 * s, 10 * s, 12 * s)
     ..close();
   canvas.drawPath(rightWing, wingPaint);
-  canvas.drawPath(rightWing, Paint()..color = skin.accentColor..style = PaintingStyle.stroke..strokeWidth = 0.4 * s);
+  canvas.drawPath(
+      rightWing,
+      Paint()
+        ..color = skin.accentColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.4 * s);
 
   // Flame-like robe bottom
   final robePath = Path()
@@ -446,23 +597,38 @@ void drawSupTechPhoenixVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(hoodPath, outlinePaint);
 
   // Bottom glow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 13 * s), width: 20 * s, height: 4 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
-    ).createShader(Rect.fromCenter(center: Offset(0, 13 * s), width: 20 * s, height: 4 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
+  canvas.drawOval(
+      Rect.fromCenter(center: Offset(0, 13 * s), width: 20 * s, height: 4 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 13 * s), width: 20 * s, height: 4 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
 }
 
 void drawSupTechVoidVariant(Canvas canvas, SkinDefinition skin, double s) {
-  final bodyPaint = Paint()..color = skin.bodyColor..style = PaintingStyle.fill;
-  final isLightBody = ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
+  final bodyPaint = Paint()
+    ..color = skin.bodyColor
+    ..style = PaintingStyle.fill;
+  final isLightBody =
+      ThemeData.estimateBrightnessForColor(skin.bodyColor) == Brightness.light;
   final outlinePaint = Paint()
     ..color = isLightBody ? const Color(0xFF94A3B8) : Colors.black87
-    ..style = PaintingStyle.stroke..strokeWidth = 1.25 * s..strokeCap = StrokeCap.round..strokeJoin = StrokeJoin.round;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.25 * s
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   // Shadow
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 14 * s), width: 22 * s, height: 2.5 * s),
-    Paint()..color = Colors.black.withValues(alpha: 0.10)..style = PaintingStyle.fill);
+  canvas.drawOval(
+      Rect.fromCenter(
+          center: Offset(0, 14 * s), width: 22 * s, height: 2.5 * s),
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.10)
+        ..style = PaintingStyle.fill);
 
   // Wispy robe — irregular bottom edge
   final robePath = Path()
@@ -501,17 +667,26 @@ void drawSupTechVoidVariant(Canvas canvas, SkinDefinition skin, double s) {
   canvas.drawPath(hoodPath, outlinePaint);
 
   // Bottom glow (extra ethereal)
-  canvas.drawOval(Rect.fromCenter(center: Offset(0, 13 * s), width: 22 * s, height: 5 * s),
-    Paint()..shader = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [skin.accentColor.withValues(alpha: 0.0), skin.accentColor.withValues(alpha: 0.6)],
-    ).createShader(Rect.fromCenter(center: Offset(0, 13 * s), width: 22 * s, height: 5 * s))
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
+  canvas.drawOval(
+      Rect.fromCenter(center: Offset(0, 13 * s), width: 22 * s, height: 5 * s),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            skin.accentColor.withValues(alpha: 0.0),
+            skin.accentColor.withValues(alpha: 0.6)
+          ],
+        ).createShader(Rect.fromCenter(
+            center: Offset(0, 13 * s), width: 22 * s, height: 5 * s))
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
 }
 
 /// Draws the body+hood for a given [variant].
 /// Returns true if a body was drawn. For [SkinVariant.default_],
 /// call [drawSupTechBody] and [drawSupTechHead] separately instead.
-bool drawSupTechBodyVariant(Canvas canvas, SkinDefinition skin, double s, SkinVariant variant) {
+bool drawSupTechBodyVariant(
+    Canvas canvas, SkinDefinition skin, double s, SkinVariant variant) {
   switch (variant) {
     case SkinVariant.ninja:
       drawSupTechNinjaVariant(canvas, skin, s);

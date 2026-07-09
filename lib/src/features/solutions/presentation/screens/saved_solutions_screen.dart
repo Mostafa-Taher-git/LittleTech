@@ -25,10 +25,33 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
 
   Future<void> _load() async {
     final list = await SavedSolutionsService.getAll();
-    if (mounted) setState(() { _items = list; _loading = false; });
+    if (mounted) {
+      setState(() {
+        _items = list;
+        _loading = false;
+      });
+    }
   }
 
   Future<void> _delete(int id) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Solution'),
+        content:
+            const Text('Are you sure you want to delete this saved solution?'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text('Delete',
+                  style: TextStyle(color: Theme.of(ctx).colorScheme.error))),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
     await SavedSolutionsService.delete(id);
     _load();
   }
@@ -45,7 +68,8 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
               ? EmptyState(
                   icon: Icons.bookmark_outline,
                   title: 'Nothing Saved Yet',
-                  subtitle: 'Solutions you bookmark will appear here for quick access.',
+                  subtitle:
+                      'Solutions you bookmark will appear here for quick access.',
                   scheme: scheme,
                 )
               : ListView.separated(
@@ -61,28 +85,43 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
                         border: Border.all(color: scheme.outline),
                       ),
                       child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 18, vertical: 4),
                         leading: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: scheme.surface,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Icon(Icons.article_outlined, color: scheme.onSurface, size: 20),
+                          child: Icon(Icons.article_outlined,
+                              color: scheme.onSurface, size: 20),
                         ),
-                        title: Text(item.problemTitle, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: scheme.onSurface)),
+                        title: Text(item.problemTitle,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: scheme.onSurface)),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.category, style: TextStyle(color: scheme.secondary, fontSize: 12, fontWeight: FontWeight.w500)),
+                            Text(item.category,
+                                style: TextStyle(
+                                    color: scheme.secondary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500)),
                             Text(
                               'Saved ${_formatDate(item.savedAt)}',
-                              style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 11),
+                              style: TextStyle(
+                                  color:
+                                      scheme.onSurface.withValues(alpha: 0.6),
+                                  fontSize: 11),
                             ),
                           ],
                         ),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete_outline, color: scheme.error, size: 20),
+                          icon: Icon(Icons.delete_outline,
+                              color: scheme.error, size: 20),
+                          tooltip: 'Delete',
                           onPressed: () => _delete(item.id!),
                         ),
                         onTap: () => Navigator.push(

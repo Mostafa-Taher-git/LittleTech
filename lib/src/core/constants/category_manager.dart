@@ -64,7 +64,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The Bone Colossus',
-      bossLore: 'A towering skeleton giant assembled from broken PC cases and failed hardware.',
+      bossLore:
+          'A towering skeleton giant assembled from broken PC cases and failed hardware.',
       bossHp: 5,
       bosses: coreComponentsBosses,
     ),
@@ -92,7 +93,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The Memory Wraith',
-      bossLore: 'A ghostly entity that corrupts memory addresses and shreds data.',
+      bossLore:
+          'A ghostly entity that corrupts memory addresses and shreds data.',
       bossHp: 5,
       bosses: ramBosses,
     ),
@@ -148,7 +150,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The Static Specter',
-      bossLore: 'A ghost that feeds on audio frequencies and corrupts sound waves.',
+      bossLore:
+          'A ghost that feeds on audio frequencies and corrupts sound waves.',
       bossHp: 5,
       bosses: audioBosses,
     ),
@@ -204,7 +207,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The Glitch',
-      bossLore: 'A digital parasite that corrupts code and breaks installations.',
+      bossLore:
+          'A digital parasite that corrupts code and breaks installations.',
       bossHp: 5,
       bosses: softwareBosses,
     ),
@@ -372,7 +376,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The Static Phantom',
-      bossLore: 'A spectral presence that possesses smart devices, making them unresponsive.',
+      bossLore:
+          'A spectral presence that possesses smart devices, making them unresponsive.',
       bossHp: 5,
       bosses: smartHomeBosses,
     ),
@@ -428,7 +433,8 @@ class CategoryManager {
       ],
       levelCount: 29,
       bossName: 'The DNS Gremlin',
-      bossLore: 'A mischievous gremlin that corrupts DNS lookups, sending devices to wrong addresses.',
+      bossLore:
+          'A mischievous gremlin that corrupts DNS lookups, sending devices to wrong addresses.',
       bossHp: 5,
       bosses: networkingBosses,
     ),

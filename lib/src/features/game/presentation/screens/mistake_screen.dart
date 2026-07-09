@@ -38,16 +38,27 @@ class _MistakeScreenState extends State<MistakeScreen> {
   }
 
   Map<String, dynamic> get _levelMistake {
-    return PrepData.mistakes[PrepData.key(widget.level.id)] ?? {
-      'steps': [
-        {'text': 'Identify the symptoms of the problem', 'isWrong': false},
-        {'text': 'Research common causes for these symptoms', 'isWrong': false},
-        {'text': 'Destroy all your electronics in frustration', 'isWrong': true},
-        {'text': 'Try the simplest fix first', 'isWrong': false},
-        {'text': 'Escalate to more complex solutions if needed', 'isWrong': false},
-      ],
-      'explanation': 'Destroying electronics is never the right approach. Effective troubleshooting always starts with understanding the problem and trying simple solutions first.',
-    };
+    return PrepData.mistakes[PrepData.key(widget.level.id)] ??
+        {
+          'steps': [
+            {'text': 'Identify the symptoms of the problem', 'isWrong': false},
+            {
+              'text': 'Research common causes for these symptoms',
+              'isWrong': false
+            },
+            {
+              'text': 'Destroy all your electronics in frustration',
+              'isWrong': true
+            },
+            {'text': 'Try the simplest fix first', 'isWrong': false},
+            {
+              'text': 'Escalate to more complex solutions if needed',
+              'isWrong': false
+            },
+          ],
+          'explanation':
+              'Destroying electronics is never the right approach. Effective troubleshooting always starts with understanding the problem and trying simple solutions first.',
+        };
   }
 
   void _selectStep(int index) {
@@ -108,7 +119,8 @@ class _MistakeScreenState extends State<MistakeScreen> {
               decoration: BoxDecoration(
                 color: scheme.tertiary.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: scheme.tertiary.withValues(alpha: 0.2)),
+                border:
+                    Border.all(color: scheme.tertiary.withValues(alpha: 0.2)),
               ),
               child: Row(
                 children: [
@@ -180,17 +192,21 @@ class _MistakeScreenState extends State<MistakeScreen> {
                                       ? Colors.green
                                       : _solved && isSelected && !isWrong
                                           ? Colors.red
-                                          : scheme.primary.withValues(alpha: 0.1),
+                                          : scheme.primary
+                                              .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: _solved && isWrong
-                                    ? const Icon(Icons.check, color: Colors.white, size: 16)
+                                    ? const Icon(Icons.check,
+                                        color: Colors.white, size: 16)
                                     : _solved && isSelected && !isWrong
-                                        ? const Icon(Icons.close, color: Colors.white, size: 16)
+                                        ? const Icon(Icons.close,
+                                            color: Colors.white, size: 16)
                                         : Text(
                                             '${i + 1}',
                                             style: TextStyle(
-                                              color: scheme.onSurface.withValues(alpha: 0.5),
+                                              color: scheme.onSurface
+                                                  .withValues(alpha: 0.5),
                                               fontWeight: FontWeight.w700,
                                               fontSize: 13,
                                             ),
@@ -232,7 +248,8 @@ class _MistakeScreenState extends State<MistakeScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline, color: Colors.red.shade300, size: 18),
+                    Icon(Icons.info_outline,
+                        color: Colors.red.shade300, size: 18),
                     const Gap(8),
                     Expanded(
                       child: Text(
@@ -253,14 +270,16 @@ class _MistakeScreenState extends State<MistakeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+                  border:
+                      Border.all(color: Colors.green.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.check_circle, color: Colors.green.shade300, size: 18),
+                        Icon(Icons.check_circle,
+                            color: Colors.green.shade300, size: 18),
                         const Gap(8),
                         Text(
                           'Correct! You spotted the mistake',
@@ -292,7 +311,8 @@ class _MistakeScreenState extends State<MistakeScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: scheme.secondary,
                   foregroundColor: scheme.onSecondary,
-                  disabledBackgroundColor: scheme.outline.withValues(alpha: 0.2),
+                  disabledBackgroundColor:
+                      scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),

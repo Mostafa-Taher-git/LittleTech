@@ -13,7 +13,8 @@ class SavedSolutionsService {
 
   static String _userKey(int userId) => '${_key}_$userId';
 
-  static Future<SharedPreferences> get _prefs => SharedPreferences.getInstance();
+  static Future<SharedPreferences> get _prefs =>
+      SharedPreferences.getInstance();
 
   static Future<List<SavedSolution>> getAll() async {
     final uid = await _userId();
@@ -28,7 +29,9 @@ class SavedSolutionsService {
       await prefs.remove(_userKey(uid));
       return [];
     }
-    final items = list.map((e) => SavedSolution.fromJson(e as Map<String, dynamic>)).toList();
+    final items = list
+        .map((e) => SavedSolution.fromJson(e as Map<String, dynamic>))
+        .toList();
     if (items.isNotEmpty) {
       final ids = items.map((s) => s.id ?? 0).toList();
       final maxId = ids.reduce((a, b) => a > b ? a : b);
@@ -41,7 +44,8 @@ class SavedSolutionsService {
     final uid = await _userId();
     if (uid == null) return;
     final prefs = await _prefs;
-    await prefs.setString(_userKey(uid), jsonEncode(items.map((s) => s.toJson()).toList()));
+    await prefs.setString(
+        _userKey(uid), jsonEncode(items.map((s) => s.toJson()).toList()));
   }
 
   static Future<void> save(SavedSolution solution) async {

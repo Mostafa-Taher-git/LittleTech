@@ -37,7 +37,9 @@ class SupTechCustomization {
     return SupTechCustomization(
       expression: clearExpression
           ? null
-          : (expression == _sentinel ? this.expression : expression as SupTechExpression?),
+          : (expression == _sentinel
+              ? this.expression
+              : expression as SupTechExpression?),
       headAccessory: clearHeadAccessory
           ? null
           : (headAccessory == _sentinel

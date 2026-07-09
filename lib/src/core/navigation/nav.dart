@@ -6,7 +6,8 @@ class Nav {
   }
 
   static void pushReplacement(BuildContext context, Widget screen) {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => screen));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => screen));
   }
 
   static void replaceAll(BuildContext context, Widget screen) {

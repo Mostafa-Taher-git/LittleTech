@@ -6,11 +6,15 @@ class StreakTracker {
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
 
-    final sorted = playDates.map((d) => DateTime(d.year, d.month, d.day)).toSet().toList()
+    final sorted = playDates
+        .map((d) => DateTime(d.year, d.month, d.day))
+        .toSet()
+        .toList()
       ..sort((a, b) => b.compareTo(a));
 
     // Streak only counts if the most recent play was today or yesterday
-    if (!sorted[0].isAtSameMomentAs(today) && !sorted[0].isAtSameMomentAs(yesterday)) {
+    if (!sorted[0].isAtSameMomentAs(today) &&
+        !sorted[0].isAtSameMomentAs(yesterday)) {
       return 0;
     }
 

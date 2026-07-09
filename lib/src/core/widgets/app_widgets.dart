@@ -13,7 +13,8 @@ void showErrorToast(BuildContext context, String text) {
         children: [
           const Icon(Icons.error_outline, color: Colors.white),
           const Gap(10),
-          Expanded(child: Text(text, style: const TextStyle(color: Colors.white))),
+          Expanded(
+              child: Text(text, style: const TextStyle(color: Colors.white))),
         ],
       ),
     ),
@@ -32,7 +33,8 @@ void showSuccessToast(BuildContext context, String text) {
         children: [
           const Icon(Icons.check_circle_outline, color: Colors.white),
           const Gap(10),
-          Expanded(child: Text(text, style: const TextStyle(color: Colors.white))),
+          Expanded(
+              child: Text(text, style: const TextStyle(color: Colors.white))),
         ],
       ),
     ),
@@ -130,16 +132,21 @@ class ProblemTile extends StatelessWidget {
                   color: scheme.surface,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(Icons.help_outline, size: 18, color: scheme.onSurface.withValues(alpha: 0.6)),
+                child: Icon(Icons.help_outline,
+                    size: 18, color: scheme.onSurface.withValues(alpha: 0.6)),
               ),
               const Gap(14),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: scheme.onSurface),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: scheme.onSurface),
                 ),
               ),
-              Icon(Icons.chevron_right, color: scheme.onSurface.withValues(alpha: 0.6)),
+              Icon(Icons.chevron_right,
+                  color: scheme.onSurface.withValues(alpha: 0.6)),
             ],
           ),
         ),
@@ -152,7 +159,8 @@ class SolutionStepCard extends StatelessWidget {
   final int stepNumber;
   final String text;
 
-  const SolutionStepCard({super.key, required this.stepNumber, required this.text});
+  const SolutionStepCard(
+      {super.key, required this.stepNumber, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +186,10 @@ class SolutionStepCard extends StatelessWidget {
             ),
             child: Text(
               '$stepNumber',
-              style: TextStyle(color: scheme.onPrimary, fontWeight: FontWeight.w700, fontSize: 14),
+              style: TextStyle(
+                  color: scheme.onPrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14),
             ),
           ),
           const Gap(14),
@@ -187,7 +198,8 @@ class SolutionStepCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 5),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 15, color: scheme.onSurface, height: 1.5),
+                style: TextStyle(
+                    fontSize: 15, color: scheme.onSurface, height: 1.5),
               ),
             ),
           ),
@@ -220,9 +232,14 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 64, color: scheme.onSurface.withValues(alpha: 0.3)),
+            Icon(icon,
+                size: 64, color: scheme.onSurface.withValues(alpha: 0.3)),
             const Gap(16),
-            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: scheme.onSurface)),
+            Text(title,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onSurface)),
             const Gap(8),
             Text(
               subtitle,

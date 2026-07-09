@@ -1,9 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:littletech/src/features/auth/data/models/user_model.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 
-abstract class AuthState {
+abstract class AuthState with Equatable {
   const AuthState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class AuthInitial extends AuthState {}
@@ -13,21 +17,33 @@ class AuthLoading extends AuthState {}
 class LoginSuccess extends AuthState {
   final UserModel user;
   const LoginSuccess(this.user);
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class RegisterSuccess extends AuthState {
   final UserModel user;
   const RegisterSuccess(this.user);
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class LogoutSuccess extends AuthState {
   final bool showAccountPicker;
   const LogoutSuccess({this.showAccountPicker = false});
+
+  @override
+  List<Object?> get props => [showAccountPicker];
 }
 
 class AuthError extends AuthState {
   final String message;
   const AuthError(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }
 
 class AuthCubit extends Cubit<AuthState> {

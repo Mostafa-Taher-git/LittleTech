@@ -52,7 +52,9 @@ class SupTechPage extends StatelessWidget {
                 ],
               ),
               child: IconButton(
-                icon: const Text('ST',
+                tooltip: 'Close',
+                icon: const Text(
+                  'ST',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w900,
@@ -101,7 +103,8 @@ class SupTechPage extends StatelessWidget {
     );
   }
 
-  Widget _labeledPanel(String title, Widget child, {EdgeInsetsGeometry? padding}) {
+  Widget _labeledPanel(String title, Widget child,
+      {EdgeInsetsGeometry? padding}) {
     return _referencePanel(
       padding: padding,
       child: Column(
@@ -115,17 +118,19 @@ class SupTechPage extends StatelessWidget {
     );
   }
 
-  Widget _buildWideLayout(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+  Widget _buildWideLayout(BuildContext context, SupTechCustomizationCubit cubit,
+      SupTechCustomization c, SkinDefinition skin) {
     return Column(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _labeledPanel('Skins', _buildSkinsSection(context))),
+            Expanded(
+                child: _labeledPanel('Skins', _buildSkinsSection(context))),
             const SizedBox(width: 24),
             Expanded(
-              child: _labeledPanel('Character', _buildMainCharacter(context, cubit, c, skin)),
+              child: _labeledPanel(
+                  'Character', _buildMainCharacter(context, cubit, c, skin)),
             ),
             const SizedBox(width: 24),
             Expanded(child: _labeledPanel('About', _buildAboutSection(skin))),
@@ -147,14 +152,19 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildNarrowLayout(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+      BuildContext context,
+      SupTechCustomizationCubit cubit,
+      SupTechCustomization c,
+      SkinDefinition skin) {
     return Column(
       children: [
         _labeledPanel('Skins', _buildSkinsSection(context)),
         const SizedBox(height: 20),
-        _labeledPanel('Character', _buildMainCharacter(context, cubit, c, skin)),
+        _labeledPanel(
+            'Character', _buildMainCharacter(context, cubit, c, skin)),
         const SizedBox(height: 20),
-        _labeledPanel('Accessories', _buildAccessorySelectors(context, cubit, c, skin)),
+        _labeledPanel(
+            'Accessories', _buildAccessorySelectors(context, cubit, c, skin)),
         const SizedBox(height: 20),
         _labeledPanel('About', _buildAboutSection(skin)),
         const SizedBox(height: 20),
@@ -168,7 +178,10 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildExpressionsRow(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+      BuildContext context,
+      SupTechCustomizationCubit cubit,
+      SupTechCustomization c,
+      SkinDefinition skin) {
     final expressions = [
       SupTechExpression.neutral,
       SupTechExpression.happy,
@@ -194,17 +207,29 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildAccessorySelectors(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+      BuildContext context,
+      SupTechCustomizationCubit cubit,
+      SupTechCustomization c,
+      SkinDefinition skin) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _selectorRow('Head', SupTechHeadAccessory.values, c.headAccessory ?? skin.headAccessory,
+        _selectorRow(
+            'Head',
+            SupTechHeadAccessory.values,
+            c.headAccessory ?? skin.headAccessory,
             (v) => cubit.setHeadAccessory(v)),
         const SizedBox(height: 14),
-        _selectorRow('Ears', SupTechEarAccessory.values, c.earAccessory ?? skin.earAccessory,
+        _selectorRow(
+            'Ears',
+            SupTechEarAccessory.values,
+            c.earAccessory ?? skin.earAccessory,
             (v) => cubit.setEarAccessory(v)),
         const SizedBox(height: 14),
-        _selectorRow('Chest', SupTechChestAccessory.values, c.chestAccessory ?? skin.chestAccessory,
+        _selectorRow(
+            'Chest',
+            SupTechChestAccessory.values,
+            c.chestAccessory ?? skin.chestAccessory,
             (v) => cubit.setChestAccessory(v)),
       ],
     );
@@ -219,12 +244,16 @@ class SupTechPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(
-          fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFF4B5563),
-        )),
+        Text(label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4B5563),
+            )),
         const SizedBox(height: 8),
         Wrap(
-          spacing: 6, runSpacing: 6,
+          spacing: 6,
+          runSpacing: 6,
           children: values.map((v) {
             final isSel = selected == v;
             final noneLabel = v.toString().contains('none');
@@ -237,19 +266,27 @@ class SupTechPage extends StatelessWidget {
                 onSelected(isSel ? noneVal : v);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: isSel ? const Color(0xFF4777EA).withValues(alpha: 0.12) : Colors.white,
+                  color: isSel
+                      ? const Color(0xFF4777EA).withValues(alpha: 0.12)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: isSel ? const Color(0xFF4777EA) : const Color(0xFFE5E7EB),
+                    color: isSel
+                        ? const Color(0xFF4777EA)
+                        : const Color(0xFFE5E7EB),
                   ),
                 ),
                 child: Text(
                   noneLabel ? 'None' : v.toString().split('.').last,
                   style: TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w600,
-                    color: isSel ? const Color(0xFF4777EA) : const Color(0xFF6B7280),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: isSel
+                        ? const Color(0xFF4777EA)
+                        : const Color(0xFF6B7280),
                   ),
                 ),
               ),
@@ -261,7 +298,10 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _expressionCard(
-      SupTechExpression expr, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+      SupTechExpression expr,
+      SupTechCustomizationCubit cubit,
+      SupTechCustomization c,
+      SkinDefinition skin) {
     final isSelected = (c.expression ?? SupTechExpression.neutral) == expr;
     return GestureDetector(
       onTap: () => cubit.setExpression(isSelected ? null : expr),
@@ -271,13 +311,15 @@ class SupTechPage extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: isSelected ? const Color(0xFF4777EA) : const Color(0xFFE9EDF4),
+            color:
+                isSelected ? const Color(0xFF4777EA) : const Color(0xFFE9EDF4),
             width: isSelected ? 1.5 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: const Color(0xFF253247).withValues(alpha: 0.04),
-              blurRadius: 10, offset: const Offset(0, 4),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -293,8 +335,11 @@ class SupTechPage extends StatelessWidget {
             Text(
               _expressionName(expr),
               style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w500,
-                color: isSelected ? const Color(0xFF4777EA) : const Color(0xFF6B7A90),
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: isSelected
+                    ? const Color(0xFF4777EA)
+                    : const Color(0xFF6B7A90),
               ),
             ),
           ],
@@ -304,24 +349,28 @@ class SupTechPage extends StatelessWidget {
   }
 
   static String _expressionName(SupTechExpression e) => switch (e) {
-    SupTechExpression.neutral => 'Neutral',
-    SupTechExpression.happy => 'Happy',
-    SupTechExpression.angry => 'Angry',
-    SupTechExpression.surprised => 'Surprised',
-    SupTechExpression.determined => 'Determined',
-    SupTechExpression.wink => 'Wink',
-    SupTechExpression.sleep => 'Sleep',
-    SupTechExpression.error => 'Error',
-  };
+        SupTechExpression.neutral => 'Neutral',
+        SupTechExpression.happy => 'Happy',
+        SupTechExpression.angry => 'Angry',
+        SupTechExpression.surprised => 'Surprised',
+        SupTechExpression.determined => 'Determined',
+        SupTechExpression.wink => 'Wink',
+        SupTechExpression.sleep => 'Sleep',
+        SupTechExpression.error => 'Error',
+      };
 
   Widget _buildSkinsSection(BuildContext context) {
     final progress = context.watch<GameCubit>().state.progress;
     return Wrap(
-      spacing: 8, runSpacing: 8,
+      spacing: 8,
+      runSpacing: 8,
       children: SkinTierManager.skins.map((s) {
         final purchased = progress.purchasedItemIds.contains(s.id);
-        final earnedAsReward = progress.earnedRewardIds.contains('skin_${s.id}');
-        final unlocked = progress.unlockedSkinIds.contains(s.id) || earnedAsReward || purchased;
+        final earnedAsReward =
+            progress.earnedRewardIds.contains('skin_${s.id}');
+        final unlocked = progress.unlockedSkinIds.contains(s.id) ||
+            earnedAsReward ||
+            purchased;
         final isActive = progress.activeSkinId == s.id;
         return GestureDetector(
           onTap: unlocked
@@ -352,12 +401,18 @@ class SupTechPage extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(s.previewIcon, color: unlocked ? s.color : const Color(0xFF738197).withValues(alpha: 0.4), size: 18),
+                Icon(s.previewIcon,
+                    color: unlocked
+                        ? s.color
+                        : const Color(0xFF738197).withValues(alpha: 0.4),
+                    size: 18),
                 const SizedBox(width: 8),
                 Text(
                   s.name,
                   style: TextStyle(
-                    color: unlocked ? s.color : const Color(0xFF738197).withValues(alpha: 0.4),
+                    color: unlocked
+                        ? s.color
+                        : const Color(0xFF738197).withValues(alpha: 0.4),
                     fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                     fontSize: 13,
                   ),
@@ -370,14 +425,18 @@ class SupTechPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () => context.read<GameCubit>().purchaseItem(s.id),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE8C840).withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: const Text(
                         'Buy',
-                        style: TextStyle(color: Color(0xFFE8C840), fontSize: 10, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            color: Color(0xFFE8C840),
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -407,11 +466,16 @@ class SupTechPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Color(0xFF738197), fontSize: 13)),
+          Text(label,
+              style: const TextStyle(color: Color(0xFF738197), fontSize: 13)),
           Flexible(
-            child: Text(value,
+            child: Text(
+              value,
               textAlign: TextAlign.end,
-              style: const TextStyle(color: Color(0xFF263348), fontSize: 13, fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                  color: Color(0xFF263348),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -420,14 +484,18 @@ class SupTechPage extends StatelessWidget {
   }
 
   Widget _buildMainCharacter(
-      BuildContext context, SupTechCustomizationCubit cubit, SupTechCustomization c, SkinDefinition skin) {
+      BuildContext context,
+      SupTechCustomizationCubit cubit,
+      SupTechCustomization c,
+      SkinDefinition skin) {
     final maxWidth = min(280.0, MediaQuery.sizeOf(context).width - 36);
     final height = maxWidth * (516 / 386);
     final expression = c.expression ?? SupTechExpression.neutral;
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
-        width: maxWidth, height: height,
+        width: maxWidth,
+        height: height,
         child: CustomPaint(
           painter: _InteractiveConceptPainter(
             skin: skin,
@@ -471,7 +539,8 @@ class _InteractiveConceptPainter extends CustomPainter {
 
     // Ambient glow
     canvas.drawCircle(
-      Offset.zero, 42 * s,
+      Offset.zero,
+      42 * s,
       Paint()
         ..shader = RadialGradient(colors: [
           skin.accentColor.withValues(alpha: 0.14),
@@ -483,8 +552,9 @@ class _InteractiveConceptPainter extends CustomPainter {
     final headAcc = headAccessory ?? skin.headAccessory;
     if (!drawSupTechBodyVariant(canvas, skin, s, skin.variant)) {
       drawSupTechBody(canvas, skin, s, -1 * s, 12 * s, 16 * s, 22 * s);
-      drawSupTechHead(canvas, skin, s, -8.8 * s, 11.75 * s, -3 * s, 10 * s, 13 * s, -28 * s,
-        stripeColor: _stripeColorForAccessory(headAcc));
+      drawSupTechHead(
+          canvas, skin, s, -8.8 * s, 11.75 * s, -3 * s, 10 * s, 13 * s, -28 * s,
+          stripeColor: _stripeColorForAccessory(headAcc));
     }
 
     // Face
@@ -496,7 +566,8 @@ class _InteractiveConceptPainter extends CustomPainter {
     if (!skin.hideFace) {
       final faceRect = Rect.fromCenter(
         center: Offset(0, headCY),
-        width: 23.5 * s, height: 14.5 * s,
+        width: 23.5 * s,
+        height: 14.5 * s,
       );
       canvas.drawOval(
         faceRect.inflate(1.4 * s),
@@ -528,8 +599,10 @@ class _InteractiveConceptPainter extends CustomPainter {
     }
     final earAcc = earAccessory ?? skin.earAccessory;
     final chestAcc = chestAccessory ?? skin.chestAccessory;
-    drawSupTechHeadAccessory(canvas, skin, s, headCY, headR, hoodPeakY, headAcc);
-    drawSupTechEarAccessory(canvas, skin, s, headCY, headR, earAcc, hoodPeakY: hoodPeakY);
+    drawSupTechHeadAccessory(
+        canvas, skin, s, headCY, headR, hoodPeakY, headAcc);
+    drawSupTechEarAccessory(canvas, skin, s, headCY, headR, earAcc,
+        hoodPeakY: hoodPeakY);
     drawSupTechChestAccessory(canvas, skin, s, bodyTopY, bodyBotY, chestAcc);
 
     canvas.restore();
@@ -562,7 +635,9 @@ class _InteractiveConceptPainter extends CustomPainter {
 // ═══════════════════════════════════════════════════════
 
 void _drawMiniHood(Canvas canvas, double s, Color bodyColor) {
-  final bodyPaint = Paint()..color = bodyColor..style = PaintingStyle.fill;
+  final bodyPaint = Paint()
+    ..color = bodyColor
+    ..style = PaintingStyle.fill;
   final outlinePaint = Paint()
     ..color = Colors.black87
     ..style = PaintingStyle.stroke
@@ -580,7 +655,9 @@ void _drawMiniHood(Canvas canvas, double s, Color bodyColor) {
   canvas.drawPath(hoodPath, bodyPaint);
   canvas.drawPath(hoodPath, outlinePaint);
 
-  final tabPaint = Paint()..color = const Color(0xFF2D3748)..style = PaintingStyle.fill;
+  final tabPaint = Paint()
+    ..color = const Color(0xFF2D3748)
+    ..style = PaintingStyle.fill;
   final tabPath = Path()
     ..moveTo(-1.0 * s, -10.2 * s)
     ..lineTo(1.0 * s, -10.2 * s)
@@ -621,13 +698,16 @@ class _ExpressionPainter extends CustomPainter {
     _drawMiniHood(canvas, s, skin.bodyColor);
 
     final faceRect = Rect.fromCenter(
-      center: Offset(0, -1.4 * s), width: 13.8 * s, height: 8.8 * s,
+      center: Offset(0, -1.4 * s),
+      width: 13.8 * s,
+      height: 8.8 * s,
     );
     canvas.drawOval(
       faceRect,
       Paint()
         ..shader = const RadialGradient(
-          center: Alignment(0, -0.15), radius: 0.95,
+          center: Alignment(0, -0.15),
+          radius: 0.95,
           colors: [Color(0xFF1B2633), Color(0xFF05070B), Color(0xFF020306)],
           stops: [0.0, 0.5, 1.0],
         ).createShader(faceRect),
@@ -642,5 +722,3 @@ class _ExpressionPainter extends CustomPainter {
   bool shouldRepaint(covariant _ExpressionPainter old) =>
       old.skin.id != skin.id || old.expression != expression;
 }
-
-

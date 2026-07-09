@@ -62,7 +62,8 @@ class _ProblemScreenState extends State<ProblemScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.monetization_on, color: scheme.secondary, size: 16),
+                    Icon(Icons.monetization_on,
+                        color: scheme.secondary, size: 16),
                     const Gap(4),
                     Text(
                       '${state.totalPoints}',
@@ -86,7 +87,8 @@ class _ProblemScreenState extends State<ProblemScreen> {
           }
 
           final steps = widget.level.steps;
-          final solvedCount = widget.isReview ? steps.length : state.currentStepIndex;
+          final solvedCount =
+              widget.isReview ? steps.length : state.currentStepIndex;
           final allSolved = solvedCount >= steps.length;
           final progress = steps.isNotEmpty ? solvedCount / steps.length : 0.0;
 
@@ -117,7 +119,8 @@ class _ProblemScreenState extends State<ProblemScreen> {
           return Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 color: scheme.surface,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,16 +152,19 @@ class _ProblemScreenState extends State<ProblemScreen> {
                       child: LinearProgressIndicator(
                         value: progress,
                         backgroundColor: scheme.outline.withValues(alpha: 0.2),
-                        valueColor: AlwaysStoppedAnimation<Color>(scheme.secondary),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(scheme.secondary),
                         minHeight: 6,
                       ),
                     ),
                   ],
                 ),
               ),
-
               if (!allSolved)
-                VisualAid(level: widget.level, stepIndex: solvedCount.clamp(0, widget.level.steps.length - 1)),
+                VisualAid(
+                    level: widget.level,
+                    stepIndex:
+                        solvedCount.clamp(0, widget.level.steps.length - 1)),
               if (_showingAltForStep)
                 AltSolutionBanner(
                   world: widget.world,
@@ -172,18 +178,23 @@ class _ProblemScreenState extends State<ProblemScreen> {
                 Center(
                   child: TextButton.icon(
                     onPressed: () => setState(() => _showingAltForStep = true),
-                    icon: Icon(Icons.replay, size: 16, color: Colors.orange.shade300),
+                    icon: Icon(Icons.replay,
+                        size: 16, color: Colors.orange.shade300),
                     label: Text(
                       'Not quite? Try alternative steps',
-                      style: TextStyle(color: Colors.orange.shade300, fontSize: 12),
+                      style: TextStyle(
+                          color: Colors.orange.shade300, fontSize: 12),
                     ),
                   ),
                 ),
-              if (allSolved && state.lastDrawnReward == null && !_showingAltForStep)
+              if (allSolved &&
+                  state.lastDrawnReward == null &&
+                  !_showingAltForStep)
                 AltSolutionBanner(
                   world: widget.world,
                   level: widget.level,
-                  onTapAlternative: () => context.read<GameCubit>().resetSteps(),
+                  onTapAlternative: () =>
+                      context.read<GameCubit>().resetSteps(),
                 ),
               if (allSolved && !_feedbackGiven && !widget.isReview)
                 Container(
@@ -192,11 +203,13 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   decoration: BoxDecoration(
                     color: scheme.primary.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
+                    border: Border.all(
+                        color: scheme.outline.withValues(alpha: 0.2)),
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.help_outline, color: scheme.secondary, size: 20),
+                      Icon(Icons.help_outline,
+                          color: scheme.secondary, size: 20),
                       const Gap(10),
                       Expanded(
                         child: Text(
@@ -210,18 +223,24 @@ class _ProblemScreenState extends State<ProblemScreen> {
                       ),
                       IconButton(
                         onPressed: () {
-                          context.read<GameCubit>().saveFeedback(widget.level.id, true);
+                          context
+                              .read<GameCubit>()
+                              .saveFeedback(widget.level.id, true);
                           setState(() => _feedbackGiven = true);
                         },
-                        icon: const Icon(Icons.thumb_up_outlined, color: Colors.green, size: 22),
+                        icon: const Icon(Icons.thumb_up_outlined,
+                            color: Colors.green, size: 22),
                         tooltip: 'Yes, it worked',
                       ),
                       IconButton(
                         onPressed: () {
-                          context.read<GameCubit>().saveFeedback(widget.level.id, false);
+                          context
+                              .read<GameCubit>()
+                              .saveFeedback(widget.level.id, false);
                           setState(() => _feedbackGiven = true);
                         },
-                        icon: const Icon(Icons.thumb_down_outlined, color: Colors.red, size: 22),
+                        icon: const Icon(Icons.thumb_down_outlined,
+                            color: Colors.red, size: 22),
                         tooltip: "No, it didn't work",
                       ),
                     ],
@@ -234,7 +253,8 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                    border:
+                        Border.all(color: Colors.green.withValues(alpha: 0.2)),
                   ),
                   child: const Row(
                     children: [
@@ -261,7 +281,6 @@ class _ProblemScreenState extends State<ProblemScreen> {
                       stepNumber: i + 1,
                       text: steps[i],
                       isCompleted: i < solvedCount,
-                      imageUrl: i == solvedCount ? widget.level.imageUrl : null,
                     );
                   },
                 ),
@@ -335,7 +354,8 @@ class _ProblemScreenState extends State<ProblemScreen> {
                           onPressed: state.currentStepIndex < steps.length
                               ? () => context.read<GameCubit>().solveStep()
                               : null,
-                          icon: const Icon(Icons.check_circle_outline, size: 20),
+                          icon:
+                              const Icon(Icons.check_circle_outline, size: 20),
                           label: Text(
                             solvedCount >= steps.length
                                 ? 'Completed!'

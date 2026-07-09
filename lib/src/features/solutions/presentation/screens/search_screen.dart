@@ -25,7 +25,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _search(String query) {
     if (query.trim().isEmpty) {
-      setState(() { _results = []; _searched = false; });
+      setState(() {
+        _results = [];
+        _searched = false;
+      });
       return;
     }
     final q = query.toLowerCase().trim();
@@ -33,7 +36,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
     for (final cat in RuleEngine.categories) {
       for (final problem in cat.problems) {
-        if (problem.toLowerCase().contains(q) || q.contains(problem.toLowerCase())) {
+        if (problem.toLowerCase().contains(q) ||
+            q.contains(problem.toLowerCase())) {
           found.add(_SearchResult(problem: problem, category: cat.name));
         }
       }
@@ -54,7 +58,10 @@ class _SearchScreenState extends State<SearchScreen> {
       }
     }
 
-    setState(() { _results = found; _searched = true; });
+    setState(() {
+      _results = found;
+      _searched = true;
+    });
   }
 
   @override
@@ -77,7 +84,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 suffixIcon: _ctrl.text.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear),
-                        onPressed: () { _ctrl.clear(); _search(''); },
+                        tooltip: 'Clear search',
+                        onPressed: () {
+                          _ctrl.clear();
+                          _search('');
+                        },
                       )
                     : null,
               ),
@@ -89,13 +100,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? EmptyState(
                         icon: Icons.search_off,
                         title: 'No Results',
-                        subtitle: 'Try different keywords or browse categories from the home screen.',
+                        subtitle:
+                            'Try different keywords or browse categories from the home screen.',
                         scheme: scheme,
                       )
                     : EmptyState(
                         icon: Icons.search,
                         title: 'Search Solutions',
-                        subtitle: 'Type keywords to find solutions for computer problems.',
+                        subtitle:
+                            'Type keywords to find solutions for computer problems.',
                         scheme: scheme,
                       )
                 : ListView.separated(

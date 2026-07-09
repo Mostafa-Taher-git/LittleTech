@@ -60,7 +60,8 @@ class LevelSelectScreen extends StatelessWidget {
           final cat = CategoryManager.byId(world.id);
           final bosses = cat?.bosses ?? [];
           final allBossesDefeated = bosses.isNotEmpty &&
-              bosses.every((b) => state.progress.defeatedBossIds.contains(b.id));
+              bosses
+                  .every((b) => state.progress.defeatedBossIds.contains(b.id));
 
           final listView = ListView(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
@@ -68,8 +69,8 @@ class LevelSelectScreen extends StatelessWidget {
               _DungeonHeader(
                 description: world.description,
                 levelsCleared: world.levels
-                    .where((l) =>
-                        state.progress.completedLevelIds.contains(l.id))
+                    .where(
+                        (l) => state.progress.completedLevelIds.contains(l.id))
                     .length,
                 totalLevels: world.levels.length,
               ),
@@ -79,8 +80,8 @@ class LevelSelectScreen extends StatelessWidget {
                 final level = entry.value;
                 final isCompleted =
                     state.progress.completedLevelIds.contains(level.id);
-                final isLocked = !isCompleted &&
-                    !_isPreviousCompleted(state, world, level);
+                final isLocked =
+                    !isCompleted && !_isPreviousCompleted(state, world, level);
 
                 return Column(
                   mainAxisSize: MainAxisSize.min,
@@ -99,22 +100,29 @@ class LevelSelectScreen extends StatelessWidget {
                         isLocked: isLocked,
                         totalSteps: level.steps.length,
                         isBossLevel: level.isBossLevel,
-                        bossVisualType: level.boss?.visualType ?? bosses.firstOrNull?.visualType ?? 1,
+                        bossVisualType: level.boss?.visualType ??
+                            bosses.firstOrNull?.visualType ??
+                            1,
                         onTap: () {
                           if (level.isBossLevel && level.boss != null) {
                             if (isCompleted) {
-                              Nav.push(context, ReviewScreen(world: world, level: level));
+                              Nav.push(context,
+                                  ReviewScreen(world: world, level: level));
                             } else {
                               context.read<GameCubit>().selectWorld(world);
                               context.read<GameCubit>().startBoss(level.boss!);
                               Nav.push(context, BossScreen(boss: level.boss!));
                             }
                           } else {
-                            context.read<GameCubit>().selectLevel(level, worldOverride: world);
+                            context
+                                .read<GameCubit>()
+                                .selectLevel(level, worldOverride: world);
                             if (isCompleted) {
-                              Nav.push(context, ReviewScreen(world: world, level: level));
+                              Nav.push(context,
+                                  ReviewScreen(world: world, level: level));
                             } else {
-                              Nav.push(context, QuizScreen(world: world, level: level));
+                              Nav.push(context,
+                                  QuizScreen(world: world, level: level));
                             }
                           }
                         },
@@ -149,8 +157,7 @@ class LevelSelectScreen extends StatelessWidget {
   bool _isPreviousCompleted(GameState state, WorldDef world, LevelDef level) {
     final idx = world.levels.indexOf(level);
     if (idx <= 0) return true;
-    return state.progress.completedLevelIds
-        .contains(world.levels[idx - 1].id);
+    return state.progress.completedLevelIds.contains(world.levels[idx - 1].id);
   }
 }
 
@@ -273,8 +280,7 @@ class _ConnectorLinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ConnectorLinePainter old) =>
-      old.color != color;
+  bool shouldRepaint(covariant _ConnectorLinePainter old) => old.color != color;
 }
 
 class _BossDungeonDoor extends StatelessWidget {
@@ -394,8 +400,7 @@ class _BossDungeonDoor extends StatelessWidget {
                           if (isDefeated) ...[
                             const Gap(8),
                             const Icon(Icons.emoji_events,
-                                size: 14,
-                                color: Color(0xFFFFD700)),
+                                size: 14, color: Color(0xFFFFD700)),
                           ],
                         ],
                       ),
@@ -451,7 +456,10 @@ class _IronGatePainter extends CustomPainter {
   final ColorScheme scheme;
   final Color bossColor;
 
-  _IronGatePainter({required this.isUnlocked, required this.scheme, this.bossColor = const Color(0xFFDC143C)});
+  _IronGatePainter(
+      {required this.isUnlocked,
+      required this.scheme,
+      this.bossColor = const Color(0xFFDC143C)});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -492,5 +500,3 @@ class _IronGatePainter extends CustomPainter {
   bool shouldRepaint(covariant _IronGatePainter old) =>
       old.isUnlocked != isUnlocked || old.bossColor != bossColor;
 }
-
-

@@ -8,14 +8,16 @@ class CategoryData {
   final IconData icon;
   final List<String> problems;
 
-  const CategoryData({required this.name, required this.icon, required this.problems});
+  const CategoryData(
+      {required this.name, required this.icon, required this.problems});
 }
 
 /// The complete knowledge-base for LittleTech.
 class RuleEngine {
   static List<CategoryData> get categories {
     return CategoryManager.all.map((cat) {
-      return CategoryData(name: cat.name, icon: cat.icon, problems: cat.problemKeys);
+      return CategoryData(
+          name: cat.name, icon: cat.icon, problems: cat.problemKeys);
     }).toList();
   }
 
@@ -403,12 +405,12 @@ class RuleEngine {
       'If the correct resolution is missing, reinstall the monitor driver.',
       'Check the monitor\'s native resolution in its manual.',
     ],
-      'dead pixels': [
-        'Use a stuck pixel fixer tool (JScreenFix) for stuck pixels.',
-        'Apply gentle pressure with a soft cloth on the dead pixel area.',
-        'Check the monitor warranty — many manufacturers cover dead pixels.',
-        'True dead pixels (black) usually cannot be fixed and may require replacement.',
-      ],
+    'dead pixels': [
+      'Use a stuck pixel fixer tool (JScreenFix) for stuck pixels.',
+      'Apply gentle pressure with a soft cloth on the dead pixel area.',
+      'Check the monitor warranty — many manufacturers cover dead pixels.',
+      'True dead pixels (black) usually cannot be fixed and may require replacement.',
+    ],
 
     // ── Mobile ────────────────────────────────────────────────────────────────
     'battery draining too fast': [
@@ -1311,19 +1313,28 @@ class RuleEngine {
 
     // 1. Exact match
     if (_solutions.containsKey(p)) {
-      return ProblemSolution(problem: problem, category: _problemCategory[p] ?? 'General', steps: _solutions[p]!);
+      return ProblemSolution(
+          problem: problem,
+          category: _problemCategory[p] ?? 'General',
+          steps: _solutions[p]!);
     }
 
     // 2. Alias lookup
     final aliasTarget = _aliases[p];
     if (aliasTarget != null && _solutions.containsKey(aliasTarget)) {
-      return ProblemSolution(problem: problem, category: _problemCategory[aliasTarget] ?? 'General', steps: _solutions[aliasTarget]!);
+      return ProblemSolution(
+          problem: problem,
+          category: _problemCategory[aliasTarget] ?? 'General',
+          steps: _solutions[aliasTarget]!);
     }
 
     // 3. Substring match in solutions
     for (final entry in _solutions.entries) {
       if (p.contains(entry.key) || entry.key.contains(p)) {
-        return ProblemSolution(problem: problem, category: _problemCategory[entry.key] ?? 'General', steps: entry.value);
+        return ProblemSolution(
+            problem: problem,
+            category: _problemCategory[entry.key] ?? 'General',
+            steps: entry.value);
       }
     }
 
@@ -1332,66 +1343,125 @@ class RuleEngine {
       if (p.contains(alias.key) || alias.key.contains(p)) {
         final target = alias.value;
         if (_solutions.containsKey(target)) {
-          return ProblemSolution(problem: problem, category: _problemCategory[target] ?? 'General', steps: _solutions[target]!);
+          return ProblemSolution(
+              problem: problem,
+              category: _problemCategory[target] ?? 'General',
+              steps: _solutions[target]!);
         }
       }
     }
 
     // 5. Keyword fallback
     if (p.contains('display') || p.contains('screen')) {
-      return ProblemSolution(problem: problem, category: 'Display', steps: _solutions['no display output']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Display',
+          steps: _solutions['no display output']!);
     }
     if (p.contains('cpu') || p.contains('processor')) {
-      return ProblemSolution(problem: problem, category: 'CPU', steps: _solutions['high cpu usage']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'CPU',
+          steps: _solutions['high cpu usage']!);
     }
     if (p.contains('wifi') || p.contains('internet')) {
-      return ProblemSolution(problem: problem, category: 'Internet', steps: _solutions['no internet connection']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Internet',
+          steps: _solutions['no internet connection']!);
     }
     if (p.contains('boot')) {
-      return ProblemSolution(problem: problem, category: 'Boot & OS', steps: _solutions["pc won't boot"]!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Boot & OS',
+          steps: _solutions["pc won't boot"]!);
     }
     if (p.contains('mouse')) {
-      return ProblemSolution(problem: problem, category: 'Peripherals', steps: _solutions['mouse not responding']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Peripherals',
+          steps: _solutions['mouse not responding']!);
     }
     if (p.contains('keyboard')) {
-      return ProblemSolution(problem: problem, category: 'Peripherals', steps: _solutions['keyboard not responding']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Peripherals',
+          steps: _solutions['keyboard not responding']!);
     }
     if (p.contains('printer') || p.contains('print')) {
-      return ProblemSolution(problem: problem, category: 'Peripherals', steps: _solutions['printer not responding']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Peripherals',
+          steps: _solutions['printer not responding']!);
     }
     if (p.contains('sound') || p.contains('audio')) {
-      return ProblemSolution(problem: problem, category: 'Audio', steps: _solutions['no sound output']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Audio',
+          steps: _solutions['no sound output']!);
     }
     if (p.contains('disk') || p.contains('drive') || p.contains('storage')) {
-      return ProblemSolution(problem: problem, category: 'Storage', steps: _solutions['slow disk performance']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Storage',
+          steps: _solutions['slow disk performance']!);
     }
-    if (p.contains('network') || p.contains('router') || p.contains('ethernet')) {
-      return ProblemSolution(problem: problem, category: 'Internet', steps: _solutions['no internet connection']!);
+    if (p.contains('network') ||
+        p.contains('router') ||
+        p.contains('ethernet')) {
+      return ProblemSolution(
+          problem: problem,
+          category: 'Internet',
+          steps: _solutions['no internet connection']!);
     }
     if (p.contains('battery') || p.contains('phone') || p.contains('mobile')) {
-      return ProblemSolution(problem: problem, category: 'Mobile', steps: _solutions['battery draining too fast']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Mobile',
+          steps: _solutions['battery draining too fast']!);
     }
-    if (p.contains('game') || p.contains('fps') || p.contains('gpu') || p.contains('graphics')) {
-      return ProblemSolution(problem: problem, category: 'Gaming', steps: _solutions['game crashing on startup']!);
+    if (p.contains('game') ||
+        p.contains('fps') ||
+        p.contains('gpu') ||
+        p.contains('graphics')) {
+      return ProblemSolution(
+          problem: problem,
+          category: 'Gaming',
+          steps: _solutions['game crashing on startup']!);
     }
     if (p.contains('smart') || p.contains('hub') || p.contains('automation')) {
-      return ProblemSolution(problem: problem, category: 'Smart Home', steps: _solutions['smart device offline']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Smart Home',
+          steps: _solutions['smart device offline']!);
     }
-    if (p.contains('virus') || p.contains('malware') || p.contains('security') || p.contains('trojan') || p.contains('ransomware')) {
-      return ProblemSolution(problem: problem, category: 'Security', steps: _solutions['virus or malware infection']!);
+    if (p.contains('virus') ||
+        p.contains('malware') ||
+        p.contains('security') ||
+        p.contains('trojan') ||
+        p.contains('ransomware')) {
+      return ProblemSolution(
+          problem: problem,
+          category: 'Security',
+          steps: _solutions['virus or malware infection']!);
     }
     if (p.contains('password') || p.contains('login') || p.contains('auth')) {
-      return ProblemSolution(problem: problem, category: 'Security', steps: _solutions['password not accepted after update']!);
+      return ProblemSolution(
+          problem: problem,
+          category: 'Security',
+          steps: _solutions['password not accepted after update']!);
     }
 
     // Boss battles - partial match
     for (final entry in _solutions.entries) {
-      if (entry.key.startsWith('boss_') && (p.contains(entry.key.replaceAll('_', ' ')) || p.contains(entry.key))) {
-        return ProblemSolution(problem: problem, category: 'Boss', steps: entry.value);
+      if (entry.key.startsWith('boss_') &&
+          (p.contains(entry.key.replaceAll('_', ' ')) ||
+              p.contains(entry.key))) {
+        return ProblemSolution(
+            problem: problem, category: 'Boss', steps: entry.value);
       }
     }
 
     return null;
   }
-
 }

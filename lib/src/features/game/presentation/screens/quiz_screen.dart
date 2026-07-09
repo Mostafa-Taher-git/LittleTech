@@ -46,14 +46,22 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   List<Map<String, dynamic>> get _levelQuestions {
-    return PrepData.quiz[PrepData.key(widget.level.id)] ?? [
-      {
-        'question': 'What is the first step in troubleshooting any tech problem?',
-        'options': ['Identify the symptoms', 'Replace the device', 'Call for help', 'Ignore the problem'],
-        'correct': 0,
-        'explanation': 'Understanding what symptoms are present helps narrow down the possible causes systematically.',
-      },
-    ];
+    return PrepData.quiz[PrepData.key(widget.level.id)] ??
+        [
+          {
+            'question':
+                'What is the first step in troubleshooting any tech problem?',
+            'options': [
+              'Identify the symptoms',
+              'Replace the device',
+              'Call for help',
+              'Ignore the problem'
+            ],
+            'correct': 0,
+            'explanation':
+                'Understanding what symptoms are present helps narrow down the possible causes systematically.',
+          },
+        ];
   }
 
   void _answer(int shuffledIndex) {
@@ -88,7 +96,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _continueToOrdering() {
     final passed = _correctCount >= _levelQuestions.length ~/ 2 + 1;
-    context.read<GameCubit>().saveQuizResult(widget.level.id, _correctCount, _levelQuestions.length, _lives);
+    context.read<GameCubit>().saveQuizResult(
+        widget.level.id, _correctCount, _levelQuestions.length, _lives);
     if (passed) context.read<GameCubit>().addPoints(20);
     Nav.pushReplacement(
       context,
@@ -137,7 +146,8 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
@@ -161,7 +171,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   padding: const EdgeInsets.only(right: 4),
                   child: Icon(
                     filled ? Icons.favorite : Icons.favorite_border,
-                    color: filled ? Colors.red.shade400 : scheme.onSurface.withValues(alpha: 0.2),
+                    color: filled
+                        ? Colors.red.shade400
+                        : scheme.onSurface.withValues(alpha: 0.2),
                     size: 20,
                   ),
                 );
@@ -247,7 +259,10 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                 ),
-              ).animate().fadeIn(delay: (100 * shuffledPos).ms).slideX(begin: 0.05);
+              )
+                  .animate()
+                  .fadeIn(delay: (100 * shuffledPos).ms)
+                  .slideX(begin: 0.05);
             }),
             if (_isAnswered && _selectedAnswer != q['correct'])
               Container(
@@ -262,11 +277,13 @@ class _QuizScreenState extends State<QuizScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.lightbulb_outline, color: Colors.orange.shade300, size: 18),
+                    Icon(Icons.lightbulb_outline,
+                        color: Colors.orange.shade300, size: 18),
                     const Gap(10),
                     Expanded(
                       child: Text(
-                        (q['explanation'] as String?) ?? 'The correct answer is: ${options[q['correct'] as int]}',
+                        (q['explanation'] as String?) ??
+                            'The correct answer is: ${options[q['correct'] as int]}',
                         style: TextStyle(
                           color: scheme.onSurface.withValues(alpha: 0.8),
                           fontSize: 13,
@@ -286,14 +303,18 @@ class _QuizScreenState extends State<QuizScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: scheme.secondary,
                   foregroundColor: scheme.onSecondary,
-                  disabledBackgroundColor: scheme.outline.withValues(alpha: 0.2),
+                  disabledBackgroundColor:
+                      scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: Text(
-                  _currentQuestion < _levelQuestions.length - 1 ? 'Next' : 'Review Results',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  _currentQuestion < _levelQuestions.length - 1
+                      ? 'Next'
+                      : 'Review Results',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
             ),
@@ -420,7 +441,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   Text(
                     'Your answer: ${userAnswer >= 0 ? options[userAnswer] : '—'}',
                     style: TextStyle(
-                      color: isCorrect ? Colors.green.shade300 : Colors.red.shade300,
+                      color: isCorrect
+                          ? Colors.green.shade300
+                          : Colors.red.shade300,
                       fontSize: 12,
                     ),
                   ),
@@ -465,7 +488,8 @@ class _QuizScreenState extends State<QuizScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => SupTechDialog(contextType: SupTechContext.quiz, questionIndex: _currentQuestion),
+      builder: (_) => SupTechDialog(
+          contextType: SupTechContext.quiz, questionIndex: _currentQuestion),
     );
   }
 }

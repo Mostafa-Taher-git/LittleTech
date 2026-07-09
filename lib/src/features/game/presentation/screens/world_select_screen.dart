@@ -32,7 +32,8 @@ class WorldSelectScreen extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.monetization_on, color: scheme.secondary, size: 16),
+                    Icon(Icons.monetization_on,
+                        color: scheme.secondary, size: 16),
                     const Gap(2),
                     Flexible(
                       child: Text(
@@ -78,12 +79,15 @@ class WorldSelectScreen extends StatelessWidget {
               final completed = world.levels
                   .where((l) => state.progress.completedLevelIds.contains(l.id))
                   .length;
-              final worldIndex = GameData.worlds.indexWhere((w) => w.id == world.id);
-              final prevWorld = worldIndex > 0 ? GameData.worlds[worldIndex - 1] : null;
+              final worldIndex =
+                  GameData.worlds.indexWhere((w) => w.id == world.id);
+              final prevWorld =
+                  worldIndex > 0 ? GameData.worlds[worldIndex - 1] : null;
               final isUnlocked = prevWorld == null ||
                   prevWorld.levels
-                      .where((l) => state.progress.completedLevelIds.contains(l.id))
-                      .length >=
+                          .where((l) =>
+                              state.progress.completedLevelIds.contains(l.id))
+                          .length >=
                       (prevWorld.levels.length * 0.5).ceil();
 
               final cat = CategoryManager.byId(world.id);
@@ -92,7 +96,8 @@ class WorldSelectScreen extends StatelessWidget {
               final defeatedCount = bosses
                   .where((b) => state.progress.defeatedBossIds.contains(b.id))
                   .length;
-              final bossVisualType = bosses.isNotEmpty ? bosses.first.visualType : 1;
+              final bossVisualType =
+                  bosses.isNotEmpty ? bosses.first.visualType : 1;
 
               return WorldCard(
                 world: world,

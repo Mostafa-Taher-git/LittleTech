@@ -13,7 +13,8 @@ class AuthService {
     1: ['🔧', '⚙️', '💻', '🛠️', '📱', '🔋', '🖱️', '⌨️'],
     2: ['🔮', '🌌', '☄️', '⭐', '🌙', '🧪', '🌍', '🐋', '🌊'],
   };
-  static int get _currentAvatarVersion => _avatarSets.keys.reduce((a, b) => a > b ? a : b);
+  static int get _currentAvatarVersion =>
+      _avatarSets.keys.reduce((a, b) => a > b ? a : b);
 
   static List<String> get currentAvatars => _avatarSets[_currentAvatarVersion]!;
 
@@ -72,7 +73,8 @@ class AuthService {
       await prefs.remove(_usersKey);
       return [];
     }
-    final users = list.map((e) => UserModel.fromJson(e as Map<String, dynamic>)).toList();
+    final users =
+        list.map((e) => UserModel.fromJson(e as Map<String, dynamic>)).toList();
     bool migrated = false;
     for (var i = 0; i < users.length; i++) {
       if (users[i].id == 0) {
@@ -88,7 +90,8 @@ class AuthService {
         final srcSet = _avatarSets[v];
         if (srcSet == null) continue;
         final idx = srcSet.indexOf(u.avatarIcon);
-        u.avatarIcon = idx >= 0 && idx < curSet.length ? curSet[idx] : curSet[0];
+        u.avatarIcon =
+            idx >= 0 && idx < curSet.length ? curSet[idx] : curSet[0];
       }
       u.avatarSetVersion = _currentAvatarVersion;
       migrated = true;
@@ -139,13 +142,21 @@ class AuthService {
     required String password,
     String avatarIcon = '',
   }) async {
-    if (avatarIcon.isEmpty) avatarIcon = _avatarSets[_currentAvatarVersion]!.first;
+    if (avatarIcon.isEmpty) {
+      avatarIcon = _avatarSets[_currentAvatarVersion]!.first;
+    }
     final users = await _loadUsers();
     if (users.any((u) => u.username.toLowerCase() == username.toLowerCase())) {
       return false;
     }
-    final newId = users.isEmpty ? 1 : users.map((u) => u.id).reduce((a, b) => a > b ? a : b) + 1;
-    users.add(UserModel(id: newId, username: username, password: _saltAndHash(password), avatarIcon: avatarIcon));
+    final newId = users.isEmpty
+        ? 1
+        : users.map((u) => u.id).reduce((a, b) => a > b ? a : b) + 1;
+    users.add(UserModel(
+        id: newId,
+        username: username,
+        password: _saltAndHash(password),
+        avatarIcon: avatarIcon));
     await _saveUsers(users);
     final prefs = await _prefs;
     await prefs.setString(_sessionKey, username);
@@ -154,11 +165,13 @@ class AuthService {
     return true;
   }
 
-  static Future<bool> login({required String username, required String password}) async {
+  static Future<bool> login(
+      {required String username, required String password}) async {
     final users = await _loadUsers();
     UserModel? match;
     for (final u in users) {
-      if (u.username.toLowerCase() == username.toLowerCase() && _verifyPassword(password, u.password)) {
+      if (u.username.toLowerCase() == username.toLowerCase() &&
+          _verifyPassword(password, u.password)) {
         match = u;
         break;
       }
@@ -210,9 +223,11 @@ class AuthService {
     return users.any((u) => u.username.toLowerCase() == username.toLowerCase());
   }
 
-  static Future<bool> updatePassword({required String username, required String newPassword}) async {
+  static Future<bool> updatePassword(
+      {required String username, required String newPassword}) async {
     final users = await _loadUsers();
-    final idx = users.indexWhere((u) => u.username.toLowerCase() == username.toLowerCase());
+    final idx = users
+        .indexWhere((u) => u.username.toLowerCase() == username.toLowerCase());
     if (idx < 0) return false;
     users[idx].password = _saltAndHash(newPassword);
     await _saveUsers(users);
@@ -240,5 +255,4 @@ class AuthService {
     await _saveUsers(users);
     return true;
   }
-
 }

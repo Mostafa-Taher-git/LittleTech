@@ -36,11 +36,12 @@ class AltSolutionBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final alts = _alternatives[PrepData.key(level.id)] ?? [
-      'Try searching the exact error message on Google or forums',
-      'Check the manufacturer website for known issues with this device',
-      'Consider asking a fellow IT professional for a second opinion',
-    ];
+    final alts = _alternatives[PrepData.key(level.id)] ??
+        [
+          'Try searching the exact error message on Google or forums',
+          'Check the manufacturer website for known issues with this device',
+          'Consider asking a fellow IT professional for a second opinion',
+        ];
 
     return Container(
       width: double.infinity,
@@ -70,24 +71,25 @@ class AltSolutionBanner extends StatelessWidget {
           ),
           const Gap(8),
           ...alts.map((alt) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.arrow_right, size: 16, color: Colors.orange.shade200),
-                Expanded(
-                  child: Text(
-                    alt,
-                    style: TextStyle(
-                      color: scheme.onSurface.withValues(alpha: 0.7),
-                      fontSize: 12,
-                      height: 1.3,
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.arrow_right,
+                        size: 16, color: Colors.orange.shade200),
+                    Expanded(
+                      child: Text(
+                        alt,
+                        style: TextStyle(
+                          color: scheme.onSurface.withValues(alpha: 0.7),
+                          fontSize: 12,
+                          height: 1.3,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          )),
+              )),
           if (onTapAlternative != null) ...[
             const Gap(12),
             SizedBox(

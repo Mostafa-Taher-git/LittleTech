@@ -43,8 +43,15 @@ class ProblemsListScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(category.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: scheme.onSurface)),
-                    Text('${category.problems.length} common problems', style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
+                    Text(category.name,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: scheme.onSurface)),
+                    Text('${category.problems.length} common problems',
+                        style: TextStyle(
+                            color: scheme.onSurface.withValues(alpha: 0.6),
+                            fontSize: 13)),
                   ],
                 ),
               ],
@@ -69,7 +76,10 @@ class ProblemsListScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ).animate(delay: Duration(milliseconds: 60 * index)).fadeIn().slideX(begin: 0.05);
+                )
+                    .animate(delay: Duration(milliseconds: 60 * index))
+                    .fadeIn()
+                    .slideX(begin: 0.05);
               },
             ),
           ),

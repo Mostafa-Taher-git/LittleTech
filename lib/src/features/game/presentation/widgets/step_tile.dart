@@ -5,14 +5,12 @@ class StepTile extends StatelessWidget {
   final int stepNumber;
   final String text;
   final bool isCompleted;
-  final String? imageUrl;
 
   const StepTile({
     super.key,
     required this.stepNumber,
     required this.text,
     this.isCompleted = false,
-    this.imageUrl,
   });
 
   @override
@@ -41,9 +39,7 @@ class StepTile extends StatelessWidget {
                 height: 30,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: isCompleted
-                      ? scheme.secondary
-                      : scheme.primary,
+                  color: isCompleted ? scheme.secondary : scheme.primary,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: isCompleted
@@ -65,8 +61,10 @@ class StepTile extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontSize: 14,
-                      color: scheme.onSurface.withValues(alpha: isCompleted ? 0.6 : 1.0),
-                      decoration: isCompleted ? TextDecoration.lineThrough : null,
+                      color: scheme.onSurface
+                          .withValues(alpha: isCompleted ? 0.6 : 1.0),
+                      decoration:
+                          isCompleted ? TextDecoration.lineThrough : null,
                       height: 1.4,
                     ),
                   ),
@@ -74,21 +72,6 @@ class StepTile extends StatelessWidget {
               ),
             ],
           ),
-          if (imageUrl != null && !isCompleted) ...[
-            const Gap(10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl!,
-                width: double.infinity,
-                height: 120,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                loadingBuilder: (_, child, progress) =>
-                    progress == null ? child : const SizedBox(height: 120, child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
-              ),
-            ),
-          ],
         ],
       ),
     );

@@ -55,7 +55,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
         _isCorrect = true;
         _showError = false;
       });
-      context.read<GameCubit>().saveOrderingResult(widget.level.id, _attempts, true);
+      context
+          .read<GameCubit>()
+          .saveOrderingResult(widget.level.id, _attempts, true);
       context.read<GameCubit>().addPoints(15);
       Future.delayed(800.ms, () {
         if (mounted) {
@@ -74,7 +76,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
         if (mounted) setState(() => _showError = false);
       });
       if (_lives <= 0) {
-        context.read<GameCubit>().saveOrderingResult(widget.level.id, _attempts, false);
+        context
+            .read<GameCubit>()
+            .saveOrderingResult(widget.level.id, _attempts, false);
         Future.delayed(1.ms, () {
           if (mounted) {
             Nav.pushReplacement(
@@ -107,7 +111,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
                   padding: const EdgeInsets.only(right: 2),
                   child: Icon(
                     filled ? Icons.favorite : Icons.favorite_border,
-                    color: filled ? Colors.red.shade400 : scheme.onSurface.withValues(alpha: 0.2),
+                    color: filled
+                        ? Colors.red.shade400
+                        : scheme.onSurface.withValues(alpha: 0.2),
                     size: 18,
                   ),
                 );
@@ -171,7 +177,9 @@ class _OrderingScreenState extends State<OrderingScreen> {
                           color: scheme.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Icon(Icons.drag_handle, size: 16, color: scheme.onSurface.withValues(alpha: 0.4)),
+                        child: Icon(Icons.drag_handle,
+                            size: 16,
+                            color: scheme.onSurface.withValues(alpha: 0.4)),
                       ),
                       const Gap(12),
                       Expanded(
@@ -194,7 +202,8 @@ class _OrderingScreenState extends State<OrderingScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
                   borderRadius: BorderRadius.circular(10),
@@ -202,11 +211,13 @@ class _OrderingScreenState extends State<OrderingScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.error_outline, color: Colors.red.shade700, size: 18),
+                    Icon(Icons.error_outline,
+                        color: Colors.red.shade700, size: 18),
                     const Gap(8),
                     Text(
                       'Incorrect order — try rearranging the steps',
-                      style: TextStyle(color: Colors.red.shade700, fontSize: 13),
+                      style:
+                          TextStyle(color: Colors.red.shade700, fontSize: 13),
                     ),
                   ],
                 ),
@@ -218,13 +229,15 @@ class _OrderingScreenState extends State<OrderingScreen> {
               width: double.infinity,
               height: 52,
               child: ElevatedButton.icon(
-                onPressed: (_isVerified && _isCorrect) || _lives <= 0 ? null : _verify,
+                onPressed:
+                    (_isVerified && _isCorrect) || _lives <= 0 ? null : _verify,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _isVerified && _isCorrect
                       ? Colors.green.shade700
                       : scheme.secondary,
                   foregroundColor: scheme.onSecondary,
-                  disabledBackgroundColor: scheme.outline.withValues(alpha: 0.2),
+                  disabledBackgroundColor:
+                      scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -235,7 +248,8 @@ class _OrderingScreenState extends State<OrderingScreen> {
                 ),
                 label: Text(
                   _isVerified && _isCorrect ? 'Correct!' : 'Verify Order',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
             ),

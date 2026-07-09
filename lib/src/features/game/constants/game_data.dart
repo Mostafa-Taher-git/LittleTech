@@ -99,14 +99,30 @@ class WorldDef {
 }
 
 class GameData {
-  static const bossPositions = {3, 6, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29};
+  static const bossPositions = {
+    3,
+    6,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29
+  };
 
   static List<WorldDef> get worlds {
     return CategoryManager.all.map((cat) => _generateWorld(cat)).toList();
   }
 
   static String levelId(String categoryId, String problemKey) {
-    final slug = problemKey.replaceAll(RegExp(r'[^a-z0-9]+'), '_')
+    final slug = problemKey
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '_')
         .replaceAll(RegExp(r'_+'), '_')
         .replaceAll(RegExp(r'^_|_$'), '');
     return '${categoryId}_$slug';
@@ -137,7 +153,8 @@ class GameData {
         ));
         bossIndex++;
       } else if (problemIndex < cat.problemKeys.length) {
-        levels.add(_generateLevel(cat.id, cat.problemKeys[problemIndex], problemIndex));
+        levels.add(_generateLevel(
+            cat.id, cat.problemKeys[problemIndex], problemIndex));
         problemIndex++;
       }
     }
@@ -155,7 +172,11 @@ class GameData {
     }
 
     final primaryBoss = bosses.isNotEmpty
-        ? BossDef(name: bosses.first.name, lore: bosses.first.lore, hp: bosses.first.hp, points: bosses.first.points)
+        ? BossDef(
+            name: bosses.first.name,
+            lore: bosses.first.lore,
+            hp: bosses.first.hp,
+            points: bosses.first.points)
         : BossDef(name: cat.bossName, lore: cat.bossLore, hp: cat.bossHp);
 
     return WorldDef(
@@ -169,7 +190,8 @@ class GameData {
     );
   }
 
-  static LevelDef _generateLevel(String categoryId, String problemKey, int index) {
+  static LevelDef _generateLevel(
+      String categoryId, String problemKey, int index) {
     final id = levelId(categoryId, problemKey);
     final solution = RuleEngine.solve(problemKey);
     final title = problemKey.split(' ').map((w) {
@@ -187,7 +209,8 @@ class GameData {
       id: id,
       title: title,
       description: 'Troubleshooting: $problemKey',
-      steps: solution?.steps ?? ['Investigate the issue and apply known fixes.'],
+      steps:
+          solution?.steps ?? ['Investigate the issue and apply known fixes.'],
       points: 100,
       difficulty: difficulty,
     );
@@ -195,13 +218,13 @@ class GameData {
 
   static final Map<String, List<String>> levelHints = Map.fromEntries(
     CategoryManager.all.expand((cat) => cat.problemKeys.map((pk) {
-      final id = levelId(cat.id, pk);
-      return MapEntry(id, [
-        'Think about what part of the system might be involved here.',
-        'Start with the simplest possible cause — it often is.',
-        'Check for loose connections, power, and signal first.',
-      ]);
-    })),
+          final id = levelId(cat.id, pk);
+          return MapEntry(id, [
+            'Think about what part of the system might be involved here.',
+            'Start with the simplest possible cause — it often is.',
+            'Check for loose connections, power, and signal first.',
+          ]);
+        })),
   );
 
   static bool isWorldComplete(WorldDef world, List<String> completedLevelIds) {

@@ -43,18 +43,24 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       alignment: Alignment.topLeft,
                       child: IconButton(
                         onPressed: () => Nav.pop(context),
-                        icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white70),
+                        tooltip: 'Back',
+                        icon: const Icon(Icons.arrow_back_ios_new,
+                            color: Colors.white70),
                       ),
                     ),
                     const Gap(20),
                     const Text(
                       'Reset Password',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white),
                     ),
                     const Gap(8),
                     const Text(
                       'Enter your registered username to verify your account.',
-                      style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5),
+                      style: TextStyle(
+                          color: Colors.white54, fontSize: 14, height: 1.5),
                     ),
                     const Gap(40),
 
@@ -66,18 +72,26 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         hintText: 'tech_expert',
                         labelStyle: const TextStyle(color: Colors.white54),
                         hintStyle: const TextStyle(color: Colors.white30),
-                        prefixIcon: const Icon(Icons.person_outline, color: Colors.white54),
+                        prefixIcon: const Icon(Icons.person_outline,
+                            color: Colors.white54),
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.06),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide.none),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide.none),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
+                          borderSide: const BorderSide(
+                              color: AppColors.accent, width: 1.5),
                         ),
                         errorStyle: const TextStyle(color: AppColors.error),
                       ),
-                      validator: (v) => (v == null || v.isEmpty) ? 'Enter your username' : null,
+                      validator: (v) => (v == null || v.isEmpty)
+                          ? 'Enter your username'
+                          : null,
                     ),
                     const Gap(32),
 
@@ -88,26 +102,39 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.accent,
                           foregroundColor: AppColors.onAccent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                         ),
                         onPressed: _loading
                             ? null
                             : () async {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() => _loading = true);
-                                  final exists = await AuthService.userExists(_usernameCtrl.text.trim());
+                                  final exists = await AuthService.userExists(
+                                      _usernameCtrl.text.trim());
                                   setState(() => _loading = false);
                                   if (!context.mounted) return;
                                   if (exists) {
-                                    Nav.push(context, CreateNewPasswordScreen(username: _usernameCtrl.text.trim()));
+                                    Nav.push(
+                                        context,
+                                        CreateNewPasswordScreen(
+                                            username:
+                                                _usernameCtrl.text.trim()));
                                   } else {
-                                    showErrorToast(context, 'Account not found.');
+                                    showErrorToast(
+                                        context, 'Account not found.');
                                   }
                                 }
                               },
                         child: _loading
-                            ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.onAccent))
-                            : const Text('Verify Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                            ? const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2, color: AppColors.onAccent))
+                            : const Text('Verify Account',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w700)),
                       ),
                     ),
                     const Gap(20),

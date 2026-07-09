@@ -26,12 +26,19 @@ class SettingsScreen extends StatelessWidget {
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
-              final user = (authState is LoginSuccess) ? authState.user : (authState is RegisterSuccess) ? authState.user : null;
+              final user = (authState is LoginSuccess)
+                  ? authState.user
+                  : (authState is RegisterSuccess)
+                      ? authState.user
+                      : null;
               return Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [scheme.surface, scheme.surface.withValues(alpha: 0.8)],
+                    colors: [
+                      scheme.surface,
+                      scheme.surface.withValues(alpha: 0.8)
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -58,7 +65,11 @@ class SettingsScreen extends StatelessWidget {
                                 fontSize: 18,
                                 fontColor: scheme.onSurface,
                               ),
-                              Text('Points: ${state.progress.points}', style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
+                              Text('Points: ${state.progress.points}',
+                                  style: TextStyle(
+                                      color: scheme.onSurface
+                                          .withValues(alpha: 0.6),
+                                      fontSize: 13)),
                             ],
                           ),
                         ),
@@ -72,12 +83,21 @@ class SettingsScreen extends StatelessWidget {
           const Gap(24),
 
           // Section: Account
-          Text('Account', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: scheme.onSurface.withValues(alpha: 0.6), letterSpacing: 0.5)),
+          Text('Account',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: scheme.onSurface.withValues(alpha: 0.6),
+                  letterSpacing: 0.5)),
           const Gap(10),
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
-              final user = (authState is LoginSuccess) ? authState.user : (authState is RegisterSuccess) ? authState.user : null;
+              final user = (authState is LoginSuccess)
+                  ? authState.user
+                  : (authState is RegisterSuccess)
+                      ? authState.user
+                      : null;
               return _SettingsTile(
                 icon: Icons.face,
                 label: 'Change Avatar',
@@ -105,7 +125,12 @@ class SettingsScreen extends StatelessWidget {
           const Gap(24),
 
           // Section: Danger zone
-          Text('Session', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: scheme.onSurface.withValues(alpha: 0.6), letterSpacing: 0.5)),
+          Text('Session',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: scheme.onSurface.withValues(alpha: 0.6),
+                  letterSpacing: 0.5)),
           const Gap(10),
           _SettingsTile(
             icon: Icons.logout,
@@ -118,12 +143,16 @@ class SettingsScreen extends StatelessWidget {
                 builder: (_) => AlertDialog(
                   title: const Text('Logout'),
                   content: const Text('Are you sure you want to logout?'),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                    TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('Cancel')),
                     TextButton(
                       onPressed: () => Navigator.pop(context, true),
-                      child: Text('Logout', style: TextStyle(color: scheme.error)),
+                      child:
+                          Text('Logout', style: TextStyle(color: scheme.error)),
                     ),
                   ],
                 ),
@@ -140,7 +169,11 @@ class SettingsScreen extends StatelessWidget {
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
-              final user = (authState is LoginSuccess) ? authState.user : (authState is RegisterSuccess) ? authState.user : null;
+              final user = (authState is LoginSuccess)
+                  ? authState.user
+                  : (authState is RegisterSuccess)
+                      ? authState.user
+                      : null;
               final username = user?.username ?? 'User';
               return _SettingsTile(
                 icon: Icons.delete_forever,
@@ -153,13 +186,18 @@ class SettingsScreen extends StatelessWidget {
                     context: context,
                     builder: (_) => AlertDialog(
                       title: const Text('Terminate Account'),
-                      content: Text('Are you sure you want to permanently delete "$username" and ALL progress? This cannot be undone.'),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      content: Text(
+                          'Are you sure you want to permanently delete "$username" and ALL progress? This cannot be undone.'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
                       actions: [
-                        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                        TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: const Text('Cancel')),
                         TextButton(
                           onPressed: () => Navigator.pop(context, true),
-                          child: Text('Delete', style: TextStyle(color: Colors.red.shade700)),
+                          child: Text('Delete',
+                              style: TextStyle(color: Colors.red.shade700)),
                         ),
                       ],
                     ),
@@ -170,13 +208,18 @@ class SettingsScreen extends StatelessWidget {
                       context: context,
                       builder: (_) => AlertDialog(
                         title: const Text('Final Confirmation'),
-                        content: Text('All progress for "$username" will be lost forever.'),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        content: Text(
+                            'All progress for "$username" will be lost forever.'),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                         actions: [
-                          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                          TextButton(
+                              onPressed: () => Navigator.pop(context, false),
+                              child: const Text('Cancel')),
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
-                            child: Text('Yes, Delete', style: TextStyle(color: Colors.red.shade700)),
+                            child: Text('Yes, Delete',
+                                style: TextStyle(color: Colors.red.shade700)),
                           ),
                         ],
                       ),
@@ -188,7 +231,8 @@ class SettingsScreen extends StatelessWidget {
                           await context.read<GameCubit>().terminateAccount();
                         } catch (e) {
                           if (context.mounted) {
-                            showErrorToast(context, 'Failed to delete game data: $e');
+                            showErrorToast(
+                                context, 'Failed to delete game data: $e');
                           }
                           return;
                         }
@@ -196,7 +240,8 @@ class SettingsScreen extends StatelessWidget {
                           await AuthService.deleteUser(uid);
                         } catch (e) {
                           if (context.mounted) {
-                            showErrorToast(context, 'Game data deleted, but account removal failed. Please contact support. Error: $e');
+                            showErrorToast(context,
+                                'Game data deleted, but account removal failed. Please contact support. Error: $e');
                           }
                           return;
                         }
@@ -222,10 +267,12 @@ class SettingsScreen extends StatelessWidget {
       context: context,
       builder: (ctx) {
         final icons = AuthService.currentAvatars;
-        String selected = icons.contains(currentIcon) ? currentIcon! : icons.first;
+        String selected =
+            icons.contains(currentIcon) ? currentIcon! : icons.first;
         return StatefulBuilder(
           builder: (ctx, setDialogState) => AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: const Text('Choose Your Avatar'),
             content: Wrap(
               spacing: 10,
@@ -238,9 +285,13 @@ class SettingsScreen extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: sel ? scheme.primary.withValues(alpha: 0.2) : scheme.onSurface.withValues(alpha: 0.06),
+                      color: sel
+                          ? scheme.primary.withValues(alpha: 0.2)
+                          : scheme.onSurface.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: sel ? scheme.primary : Colors.transparent, width: 1.5),
+                      border: Border.all(
+                          color: sel ? scheme.primary : Colors.transparent,
+                          width: 1.5),
                     ),
                     child: Text(ic, style: const TextStyle(fontSize: 24)),
                   ),
@@ -248,7 +299,9 @@ class SettingsScreen extends StatelessWidget {
               }).toList(),
             ),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+              TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text('Cancel')),
               TextButton(
                 onPressed: () async {
                   final uid = await AuthService.getCurrentUserId();
@@ -300,9 +353,13 @@ class SettingsScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('You Are The Only Expert', style: TextStyle(fontWeight: FontWeight.w600)),
+            const Text('You Are The Only Expert',
+                style: TextStyle(fontWeight: FontWeight.w600)),
             const Gap(4),
-            Text('Version 2.0.0', style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
+            Text('Version 2.0.0',
+                style: TextStyle(
+                    color: scheme.onSurface.withValues(alpha: 0.6),
+                    fontSize: 13)),
             const Gap(12),
             const Text(
               'It was Developed by : www.linkedin.com/in/mostafa-taher-ahmed-59b60b318',
@@ -311,7 +368,9 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close')),
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close')),
         ],
       ),
     );
@@ -369,13 +428,21 @@ class _SettingsTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: effectiveTextColor)),
+                    Text(label,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: effectiveTextColor)),
                     if (subtitle != null)
-                      Text(subtitle!, style: TextStyle(color: scheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
+                      Text(subtitle!,
+                          style: TextStyle(
+                              color: scheme.onSurface.withValues(alpha: 0.6),
+                              fontSize: 12)),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: scheme.onSurface.withValues(alpha: 0.6), size: 20),
+              Icon(Icons.chevron_right,
+                  color: scheme.onSurface.withValues(alpha: 0.6), size: 20),
             ],
           ),
         ),

@@ -28,7 +28,11 @@ class StatsScreen extends StatelessWidget {
       body: Builder(
         builder: (context) {
           final authState = context.watch<AuthCubit>().state;
-          final user = (authState is LoginSuccess) ? authState.user : (authState is RegisterSuccess) ? authState.user : null;
+          final user = (authState is LoginSuccess)
+              ? authState.user
+              : (authState is RegisterSuccess)
+                  ? authState.user
+                  : null;
           return BlocBuilder<GameCubit, GameState>(
             builder: (_, state) {
               final p = state.progress;
@@ -36,7 +40,8 @@ class StatsScreen extends StatelessWidget {
                   .map((id) => RewardPool.byId(id))
                   .whereType<RewardDef>()
                   .length;
-              final totalLevels = GameData.worlds.fold(0, (s, w) => s + w.levels.length);
+              final totalLevels =
+                  GameData.worlds.fold(0, (s, w) => s + w.levels.length);
               final worldsCompleted = p.completedCategoryIds.length;
 
               return ListView(
@@ -78,21 +83,47 @@ class StatsScreen extends StatelessWidget {
                   const Gap(20),
                   Row(
                     children: [
-                      _StatSquare(icon: Icons.checklist, label: 'Levels', value: '${p.levelsCleared}/$totalLevels', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.checklist,
+                          label: 'Levels',
+                          value: '${p.levelsCleared}/$totalLevels',
+                          scheme: scheme),
                       const Gap(10),
-                      _StatSquare(icon: Icons.shield, label: 'Bosses', value: '${p.bossesDefeated}', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.shield,
+                          label: 'Bosses',
+                          value: '${p.bossesDefeated}',
+                          scheme: scheme),
                       const Gap(10),
-                      _StatSquare(icon: Icons.public, label: 'Categories', value: '$worldsCompleted/${CategoryManager.all.length}', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.public,
+                          label: 'Categories',
+                          value:
+                              '$worldsCompleted/${CategoryManager.all.length}',
+                          scheme: scheme),
                     ],
                   ),
                   const Gap(10),
                   Row(
                     children: [
-                      _StatSquare(icon: Icons.monetization_on, label: 'Points', value: '${p.points}', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.monetization_on,
+                          label: 'Points',
+                          value: '${p.points}',
+                          scheme: scheme),
                       const Gap(10),
-                      _StatSquare(icon: Icons.card_giftcard, label: 'Rewards', value: '$earnedRewards', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.card_giftcard,
+                          label: 'Rewards',
+                          value: '$earnedRewards',
+                          scheme: scheme),
                       const Gap(10),
-                      _StatSquare(icon: Icons.auto_awesome, label: 'Skins', value: '${SkinTierManager.skins.where((s) => p.unlockedSkinIds.contains(s.id) || p.earnedRewardIds.contains('skin_${s.id}') || p.purchasedItemIds.contains(s.id)).length}', scheme: scheme),
+                      _StatSquare(
+                          icon: Icons.auto_awesome,
+                          label: 'Skins',
+                          value:
+                              '${SkinTierManager.skins.where((s) => p.unlockedSkinIds.contains(s.id) || p.earnedRewardIds.contains('skin_${s.id}') || p.purchasedItemIds.contains(s.id)).length}',
+                          scheme: scheme),
                     ],
                   ),
                   const Gap(10),
@@ -101,14 +132,17 @@ class StatsScreen extends StatelessWidget {
                       _StatSquare(
                         icon: Icons.speed,
                         label: 'Accuracy',
-                        value: p.totalAnswers > 0 ? '${(p.correctAnswers * 100 / p.totalAnswers).round()}%' : '—',
+                        value: p.totalAnswers > 0
+                            ? '${(p.correctAnswers * 100 / p.totalAnswers).round()}%'
+                            : '—',
                         scheme: scheme,
                       ),
                       const Gap(10),
                       _StatSquare(
                         icon: Icons.local_fire_department,
                         label: 'Streak',
-                        value: '${StreakTracker.calculateStreak(p.playDates)} days',
+                        value:
+                            '${StreakTracker.calculateStreak(p.playDates)} days',
                         scheme: scheme,
                       ),
                       const Gap(10),

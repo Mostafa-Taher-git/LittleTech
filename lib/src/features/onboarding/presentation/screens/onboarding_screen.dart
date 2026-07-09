@@ -51,10 +51,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () async {
-                    await (await SharedPreferences.getInstance()).setBool('lt_has_seen_onboarding', true);
-                    if (context.mounted) Nav.replaceAll(context, const LoginScreen());
+                    await (await SharedPreferences.getInstance())
+                        .setBool('lt_has_seen_onboarding', true);
+                    if (context.mounted) {
+                      Nav.replaceAll(context, const LoginScreen());
+                    }
                   },
-                  child: const Text('Skip', style: TextStyle(color: Colors.white54)),
+                  child: const Text('Skip',
+                      style: TextStyle(color: Colors.white54)),
                 ),
               ),
               // Pages
@@ -76,8 +80,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               color: Colors.white.withValues(alpha: 0.06),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(p.icon, size: 64, color: AppColors.accent),
-                          ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
+                            child:
+                                Icon(p.icon, size: 64, color: AppColors.accent),
+                          ).animate().scale(
+                              duration: 500.ms, curve: Curves.easeOutBack),
                           const Gap(40),
                           Text(
                             p.title,
@@ -123,7 +129,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.accent,
                       foregroundColor: AppColors.onAccent,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
                     ),
                     onPressed: () async {
                       if (_page < _pages.length - 1) {
@@ -134,12 +141,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       } else {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setBool('lt_has_seen_onboarding', true);
-                        if (context.mounted) Nav.replaceAll(context, const LoginScreen());
+                        if (context.mounted) {
+                          Nav.replaceAll(context, const LoginScreen());
+                        }
                       }
                     },
                     child: Text(
                       _page < _pages.length - 1 ? 'Next' : 'Get Started',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),

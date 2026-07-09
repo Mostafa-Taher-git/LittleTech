@@ -53,7 +53,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const Gap(20),
                       const Text(
                         'Create Account',
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
                       ),
                       const Gap(6),
                       const Text(
@@ -63,7 +66,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const Gap(32),
 
                       // Avatar picker
-                      const Text('Choose Your Avatar', style: TextStyle(color: Colors.white60, fontSize: 12, letterSpacing: 1)),
+                      const Text('Choose Your Avatar',
+                          style: TextStyle(
+                              color: Colors.white60,
+                              fontSize: 12,
+                              letterSpacing: 1)),
                       const Gap(10),
                       Wrap(
                         spacing: 10,
@@ -76,11 +83,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               duration: const Duration(milliseconds: 200),
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: sel ? AppColors.accent.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.06),
+                                color: sel
+                                    ? AppColors.accent.withValues(alpha: 0.2)
+                                    : Colors.white.withValues(alpha: 0.06),
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: sel ? AppColors.accent : Colors.transparent, width: 1.5),
+                                border: Border.all(
+                                    color: sel
+                                        ? AppColors.accent
+                                        : Colors.transparent,
+                                    width: 1.5),
                               ),
-                              child: Text(ic, style: const TextStyle(fontSize: 24)),
+                              child: Text(ic,
+                                  style: const TextStyle(fontSize: 24)),
                             ),
                           );
                         }).toList(),
@@ -96,18 +110,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'tech_expert',
                           labelStyle: const TextStyle(color: Colors.white54),
                           hintStyle: const TextStyle(color: Colors.white30),
-                          prefixIcon: const Icon(Icons.person_outline, color: Colors.white54),
+                          prefixIcon: const Icon(Icons.person_outline,
+                              color: Colors.white54),
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
+                            borderSide: const BorderSide(
+                                color: AppColors.accent, width: 1.5),
                           ),
                           errorStyle: const TextStyle(color: AppColors.error),
                         ),
-                        validator: (v) => (v == null || v.isEmpty) ? 'Enter username' : null,
+                        validator: (v) =>
+                            (v == null || v.isEmpty) ? 'Enter username' : null,
                       ),
                       const Gap(16),
 
@@ -121,22 +142,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: '••••••••',
                           labelStyle: const TextStyle(color: Colors.white54),
                           hintStyle: const TextStyle(color: Colors.white30),
-                          prefixIcon: const Icon(Icons.lock_outline, color: Colors.white54),
+                          prefixIcon: const Icon(Icons.lock_outline,
+                              color: Colors.white54),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: Colors.white54),
-                            onPressed: () => setState(() => _obscure = !_obscure),
+                            icon: Icon(
+                                _obscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.white54),
+                            tooltip:
+                                _obscure ? 'Show password' : 'Hide password',
+                            onPressed: () =>
+                                setState(() => _obscure = !_obscure),
                           ),
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
+                            borderSide: const BorderSide(
+                                color: AppColors.accent, width: 1.5),
                           ),
                           errorStyle: const TextStyle(color: AppColors.error),
                         ),
-                        validator: (v) => (v == null || v.length < 6) ? 'Min 6 characters' : null,
+                        validator: (v) => (v == null || v.length < 6)
+                            ? 'Min 6 characters'
+                            : null,
                       ),
                       const Gap(16),
 
@@ -150,18 +186,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: '••••••••',
                           labelStyle: const TextStyle(color: Colors.white54),
                           hintStyle: const TextStyle(color: Colors.white30),
-                          prefixIcon: const Icon(Icons.lock_outline, color: Colors.white54),
+                          prefixIcon: const Icon(Icons.lock_outline,
+                              color: Colors.white54),
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
+                            borderSide: const BorderSide(
+                                color: AppColors.accent, width: 1.5),
                           ),
                           errorStyle: const TextStyle(color: AppColors.error),
                         ),
-                        validator: (v) => v != _passwordCtrl.text ? 'Passwords do not match' : null,
+                        validator: (v) => v != _passwordCtrl.text
+                            ? 'Passwords do not match'
+                            : null,
                       ),
                       const Gap(32),
 
@@ -174,22 +218,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.accent,
                                 foregroundColor: AppColors.onAccent,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
                               ),
                               onPressed: state is AuthLoading
                                   ? null
                                   : () {
                                       if (_formKey.currentState!.validate()) {
                                         context.read<AuthCubit>().register(
-                                              username: _usernameCtrl.text.trim(),
+                                              username:
+                                                  _usernameCtrl.text.trim(),
                                               password: _passwordCtrl.text,
                                               avatarIcon: _icon,
                                             );
                                       }
                                     },
                               child: state is AuthLoading
-                                  ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.onAccent))
-                                  : const Text('Create Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                  ? const SizedBox(
+                                      width: 22,
+                                      height: 22,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: AppColors.onAccent))
+                                  : const Text('Create Account',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700)),
                             ),
                           );
                         },
@@ -198,10 +252,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Already have an account?', style: TextStyle(color: Colors.white54)),
+                          const Text('Already have an account?',
+                              style: TextStyle(color: Colors.white54)),
                           TextButton(
                             onPressed: () => Nav.pop(context),
-                            child: const Text('Sign In', style: TextStyle(color: AppColors.accent, fontWeight: FontWeight.w700)),
+                            child: const Text('Sign In',
+                                style: TextStyle(
+                                    color: AppColors.accent,
+                                    fontWeight: FontWeight.w700)),
                           ),
                         ],
                       ),

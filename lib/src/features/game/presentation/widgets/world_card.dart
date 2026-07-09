@@ -57,7 +57,8 @@ class WorldCard extends StatelessWidget {
             boxShadow: [
               if (!isLocked && hasBossProgress)
                 BoxShadow(
-                  color: bossColor.withValues(alpha: allBossesDefeated ? 0.25 : 0.1),
+                  color: bossColor.withValues(
+                      alpha: allBossesDefeated ? 0.25 : 0.1),
                   blurRadius: allBossesDefeated ? 16 : 8,
                   spreadRadius: allBossesDefeated ? 2 : 0,
                 ),
@@ -95,7 +96,8 @@ class WorldCard extends StatelessWidget {
                                       ? Colors.grey.withValues(alpha: 0.1)
                                       : hasBossProgress
                                           ? bossColor.withValues(alpha: 0.12)
-                                          : scheme.secondary.withValues(alpha: 0.1),
+                                          : scheme.secondary
+                                              .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Icon(
@@ -189,7 +191,8 @@ class WorldCard extends StatelessWidget {
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                     color: isLocked
-                                        ? scheme.onSurface.withValues(alpha: 0.2)
+                                        ? scheme.onSurface
+                                            .withValues(alpha: 0.2)
                                         : allBossesDefeated
                                             ? bossColor
                                             : scheme.onSurface
@@ -224,7 +227,8 @@ class _ParchmentTexturePainter extends CustomPainter {
   final Color accent;
   final int seed;
 
-  _ParchmentTexturePainter({required this.color, required this.accent, required this.seed});
+  _ParchmentTexturePainter(
+      {required this.color, required this.accent, required this.seed});
 
   @override
   void paint(Canvas canvas, Size size) {

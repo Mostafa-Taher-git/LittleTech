@@ -20,14 +20,18 @@ class CategoriesScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             child: Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: scheme.surface,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
                   '${CategoryManager.all.length} categories',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: scheme.onSurface.withValues(alpha: 0.6)),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: scheme.onSurface.withValues(alpha: 0.6)),
                 ),
               ),
             ),
@@ -53,10 +57,17 @@ class CategoriesScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => ProblemsListScreen(category: CategoryData(name: cat.name, icon: cat.icon, problems: cat.problemKeys)),
+                  builder: (_) => ProblemsListScreen(
+                      category: CategoryData(
+                          name: cat.name,
+                          icon: cat.icon,
+                          problems: cat.problemKeys)),
                 ),
               ),
-            ).animate(delay: Duration(milliseconds: 50 * index)).fadeIn().scale(begin: const Offset(0.9, 0.9));
+            )
+                .animate(delay: Duration(milliseconds: 50 * index))
+                .fadeIn()
+                .scale(begin: const Offset(0.9, 0.9));
           },
         ),
       ),

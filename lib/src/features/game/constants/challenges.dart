@@ -41,7 +41,8 @@ class WeeklyBoss {
 }
 
 class ChallengeManager {
-  static DailyChallenge getDailyChallenge({int streak = 0, List<String> excludeIds = const []}) {
+  static DailyChallenge getDailyChallenge(
+      {int streak = 0, List<String> excludeIds = const []}) {
     final today = DateTime.now();
     final seed = today.year * 10000 + today.month * 100 + today.day;
     final rng = Random(_hashSeed(seed));
@@ -53,7 +54,10 @@ class ChallengeManager {
         .toList();
 
     if (allLevelIds.isEmpty) {
-      return const DailyChallenge(levelId: 'default', title: 'All cleared!', description: 'Great work today!');
+      return const DailyChallenge(
+          levelId: 'default',
+          title: 'All cleared!',
+          description: 'Great work today!');
     }
 
     final levelId = allLevelIds[rng.nextInt(allLevelIds.length)];
@@ -69,7 +73,8 @@ class ChallengeManager {
 
   static WeeklyBoss getWeeklyBoss() {
     final now = DateTime.now();
-    final daysSinceEpoch = now.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
+    final daysSinceEpoch =
+        now.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
     final weekNumber = daysSinceEpoch ~/ 7;
     final rng = Random(_hashSeed(weekNumber));
 

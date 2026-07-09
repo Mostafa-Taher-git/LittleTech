@@ -9,36 +9,37 @@ class PlayerProgress {
   @Index()
   late int userId;
 
-int points = 0;
-   int supTechUsesThisLevel = 1;
-   int extraSupTechUses = 0;
-   int currentWorldId = 0;
-   String? currentCategoryId;
-   String? currentLevelId;
-   List<String> completedLevelIds = [];
-   List<String> completedCategoryIds = [];
-   List<String> purchasedItemIds = [];
-   List<String> earnedRewardIds = [];
-   List<String> unlockedSkinIds = [];
-   List<String> defeatedBossIds = [];
-   String? activeSkinId;  // Currently equipped skin
-   String? activeFrameId; // Currently equipped nickname frame
-   String? activeIconId;  // Currently equipped icon badge
-   String? activeTitleId; // Currently equipped title
-   String? themeId;
-   int levelsCleared = 0;
-   int bossesDefeated = 0;
-   List<DateTime> playDates = [];
-   DateTime? lastActiveDate;
-   int totalPlayTimeSeconds = 0;
-    int correctAnswers = 0;
-    int totalAnswers = 0;
-    int weeklyBossesDefeated = 0;
-    List<String> prepResults = [];  // "levelId\x01json" entries
-     DateTime? lastDailyQuestDate;  // Track daily quest completion
-     DateTime? lastWeeklyBossDate;  // Track weekly boss completion
-     List<String> unlockedAchievementIds = [];  // Persisted achievement unlocks
-    List<String> pendingAchievementIds = [];   // Temporary: newly unlocked, shown on Level Complete
+  int points = 0;
+  int supTechUsesThisLevel = 1;
+  int extraSupTechUses = 0;
+  int currentWorldId = 0;
+  String? currentCategoryId;
+  String? currentLevelId;
+  List<String> completedLevelIds = [];
+  List<String> completedCategoryIds = [];
+  List<String> purchasedItemIds = [];
+  List<String> earnedRewardIds = [];
+  List<String> unlockedSkinIds = [];
+  List<String> defeatedBossIds = [];
+  String? activeSkinId; // Currently equipped skin
+  String? activeFrameId; // Currently equipped nickname frame
+  String? activeIconId; // Currently equipped icon badge
+  String? activeTitleId; // Currently equipped title
+  String? themeId;
+  int levelsCleared = 0;
+  int bossesDefeated = 0;
+  List<DateTime> playDates = [];
+  DateTime? lastActiveDate;
+  int totalPlayTimeSeconds = 0;
+  int correctAnswers = 0;
+  int totalAnswers = 0;
+  int weeklyBossesDefeated = 0;
+  List<String> prepResults = []; // "levelId\x01json" entries
+  DateTime? lastDailyQuestDate; // Track daily quest completion
+  DateTime? lastWeeklyBossDate; // Track weekly boss completion
+  List<String> unlockedAchievementIds = []; // Persisted achievement unlocks
+  List<String> pendingAchievementIds =
+      []; // Temporary: newly unlocked, shown on Level Complete
 
   static const _sentinel = Object();
   static const _sep = '\x01';
@@ -83,38 +84,66 @@ int points = 0;
       ..supTechUsesThisLevel = supTechUsesThisLevel ?? this.supTechUsesThisLevel
       ..extraSupTechUses = extraSupTechUses ?? this.extraSupTechUses
       ..currentWorldId = currentWorldId ?? this.currentWorldId
-      ..currentCategoryId = currentCategoryId == _sentinel ? this.currentCategoryId : currentCategoryId as String?
-      ..currentLevelId = currentLevelId == _sentinel ? this.currentLevelId : currentLevelId as String?
-      ..completedLevelIds = List<String>.from(completedLevelIds ?? this.completedLevelIds)
-      ..completedCategoryIds = List<String>.from(completedCategoryIds ?? this.completedCategoryIds)
-      ..purchasedItemIds = List<String>.from(purchasedItemIds ?? this.purchasedItemIds)
-      ..earnedRewardIds = List<String>.from(earnedRewardIds ?? this.earnedRewardIds)
-      ..unlockedSkinIds = List<String>.from(unlockedSkinIds ?? this.unlockedSkinIds)
-      ..defeatedBossIds = List<String>.from(defeatedBossIds ?? this.defeatedBossIds)
-      ..activeSkinId = activeSkinId == _sentinel ? this.activeSkinId : activeSkinId as String?
-      ..activeFrameId = activeFrameId == _sentinel ? this.activeFrameId : activeFrameId as String?
-      ..activeIconId = activeIconId == _sentinel ? this.activeIconId : activeIconId as String?
-      ..activeTitleId = activeTitleId == _sentinel ? this.activeTitleId : activeTitleId as String?
+      ..currentCategoryId = currentCategoryId == _sentinel
+          ? this.currentCategoryId
+          : currentCategoryId as String?
+      ..currentLevelId = currentLevelId == _sentinel
+          ? this.currentLevelId
+          : currentLevelId as String?
+      ..completedLevelIds =
+          List<String>.from(completedLevelIds ?? this.completedLevelIds)
+      ..completedCategoryIds =
+          List<String>.from(completedCategoryIds ?? this.completedCategoryIds)
+      ..purchasedItemIds =
+          List<String>.from(purchasedItemIds ?? this.purchasedItemIds)
+      ..earnedRewardIds =
+          List<String>.from(earnedRewardIds ?? this.earnedRewardIds)
+      ..unlockedSkinIds =
+          List<String>.from(unlockedSkinIds ?? this.unlockedSkinIds)
+      ..defeatedBossIds =
+          List<String>.from(defeatedBossIds ?? this.defeatedBossIds)
+      ..activeSkinId = activeSkinId == _sentinel
+          ? this.activeSkinId
+          : activeSkinId as String?
+      ..activeFrameId = activeFrameId == _sentinel
+          ? this.activeFrameId
+          : activeFrameId as String?
+      ..activeIconId = activeIconId == _sentinel
+          ? this.activeIconId
+          : activeIconId as String?
+      ..activeTitleId = activeTitleId == _sentinel
+          ? this.activeTitleId
+          : activeTitleId as String?
       ..themeId = themeId == _sentinel ? this.themeId : themeId as String?
       ..levelsCleared = levelsCleared ?? this.levelsCleared
       ..bossesDefeated = bossesDefeated ?? this.bossesDefeated
       ..playDates = List<DateTime>.from(playDates ?? this.playDates)
-      ..lastActiveDate = lastActiveDate == _sentinel ? this.lastActiveDate : lastActiveDate as DateTime?
+      ..lastActiveDate = lastActiveDate == _sentinel
+          ? this.lastActiveDate
+          : lastActiveDate as DateTime?
       ..totalPlayTimeSeconds = totalPlayTimeSeconds ?? this.totalPlayTimeSeconds
       ..correctAnswers = correctAnswers ?? this.correctAnswers
       ..totalAnswers = totalAnswers ?? this.totalAnswers
       ..weeklyBossesDefeated = weeklyBossesDefeated ?? this.weeklyBossesDefeated
       ..prepResults = List<String>.from(prepResults ?? this.prepResults)
-      ..lastDailyQuestDate = lastDailyQuestDate == _sentinel ? this.lastDailyQuestDate : lastDailyQuestDate as DateTime?
-      ..lastWeeklyBossDate = lastWeeklyBossDate == _sentinel ? this.lastWeeklyBossDate : lastWeeklyBossDate as DateTime?
-      ..unlockedAchievementIds = List<String>.from(unlockedAchievementIds ?? this.unlockedAchievementIds)
-      ..pendingAchievementIds = List<String>.from(pendingAchievementIds ?? this.pendingAchievementIds);
+      ..lastDailyQuestDate = lastDailyQuestDate == _sentinel
+          ? this.lastDailyQuestDate
+          : lastDailyQuestDate as DateTime?
+      ..lastWeeklyBossDate = lastWeeklyBossDate == _sentinel
+          ? this.lastWeeklyBossDate
+          : lastWeeklyBossDate as DateTime?
+      ..unlockedAchievementIds = List<String>.from(
+          unlockedAchievementIds ?? this.unlockedAchievementIds)
+      ..pendingAchievementIds = List<String>.from(
+          pendingAchievementIds ?? this.pendingAchievementIds);
   }
 
   String? getPrepResult(String levelId) {
     for (final e in prepResults) {
       final idx = e.indexOf(_sep);
-      if (idx >= 0 && e.substring(0, idx) == levelId) return e.substring(idx + 1);
+      if (idx >= 0 && e.substring(0, idx) == levelId) {
+        return e.substring(idx + 1);
+      }
     }
     return null;
   }
@@ -158,7 +187,8 @@ int points = 0;
     final monday = now.subtract(Duration(days: now.weekday - 1));
     final weekStart = DateTime(monday.year, monday.month, monday.day);
     final weekEnd = weekStart.add(const Duration(days: 7));
-    return lastWeeklyBossDate!.isAfter(weekStart.subtract(const Duration(seconds: 1))) &&
+    return lastWeeklyBossDate!
+            .isAfter(weekStart.subtract(const Duration(seconds: 1))) &&
         lastWeeklyBossDate!.isBefore(weekEnd);
   }
 

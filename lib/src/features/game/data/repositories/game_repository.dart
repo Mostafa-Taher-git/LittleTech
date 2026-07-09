@@ -13,10 +13,8 @@ class GameRepository {
   GameRepository(this._isar);
 
   Future<PlayerProgress?> loadProgress(int userId) async {
-    final progress = await _isar.playerProgress
-        .filter()
-        .userIdEqualTo(userId)
-        .findFirst();
+    final progress =
+        await _isar.playerProgress.filter().userIdEqualTo(userId).findFirst();
     progress?.ensureMutableLists();
     return progress;
   }
@@ -80,7 +78,8 @@ class GameRepository {
     await saveProgress(progress);
   }
 
-  Future<void> completeCategory(PlayerProgress progress, String categoryId) async {
+  Future<void> completeCategory(
+      PlayerProgress progress, String categoryId) async {
     if (!progress.completedCategoryIds.contains(categoryId)) {
       progress.completedCategoryIds.add(categoryId);
     }
@@ -161,7 +160,8 @@ class GameRepository {
     await saveProgress(progress);
   }
 
-  Future<void> unlockAchievement(PlayerProgress progress, String achievementId) async {
+  Future<void> unlockAchievement(
+      PlayerProgress progress, String achievementId) async {
     if (!progress.unlockedAchievementIds.contains(achievementId)) {
       progress.unlockedAchievementIds.add(achievementId);
     }
@@ -171,7 +171,8 @@ class GameRepository {
     await saveProgress(progress);
   }
 
-  Future<void> unlockRewardFromAchievement(PlayerProgress progress, String rewardId) async {
+  Future<void> unlockRewardFromAchievement(
+      PlayerProgress progress, String rewardId) async {
     if (!progress.earnedRewardIds.contains(rewardId)) {
       progress.earnedRewardIds.add(rewardId);
     }
@@ -187,6 +188,12 @@ class GameRepository {
   Future<void> clearPendingAchievements(PlayerProgress progress) async {
     progress.pendingAchievementIds = [];
     await saveProgress(progress);
+  }
+
+  Future<void> saveBatch(PlayerProgress progress) async {
+    await _isar.writeTxn(() async {
+      await _isar.playerProgress.put(progress);
+    });
   }
 
   Future<void> cleanupOrphanedProgress(List<int> validUserIds) async {
@@ -224,26 +231,33 @@ class GameRepository {
     final progress = PlayerProgress()
       ..userId = userId
       ..points = 99999
-      ..completedCategoryIds = List<String>.from(CategoryManager.all.map((c) => c.id))
-      ..completedLevelIds = List<String>.from(
-        CategoryManager.all.expand((c) => c.bosses.asMap().entries.map(
-          (e) => '${c.id}_boss_${e.key + 1}',
-        ).followedBy(
-          c.problemKeys.map((p) => GameData.levelId(c.id, p)),
-        ))
-      )
+      ..completedCategoryIds =
+          List<String>.from(CategoryManager.all.map((c) => c.id))
+      ..completedLevelIds =
+          List<String>.from(CategoryManager.all.expand((c) => c.bosses
+              .asMap()
+              .entries
+              .map(
+                (e) => '${c.id}_boss_${e.key + 1}',
+              )
+              .followedBy(
+                c.problemKeys.map((p) => GameData.levelId(c.id, p)),
+              )))
       ..earnedRewardIds = List<String>.from(RewardPool.all.map((r) => r.id))
-      ..unlockedSkinIds = List<String>.from(SkinTierManager.skins.map((s) => s.id))
-      ..purchasedItemIds = List<String>.from(RewardPool.all.where((r) => r.type != RewardType.skin).map((r) => r.id))
+      ..unlockedSkinIds =
+          List<String>.from(SkinTierManager.skins.map((s) => s.id))
+      ..purchasedItemIds = List<String>.from(RewardPool.all
+          .where((r) => r.type != RewardType.skin)
+          .map((r) => r.id))
       ..levelsCleared = CategoryManager.all.length * 29
       ..bossesDefeated = CategoryManager.all.length * 14
       ..defeatedBossIds = List<String>.from(
-        CategoryManager.all.expand((c) => c.bosses.map((b) => b.id))
-      )
+          CategoryManager.all.expand((c) => c.bosses.map((b) => b.id)))
       ..activeSkinId = null
       ..activeFrameId = null
       ..themeId = null
-      ..unlockedAchievementIds = List<String>.from(AchievementManager.all.map((a) => a.id))
+      ..unlockedAchievementIds =
+          List<String>.from(AchievementManager.all.map((a) => a.id))
       ..pendingAchievementIds = []
       ..supTechUsesThisLevel = 3
       ..extraSupTechUses = 999;
