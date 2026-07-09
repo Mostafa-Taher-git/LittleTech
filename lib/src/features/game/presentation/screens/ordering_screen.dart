@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -142,7 +143,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
               ),
             ),
           ),
-          const Gap(16),
+          const Gap(Spacing.md),
           Expanded(
             child: ReorderableListView.builder(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
@@ -150,7 +151,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
               onReorderItem: _moveItem,
               proxyDecorator: (child, _, __) => Material(
                 elevation: 4,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(Radii.ml),
                 shadowColor: scheme.secondary.withValues(alpha: 0.3),
                 child: child,
               ),
@@ -161,7 +162,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: scheme.surface,
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                     border: Border.all(
                       color: scheme.outline.withValues(alpha: 0.3),
                       width: 1.5,
@@ -175,13 +176,13 @@ class _OrderingScreenState extends State<OrderingScreen> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: scheme.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(Radii.sm),
                         ),
                         child: Icon(Icons.drag_handle,
                             size: 16,
                             color: scheme.onSurface.withValues(alpha: 0.4)),
                       ),
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       Expanded(
                         child: Text(
                           '${i + 1}. ${_shuffled[i]}',
@@ -206,14 +207,14 @@ class _OrderingScreenState extends State<OrderingScreen> {
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(Radii.ms),
                   border: Border.all(color: Colors.red.shade200),
                 ),
                 child: Row(
                   children: [
                     Icon(Icons.error_outline,
                         color: Colors.red.shade700, size: 18),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                     Text(
                       'Incorrect order — try rearranging the steps',
                       style:
@@ -239,7 +240,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                   ),
                 ),
                 icon: Icon(

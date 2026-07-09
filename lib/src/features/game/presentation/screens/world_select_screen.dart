@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/constants/category_manager.dart';
@@ -34,7 +35,7 @@ class WorldSelectScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.monetization_on,
                         color: scheme.secondary, size: 16),
-                    const Gap(2),
+                    const Gap(Spacing.xxs),
                     Flexible(
                       child: Text(
                         '${state.totalPoints}',
@@ -46,7 +47,7 @@ class WorldSelectScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Gap(6),
+                    const Gap(Spacing.s),
                     SupTechAvatarWrapper(
                       size: 30,
                       child: SupTechAvatar(

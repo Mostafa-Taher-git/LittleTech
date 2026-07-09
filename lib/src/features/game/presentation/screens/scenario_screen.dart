@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -160,7 +161,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.tertiary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(Radii.sm),
                   ),
                   child: Text(
                     isFollowUp
@@ -184,13 +185,13 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 ),
               ],
             ),
-            const Gap(20),
+            const Gap(Spacing.lg),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: scheme.primary.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(Radii.lg),
                 border:
                     Border.all(color: scheme.outline.withValues(alpha: 0.2)),
               ),
@@ -203,7 +204,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 ),
               ),
             ),
-            const Gap(20),
+            const Gap(Spacing.lg),
             Text(
               'What is the BEST first step?',
               style: TextStyle(
@@ -212,7 +213,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const Gap(16),
+            const Gap(Spacing.md),
             Expanded(
               child: ListView.builder(
                 itemCount: options.length,
@@ -244,14 +245,14 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: _isAnswered ? null : () => _answer(i),
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(Radii.ml),
                         child: AnimatedContainer(
                           duration: 300.ms,
                           width: double.infinity,
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: bgColor,
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(Radii.ml),
                             border: Border.all(color: borderColor, width: 1.5),
                           ),
                           child: Row(
@@ -267,7 +268,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                           ? Colors.red
                                           : scheme.primary
                                               .withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(Radii.sm),
                                 ),
                                 child: showFeedback && isCorrectOption
                                     ? const Icon(Icons.check,
@@ -285,7 +286,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                             ),
                                           ),
                               ),
-                              const Gap(14),
+                              const Gap(Spacing.ml),
                               Expanded(
                                 child: Text(
                                   option,
@@ -317,7 +318,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                   color: _questionResults[_currentQuestion]
                       ? Colors.green.withValues(alpha: 0.08)
                       : Colors.orange.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   border: Border.all(
                     color: _questionResults[_currentQuestion]
                         ? Colors.green.withValues(alpha: 0.3)
@@ -346,7 +347,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                   ),
                 ),
                 child: Text(
@@ -387,7 +388,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(Radii.xxl),
             ),
             child: Column(
               children: [
@@ -396,7 +397,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                   color: Colors.white,
                   size: 48,
                 ),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 Text(
                   '$_correctCount / 3 Correct',
                   style: const TextStyle(
@@ -405,7 +406,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                const Gap(4),
+                const Gap(Spacing.xs),
                 Text(
                   passed ? 'Passed! +15 points' : 'Not quite — keep learning!',
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
@@ -413,7 +414,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
               ],
             ),
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
-          const Gap(24),
+          const Gap(Spacing.xl),
           ..._levelScenarios.asMap().entries.map((entry) {
             final i = entry.key;
             final q = entry.value;
@@ -427,7 +428,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 color: isCorrect
                     ? Colors.green.withValues(alpha: 0.05)
                     : Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(Radii.ml),
                 border: Border.all(
                   color: isCorrect
                       ? Colors.green.withValues(alpha: 0.3)
@@ -441,7 +442,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                     color: isCorrect ? Colors.green : Colors.red,
                     size: 18,
                   ),
-                  const Gap(8),
+                  const Gap(Spacing.sm),
                   Expanded(
                     child: Text(
                       (q['scenario'] as String).length > 80
@@ -458,7 +459,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
               ),
             );
           }),
-          const Gap(24),
+          const Gap(Spacing.xl),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -473,7 +474,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 backgroundColor: scheme.secondary,
                 foregroundColor: scheme.onSecondary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Radii.lg),
                 ),
               ),
             ),

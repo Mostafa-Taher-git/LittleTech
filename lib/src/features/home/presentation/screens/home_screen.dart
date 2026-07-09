@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -38,11 +39,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               // Header with avatar and actions
               _Header(),
-              const Gap(16),
+              const Gap(Spacing.md),
 
               // Player stats row (points, streak, title)
               _PlayerStatsRow(),
-              const Gap(16),
+              const Gap(Spacing.md),
 
               // Earned Honors & Badges
               BlocBuilder<GameCubit, GameState>(
@@ -77,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Icon(Icons.emoji_events,
                               color: scheme.secondary, size: 18),
-                          const Gap(6),
+                          const Gap(Spacing.s),
                           Text(
                             'Honors & Badges',
                             style: TextStyle(
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       if (earnedAchievements.isEmpty && earnedBadges.isEmpty)
                         Text(
                           'Complete levels to earn honors and badges!',
@@ -110,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color:
                                           Colors.green.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(Radii.ms),
                                       border: Border.all(
                                           color: Colors.green
                                               .withValues(alpha: 0.3)),
@@ -126,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                                     height: 36,
                                     decoration: BoxDecoration(
                                       color: b.color.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(Radii.ms),
                                       border: Border.all(
                                           color:
                                               b.color.withValues(alpha: 0.3)),
@@ -141,11 +142,11 @@ class HomeScreen extends StatelessWidget {
                   ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.05);
                 },
               ),
-              const Gap(16),
+              const Gap(Spacing.md),
 
               // Stats card with gradient
               _StatsCard(),
-              const Gap(20),
+              const Gap(Spacing.lg),
 
               // Challenge banner
               BlocBuilder<GameCubit, GameState>(
@@ -161,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              const Gap(24),
+              const Gap(Spacing.xl),
 
               // Quick actions section
               Text(
@@ -173,7 +174,7 @@ class HomeScreen extends StatelessWidget {
                   letterSpacing: -0.2,
                 ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Row(
                 children: [
                   Expanded(
@@ -185,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                       scheme: scheme,
                     ),
                   ),
-                  const Gap(12),
+                  const Gap(Spacing.ms),
                   Expanded(
                     child: _QuickAction(
                       icon: Icons.search_rounded,
@@ -197,7 +198,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const Gap(28),
+              const Gap(Spacing.xxl),
 
               // CTA buttons
               Row(
@@ -210,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                       onTap: () => Nav.push(context, const CategoriesScreen()),
                     ),
                   ),
-                  const Gap(12),
+                  const Gap(Spacing.ms),
                   Expanded(
                     child: _CTAButton(
                       icon: Icons.terminal_rounded,
@@ -224,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ).animate(delay: 300.ms).fadeIn().slideY(begin: 0.15),
-              const Gap(24),
+              const Gap(Spacing.xl),
             ],
           ),
         ),
@@ -261,7 +262,7 @@ class _Header extends StatelessWidget {
                           fontSize: 16,
                           fontColor: scheme.onSurface,
                         ),
-                        const Gap(2),
+                        const Gap(Spacing.xxs),
                         Text(
                           'Ready to troubleshoot?',
                           style: TextStyle(
@@ -280,7 +281,7 @@ class _Header extends StatelessWidget {
             },
           ),
         ),
-        const Gap(8),
+        const Gap(Spacing.sm),
 
         // SupTech avatar with container
         BlocBuilder<GameCubit, GameState>(
@@ -295,7 +296,7 @@ class _Header extends StatelessWidget {
             );
           },
         ),
-        const Gap(4),
+        const Gap(Spacing.xs),
 
         // Saved solutions
         _IconButton(
@@ -303,7 +304,7 @@ class _Header extends StatelessWidget {
           onTap: () => Nav.push(context, const SavedSolutionsScreen()),
           label: 'Saved solutions',
         ),
-        const Gap(4),
+        const Gap(Spacing.xs),
 
         // Settings
         _IconButton(
@@ -337,13 +338,13 @@ class _IconButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(Radii.ms),
           child: Container(
             width: 40,
             height: 40,
             decoration: BoxDecoration(
               color: scheme.surface,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(Radii.ms),
               border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
             ),
             child: Icon(icon,
@@ -400,7 +401,7 @@ class _PlayerStatsRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: scheme.surface,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(Radii.lg),
             border: Border.all(color: scheme.outline.withValues(alpha: 0.15)),
             boxShadow: [
               BoxShadow(
@@ -429,7 +430,7 @@ class _PlayerStatsRow extends StatelessWidget {
               // Streak
               _StatItem(
                 icon: Icons.local_fire_department_rounded,
-                iconColor: const Color(0xFFF59E0B),
+                iconColor: scheme.secondary,
                 value: '$streak',
                 label: 'Day Streak',
                 scheme: scheme,
@@ -482,11 +483,11 @@ class _StatItem extends StatelessWidget {
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: iconColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(Radii.sm),
           ),
           child: Icon(icon, color: iconColor, size: 16),
         ),
-        const Gap(8),
+        const Gap(Spacing.sm),
         Flexible(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -538,7 +539,7 @@ class _StatsCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Radii.xxl),
         border: Border.all(color: scheme.outline.withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
@@ -558,7 +559,7 @@ class _StatsCard extends StatelessWidget {
                 color: scheme.secondary,
                 size: 18,
               ),
-              const Gap(6),
+              const Gap(Spacing.s),
               Text(
                 'Problems Resolved',
                 style: TextStyle(
@@ -570,7 +571,7 @@ class _StatsCard extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -588,7 +589,7 @@ class _StatsCard extends StatelessWidget {
                   );
                 },
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Container(
@@ -596,14 +597,14 @@ class _StatsCard extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(Radii.ms),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.celebration,
                           size: 14, color: scheme.secondary),
-                      const Gap(4),
+                      const Gap(Spacing.xs),
                       Text(
                         'Great job!',
                         style: TextStyle(
@@ -645,13 +646,13 @@ class _QuickAction extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Radii.lg),
         child: Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: scheme.surface,
             border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(Radii.lg),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -660,11 +661,11 @@ class _QuickAction extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(Radii.ms),
                 ),
                 child: Icon(icon, color: color, size: 22),
               ),
-              const Gap(14),
+              const Gap(Spacing.ml),
               Text(
                 label,
                 style: TextStyle(
@@ -702,12 +703,12 @@ class _CTAButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(Radii.ml),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
             color: isPrimary ? scheme.secondary : scheme.primary,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(Radii.ml),
             boxShadow: [
               if (isPrimary)
                 BoxShadow(
@@ -725,7 +726,7 @@ class _CTAButton extends StatelessWidget {
                 size: 18,
                 color: isPrimary ? scheme.onSecondary : scheme.onPrimary,
               ),
-              const Gap(8),
+              const Gap(Spacing.sm),
               Text(
                 label,
                 style: TextStyle(

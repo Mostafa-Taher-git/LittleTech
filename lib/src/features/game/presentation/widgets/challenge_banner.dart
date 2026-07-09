@@ -26,7 +26,7 @@ class ChallengeBanner extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Radii.lg),
         border: Border.all(color: scheme.outline.withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
@@ -96,7 +96,7 @@ class _ChallengeRow extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -105,11 +105,11 @@ class _ChallengeRow extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: iconBgColor,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Icon(icon, color: iconColor, size: 20),
               ),
-              const Gap(14),
+              const Gap(Spacing.ml),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -763,11 +763,11 @@ class GameCubit extends Cubit<GameState> {
     emit(state.copyWith(progress: updated));
   }
 
-  void purchaseItem(String itemId) {
+  bool purchaseItem(String itemId) {
     final progress = state.progress;
-    if (progress.points < GameConstants.itemPurchaseCost) return;
-    if (progress.purchasedItemIds.contains(itemId)) return;
-    if (progress.earnedRewardIds.contains(itemId)) return;
+    if (progress.points < GameConstants.itemPurchaseCost) return false;
+    if (progress.purchasedItemIds.contains(itemId)) return true;
+    if (progress.earnedRewardIds.contains(itemId)) return true;
     final updated = progress.copyWith(
       points: progress.points - GameConstants.itemPurchaseCost,
       purchasedItemIds: List<String>.from(progress.purchasedItemIds)
@@ -775,6 +775,7 @@ class GameCubit extends Cubit<GameState> {
     );
     _safePersist([() => _repository.saveProgress(updated)]);
     emit(state.copyWith(progress: updated));
+    return true;
   }
 
   void selectWorldById(String worldId) {

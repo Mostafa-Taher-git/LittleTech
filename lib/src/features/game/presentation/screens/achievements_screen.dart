@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -39,7 +40,7 @@ class AchievementsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Text(
                 '${progress.levelsCleared} levels cleared',
                 style: TextStyle(
@@ -47,7 +48,7 @@ class AchievementsScreen extends StatelessWidget {
                   fontSize: 13,
                 ),
               ),
-              const Gap(16),
+              const Gap(Spacing.md),
               ...AchievementManager.all.map((a) {
                 final progressVal = switch (a.type) {
                   AchievementType.levels => progress.levelsCleared,
@@ -73,7 +74,7 @@ class AchievementsScreen extends StatelessWidget {
                             ? Colors.amber.withValues(alpha: 0.08)
                             : Colors.green.withValues(alpha: 0.05)
                         : scheme.surface,
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                     border: Border.all(
                       color: isDone
                           ? Colors.green.withValues(alpha: 0.3)
@@ -91,7 +92,7 @@ class AchievementsScreen extends StatelessWidget {
                               color: isDone
                                   ? Colors.green.withValues(alpha: 0.1)
                                   : scheme.primary.withValues(alpha: 0.05),
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(Radii.ms),
                             ),
                             child: Icon(
                               a.icon,
@@ -101,7 +102,7 @@ class AchievementsScreen extends StatelessWidget {
                               size: 20,
                             ),
                           ),
-                          const Gap(12),
+                          const Gap(Spacing.ms),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,9 +143,9 @@ class AchievementsScreen extends StatelessWidget {
                         ],
                       ),
                       if (!isDone) ...[
-                        const Gap(8),
+                        const Gap(Spacing.sm),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(Radii.xs),
                           child: LinearProgressIndicator(
                             value: progressFraction,
                             minHeight: 4,
@@ -159,7 +160,7 @@ class AchievementsScreen extends StatelessWidget {
                         ),
                       ],
                       if (a.rewards.isNotEmpty) ...[
-                        const Gap(8),
+                        const Gap(Spacing.sm),
                         Wrap(
                           spacing: 6,
                           runSpacing: 4,
@@ -175,7 +176,7 @@ class AchievementsScreen extends StatelessWidget {
                                     ? (rewardDef?.color ?? Colors.green)
                                         .withValues(alpha: 0.1)
                                     : scheme.outline.withValues(alpha: 0.08),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(Radii.sm),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -188,7 +189,7 @@ class AchievementsScreen extends StatelessWidget {
                                         : scheme.onSurface
                                             .withValues(alpha: 0.3),
                                   ),
-                                  const Gap(4),
+                                  const Gap(Spacing.xs),
                                   Text(
                                     rewardDef?.displayName ?? r.rewardId,
                                     style: TextStyle(
@@ -212,7 +213,7 @@ class AchievementsScreen extends StatelessWidget {
                     .animate()
                     .fadeIn(delay: (30 * AchievementManager.all.indexOf(a)).ms);
               }),
-              const Gap(24),
+              const Gap(Spacing.xl),
               Text(
                 'Badges',
                 style: TextStyle(
@@ -221,7 +222,7 @@ class AchievementsScreen extends StatelessWidget {
                   color: scheme.onSurface,
                 ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               ...RewardPool.badges.asMap().entries.map((entry) {
                 final index = entry.key;
                 final badge = entry.value;
@@ -234,7 +235,7 @@ class AchievementsScreen extends StatelessWidget {
                     color: isEarned
                         ? badge.color.withValues(alpha: 0.08)
                         : scheme.surface,
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                     border: Border.all(
                       color: isEarned
                           ? badge.color.withValues(alpha: 0.3)
@@ -250,7 +251,7 @@ class AchievementsScreen extends StatelessWidget {
                           color: isEarned
                               ? badge.color.withValues(alpha: 0.1)
                               : scheme.primary.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(Radii.ms),
                         ),
                         child: Icon(
                           badge.icon,
@@ -260,7 +261,7 @@ class AchievementsScreen extends StatelessWidget {
                           size: 20,
                         ),
                       ),
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

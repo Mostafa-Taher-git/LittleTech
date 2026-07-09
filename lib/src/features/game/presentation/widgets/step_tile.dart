@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:gap/gap.dart';
 
 class StepTile extends StatelessWidget {
@@ -21,7 +22,7 @@ class StepTile extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(Radii.ml),
         border: Border.all(
           color: isCompleted
               ? scheme.secondary.withValues(alpha: 0.3)
@@ -40,7 +41,7 @@ class StepTile extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: isCompleted ? scheme.secondary : scheme.primary,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(Radii.sm),
                 ),
                 child: isCompleted
                     ? Icon(Icons.check, color: scheme.onSecondary, size: 16)
@@ -53,7 +54,7 @@ class StepTile extends StatelessWidget {
                         ),
                       ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 5),

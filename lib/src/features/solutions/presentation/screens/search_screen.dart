@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/services/rule_engine.dart';
@@ -114,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 : ListView.separated(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     itemCount: _results.length,
-                    separatorBuilder: (_, __) => const Gap(8),
+                    separatorBuilder: (_, __) => const Gap(Spacing.sm),
                     itemBuilder: (context, i) {
                       final r = _results[i];
                       return ProblemTile(

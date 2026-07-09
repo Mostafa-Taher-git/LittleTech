@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
@@ -203,11 +204,11 @@ class SupTechDialog extends StatelessWidget {
                       height: 4,
                       decoration: BoxDecoration(
                         color: scheme.outline.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(Radii.xxs),
                       ),
                     ),
                   ),
-                  const Gap(16),
+                  const Gap(Spacing.md),
                   Row(
                     children: [
                       Text(
@@ -224,7 +225,7 @@ class SupTechDialog extends StatelessWidget {
                             horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: scheme.secondary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(Radii.sm),
                         ),
                         child: Text(
                           '${state.availableSupTechUses} left',
@@ -237,7 +238,7 @@ class SupTechDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Gap(4),
+                  const Gap(Spacing.xs),
                   Text(
                     'Pick an action to help with this step',
                     style: TextStyle(
@@ -245,7 +246,7 @@ class SupTechDialog extends StatelessWidget {
                       color: scheme.onSurface.withValues(alpha: 0.5),
                     ),
                   ),
-                  const Gap(20),
+                  const Gap(Spacing.lg),
                   ...actions.map((a) {
                     final alreadyUsed =
                         state.usedSupTechActions[questionKey]?.contains(a.id) ??
@@ -265,7 +266,7 @@ class SupTechDialog extends StatelessWidget {
                       ),
                     );
                   }),
-                  const Gap(12),
+                  const Gap(Spacing.ms),
                 ],
               ),
             ),
@@ -324,7 +325,7 @@ class SupTechDialog extends StatelessWidget {
                 Icon(Icons.lightbulb_outline,
                     size: 20,
                     color: _actionColor(Theme.of(ctx).colorScheme, action)),
-                const Gap(8),
+                const Gap(Spacing.sm),
                 Text(_labelFor(action)),
               ],
             ),
@@ -366,15 +367,15 @@ class _ActionButton extends StatelessWidget {
 
     return Material(
       color: color.withValues(alpha: 0.06 * alpha),
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(Radii.ml),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(Radii.ml),
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: Border.all(color: color.withValues(alpha: 0.15 * alpha)),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(Radii.ml),
           ),
           child: Row(
             children: [
@@ -382,12 +383,12 @@ class _ActionButton extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.1 * alpha),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(Radii.ms),
                 ),
                 child:
                     Icon(icon, color: color.withValues(alpha: alpha), size: 22),
               ),
-              const Gap(14),
+              const Gap(Spacing.ml),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

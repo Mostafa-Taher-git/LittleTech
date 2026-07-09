@@ -32,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: AppColors.darkGradient),
@@ -50,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                       const Text(
                         'Create Account',
                         style: TextStyle(
@@ -58,12 +59,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontWeight: FontWeight.w800,
                             color: Colors.white),
                       ),
-                      const Gap(6),
+                      const Gap(Spacing.s),
                       const Text(
                         'Join LittleTech and start solving problems',
                         style: TextStyle(color: Colors.white54, fontSize: 14),
                       ),
-                      const Gap(32),
+                      const Gap(Spacing.xxl2),
 
                       // Avatar picker
                       const Text('Choose Your Avatar',
@@ -71,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.white60,
                               fontSize: 12,
                               letterSpacing: 1)),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       Wrap(
                         spacing: 10,
                         runSpacing: 10,
@@ -84,12 +85,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: sel
-                                    ? AppColors.accent.withValues(alpha: 0.2)
+                                    ? scheme.secondary.withValues(alpha: 0.2)
                                     : Colors.white.withValues(alpha: 0.06),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(Radii.md),
                                 border: Border.all(
                                     color: sel
-                                        ? AppColors.accent
+                                        ? scheme.secondary
                                         : Colors.transparent,
                                     width: 1.5),
                               ),
@@ -99,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         }).toList(),
                       ),
-                      const Gap(24),
+                      const Gap(Spacing.xl),
 
                       // Username
                       TextFormField(
@@ -115,22 +116,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(
-                                color: AppColors.accent, width: 1.5),
+                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderSide: BorderSide(
+                                color: scheme.secondary, width: 1.5),
                           ),
-                          errorStyle: const TextStyle(color: AppColors.error),
+                          errorStyle: TextStyle(color: scheme.error),
                         ),
                         validator: (v) =>
                             (v == null || v.isEmpty) ? 'Enter username' : null,
                       ),
-                      const Gap(16),
+                      const Gap(Spacing.md),
 
                       // Password
                       TextFormField(
@@ -158,23 +159,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(
-                                color: AppColors.accent, width: 1.5),
+                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderSide: BorderSide(
+                                color: scheme.secondary, width: 1.5),
                           ),
-                          errorStyle: const TextStyle(color: AppColors.error),
+                          errorStyle: TextStyle(color: scheme.error),
                         ),
                         validator: (v) => (v == null || v.length < 6)
                             ? 'Min 6 characters'
                             : null,
                       ),
-                      const Gap(16),
+                      const Gap(Spacing.md),
 
                       // Confirm
                       TextFormField(
@@ -191,23 +192,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(
-                                color: AppColors.accent, width: 1.5),
+                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderSide: BorderSide(
+                                color: scheme.secondary, width: 1.5),
                           ),
-                          errorStyle: const TextStyle(color: AppColors.error),
+                          errorStyle: TextStyle(color: scheme.error),
                         ),
                         validator: (v) => v != _passwordCtrl.text
                             ? 'Passwords do not match'
                             : null,
                       ),
-                      const Gap(32),
+                      const Gap(Spacing.xxl2),
 
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (_, state) {
@@ -216,10 +217,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 56,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.accent,
-                                foregroundColor: AppColors.onAccent,
+                                backgroundColor: scheme.secondary,
+                                foregroundColor: scheme.onSecondary,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
+                                    borderRadius: BorderRadius.circular(Radii.lg)),
                               ),
                               onPressed: state is AuthLoading
                                   ? null
@@ -234,12 +235,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       }
                                     },
                               child: state is AuthLoading
-                                  ? const SizedBox(
+                                  ? SizedBox(
                                       width: 22,
                                       height: 22,
                                       child: CircularProgressIndicator(
                                           strokeWidth: 2,
-                                          color: AppColors.onAccent))
+                                          color: scheme.onSecondary))
                                   : const Text('Create Account',
                                       style: TextStyle(
                                           fontSize: 16,
@@ -248,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         },
                       ),
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -256,14 +257,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(color: Colors.white54)),
                           TextButton(
                             onPressed: () => Nav.pop(context),
-                            child: const Text('Sign In',
+                            child: Text('Sign In',
                                 style: TextStyle(
-                                    color: AppColors.accent,
+                                    color: scheme.secondary,
                                     fontWeight: FontWeight.w700)),
                           ),
                         ],
                       ),
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                     ],
                   ),
                 ),

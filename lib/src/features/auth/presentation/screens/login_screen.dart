@@ -48,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: AppColors.darkGradient),
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                       Center(
                         child: Image.asset(
                           'assets/icon/icon.png',
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                           .animate()
                           .scale(duration: 500.ms, curve: Curves.easeOutBack),
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                       const Center(
                         child: Text(
                           'Welcome Back',
@@ -88,28 +89,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const Gap(6),
+                      const Gap(Spacing.s),
                       const Center(
                         child: Text(
                           'Sign in to continue troubleshooting',
                           style: TextStyle(color: Colors.white54, fontSize: 14),
                         ),
                       ),
-                      const Gap(36),
+                      const Gap(Spacing.xxxl),
                       if (widget.showAccountPicker && _users.isNotEmpty) ...[
                         const Text('Quick Login',
                             style: TextStyle(
                                 color: Colors.white60,
                                 fontSize: 12,
                                 letterSpacing: 1)),
-                        const Gap(10),
+                        const Gap(Spacing.m),
                         SizedBox(
                           height: 80,
                           child: _usersLoaded
                               ? ListView.separated(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: _users.length,
-                                  separatorBuilder: (_, __) => const Gap(12),
+                                  separatorBuilder: (_, __) => const Gap(Spacing.ms),
                                   itemBuilder: (_, i) {
                                     final u = _users[i];
                                     final selected =
@@ -123,15 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         width: 68,
                                         decoration: BoxDecoration(
                                           color: selected
-                                              ? AppColors.accent
+                                              ? scheme.secondary
                                                   .withValues(alpha: 0.15)
                                               : Colors.white
                                                   .withValues(alpha: 0.06),
                                           borderRadius:
-                                              BorderRadius.circular(16),
+                                              BorderRadius.circular(Radii.lg),
                                           border: Border.all(
                                               color: selected
-                                                  ? AppColors.accent
+                                                  ? scheme.secondary
                                                   : Colors.transparent),
                                         ),
                                         child: Column(
@@ -141,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Text(u.avatarIcon,
                                                 style: const TextStyle(
                                                     fontSize: 26)),
-                                            const Gap(4),
+                                            const Gap(Spacing.xs),
                                             Text(u.username,
                                                 style: const TextStyle(
                                                     color: Colors.white70,
@@ -158,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: CircularProgressIndicator(
                                       strokeWidth: 2, color: Colors.white54)),
                         ),
-                        const Gap(24),
+                        const Gap(Spacing.xl),
                       ],
                       TextFormField(
                         controller: _usernameCtrl,
@@ -173,21 +174,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(
-                                color: AppColors.accent, width: 1.5),
+                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderSide: BorderSide(
+                                color: scheme.secondary, width: 1.5),
                           ),
                         ),
                         validator: (v) =>
                             (v == null || v.isEmpty) ? 'Enter username' : null,
                       ),
-                      const Gap(16),
+                      const Gap(Spacing.md),
                       TextFormField(
                         controller: _passwordCtrl,
                         obscureText: _obscure,
@@ -213,21 +214,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(Radii.ml),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(
-                                color: AppColors.accent, width: 1.5),
+                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderSide: BorderSide(
+                                color: scheme.secondary, width: 1.5),
                           ),
                         ),
                         validator: (v) =>
                             (v == null || v.isEmpty) ? 'Enter password' : null,
                       ),
-                      const Gap(8),
+                      const Gap(Spacing.sm),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -238,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.white60, fontSize: 13)),
                         ),
                       ),
-                      const Gap(24),
+                      const Gap(Spacing.xl),
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (_, state) {
                           return SizedBox(
@@ -246,10 +247,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 56,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.accent,
-                                foregroundColor: AppColors.onAccent,
+                                backgroundColor: scheme.secondary,
+                                foregroundColor: scheme.onSecondary,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
+                                    borderRadius: BorderRadius.circular(Radii.lg)),
                               ),
                               onPressed: state is AuthLoading
                                   ? null
@@ -263,12 +264,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       }
                                     },
                               child: state is AuthLoading
-                                  ? const SizedBox(
+                                  ? SizedBox(
                                       width: 22,
                                       height: 22,
                                       child: CircularProgressIndicator(
                                           strokeWidth: 2,
-                                          color: AppColors.onAccent))
+                                          color: scheme.onSecondary))
                                   : const Text('Login',
                                       style: TextStyle(
                                           fontSize: 16,
@@ -277,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
-                      const Gap(24),
+                      const Gap(Spacing.xl),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -286,14 +287,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () =>
                                 Nav.push(context, const RegisterScreen()),
-                            child: const Text('Sign Up',
+                            child: Text('Sign Up',
                                 style: TextStyle(
-                                    color: AppColors.accent,
+                                    color: scheme.secondary,
                                     fontWeight: FontWeight.w700)),
                           ),
                         ],
                       ),
-                      const Gap(20),
+                      const Gap(Spacing.lg),
                     ],
                   ),
                 ),

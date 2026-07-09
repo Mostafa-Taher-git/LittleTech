@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
@@ -7,6 +8,7 @@ import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
 import 'package:littletech/src/features/game/presentation/widgets/framed_username.dart';
 import 'package:littletech/src/features/game/presentation/widgets/sup_tech_avatar_wrapper.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -42,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Radii.lg),
                 ),
                 child: BlocBuilder<GameCubit, GameState>(
                   builder: (_, state) {
@@ -55,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
                             skinId: state.progress.activeSkinId,
                           ),
                         ),
-                        const Gap(16),
+                        const Gap(Spacing.md),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +82,7 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
-          const Gap(24),
+          const Gap(Spacing.xl),
 
           // Section: Account
           Text('Account',
@@ -89,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: scheme.onSurface.withValues(alpha: 0.6),
                   letterSpacing: 0.5)),
-          const Gap(10),
+          const Gap(Spacing.m),
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
@@ -107,14 +109,14 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           _SettingsTile(
             icon: Icons.swap_horiz,
             label: 'Switch Account',
             onTap: () => context.read<AuthCubit>().switchAccount(),
             scheme: scheme,
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           _SettingsTile(
             icon: Icons.info_outline,
             label: 'About LittleTech',
@@ -122,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
             onTap: () => _showAboutDialog(context),
             scheme: scheme,
           ),
-          const Gap(24),
+          const Gap(Spacing.xl),
 
           // Section: Danger zone
           Text('Session',
@@ -131,7 +133,7 @@ class SettingsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: scheme.onSurface.withValues(alpha: 0.6),
                   letterSpacing: 0.5)),
-          const Gap(10),
+          const Gap(Spacing.m),
           _SettingsTile(
             icon: Icons.logout,
             label: 'Logout',
@@ -144,7 +146,7 @@ class SettingsScreen extends StatelessWidget {
                   title: const Text('Logout'),
                   content: const Text('Are you sure you want to logout?'),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
+                      borderRadius: BorderRadius.circular(Radii.lg)),
                   actions: [
                     TextButton(
                         onPressed: () => Navigator.pop(context, false),
@@ -165,7 +167,7 @@ class SettingsScreen extends StatelessWidget {
             },
             scheme: scheme,
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
@@ -189,7 +191,7 @@ class SettingsScreen extends StatelessWidget {
                       content: Text(
                           'Are you sure you want to permanently delete "$username" and ALL progress? This cannot be undone.'),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
+                          borderRadius: BorderRadius.circular(Radii.lg)),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context, false),
@@ -211,7 +213,7 @@ class SettingsScreen extends StatelessWidget {
                         content: Text(
                             'All progress for "$username" will be lost forever.'),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
+                            borderRadius: BorderRadius.circular(Radii.lg)),
                         actions: [
                           TextButton(
                               onPressed: () => Navigator.pop(context, false),
@@ -272,7 +274,7 @@ class SettingsScreen extends StatelessWidget {
         return StatefulBuilder(
           builder: (ctx, setDialogState) => AlertDialog(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.lg)),
             title: const Text('Choose Your Avatar'),
             content: Wrap(
               spacing: 10,
@@ -288,7 +290,7 @@ class SettingsScreen extends StatelessWidget {
                       color: sel
                           ? scheme.primary.withValues(alpha: 0.2)
                           : scheme.onSurface.withValues(alpha: 0.06),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(Radii.md),
                       border: Border.all(
                           color: sel ? scheme.primary : Colors.transparent,
                           width: 1.5),
@@ -326,17 +328,17 @@ class SettingsScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.lg)),
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: scheme.surface,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(Radii.ms),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(Radii.s),
                 child: Image.asset(
                   'assets/icon/icon.png',
                   width: 20,
@@ -345,7 +347,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Gap(10),
+            const Gap(Spacing.m),
             const Text('LittleTech'),
           ],
         ),
@@ -355,15 +357,26 @@ class SettingsScreen extends StatelessWidget {
           children: [
             const Text('You Are The Only Expert',
                 style: TextStyle(fontWeight: FontWeight.w600)),
-            const Gap(4),
+            const Gap(Spacing.xs),
             Text('Version 2.0.0',
                 style: TextStyle(
                     color: scheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 13)),
-            const Gap(12),
-            const Text(
-              'It was Developed by : www.linkedin.com/in/mostafa-taher-ahmed-59b60b318',
-              style: TextStyle(fontSize: 14, height: 1.5),
+            const Gap(Spacing.ms),
+            GestureDetector(
+              onTap: () => launchUrl(
+                Uri.parse('https://mostafa-web.serveirc.com'),
+                mode: LaunchMode.externalApplication,
+              ),
+              child: const Text(
+                'It was Developed by : mostafa-web.serveirc.com',
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 1.5,
+                  color: Colors.blue,
+                  decoration: TextDecoration.none,
+                ),
+              ),
             ),
           ],
         ),
@@ -403,15 +416,15 @@ class _SettingsTile extends StatelessWidget {
 
     return Material(
       color: scheme.surface,
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(Radii.ml),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(Radii.ml),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           decoration: BoxDecoration(
             border: Border.all(color: scheme.outline),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(Radii.ml),
           ),
           child: Row(
             children: [
@@ -419,11 +432,11 @@ class _SettingsTile extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: scheme.surface,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(Radii.ms),
                 ),
                 child: Icon(icon, color: effectiveIconColor, size: 20),
               ),
-              const Gap(14),
+              const Gap(Spacing.ml),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,28 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 
 class BossVisuals {
   BossVisuals._();
 
-  static const Map<int, Color> _colors = {
-    1: Color(0xFFCC3344), // Bone Colossus — crimson
-    2: Color(0xFF00CCDD), // Memory Devourer — cyan
-    3: Color(0xFF00FF88), // Kernel Wraith — emerald
-    4: Color(0xFFFF8800), // Feedback Phantom — orange
-    5: Color(0xFFFFCC00), // Input Overlord — yellow
-    6: Color(0xFFFF4444), // Dependency Demon — red
-    7: Color(0xFF00CCDD), // Latency Leviathan — cyan
-    8: Color(0xFFFFD700), // Bit Rot Behemoth — gold
-    9: Color(0xFFFF00FF), // Pixel Punisher — magenta
-    10: Color(0xFF00E5FF), // Battery Banshee — ice-blue
-    11: Color(0xFFFF6600), // Lag Dragon — orange
-    12: Color(0xFF00E5FF), // Static Phantom — cyan
-    13: Color(0xFFFF00FF), // Exploit Emperor — magenta
-    14: Color(0xFF00FF88), // Packet Storm — green
-  };
-
   static Color color(int visualType) =>
-      _colors[visualType] ?? const Color(0xFFCC3344);
+      CategoryColors.forVisualType(visualType);
 
   static Color particleColor(int visualType) => color(visualType);
 

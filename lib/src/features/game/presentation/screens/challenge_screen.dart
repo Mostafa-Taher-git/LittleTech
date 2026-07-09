@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -42,7 +43,7 @@ class ChallengeScreen extends StatelessWidget {
               );
             },
           ),
-          const Gap(16),
+          const Gap(Spacing.md),
           BlocBuilder<GameCubit, GameState>(
             builder: (_, state) {
               final dailyCompleted = state.progress.getDailyQuestCompleted();
@@ -79,7 +80,7 @@ class ChallengeScreen extends StatelessWidget {
               );
             },
           ),
-          const Gap(16),
+          const Gap(Spacing.md),
           BlocBuilder<GameCubit, GameState>(
             builder: (_, state) {
               final weeklyCompleted = state.progress.getWeeklyBossCompleted();
@@ -140,13 +141,13 @@ class _ChallengeCard extends StatelessWidget {
 
     return Material(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(Radii.xl),
       child: InkWell(
         onTap: completed ? null : onTap,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(Radii.xl),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(Radii.xl),
             gradient: LinearGradient(
               colors: [
                 completed
@@ -174,12 +175,12 @@ class _ChallengeCard extends StatelessWidget {
                   color: completed
                       ? scheme.outline.withValues(alpha: 0.1)
                       : color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(Radii.ml),
                 ),
                 child: Icon(icon,
                     color: completed ? scheme.outline : color, size: 26),
               ),
-              const Gap(16),
+              const Gap(Spacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +203,7 @@ class _ChallengeCard extends StatelessWidget {
                                 horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.green.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(Radii.s),
                             ),
                             child: const Text(
                               'Completed',
@@ -219,7 +220,7 @@ class _ChallengeCard extends StatelessWidget {
                                 horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.amber.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(Radii.s),
                             ),
                             child: Text(
                               '${pointsMultiplier}x pts',
@@ -232,7 +233,7 @@ class _ChallengeCard extends StatelessWidget {
                           ),
                       ],
                     ),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     Text(
                       subtitle,
                       style: TextStyle(
@@ -241,7 +242,7 @@ class _ChallengeCard extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     Text(
                       description,
                       style: TextStyle(

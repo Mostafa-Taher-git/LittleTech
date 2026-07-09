@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 
 class SupTechAvatarWrapper extends StatelessWidget {
   final bool isGlowing;
@@ -25,7 +26,7 @@ class SupTechAvatarWrapper extends StatelessWidget {
         color: isGlowing
             ? scheme.secondary.withValues(alpha: 0.1)
             : scheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(
           color: isGlowing
               ? scheme.secondary.withValues(alpha: 0.3)

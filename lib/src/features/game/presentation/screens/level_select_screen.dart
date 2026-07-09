@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
@@ -36,7 +37,7 @@ class LevelSelectScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.monetization_on,
                         color: scheme.secondary, size: 16),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     Text(
                       '${state.totalPoints}',
                       style: TextStyle(
@@ -74,7 +75,7 @@ class LevelSelectScreen extends StatelessWidget {
                     .length,
                 totalLevels: world.levels.length,
               ),
-              const Gap(24),
+              const Gap(Spacing.xl),
               ...world.levels.asMap().entries.map((entry) {
                 final i = entry.key;
                 final level = entry.value;
@@ -131,7 +132,7 @@ class LevelSelectScreen extends StatelessWidget {
                   ],
                 );
               }),
-              const Gap(32),
+              const Gap(Spacing.xxl2),
               _BossDungeonDoor(
                 boss: cat?.bosses.firstOrNull,
                 isUnlocked: allLevelsCompleted,
@@ -180,7 +181,7 @@ class _DungeonHeader extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Radii.lg),
         border: Border.all(
           color: scheme.outline.withValues(alpha: 0.15),
         ),
@@ -188,7 +189,7 @@ class _DungeonHeader extends StatelessWidget {
       child: Row(
         children: [
           Icon(Icons.map_rounded, color: scheme.secondary, size: 24),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +201,7 @@ class _DungeonHeader extends StatelessWidget {
                     color: scheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
-                const Gap(4),
+                const Gap(Spacing.xs),
                 Text(
                   '$levelsCleared / $totalLevels levels cleared',
                   style: TextStyle(
@@ -308,19 +309,19 @@ class _BossDungeonDoor extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Radii.xxl),
         gradient: isUnlocked
             ? LinearGradient(
                 colors: [
                   isDefeated
                       ? bossColor.withValues(alpha: 0.15)
-                      : const Color(0xFF1A1A2E),
+                      : scheme.surface,
                   isDefeated
                       ? bossColor.withValues(alpha: 0.08)
-                      : const Color(0xFF2D2D44),
+                      : scheme.surfaceContainerHighest,
                   isDefeated
                       ? bossColor.withValues(alpha: 0.15)
-                      : const Color(0xFF1A1A2E),
+                      : scheme.surface,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -334,7 +335,7 @@ class _BossDungeonDoor extends StatelessWidget {
             ? [
                 BoxShadow(
                   color: isDefeated
-                      ? const Color(0xFFFFD700).withValues(alpha: 0.25)
+                      ? scheme.secondary.withValues(alpha: 0.25)
                       : Colors.red.withValues(alpha: 0.3),
                   blurRadius: 20,
                   spreadRadius: 3,
@@ -344,7 +345,7 @@ class _BossDungeonDoor extends StatelessWidget {
         border: Border.all(
           color: isUnlocked
               ? isDefeated
-                  ? const Color(0xFFDAA520).withValues(alpha: 0.7)
+                  ? scheme.secondary.withValues(alpha: 0.7)
                   : bossColor.withValues(alpha: 0.5)
               : scheme.outline.withValues(alpha: 0.15),
           width: 2,
@@ -352,10 +353,10 @@ class _BossDungeonDoor extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Radii.xxl),
         child: InkWell(
           onTap: isUnlocked && !isDefeated ? onEnter : null,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(Radii.xxl),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
@@ -371,7 +372,7 @@ class _BossDungeonDoor extends StatelessWidget {
                       bossColor: bossColor,
                     ),
                   ),
-                const Gap(16),
+                const Gap(Spacing.md),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +383,7 @@ class _BossDungeonDoor extends StatelessWidget {
                             isDefeated ? 'DEFEATED' : 'BOSS',
                             style: TextStyle(
                               color: isDefeated
-                                  ? const Color(0xFFFFD700)
+                                  ? scheme.secondary
                                   : isUnlocked
                                       ? bossColor
                                       : scheme.onSurface.withValues(alpha: 0.2),
@@ -392,19 +393,19 @@ class _BossDungeonDoor extends StatelessWidget {
                             ),
                           ),
                           if (!isUnlocked) ...[
-                            const Gap(8),
+                            const Gap(Spacing.sm),
                             Icon(Icons.lock_outline,
                                 size: 14,
                                 color: scheme.onSurface.withValues(alpha: 0.2)),
                           ],
                           if (isDefeated) ...[
-                            const Gap(8),
-                            const Icon(Icons.emoji_events,
-                                size: 14, color: Color(0xFFFFD700)),
+                            const Gap(Spacing.sm),
+                            Icon(Icons.emoji_events,
+                                size: 14, color: scheme.secondary),
                           ],
                         ],
                       ),
-                      const Gap(4),
+                      const Gap(Spacing.xs),
                       Text(
                         boss?.name ?? 'Boss',
                         style: TextStyle(
@@ -415,7 +416,7 @@ class _BossDungeonDoor extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const Gap(2),
+                      const Gap(Spacing.xxs),
                       Text(
                         '${boss?.hp ?? 5} HP  •  ${boss?.points ?? 500} pts',
                         style: TextStyle(
@@ -434,11 +435,11 @@ class _BossDungeonDoor extends StatelessWidget {
                     height: 40,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const Color(0xFFDC143C).withValues(alpha: 0.2),
+                      color: scheme.error.withValues(alpha: 0.2),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_forward,
-                      color: Color(0xFFDC143C),
+                      color: scheme.error,
                       size: 20,
                     ),
                   ),

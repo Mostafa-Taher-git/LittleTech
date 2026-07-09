@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -64,7 +65,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   children: [
                     Icon(Icons.monetization_on,
                         color: scheme.secondary, size: 16),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     Text(
                       '${state.totalPoints}',
                       style: TextStyle(
@@ -146,9 +147,9 @@ class _ProblemScreenState extends State<ProblemScreen> {
                         ),
                       ],
                     ),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(Radii.s),
                       child: LinearProgressIndicator(
                         value: progress,
                         backgroundColor: scheme.outline.withValues(alpha: 0.2),
@@ -202,7 +203,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: scheme.primary.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border: Border.all(
                         color: scheme.outline.withValues(alpha: 0.2)),
                   ),
@@ -210,7 +211,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                     children: [
                       Icon(Icons.help_outline,
                           color: scheme.secondary, size: 20),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       Expanded(
                         child: Text(
                           'Did this fix it?',
@@ -252,14 +253,14 @@ class _ProblemScreenState extends State<ProblemScreen> {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border:
                         Border.all(color: Colors.green.withValues(alpha: 0.2)),
                   ),
                   child: const Row(
                     children: [
                       Icon(Icons.check_circle, color: Colors.green, size: 18),
-                      Gap(8),
+                      Gap(Spacing.sm),
                       Text(
                         'Thanks for your feedback!',
                         style: TextStyle(
@@ -271,7 +272,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                     ],
                   ),
                 ).animate().fadeIn(),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
@@ -312,7 +313,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                         backgroundColor: scheme.secondary,
                         foregroundColor: scheme.onSecondary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(Radii.ml),
                         ),
                       ),
                     ),
@@ -346,7 +347,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                           ),
                         ),
                       ),
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       SizedBox(
                         height: 50,
                         width: double.infinity,

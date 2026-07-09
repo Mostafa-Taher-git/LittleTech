@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -78,7 +79,7 @@ class ThemeCubit extends Cubit<ThemeData> {
         color: cfg.cardColor,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(Radii.lg),
           side: BorderSide(color: cfg.cardBorder),
         ),
       ),
@@ -89,12 +90,12 @@ class ThemeCubit extends Cubit<ThemeData> {
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.ml)),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
         contentTextStyle: GoogleFonts.inter(color: Colors.white, fontSize: 14),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -103,15 +104,15 @@ class ThemeCubit extends Cubit<ThemeData> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(Radii.ml),
           borderSide: BorderSide(color: cfg.inputBorder),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(Radii.ml),
           borderSide: BorderSide(color: cfg.inputBorder),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(Radii.ml),
           borderSide: BorderSide(color: cfg.colorScheme.primary, width: 2),
         ),
       ),

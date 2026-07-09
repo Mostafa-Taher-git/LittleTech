@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:littletech/src/core/constants/category_manager.dart';
 import 'package:littletech/src/core/services/rule_engine.dart';
@@ -24,7 +25,7 @@ class CategoriesScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: scheme.surface,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(Radii.ms),
                 ),
                 child: Text(
                   '${CategoryManager.all.length} categories',

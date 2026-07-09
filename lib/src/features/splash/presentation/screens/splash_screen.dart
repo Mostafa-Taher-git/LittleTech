@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 80,
               fit: BoxFit.cover,
             ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
-            const Gap(24),
+            const Gap(Spacing.xl),
             Animate(
               effects: [
                 FadeEffect(delay: 300.ms),
@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            const Gap(8),
+            const Gap(Spacing.sm),
             Animate(
               effects: [FadeEffect(delay: 500.ms)],
               child: const Text(
@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontSize: 14, color: Colors.white54, letterSpacing: 2),
               ),
             ),
-            const Gap(60),
+            const Gap(Spacing.xxxxxl),
             const SizedBox(
               width: 28,
               height: 28,

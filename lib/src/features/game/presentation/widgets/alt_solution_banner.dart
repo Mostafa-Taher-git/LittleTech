@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/constants/prep_data.dart';
@@ -49,7 +50,7 @@ class AltSolutionBanner extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: scheme.tertiary.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
       ),
       child: Column(
@@ -58,7 +59,7 @@ class AltSolutionBanner extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.construction, color: Colors.orange, size: 18),
-              const Gap(8),
+              const Gap(Spacing.sm),
               Text(
                 'Seek alternative wisdom? Try these ancient techniques:',
                 style: TextStyle(
@@ -69,7 +70,7 @@ class AltSolutionBanner extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           ...alts.map((alt) => Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
@@ -91,7 +92,7 @@ class AltSolutionBanner extends StatelessWidget {
                 ),
               )),
           if (onTapAlternative != null) ...[
-            const Gap(12),
+            const Gap(Spacing.ms),
             SizedBox(
               width: double.infinity,
               height: 40,
@@ -101,7 +102,7 @@ class AltSolutionBanner extends StatelessWidget {
                   foregroundColor: Colors.orange,
                   side: BorderSide(color: Colors.orange.withValues(alpha: 0.4)),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(Radii.ms),
                   ),
                 ),
                 icon: const Icon(Icons.replay, size: 18),

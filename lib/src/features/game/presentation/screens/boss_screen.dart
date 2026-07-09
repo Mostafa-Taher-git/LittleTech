@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:littletech/src/core/navigation/nav.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 import 'package:littletech/src/features/game/domain/cubit/game_cubit.dart';
@@ -139,25 +140,8 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
     }
   }
 
-  Color _bossColor(int visualType) {
-    const colors = [
-      Color(0xFFE94560),
-      Color(0xFF6BB5FF),
-      Color(0xFF7B2D8B),
-      Color(0xFF4A90D9),
-      Color(0xFF2D6A4F),
-      Color(0xFFFF6B35),
-      Color(0xFF8B0000),
-      Color(0xFFFFD700),
-      Color(0xFF9B30FF),
-      Color(0xFF00E5FF),
-      Color(0xFFFF6B35),
-      Color(0xFF00E5FF),
-      Color(0xFFFF00FF),
-      Color(0xFF00FF88),
-    ];
-    return colors[(visualType - 1).clamp(0, 13)];
-  }
+  Color _bossColor(int visualType) =>
+      CategoryColors.forVisualType(visualType);
 
   Widget _buildDefeatedButton() {
     return Container(
@@ -165,7 +149,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
       height: 56,
       decoration: BoxDecoration(
         color: Colors.green.shade700,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Radii.lg),
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +177,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
             backgroundColor: Colors.red.shade700,
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Radii.lg),
             ),
           ),
           icon: const Icon(Icons.flash_on, size: 22),
@@ -216,7 +200,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
             color: isCorrect
                 ? Colors.green.shade900.withValues(alpha: 0.3)
                 : Colors.red.shade900.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(Radii.ml),
             border: Border.all(
               color: isCorrect
                   ? Colors.green.shade400.withValues(alpha: 0.4)
@@ -230,7 +214,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 color: isCorrect ? Colors.green.shade300 : Colors.red.shade300,
                 size: 36,
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Text(
                 _diagnosisResult!,
                 textAlign: TextAlign.center,
@@ -260,13 +244,13 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
               letterSpacing: 2,
             ),
           ),
-          const Gap(10),
+          const Gap(Spacing.m),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(Radii.md),
               border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: Text(
@@ -278,7 +262,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Text(
             'What is the correct diagnosis?',
             style: TextStyle(
@@ -287,7 +271,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           ...(_diagnosisShuffledOrder ??
                   List.generate(options.length, (i) => i))
               .asMap()
@@ -301,14 +285,14 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () => _selectedDiagnosis(shuffledPos),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 14, vertical: 12),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(Radii.md),
                       border: Border.all(
                           color: Colors.white.withValues(alpha: 0.1)),
                     ),
@@ -345,7 +329,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
           backgroundColor: Colors.red.shade700,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(Radii.lg),
           ),
         ),
         icon: const Icon(Icons.flash_on, size: 22),
@@ -369,20 +353,20 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const Gap(12),
+        const Gap(Spacing.ms),
         ...strategies.map((s) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () => _executeStrategy(s),
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(Radii.ml),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(Radii.ml),
                       border: Border.all(
                           color: Colors.white.withValues(alpha: 0.1)),
                     ),
@@ -400,7 +384,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              const Gap(4),
+                              const Gap(Spacing.xs),
                               Text(
                                 '${s['damage']} dmg · ${s['success']}% success',
                                 style: TextStyle(
@@ -416,7 +400,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                               horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
                             color: Colors.red.shade700.withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(Radii.sm),
                           ),
                           child: Text(
                             '${s['success']}%',
@@ -446,7 +430,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(Radii.md),
             border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: Row(
@@ -461,7 +445,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                     : Colors.red.shade300,
                 size: 18,
               ),
-              const Gap(10),
+              const Gap(Spacing.m),
               Expanded(
                 child: Text(
                   _lastOutcome ?? '',
@@ -475,7 +459,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
             ],
           ),
         ),
-        const Gap(16),
+        const Gap(Spacing.md),
         if (_isHard && !isRound2)
           SizedBox(
             width: double.infinity,
@@ -489,7 +473,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 backgroundColor: Colors.orange.shade700,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
               ),
               child: const Text(
@@ -511,7 +495,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 backgroundColor: Colors.white.withValues(alpha: 0.1),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
               ),
               child: const Text(
@@ -618,7 +602,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    const Gap(16),
+                    const Gap(Spacing.md),
                     Text(
                       boss.name,
                       style: const TextStyle(
@@ -628,7 +612,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                         letterSpacing: 1,
                       ),
                     ).animate().fadeIn(delay: 200.ms),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       child: Text(
@@ -642,7 +626,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                       ),
                     ).animate().fadeIn(delay: 400.ms),
                     if (boss.introText.isNotEmpty) ...[
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32),
                         child: Text(
@@ -657,13 +641,13 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                         ),
                       ).animate().fadeIn(delay: 600.ms).slideY(begin: 0.05),
                     ],
-                    const Gap(24),
+                    const Gap(Spacing.xl),
                     _HitDiceBar(
                       hpLeft: hpLeft,
                       bossHp: boss.hp,
                       isDefeated: isDefeated,
                     ).animate().fadeIn(delay: 500.ms),
-                    const Gap(24),
+                    const Gap(Spacing.xl),
                     _MonsterStatBlock(
                       armorClass: boss.armor,
                       hpDisplay: '${boss.hp}',
@@ -675,7 +659,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                     if (!isDefeated &&
                         boss.phaseShiftText.isNotEmpty &&
                         hpLeft <= (boss.hp / 2).ceil()) ...[
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32),
                         child: Container(
@@ -683,7 +667,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: Colors.red.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(Radii.sm),
                             border: Border.all(
                                 color: Colors.red.withValues(alpha: 0.3)),
                           ),
@@ -700,7 +684,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                         ),
                       ).animate().fadeIn().slideY(begin: 0.1),
                     ],
-                    const Gap(24),
+                    const Gap(Spacing.xl),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
                       child: Column(
@@ -714,7 +698,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                           else
                             _buildPhaseResolve(),
                           if (!isDefeated) ...[
-                            const Gap(16),
+                            const Gap(Spacing.md),
                             Center(
                               child: SupTechAvatarWrapper(
                                 size: 48,
@@ -736,21 +720,21 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 Positioned.fill(
                   child: Container(
                     color: Colors.black.withValues(alpha: 0.4),
-                    child: const Center(
+                    child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             'VICTORY!',
                             style: TextStyle(
-                              color: Color(0xFFF59E0B),
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: 36,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 6,
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             'Awaiting your reward...',
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 14),
@@ -809,7 +793,7 @@ class _HitDiceBar extends StatelessWidget {
               letterSpacing: 2,
             ),
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           Row(
             children: [
               Icon(
@@ -817,7 +801,7 @@ class _HitDiceBar extends StatelessWidget {
                 color: isDefeated ? Colors.green : Colors.red.shade400,
                 size: 16,
               ),
-              const Gap(8),
+              const Gap(Spacing.sm),
               Text(
                 '$hpLeft / $bossHp',
                 style: const TextStyle(
@@ -828,7 +812,7 @@ class _HitDiceBar extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           Row(
             children: List.generate(segments, (i) {
               final isFilled = i < filledSegments;
@@ -840,7 +824,7 @@ class _HitDiceBar extends StatelessWidget {
                     color: isFilled
                         ? (isDefeated ? Colors.green : Colors.red.shade400)
                         : Colors.white.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(Radii.xs),
                     border: Border.all(
                       color: isFilled
                           ? (isDefeated
@@ -895,7 +879,7 @@ class _MonsterStatBlock extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
@@ -910,20 +894,20 @@ class _MonsterStatBlock extends StatelessWidget {
               letterSpacing: 2,
             ),
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 _StatChip(label: 'AC', value: '$armorClass'),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 _StatChip(label: 'HP', value: hpDisplay),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 _StatChip(label: 'CR', value: '$challengeRating'),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 _StatChip(
                     label: 'Tier', value: diffLabel, valueColor: diffColor),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 _StatChip(
                   label: 'Status',
                   value: isDefeated ? 'DEFEATED' : 'ACTIVE',
@@ -932,9 +916,9 @@ class _MonsterStatBlock extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           const Divider(color: Colors.white12, height: 1),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Text(
             'ABILITIES',
             style: TextStyle(
@@ -944,7 +928,7 @@ class _MonsterStatBlock extends StatelessWidget {
               letterSpacing: 2,
             ),
           ),
-          const Gap(8),
+          const Gap(Spacing.sm),
           ...abilities.map((a) => Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
@@ -952,7 +936,7 @@ class _MonsterStatBlock extends StatelessWidget {
                   children: [
                     Icon(Icons.circle,
                         size: 4, color: Colors.white.withValues(alpha: 0.3)),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1010,7 +994,7 @@ class _StatChip extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const Gap(2),
+        const Gap(Spacing.xxs),
         Text(
           value,
           style: TextStyle(

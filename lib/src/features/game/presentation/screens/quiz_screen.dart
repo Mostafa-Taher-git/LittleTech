@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -150,7 +151,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(Radii.sm),
                   ),
                   child: Text(
                     '$_correctCount correct',
@@ -163,7 +164,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               ],
             ),
-            const Gap(24),
+            const Gap(Spacing.xl),
             Row(
               children: List.generate(3, (i) {
                 final filled = i < _lives;
@@ -179,7 +180,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 );
               }),
             ),
-            const Gap(24),
+            const Gap(Spacing.xl),
             Text(
               q['question'] as String,
               style: TextStyle(
@@ -189,7 +190,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 height: 1.3,
               ),
             ),
-            const Gap(24),
+            const Gap(Spacing.xl),
             ..._shuffledOrder.asMap().entries.map((entry) {
               final shuffledPos = entry.key;
               final originalIndex = entry.value;
@@ -202,7 +203,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () => _answer(shuffledPos),
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -210,7 +211,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         color: isSelected
                             ? scheme.primary.withValues(alpha: 0.1)
                             : scheme.surface,
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(Radii.ml),
                         border: Border.all(
                           color: isSelected
                               ? scheme.primary
@@ -228,7 +229,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               color: isSelected
                                   ? scheme.primary
                                   : scheme.primary.withValues(alpha: 0.05),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(Radii.sm),
                             ),
                             child: Text(
                               String.fromCharCode(65 + shuffledPos),
@@ -241,7 +242,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                             ),
                           ),
-                          const Gap(14),
+                          const Gap(Spacing.ml),
                           Expanded(
                             child: Text(
                               option,
@@ -271,7 +272,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Colors.red.withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
                 ),
                 child: Row(
@@ -279,7 +280,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   children: [
                     Icon(Icons.lightbulb_outline,
                         color: Colors.orange.shade300, size: 18),
-                    const Gap(10),
+                    const Gap(Spacing.m),
                     Expanded(
                       child: Text(
                         (q['explanation'] as String?) ??
@@ -306,7 +307,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(Radii.ml),
                   ),
                 ),
                 child: Text(
@@ -347,7 +348,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(Radii.xxl),
             ),
             child: Column(
               children: [
@@ -356,7 +357,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: Colors.white,
                   size: 48,
                 ),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 Text(
                   '$_correctCount / ${_levelQuestions.length} Correct',
                   style: const TextStyle(
@@ -365,7 +366,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                const Gap(4),
+                const Gap(Spacing.xs),
                 Text(
                   passed ? 'Passed!' : 'Failed — continue anyway',
                   style: const TextStyle(
@@ -373,7 +374,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     fontSize: 14,
                   ),
                 ),
-                const Gap(8),
+                const Gap(Spacing.sm),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (i) {
@@ -391,7 +392,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ],
             ),
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
-          const Gap(24),
+          const Gap(Spacing.xl),
           ..._levelQuestions.asMap().entries.map((entry) {
             final i = entry.key;
             final q = entry.value;
@@ -407,7 +408,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 color: isCorrect
                     ? Colors.green.withValues(alpha: 0.05)
                     : Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(Radii.ml),
                 border: Border.all(
                   color: isCorrect
                       ? Colors.green.withValues(alpha: 0.3)
@@ -424,7 +425,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         color: isCorrect ? Colors.green : Colors.red,
                         size: 18,
                       ),
-                      const Gap(8),
+                      const Gap(Spacing.sm),
                       Expanded(
                         child: Text(
                           q['question'] as String,
@@ -437,7 +438,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                     ],
                   ),
-                  const Gap(8),
+                  const Gap(Spacing.sm),
                   Text(
                     'Your answer: ${userAnswer >= 0 ? options[userAnswer] : '—'}',
                     style: TextStyle(
@@ -459,7 +460,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             );
           }),
-          const Gap(24),
+          const Gap(Spacing.xl),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -474,7 +475,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 backgroundColor: scheme.secondary,
                 foregroundColor: scheme.onSecondary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Radii.lg),
                 ),
               ),
             ),

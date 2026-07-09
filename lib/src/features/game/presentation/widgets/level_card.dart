@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -43,7 +44,7 @@ class LevelCard extends StatelessWidget {
                   : isBossLevel
                       ? bossColor.withValues(alpha: 0.05)
                       : scheme.surface,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Radii.lg),
               border: Border.all(
                 color: isBossLevel && !isLocked
                     ? isCompleted
@@ -73,27 +74,27 @@ class LevelCard extends StatelessWidget {
             ),
             child: Material(
               color: Colors.transparent,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Radii.lg),
               child: InkWell(
                 onTap: isLocked ? null : onTap,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(Radii.lg),
                 child: Row(
                   children: [
                     if (isBossLevel) ...[
-                      const Gap(2),
+                      const Gap(Spacing.xxs),
                       _BossDoor(
                         visualType: bossVisualType,
                         isCompleted: isCompleted,
                         isLocked: isLocked,
                       ),
                     ] else ...[
-                      const Gap(4),
+                      const Gap(Spacing.xs),
                       _DungeonDoor(
                         isCompleted: isCompleted,
                         isLocked: isLocked,
                       ),
                     ],
-                    const Gap(12),
+                    const Gap(Spacing.ms),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +108,7 @@ class LevelCard extends StatelessWidget {
                               if (isCompleted && !isBossLevel)
                                 Icon(Icons.check_circle,
                                     size: 16, color: scheme.secondary),
-                              if (isCompleted) const Gap(6),
+                              if (isCompleted) const Gap(Spacing.s),
                               Flexible(
                                 child: Text(
                                   level.title,
@@ -127,14 +128,14 @@ class LevelCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Gap(4),
+                          const Gap(Spacing.xs),
                           Row(
                             children: [
                               Icon(Icons.arrow_right_alt,
                                   size: 14,
                                   color:
                                       scheme.onSurface.withValues(alpha: 0.3)),
-                              const Gap(2),
+                              const Gap(Spacing.xxs),
                               Flexible(
                                 child: Text(
                                   level.description,
@@ -155,10 +156,10 @@ class LevelCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     if (!isBossLevel) ...[
                       _DungeonTorch(isLit: !isLocked && !isCompleted),
-                      const Gap(4),
+                      const Gap(Spacing.xs),
                     ],
                     Container(
                       width: 28,
@@ -172,13 +173,13 @@ class LevelCard extends StatelessWidget {
                                   bossColor.withValues(alpha: 0.6)
                                 ],
                               )
-                            : const RadialGradient(
-                                colors: [Color(0xFFFFD700), Color(0xFFB8860B)],
+                            : RadialGradient(
+                                colors: [scheme.secondary, scheme.secondary.withValues(alpha: 0.7)],
                               ),
                         border: Border.all(
                           color: isBossLevel
                               ? bossColor.withValues(alpha: 0.7)
-                              : const Color(0xFFDAA520),
+                              : scheme.secondary.withValues(alpha: 0.7),
                           width: 1.5,
                         ),
                         boxShadow: [
@@ -197,11 +198,11 @@ class LevelCard extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                           color: isBossLevel
                               ? Colors.white
-                              : const Color(0xFF3E2723),
+                              : scheme.onSecondary,
                         ),
                       ),
                     ),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                   ],
                 ),
               ),
@@ -223,7 +224,7 @@ class LevelCard extends StatelessWidget {
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Radii.lg),
                   color: Colors.black.withValues(alpha: 0.08),
                 ),
                 child: Center(
@@ -334,7 +335,7 @@ class _DungeonDoor extends StatelessWidget {
             : isLocked
                 ? scheme.surface.withValues(alpha: 0.2)
                 : scheme.primary.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(Radii.sm),
         border: Border.all(
           color: doorColor.withValues(alpha: isLocked ? 0.2 : 0.4),
           width: 1.5,
@@ -376,7 +377,7 @@ class _BossDoor extends StatelessWidget {
             : isLocked
                 ? Colors.grey.withValues(alpha: 0.05)
                 : bossColor.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(Radii.sm),
         border: Border.all(
           color: isLocked
               ? Colors.grey.withValues(alpha: 0.2)

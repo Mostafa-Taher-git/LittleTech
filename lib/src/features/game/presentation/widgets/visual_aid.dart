@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/game/constants/game_data.dart';
 
@@ -48,7 +49,7 @@ class VisualAid extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: scheme.primary.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(color: scheme.outline.withValues(alpha: 0.15)),
       ),
       child: Row(
@@ -58,11 +59,11 @@ class VisualAid extends StatelessWidget {
             height: 44,
             decoration: BoxDecoration(
               color: scheme.secondary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(Radii.ms),
             ),
             child: Icon(_icon, color: scheme.secondary, size: 24),
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

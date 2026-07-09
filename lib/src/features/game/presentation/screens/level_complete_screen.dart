@@ -97,6 +97,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
   @override
   Widget build(BuildContext context) {
     final t = _controller.value;
+    final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -120,7 +121,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
               decoration: BoxDecoration(
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFF1A1A2E).withValues(alpha: 0.6),
+                    Theme.of(context).colorScheme.surface.withValues(alpha: 0.6),
                     Colors.black,
                   ],
                   radius: 1.2,
@@ -141,13 +142,13 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       child: Text(
                         'LEVEL COMPLETE',
                         style: TextStyle(
-                          color: const Color(0xFFF59E0B),
+                          color: scheme.secondary,
                           fontSize: 36,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 6,
                           shadows: [
                             Shadow(
-                              color: const Color(0xFFF59E0B)
+                              color: scheme.secondary
                                   .withValues(alpha: 0.4),
                               blurRadius: 20,
                             ),
@@ -156,7 +157,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       ),
                     ),
                   ),
-                  const Gap(8),
+                  const Gap(Spacing.sm),
                   Opacity(
                     opacity: (t - 0.3).clamp(0.0, 1.0),
                     child: Text(
@@ -168,7 +169,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       ),
                     ),
                   ),
-                  const Gap(40),
+                  const Gap(Spacing.xxxl2),
                   Opacity(
                     opacity: (t - 0.4).clamp(0.0, 1.0),
                     child: Container(
@@ -176,7 +177,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(Radii.xxl),
                         border: Border.all(
                             color: Colors.white.withValues(alpha: 0.1)),
                       ),
@@ -185,19 +186,19 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                           Text(
                             '+$_displayPoints',
                             style: TextStyle(
-                              color: const Color(0xFFF59E0B),
+                              color: scheme.secondary,
                               fontSize: 42,
                               fontWeight: FontWeight.w900,
                               shadows: [
                                 Shadow(
-                                  color: const Color(0xFFF59E0B)
+                                  color: scheme.secondary
                                       .withValues(alpha: 0.3),
                                   blurRadius: 10,
                                 ),
                               ],
                             ),
                           ),
-                          const Gap(4),
+                          const Gap(Spacing.xs),
                           Text(
                             'POINTS EARNED',
                             style: TextStyle(
@@ -228,7 +229,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                                   duration: 600.ms,
                                   curve: Curves.elasticOut,
                                 ),
-                            const Gap(8),
+                            const Gap(Spacing.sm),
                             Text(
                               widget.reward!.displayName,
                               style: TextStyle(
@@ -255,7 +256,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                                       children: [
                                         const Icon(Icons.emoji_events,
                                             color: Colors.amber, size: 20),
-                                        const Gap(8),
+                                        const Gap(Spacing.sm),
                                         Text(
                                           a.name,
                                           style: TextStyle(
@@ -295,10 +296,10 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                                 fontSize: 17, fontWeight: FontWeight.w700),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF59E0B),
-                            foregroundColor: Colors.black,
+                            backgroundColor: scheme.secondary,
+                            foregroundColor: scheme.onSecondary,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(Radii.lg),
                             ),
                           ),
                         ),
@@ -321,9 +322,10 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     final quiz = _prepData!['quiz'] as Map?;
     final ordering = _prepData!['ordering'] as Map?;
     final traps = _prepData!['traps'] as Map?;
+    final chipScheme = Theme.of(context).colorScheme;
     if (quiz != null) {
       chips.add(_prepChip(
-          'Quiz ${quiz['correct']}/${quiz['total']}', const Color(0xFF3B82F6)));
+          'Quiz ${quiz['correct']}/${quiz['total']}', chipScheme.primary));
     }
     if (ordering != null) {
       chips.add(_prepChip(
@@ -339,9 +341,9 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     // Bonus chips
     final cubitState = context.read<GameCubit>().state;
     if (cubitState.earnedNoSupTechBonus) {
-      chips.add(_prepChip('+25 No SupTech', const Color(0xFF22C55E)));
+      chips.add(_prepChip('+25 No SupTech', AppColors.success));
     }
-    chips.add(_prepChip('+25 First Attempt', const Color(0xFF22C55E)));
+    chips.add(_prepChip('+25 First Attempt', AppColors.success));
 
     if (chips.isEmpty) return [];
 
@@ -366,7 +368,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Radii.xxl),
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(

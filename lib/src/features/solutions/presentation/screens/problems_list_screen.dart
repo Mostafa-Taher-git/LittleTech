@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/services/rule_engine.dart';
@@ -26,7 +27,7 @@ class ProblemsListScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: scheme.surface,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Radii.lg),
               border: Border.all(color: scheme.outline),
             ),
             child: Row(
@@ -35,11 +36,11 @@ class ProblemsListScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: scheme.surface,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                   child: Icon(category.icon, color: scheme.onSurface, size: 28),
                 ),
-                const Gap(16),
+                const Gap(Spacing.md),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,7 +63,7 @@ class ProblemsListScreen extends StatelessWidget {
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: category.problems.length,
-              separatorBuilder: (_, __) => const Gap(10),
+              separatorBuilder: (_, __) => const Gap(Spacing.m),
               itemBuilder: (context, index) {
                 return ProblemTile(
                   title: category.problems[index],
@@ -83,7 +84,7 @@ class ProblemsListScreen extends StatelessWidget {
               },
             ),
           ),
-          const Gap(20),
+          const Gap(Spacing.lg),
         ],
       ),
     );

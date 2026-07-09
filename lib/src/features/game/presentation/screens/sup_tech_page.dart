@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,7 @@ class SupTechPage extends StatelessWidget {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.9),
-                borderRadius: BorderRadius.circular(999),
+                borderRadius: BorderRadius.circular(Radii.pill),
                 border: Border.all(color: const Color(0xFFE8ECF3)),
                 boxShadow: [
                   BoxShadow(
@@ -77,7 +78,7 @@ class SupTechPage extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(Radii.xl),
         border: Border.all(color: const Color(0xFFE9EDF4)),
         boxShadow: [
           BoxShadow(
@@ -272,7 +273,7 @@ class SupTechPage extends StatelessWidget {
                   color: isSel
                       ? const Color(0xFF4777EA).withValues(alpha: 0.12)
                       : Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(Radii.xxl),
                   border: Border.all(
                     color: isSel
                         ? const Color(0xFF4777EA)
@@ -309,7 +310,7 @@ class SupTechPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(Radii.ml),
           border: Border.all(
             color:
                 isSelected ? const Color(0xFF4777EA) : const Color(0xFFE9EDF4),
@@ -388,7 +389,7 @@ class SupTechPage extends StatelessWidget {
                   : unlocked
                       ? Colors.white
                       : Colors.white.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(Radii.md),
               border: Border.all(
                 color: isActive
                     ? s.color
@@ -429,7 +430,7 @@ class SupTechPage extends StatelessWidget {
                           horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE8C840).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(Radii.s),
                       ),
                       child: const Text(
                         'Buy',

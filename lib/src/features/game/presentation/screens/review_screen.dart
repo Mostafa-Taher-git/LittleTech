@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -58,7 +59,7 @@ class ReviewScreen extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(Radii.xxl),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +73,7 @@ class ReviewScreen extends StatelessWidget {
                         letterSpacing: 2,
                       ),
                     ),
-                    const Gap(4),
+                    const Gap(Spacing.xs),
                     Text(
                       level.title,
                       style: const TextStyle(
@@ -84,7 +85,7 @@ class ReviewScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(24),
+              const Gap(Spacing.xl),
               if (quiz != null || ordering != null || traps != null) ...[
                 Text(
                   'Preparation Results',
@@ -94,7 +95,7 @@ class ReviewScreen extends StatelessWidget {
                     color: scheme.onSurface,
                   ),
                 ),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 if (quiz != null)
                   _PrepResultCard(
                     title: 'Sage\'s Trial',
@@ -109,7 +110,7 @@ class ReviewScreen extends StatelessWidget {
                     scheme: scheme,
                   ),
                 if (ordering != null) ...[
-                  const Gap(8),
+                  const Gap(Spacing.sm),
                   _PrepResultCard(
                     title: 'Rite of Order',
                     icon: Icons.swap_vert,
@@ -122,7 +123,7 @@ class ReviewScreen extends StatelessWidget {
                   ),
                 ],
                 if (traps != null) ...[
-                  const Gap(8),
+                  const Gap(Spacing.sm),
                   _PrepResultCard(
                     title: 'Detect Deception',
                     icon: Icons.psychology_outlined,
@@ -134,7 +135,7 @@ class ReviewScreen extends StatelessWidget {
                     scheme: scheme,
                   ),
                 ],
-                const Gap(24),
+                const Gap(Spacing.xl),
               ],
               Text(
                 'Solution Steps',
@@ -144,7 +145,7 @@ class ReviewScreen extends StatelessWidget {
                   color: scheme.onSurface,
                 ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               ...level.steps.asMap().entries.map((entry) {
                 final i = entry.key;
                 final step = entry.value;
@@ -153,7 +154,7 @@ class ReviewScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border:
                         Border.all(color: Colors.green.withValues(alpha: 0.2)),
                   ),
@@ -161,7 +162,7 @@ class ReviewScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.check_circle,
                           color: Colors.green, size: 20),
-                      const Gap(12),
+                      const Gap(Spacing.ms),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +190,7 @@ class ReviewScreen extends StatelessWidget {
                   ),
                 );
               }),
-              const Gap(24),
+              const Gap(Spacing.xl),
               Text(
                 'Points Earned',
                 style: TextStyle(
@@ -198,12 +199,12 @@ class ReviewScreen extends StatelessWidget {
                   color: scheme.onSurface,
                 ),
               ),
-              const Gap(12),
+              const Gap(Spacing.ms),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: scheme.onSurface.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(Radii.ml),
                   border:
                       Border.all(color: scheme.outline.withValues(alpha: 0.2)),
                 ),
@@ -230,7 +231,7 @@ class ReviewScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(32),
+              const Gap(Spacing.xxl2),
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -248,12 +249,12 @@ class ReviewScreen extends StatelessWidget {
                     backgroundColor: scheme.secondary,
                     foregroundColor: scheme.onSecondary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(Radii.lg),
                     ),
                   ),
                 ),
               ),
-              const Gap(16),
+              const Gap(Spacing.md),
             ],
           );
         },
@@ -285,7 +286,7 @@ class _PrepResultCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(Radii.ml),
         border: Border.all(
           color: passed
               ? Colors.green.withValues(alpha: 0.3)
@@ -298,11 +299,11 @@ class _PrepResultCard extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(Radii.ms),
             ),
             child: Icon(icon, color: color, size: 20),
           ),
-          const Gap(12),
+          const Gap(Spacing.ms),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

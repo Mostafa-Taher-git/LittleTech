@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -103,7 +104,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(Radii.lg),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +114,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                             horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(Radii.sm),
                         ),
                         child: Text(widget.categoryName,
                             style: const TextStyle(
@@ -121,7 +122,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600)),
                       ),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       Text(
                         _solution!.problem,
                         style: const TextStyle(
@@ -133,12 +134,12 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                     ],
                   ),
                 ).animate().fadeIn(duration: 400.ms),
-                const Gap(24),
+                const Gap(Spacing.xl),
                 const Text(
                   'Solution Steps',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
-                const Gap(14),
+                const Gap(Spacing.ml),
                 ..._solution!.steps.asMap().entries.map((e) {
                   return SolutionStepCard(
                     stepNumber: e.key + 1,
@@ -148,12 +149,12 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                       .fadeIn()
                       .slideX(begin: 0.05);
                 }),
-                const Gap(28),
+                const Gap(Spacing.xxl),
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: scheme.surface,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(Radii.lg),
                     border: Border.all(color: scheme.outline),
                   ),
                   child: Column(
@@ -165,7 +166,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                             fontWeight: FontWeight.w600,
                             color: scheme.onSurface),
                       ),
-                      const Gap(16),
+                      const Gap(Spacing.md),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -197,11 +198,11 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
+                                    borderRadius: BorderRadius.circular(Radii.md)),
                               ),
                             ),
                           ),
-                          const Gap(12),
+                          const Gap(Spacing.ms),
                           Expanded(
                             child: OutlinedButton.icon(
                               onPressed: _isSolved
@@ -223,7 +224,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
+                                    borderRadius: BorderRadius.circular(Radii.md)),
                               ),
                             ),
                           ),
@@ -232,7 +233,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                const Gap(Spacing.xl),
               ],
             ),
     );

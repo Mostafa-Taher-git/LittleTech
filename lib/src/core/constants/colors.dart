@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+export 'design_tokens.dart';
+
 class AppColors {
   // Primary palette — Teal (darkened for WCAG AA contrast with white text)
   static const Color primary = Color(0xFF2D7A87);

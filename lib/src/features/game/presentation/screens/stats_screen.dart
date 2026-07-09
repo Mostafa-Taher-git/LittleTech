@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
@@ -59,7 +60,7 @@ class StatsScreen extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(Radii.xxl),
                     ),
                     child: Column(
                       children: [
@@ -70,7 +71,7 @@ class StatsScreen extends StatelessWidget {
                             skinId: state.progress.activeSkinId,
                           ),
                         ),
-                        const Gap(12),
+                        const Gap(Spacing.ms),
                         FramedUsername(
                           username: user?.username ?? 'Player',
                           fontSize: 24,
@@ -80,7 +81,7 @@ class StatsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Gap(20),
+                  const Gap(Spacing.lg),
                   Row(
                     children: [
                       _StatSquare(
@@ -88,13 +89,13 @@ class StatsScreen extends StatelessWidget {
                           label: 'Levels',
                           value: '${p.levelsCleared}/$totalLevels',
                           scheme: scheme),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                           icon: Icons.shield,
                           label: 'Bosses',
                           value: '${p.bossesDefeated}',
                           scheme: scheme),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                           icon: Icons.public,
                           label: 'Categories',
@@ -103,7 +104,7 @@ class StatsScreen extends StatelessWidget {
                           scheme: scheme),
                     ],
                   ),
-                  const Gap(10),
+                  const Gap(Spacing.m),
                   Row(
                     children: [
                       _StatSquare(
@@ -111,13 +112,13 @@ class StatsScreen extends StatelessWidget {
                           label: 'Points',
                           value: '${p.points}',
                           scheme: scheme),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                           icon: Icons.card_giftcard,
                           label: 'Rewards',
                           value: '$earnedRewards',
                           scheme: scheme),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                           icon: Icons.auto_awesome,
                           label: 'Skins',
@@ -126,7 +127,7 @@ class StatsScreen extends StatelessWidget {
                           scheme: scheme),
                     ],
                   ),
-                  const Gap(10),
+                  const Gap(Spacing.m),
                   Row(
                     children: [
                       _StatSquare(
@@ -137,7 +138,7 @@ class StatsScreen extends StatelessWidget {
                             : '—',
                         scheme: scheme,
                       ),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                         icon: Icons.local_fire_department,
                         label: 'Streak',
@@ -145,7 +146,7 @@ class StatsScreen extends StatelessWidget {
                             '${StreakTracker.calculateStreak(p.playDates)} days',
                         scheme: scheme,
                       ),
-                      const Gap(10),
+                      const Gap(Spacing.m),
                       _StatSquare(
                         icon: Icons.timer,
                         label: 'Play Time',
@@ -186,13 +187,13 @@ class _StatSquare extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: scheme.surface,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(Radii.ml),
           border: Border.all(color: scheme.outline.withValues(alpha: 0.2)),
         ),
         child: Column(
           children: [
             Icon(icon, color: scheme.secondary, size: 22),
-            const Gap(6),
+            const Gap(Spacing.s),
             Text(
               value,
               style: TextStyle(

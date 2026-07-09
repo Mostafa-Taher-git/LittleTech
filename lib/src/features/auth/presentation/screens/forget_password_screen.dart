@@ -26,6 +26,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: AppColors.darkGradient),
@@ -48,7 +49,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             color: Colors.white70),
                       ),
                     ),
-                    const Gap(20),
+                    const Gap(Spacing.lg),
                     const Text(
                       'Reset Password',
                       style: TextStyle(
@@ -56,13 +57,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           fontWeight: FontWeight.w800,
                           color: Colors.white),
                     ),
-                    const Gap(8),
+                    const Gap(Spacing.sm),
                     const Text(
                       'Enter your registered username to verify your account.',
                       style: TextStyle(
                           color: Colors.white54, fontSize: 14, height: 1.5),
                     ),
-                    const Gap(40),
+                    const Gap(Spacing.xxxl2),
 
                     TextFormField(
                       controller: _usernameCtrl,
@@ -77,33 +78,33 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.06),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(Radii.ml),
                             borderSide: BorderSide.none),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(Radii.ml),
                             borderSide: BorderSide.none),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(
-                              color: AppColors.accent, width: 1.5),
+                          borderRadius: BorderRadius.circular(Radii.ml),
+                          borderSide: BorderSide(
+                              color: scheme.secondary, width: 1.5),
                         ),
-                        errorStyle: const TextStyle(color: AppColors.error),
+                        errorStyle: TextStyle(color: scheme.error),
                       ),
                       validator: (v) => (v == null || v.isEmpty)
                           ? 'Enter your username'
                           : null,
                     ),
-                    const Gap(32),
+                    const Gap(Spacing.xxl2),
 
                     SizedBox(
                       width: double.infinity,
                       height: 56,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.accent,
-                          foregroundColor: AppColors.onAccent,
+                          backgroundColor: scheme.secondary,
+                          foregroundColor: scheme.onSecondary,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
+                              borderRadius: BorderRadius.circular(Radii.lg)),
                         ),
                         onPressed: _loading
                             ? null
@@ -127,17 +128,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                 }
                               },
                         child: _loading
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 22,
                                 height: 22,
                                 child: CircularProgressIndicator(
-                                    strokeWidth: 2, color: AppColors.onAccent))
+                                    strokeWidth: 2, color: scheme.onSecondary))
                             : const Text('Verify Account',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w700)),
                       ),
                     ),
-                    const Gap(20),
+                    const Gap(Spacing.lg),
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -69,7 +70,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 letterSpacing: 3,
               ),
             ).animate().fadeIn(duration: 400.ms),
-            const Gap(40),
+            const Gap(Spacing.xxxl2),
             AnimatedBuilder(
               animation: _spinAnimation,
               builder: (_, child) {
@@ -107,12 +108,12 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 ),
               ),
             ),
-            const Gap(24),
+            const Gap(Spacing.xl),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               decoration: BoxDecoration(
                 color: rarityColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(Radii.xxl),
                 border: Border.all(color: rarityColor.withValues(alpha: 0.3)),
               ),
               child: Text(
@@ -125,7 +126,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 ),
               ),
             ).animate().fadeIn(delay: 600.ms),
-            const Gap(16),
+            const Gap(Spacing.md),
             Text(
               reward.displayName,
               style: TextStyle(
@@ -134,7 +135,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 fontWeight: FontWeight.w700,
               ),
             ).animate().fadeIn(delay: 800.ms).slideY(begin: 0.2),
-            const Gap(40),
+            const Gap(Spacing.xxxl2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: SizedBox(
@@ -153,7 +154,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                     foregroundColor: Colors.white,
                     disabledBackgroundColor: Colors.grey.shade800,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(Radii.lg),
                     ),
                   ),
                   child: Text(

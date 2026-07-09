@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -124,7 +125,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.tertiary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(Radii.sm),
                   ),
                   child: Text(
                     'Trap ${_currentIndex + 1}/${_levelTraps.length}',
@@ -146,13 +147,13 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 ),
               ],
             ),
-            const Gap(32),
+            const Gap(Spacing.xxl2),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: scheme.primary.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(Radii.lg),
                 border:
                     Border.all(color: scheme.outline.withValues(alpha: 0.2)),
               ),
@@ -160,7 +161,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 children: [
                   Icon(Icons.psychology_outlined,
                       color: scheme.tertiary, size: 36),
-                  const Gap(16),
+                  const Gap(Spacing.md),
                   Text(
                     statement,
                     textAlign: TextAlign.center,
@@ -174,7 +175,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 ],
               ),
             ),
-            const Gap(32),
+            const Gap(Spacing.xxl2),
             if (!_isAnswered)
               Row(
                 children: [
@@ -187,7 +188,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                           backgroundColor: Colors.green.shade700,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(Radii.ml),
                           ),
                         ),
                         icon: const Icon(Icons.check, size: 24),
@@ -197,7 +198,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                       ),
                     ).animate().fadeIn(delay: 200.ms).slideX(begin: -0.1),
                   ),
-                  const Gap(16),
+                  const Gap(Spacing.md),
                   Expanded(
                     child: SizedBox(
                       height: 64,
@@ -207,7 +208,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                           backgroundColor: Colors.red.shade700,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(Radii.ml),
                           ),
                         ),
                         icon: const Icon(Icons.close, size: 24),
@@ -229,7 +230,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                     backgroundColor: scheme.secondary,
                     foregroundColor: scheme.onSecondary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(Radii.ml),
                     ),
                   ),
                   child: Text(
@@ -270,7 +271,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(Radii.xxl),
             ),
             child: Column(
               children: [
@@ -279,7 +280,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                   color: Colors.white,
                   size: 48,
                 ),
-                const Gap(12),
+                const Gap(Spacing.ms),
                 Text(
                   '$_correctCount / ${_levelTraps.length} Correct',
                   style: const TextStyle(
@@ -288,7 +289,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                const Gap(4),
+                const Gap(Spacing.xs),
                 Text(
                   _passed ? 'Passed!' : 'Failed — continue anyway',
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
@@ -296,7 +297,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
               ],
             ),
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
-          const Gap(24),
+          const Gap(Spacing.xl),
           ..._levelTraps.asMap().entries.map((entry) {
             final i = entry.key;
             final trap = entry.value;
@@ -311,7 +312,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 color: isCorrect
                     ? Colors.green.withValues(alpha: 0.05)
                     : Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(Radii.ml),
                 border: Border.all(
                   color: isCorrect
                       ? Colors.green.withValues(alpha: 0.3)
@@ -328,7 +329,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                         color: isCorrect ? Colors.green : Colors.red,
                         size: 18,
                       ),
-                      const Gap(8),
+                      const Gap(Spacing.sm),
                       Expanded(
                         child: Text(
                           trap['statement'] as String,
@@ -341,7 +342,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                       ),
                     ],
                   ),
-                  const Gap(6),
+                  const Gap(Spacing.s),
                   Text(
                     'You said: ${userAnswer ? "TRUE" : "FALSE"}',
                     style: TextStyle(
@@ -363,7 +364,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
               ),
             );
           }),
-          const Gap(24),
+          const Gap(Spacing.xl),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -378,7 +379,7 @@ class _TrapsScreenState extends State<TrapsScreen> {
                 backgroundColor: scheme.secondary,
                 foregroundColor: scheme.onSecondary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Radii.lg),
                 ),
               ),
             ),

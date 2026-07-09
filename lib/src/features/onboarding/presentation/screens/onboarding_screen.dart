@@ -84,7 +84,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 Icon(p.icon, size: 64, color: AppColors.accent),
                           ).animate().scale(
                               duration: 500.ms, curve: Curves.easeOutBack),
-                          const Gap(40),
+                          const Gap(Spacing.xxxl2),
                           Text(
                             p.title,
                             textAlign: TextAlign.center,
@@ -94,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               color: Colors.white,
                             ),
                           ),
-                          const Gap(16),
+                          const Gap(Spacing.md),
                         ],
                       ),
                     );
@@ -113,12 +113,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 8,
                     decoration: BoxDecoration(
                       color: _page == i ? AppColors.accent : Colors.white24,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(Radii.xs),
                     ),
                   ),
                 ),
               ),
-              const Gap(40),
+              const Gap(Spacing.xxxl2),
               // Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -130,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       backgroundColor: AppColors.accent,
                       foregroundColor: AppColors.onAccent,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
+                          borderRadius: BorderRadius.circular(Radii.lg)),
                     ),
                     onPressed: () async {
                       if (_page < _pages.length - 1) {
@@ -154,7 +154,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
               ),
-              const Gap(40),
+              const Gap(Spacing.xxxl2),
             ],
           ),
         ),

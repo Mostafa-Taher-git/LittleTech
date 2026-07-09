@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -37,13 +38,13 @@ class WorldCard extends StatelessWidget {
 
     return Material(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(Radii.xxl),
       child: InkWell(
         onTap: isLocked ? null : onTap,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Radii.xxl),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(Radii.xxl),
             border: Border.all(
               color: isLocked
                   ? scheme.outline.withValues(alpha: 0.15)
@@ -98,7 +99,7 @@ class WorldCard extends StatelessWidget {
                                           ? bossColor.withValues(alpha: 0.12)
                                           : scheme.secondary
                                               .withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(Radii.md),
                                 ),
                                 child: Icon(
                                   world.icon,
@@ -122,7 +123,7 @@ class WorldCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Gap(12),
+                          const Gap(Spacing.ms),
                           Text(
                             world.name,
                             style: TextStyle(
@@ -133,7 +134,7 @@ class WorldCard extends StatelessWidget {
                                   : scheme.onSurface,
                             ),
                           ),
-                          const Gap(4),
+                          const Gap(Spacing.xs),
                           Text(
                             world.description,
                             style: TextStyle(
@@ -145,9 +146,9 @@ class WorldCard extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const Gap(12),
+                          const Gap(Spacing.ms),
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(Radii.s),
                             child: LinearProgressIndicator(
                               value: progress,
                               backgroundColor:
@@ -162,7 +163,7 @@ class WorldCard extends StatelessWidget {
                               minHeight: 5,
                             ),
                           ),
-                          const Gap(4),
+                          const Gap(Spacing.xs),
                           Text(
                             '$completedLevels / $totalLevels',
                             style: TextStyle(
@@ -174,7 +175,7 @@ class WorldCard extends StatelessWidget {
                             ),
                           ),
                           if (totalBosses > 0) ...[
-                            const Gap(6),
+                            const Gap(Spacing.s),
                             Row(
                               children: [
                                 Icon(
@@ -184,7 +185,7 @@ class WorldCard extends StatelessWidget {
                                       ? Colors.grey.withValues(alpha: 0.3)
                                       : bossColor.withValues(alpha: 0.7),
                                 ),
-                                const Gap(4),
+                                const Gap(Spacing.xs),
                                 Text(
                                   '$bossesDefeated / $totalBosses bosses',
                                   style: TextStyle(

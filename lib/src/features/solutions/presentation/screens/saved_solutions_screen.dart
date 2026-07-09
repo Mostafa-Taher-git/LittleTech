@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
@@ -75,13 +76,13 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
               : ListView.separated(
                   padding: const EdgeInsets.all(20),
                   itemCount: _items.length,
-                  separatorBuilder: (_, __) => const Gap(10),
+                  separatorBuilder: (_, __) => const Gap(Spacing.m),
                   itemBuilder: (context, i) {
                     final item = _items[i];
                     return Container(
                       decoration: BoxDecoration(
                         color: scheme.surface,
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(Radii.ml),
                         border: Border.all(color: scheme.outline),
                       ),
                       child: ListTile(
@@ -91,7 +92,7 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: scheme.surface,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(Radii.ms),
                           ),
                           child: Icon(Icons.article_outlined,
                               color: scheme.onSurface, size: 20),
