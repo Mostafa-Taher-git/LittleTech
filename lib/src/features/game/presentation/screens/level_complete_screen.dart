@@ -33,7 +33,7 @@ class LevelCompleteScreen extends StatefulWidget {
 }
 
 class _LevelCompleteScreenState extends State<LevelCompleteScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _pulseController;
   late List<_Particle> _particles;
