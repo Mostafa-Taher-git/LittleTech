@@ -59,7 +59,7 @@ class VisualAid extends StatelessWidget {
             height: 44,
             decoration: BoxDecoration(
               color: scheme.secondary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(Radii.ms),
+              borderRadius: BorderRadius.circular(Radii.md),
             ),
             child: Icon(_icon, color: scheme.secondary, size: 24),
           ),

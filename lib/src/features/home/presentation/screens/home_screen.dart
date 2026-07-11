@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Icon(Icons.emoji_events,
                               color: scheme.secondary, size: 18),
-                          const Gap(Spacing.s),
+                          const Gap(Spacing.sm),
                           Text(
                             'Honors & Badges',
                             style: TextStyle(
@@ -111,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color:
                                           Colors.green.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(Radii.ms),
+                                      borderRadius: BorderRadius.circular(Radii.md),
                                       border: Border.all(
                                           color: Colors.green
                                               .withValues(alpha: 0.3)),
@@ -127,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                                     height: 36,
                                     decoration: BoxDecoration(
                                       color: b.color.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(Radii.ms),
+                                      borderRadius: BorderRadius.circular(Radii.md),
                                       border: Border.all(
                                           color:
                                               b.color.withValues(alpha: 0.3)),
@@ -198,7 +198,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const Gap(Spacing.xxl),
+              const Gap(Spacing.xl),
 
               // CTA buttons
               Row(
@@ -262,7 +262,7 @@ class _Header extends StatelessWidget {
                           fontSize: 16,
                           fontColor: scheme.onSurface,
                         ),
-                        const Gap(Spacing.xxs),
+                        const Gap(Spacing.xs),
                         Text(
                           'Ready to troubleshoot?',
                           style: TextStyle(
@@ -338,13 +338,13 @@ class _IconButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(Radii.ms),
+          borderRadius: BorderRadius.circular(Radii.md),
           child: Container(
             width: 40,
             height: 40,
             decoration: BoxDecoration(
               color: scheme.surface,
-              borderRadius: BorderRadius.circular(Radii.ms),
+              borderRadius: BorderRadius.circular(Radii.md),
               border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
             ),
             child: Icon(icon,
@@ -559,7 +559,7 @@ class _StatsCard extends StatelessWidget {
                 color: scheme.secondary,
                 size: 18,
               ),
-              const Gap(Spacing.s),
+              const Gap(Spacing.sm),
               Text(
                 'Problems Resolved',
                 style: TextStyle(
@@ -597,7 +597,7 @@ class _StatsCard extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(Radii.ms),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -661,11 +661,11 @@ class _QuickAction extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Icon(icon, color: color, size: 22),
               ),
-              const Gap(Spacing.ml),
+              const Gap(Spacing.md),
               Text(
                 label,
                 style: TextStyle(
@@ -703,12 +703,12 @@ class _CTAButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
             color: isPrimary ? scheme.secondary : scheme.primary,
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
             boxShadow: [
               if (isPrimary)
                 BoxShadow(

@@ -59,12 +59,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontWeight: FontWeight.w800,
                             color: Colors.white),
                       ),
-                      const Gap(Spacing.s),
+                      const Gap(Spacing.sm),
                       const Text(
                         'Join LittleTech and start solving problems',
                         style: TextStyle(color: Colors.white54, fontSize: 14),
                       ),
-                      const Gap(Spacing.xxl2),
+                      const Gap(Spacing.xl2),
 
                       // Avatar picker
                       const Text('Choose Your Avatar',
@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.white60,
                               fontSize: 12,
                               letterSpacing: 1)),
-                      const Gap(Spacing.m),
+                      const Gap(Spacing.ms),
                       Wrap(
                         spacing: 10,
                         runSpacing: 10,
@@ -116,13 +116,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide(
                                 color: scheme.secondary, width: 1.5),
                           ),
@@ -159,13 +159,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide(
                                 color: scheme.secondary, width: 1.5),
                           ),
@@ -192,13 +192,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide(
                                 color: scheme.secondary, width: 1.5),
                           ),
@@ -208,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ? 'Passwords do not match'
                             : null,
                       ),
-                      const Gap(Spacing.xxl2),
+                      const Gap(Spacing.xl2),
 
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (_, state) {

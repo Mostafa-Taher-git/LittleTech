@@ -91,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: scheme.onSurface.withValues(alpha: 0.6),
                   letterSpacing: 0.5)),
-          const Gap(Spacing.m),
+          const Gap(Spacing.ms),
           Builder(
             builder: (context) {
               final authState = context.watch<AuthCubit>().state;
@@ -133,7 +133,7 @@ class SettingsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: scheme.onSurface.withValues(alpha: 0.6),
                   letterSpacing: 0.5)),
-          const Gap(Spacing.m),
+          const Gap(Spacing.ms),
           _SettingsTile(
             icon: Icons.logout,
             label: 'Logout',
@@ -335,10 +335,10 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: scheme.surface,
-                borderRadius: BorderRadius.circular(Radii.ms),
+                borderRadius: BorderRadius.circular(Radii.md),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(Radii.s),
+                borderRadius: BorderRadius.circular(Radii.sm),
                 child: Image.asset(
                   'assets/icon/icon.png',
                   width: 20,
@@ -347,7 +347,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Gap(Spacing.m),
+            const Gap(Spacing.ms),
             const Text('LittleTech'),
           ],
         ),
@@ -416,15 +416,15 @@ class _SettingsTile extends StatelessWidget {
 
     return Material(
       color: scheme.surface,
-      borderRadius: BorderRadius.circular(Radii.ml),
+      borderRadius: BorderRadius.circular(Radii.md),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           decoration: BoxDecoration(
             border: Border.all(color: scheme.outline),
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
           ),
           child: Row(
             children: [
@@ -432,11 +432,11 @@ class _SettingsTile extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: scheme.surface,
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Icon(icon, color: effectiveIconColor, size: 20),
               ),
-              const Gap(Spacing.ml),
+              const Gap(Spacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

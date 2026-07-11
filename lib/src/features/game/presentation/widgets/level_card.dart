@@ -81,7 +81,7 @@ class LevelCard extends StatelessWidget {
                 child: Row(
                   children: [
                     if (isBossLevel) ...[
-                      const Gap(Spacing.xxs),
+                      const Gap(Spacing.xs),
                       _BossDoor(
                         visualType: bossVisualType,
                         isCompleted: isCompleted,
@@ -108,7 +108,7 @@ class LevelCard extends StatelessWidget {
                               if (isCompleted && !isBossLevel)
                                 Icon(Icons.check_circle,
                                     size: 16, color: scheme.secondary),
-                              if (isCompleted) const Gap(Spacing.s),
+                              if (isCompleted) const Gap(Spacing.sm),
                               Flexible(
                                 child: Text(
                                   level.title,
@@ -135,7 +135,7 @@ class LevelCard extends StatelessWidget {
                                   size: 14,
                                   color:
                                       scheme.onSurface.withValues(alpha: 0.3)),
-                              const Gap(Spacing.xxs),
+                              const Gap(Spacing.xs),
                               Flexible(
                                 child: Text(
                                   level.description,

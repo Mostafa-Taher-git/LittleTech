@@ -89,21 +89,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const Gap(Spacing.s),
+                      const Gap(Spacing.sm),
                       const Center(
                         child: Text(
                           'Sign in to continue troubleshooting',
                           style: TextStyle(color: Colors.white54, fontSize: 14),
                         ),
                       ),
-                      const Gap(Spacing.xxxl),
+                      const Gap(Spacing.xl2),
                       if (widget.showAccountPicker && _users.isNotEmpty) ...[
                         const Text('Quick Login',
                             style: TextStyle(
                                 color: Colors.white60,
                                 fontSize: 12,
                                 letterSpacing: 1)),
-                        const Gap(Spacing.m),
+                        const Gap(Spacing.ms),
                         SizedBox(
                           height: 80,
                           child: _usersLoaded
@@ -174,13 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide(
                                 color: scheme.secondary, width: 1.5),
                           ),
@@ -214,13 +214,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white.withValues(alpha: 0.06),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Radii.ml),
+                              borderRadius: BorderRadius.circular(Radii.md),
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide(
                                 color: scheme.secondary, width: 1.5),
                           ),

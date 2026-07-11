@@ -122,7 +122,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600)),
                       ),
-                      const Gap(Spacing.m),
+                      const Gap(Spacing.ms),
                       Text(
                         _solution!.problem,
                         style: const TextStyle(
@@ -139,7 +139,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                   'Solution Steps',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
-                const Gap(Spacing.ml),
+                const Gap(Spacing.md),
                 ..._solution!.steps.asMap().entries.map((e) {
                   return SolutionStepCard(
                     stepNumber: e.key + 1,
@@ -149,7 +149,7 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                       .fadeIn()
                       .slideX(begin: 0.05);
                 }),
-                const Gap(Spacing.xxl),
+                const Gap(Spacing.xl),
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(

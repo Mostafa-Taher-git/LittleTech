@@ -245,14 +245,14 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: _isAnswered ? null : () => _answer(i),
-                        borderRadius: BorderRadius.circular(Radii.ml),
+                        borderRadius: BorderRadius.circular(Radii.md),
                         child: AnimatedContainer(
                           duration: 300.ms,
                           width: double.infinity,
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: bgColor,
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             border: Border.all(color: borderColor, width: 1.5),
                           ),
                           child: Row(
@@ -286,7 +286,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                             ),
                                           ),
                               ),
-                              const Gap(Spacing.ml),
+                              const Gap(Spacing.md),
                               Expanded(
                                 child: Text(
                                   option,
@@ -347,7 +347,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                 ),
                 child: Text(
@@ -428,7 +428,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 color: isCorrect
                     ? Colors.green.withValues(alpha: 0.05)
                     : Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(Radii.ml),
+                borderRadius: BorderRadius.circular(Radii.md),
                 border: Border.all(
                   color: isCorrect
                       ? Colors.green.withValues(alpha: 0.3)

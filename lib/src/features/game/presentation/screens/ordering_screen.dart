@@ -151,7 +151,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
               onReorderItem: _moveItem,
               proxyDecorator: (child, _, __) => Material(
                 elevation: 4,
-                borderRadius: BorderRadius.circular(Radii.ml),
+                borderRadius: BorderRadius.circular(Radii.md),
                 shadowColor: scheme.secondary.withValues(alpha: 0.3),
                 child: child,
               ),
@@ -162,7 +162,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: scheme.surface,
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border: Border.all(
                       color: scheme.outline.withValues(alpha: 0.3),
                       width: 1.5,
@@ -207,7 +207,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   border: Border.all(color: Colors.red.shade200),
                 ),
                 child: Row(
@@ -240,7 +240,7 @@ class _OrderingScreenState extends State<OrderingScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                 ),
                 icon: Icon(

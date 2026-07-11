@@ -70,7 +70,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 letterSpacing: 3,
               ),
             ).animate().fadeIn(duration: 400.ms),
-            const Gap(Spacing.xxxl2),
+            const Gap(Spacing.xl3),
             AnimatedBuilder(
               animation: _spinAnimation,
               builder: (_, child) {
@@ -135,7 +135,7 @@ class _RewardSpinScreenState extends State<RewardSpinScreen>
                 fontWeight: FontWeight.w700,
               ),
             ).animate().fadeIn(delay: 800.ms).slideY(begin: 0.2),
-            const Gap(Spacing.xxxl2),
+            const Gap(Spacing.xl3),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: SizedBox(

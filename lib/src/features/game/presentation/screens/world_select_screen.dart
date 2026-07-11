@@ -35,7 +35,7 @@ class WorldSelectScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.monetization_on,
                         color: scheme.secondary, size: 16),
-                    const Gap(Spacing.xxs),
+                    const Gap(Spacing.xs),
                     Flexible(
                       child: Text(
                         '${state.totalPoints}',
@@ -47,7 +47,7 @@ class WorldSelectScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Gap(Spacing.s),
+                    const Gap(Spacing.sm),
                     SupTechAvatarWrapper(
                       size: 30,
                       child: SupTechAvatar(

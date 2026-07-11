@@ -4,41 +4,31 @@ import 'package:flutter/material.dart';
 ///
 /// Spacing, radius, shadows, and category colors extracted from the
 /// official design system. Use these instead of hardcoded values.
+
+/// Spacing scale — 8 tokens consolidating the 15 original values.
 class Spacing {
   Spacing._();
-  static const double xxs = 2;
   static const double xs = 4;
-  static const double s = 6;
   static const double sm = 8;
-  static const double m = 10;
   static const double ms = 12;
-  static const double ml = 14;
   static const double md = 16;
   static const double lg = 20;
   static const double xl = 24;
-  static const double xxl = 28;
-  static const double xxl2 = 32;
-  static const double xxxl = 36;
-  static const double xxxl2 = 40;
-  static const double xxxxl = 48;
-  static const double xxxxxl = 60;
+  static const double xl2 = 32;
+  static const double xl3 = 48;
 }
 
+/// Radius scale — V3 spec.
 class Radii {
   Radii._();
-  static const double xxs = 2;
-  static const double xs = 4;
-  static const double s = 6;
-  static const double sm = 8;
-  static const double ms = 10;
-  static const double md = 12;
-  static const double ml = 14;
-  static const double lg = 16;
-  static const double xl = 18;
-  static const double xxl = 20;
+  static const double sm = 10;
+  static const double md = 14;
+  static const double lg = 20;
+  static const double xxl = lg;  // Alias for compatibility
   static const double pill = 999;
 }
 
+/// Elevation shadows — V3 spec.
 class AppShadows {
   AppShadows._();
   static const List<BoxShadow> sm = [
@@ -52,27 +42,44 @@ class AppShadows {
   ];
 }
 
-/// 14 unique category colors — one per category, used for map nodes,
-/// chips, and boss encounters. Each color belongs to exactly one category.
+/// 14 unique category colors — everyday variants for light UI backgrounds.
+/// Boss encounters use the brighter variants via [CategoryColors.forBoss].
 class CategoryColors {
   CategoryColors._();
 
-  static const Color coreComponents = Color(0xFFE5484D);
-  static const Color ram = Color(0xFF17B2C4);
-  static const Color operatingSystem = Color(0xFF0FAE85);
-  static const Color audio = Color(0xFFF2994A);
-  static const Color peripherals = Color(0xFFE8B330);
-  static const Color software = Color(0xFF8B5CF6);
-  static const Color internet = Color(0xFF2E90D9);
-  static const Color storage = Color(0xFF9CA82C);
-  static const Color display = Color(0xFFD6449A);
-  static const Color mobile = Color(0xFF8BC53F);
-  static const Color gaming = Color(0xFFF0407A);
-  static const Color smartHome = Color(0xFF5B7FE0);
-  static const Color security = Color(0xFF43A047);
-  static const Color networking = Color(0xFFA64DC9);
+  // Everyday (light UI) colors — deepened for chips, map nodes, icons
+  static const Color coreComponents = Color(0xFF95232C);
+  static const Color ram = Color(0xFF238495);
+  static const Color operatingSystem = Color(0xFF23956B);
+  static const Color audio = Color(0xFF955823);
+  static const Color peripherals = Color(0xFF957E23);
+  static const Color software = Color(0xFF322395);
+  static const Color internet = Color(0xFF236395);
+  static const Color storage = Color(0xFF739523);
+  static const Color display = Color(0xFF95236B);
+  static const Color mobile = Color(0xFF239532);
+  static const Color gaming = Color(0xFF953A23);
+  static const Color smartHome = Color(0xFF233295);
+  static const Color security = Color(0xFF439523);
+  static const Color networking = Color(0xFF782395);
 
-  /// Returns the color for a given category id.
+  // Boss encounter (dark UI) colors — higher saturation/lightness
+  static const Color coreComponentsBoss = Color(0xFFDD2C3B);
+  static const Color ramBoss = Color(0xFF2CC2DD);
+  static const Color operatingSystemBoss = Color(0xFF2CDD9C);
+  static const Color audioBoss = Color(0xFFDD7F2C);
+  static const Color peripheralsBoss = Color(0xFFDDB92C);
+  static const Color softwareBoss = Color(0xFF442CDD);
+  static const Color internetBoss = Color(0xFF2C90DD);
+  static const Color storageBoss = Color(0xFFA8DD2C);
+  static const Color displayBoss = Color(0xFFDD2C9C);
+  static const Color mobileBoss = Color(0xFF2CDD44);
+  static const Color gamingBoss = Color(0xFFDD502C);
+  static const Color smartHomeBoss = Color(0xFF2C44DD);
+  static const Color securityBoss = Color(0xFF5EDD2C);
+  static const Color networkingBoss = Color(0xFFB12CDD);
+
+  /// Returns the everyday color for a given category id.
   static Color forId(String id) => switch (id) {
     'core_components' => coreComponents,
     'ram' => ram,
@@ -91,7 +98,7 @@ class CategoryColors {
     _ => const Color(0xFF8FC4C2),
   };
 
-  /// Returns the color for a boss visual type (1-14).
+  /// Returns the everyday color for a boss visual type (1-14).
   static Color forVisualType(int type) => switch (type) {
     1 => coreComponents,
     2 => ram,
@@ -107,6 +114,25 @@ class CategoryColors {
     12 => smartHome,
     13 => security,
     14 => networking,
+    _ => const Color(0xFF8FC4C2),
+  };
+
+  /// Returns the boss encounter color for a boss visual type (1-14).
+  static Color forBoss(int type) => switch (type) {
+    1 => coreComponentsBoss,
+    2 => ramBoss,
+    3 => operatingSystemBoss,
+    4 => audioBoss,
+    5 => peripheralsBoss,
+    6 => softwareBoss,
+    7 => internetBoss,
+    8 => storageBoss,
+    9 => displayBoss,
+    10 => mobileBoss,
+    11 => gamingBoss,
+    12 => smartHomeBoss,
+    13 => securityBoss,
+    14 => networkingBoss,
     _ => const Color(0xFF8FC4C2),
   };
 }

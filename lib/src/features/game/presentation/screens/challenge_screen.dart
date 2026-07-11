@@ -141,13 +141,13 @@ class _ChallengeCard extends StatelessWidget {
 
     return Material(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(Radii.xl),
+      borderRadius: BorderRadius.circular(Radii.lg),
       child: InkWell(
         onTap: completed ? null : onTap,
-        borderRadius: BorderRadius.circular(Radii.xl),
+        borderRadius: BorderRadius.circular(Radii.lg),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Radii.xl),
+            borderRadius: BorderRadius.circular(Radii.lg),
             gradient: LinearGradient(
               colors: [
                 completed
@@ -175,7 +175,7 @@ class _ChallengeCard extends StatelessWidget {
                   color: completed
                       ? scheme.outline.withValues(alpha: 0.1)
                       : color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(Radii.ml),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Icon(icon,
                     color: completed ? scheme.outline : color, size: 26),
@@ -203,7 +203,7 @@ class _ChallengeCard extends StatelessWidget {
                                 horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.green.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(Radii.s),
+                              borderRadius: BorderRadius.circular(Radii.sm),
                             ),
                             child: const Text(
                               'Completed',
@@ -220,7 +220,7 @@ class _ChallengeCard extends StatelessWidget {
                                 horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: Colors.amber.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(Radii.s),
+                              borderRadius: BorderRadius.circular(Radii.sm),
                             ),
                             child: Text(
                               '${pointsMultiplier}x pts',

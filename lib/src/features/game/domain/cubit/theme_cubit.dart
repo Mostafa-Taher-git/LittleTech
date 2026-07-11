@@ -90,7 +90,7 @@ class ThemeCubit extends Cubit<ThemeData> {
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.ml)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
@@ -104,15 +104,15 @@ class ThemeCubit extends Cubit<ThemeData> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Radii.ml),
+          borderRadius: BorderRadius.circular(Radii.md),
           borderSide: BorderSide(color: cfg.inputBorder),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Radii.ml),
+          borderRadius: BorderRadius.circular(Radii.md),
           borderSide: BorderSide(color: cfg.inputBorder),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Radii.ml),
+          borderRadius: BorderRadius.circular(Radii.md),
           borderSide: BorderSide(color: cfg.colorScheme.primary, width: 2),
         ),
       ),

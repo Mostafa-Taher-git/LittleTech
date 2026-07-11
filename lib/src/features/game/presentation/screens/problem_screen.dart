@@ -149,7 +149,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                     ),
                     const Gap(Spacing.sm),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(Radii.s),
+                      borderRadius: BorderRadius.circular(Radii.sm),
                       child: LinearProgressIndicator(
                         value: progress,
                         backgroundColor: scheme.outline.withValues(alpha: 0.2),
@@ -211,7 +211,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                     children: [
                       Icon(Icons.help_outline,
                           color: scheme.secondary, size: 20),
-                      const Gap(Spacing.m),
+                      const Gap(Spacing.ms),
                       Expanded(
                         child: Text(
                           'Did this fix it?',
@@ -313,7 +313,7 @@ class _ProblemScreenState extends State<ProblemScreen> {
                         backgroundColor: scheme.secondary,
                         foregroundColor: scheme.onSecondary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(Radii.ml),
+                          borderRadius: BorderRadius.circular(Radii.md),
                         ),
                       ),
                     ),

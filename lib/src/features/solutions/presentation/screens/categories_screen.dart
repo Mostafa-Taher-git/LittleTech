@@ -25,7 +25,7 @@ class CategoriesScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: scheme.surface,
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Text(
                   '${CategoryManager.all.length} categories',

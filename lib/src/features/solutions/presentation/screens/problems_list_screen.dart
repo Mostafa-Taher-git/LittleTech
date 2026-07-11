@@ -63,7 +63,7 @@ class ProblemsListScreen extends StatelessWidget {
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: category.problems.length,
-              separatorBuilder: (_, __) => const Gap(Spacing.m),
+              separatorBuilder: (_, __) => const Gap(Spacing.ms),
               itemBuilder: (context, index) {
                 return ProblemTile(
                   title: category.problems[index],

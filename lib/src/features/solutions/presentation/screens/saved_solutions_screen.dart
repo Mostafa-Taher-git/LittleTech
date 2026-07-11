@@ -76,13 +76,13 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
               : ListView.separated(
                   padding: const EdgeInsets.all(20),
                   itemCount: _items.length,
-                  separatorBuilder: (_, __) => const Gap(Spacing.m),
+                  separatorBuilder: (_, __) => const Gap(Spacing.ms),
                   itemBuilder: (context, i) {
                     final item = _items[i];
                     return Container(
                       decoration: BoxDecoration(
                         color: scheme.surface,
-                        borderRadius: BorderRadius.circular(Radii.ml),
+                        borderRadius: BorderRadius.circular(Radii.md),
                         border: Border.all(color: scheme.outline),
                       ),
                       child: ListTile(
@@ -92,7 +92,7 @@ class _SavedSolutionsScreenState extends State<SavedSolutionsScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: scheme.surface,
-                            borderRadius: BorderRadius.circular(Radii.ms),
+                            borderRadius: BorderRadius.circular(Radii.md),
                           ),
                           child: Icon(Icons.article_outlined,
                               color: scheme.onSurface, size: 20),

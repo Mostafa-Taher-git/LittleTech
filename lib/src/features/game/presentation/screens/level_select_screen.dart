@@ -132,7 +132,7 @@ class LevelSelectScreen extends StatelessWidget {
                   ],
                 );
               }),
-              const Gap(Spacing.xxl2),
+              const Gap(Spacing.xl2),
               _BossDungeonDoor(
                 boss: cat?.bosses.firstOrNull,
                 isUnlocked: allLevelsCompleted,
@@ -416,7 +416,7 @@ class _BossDungeonDoor extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const Gap(Spacing.xxs),
+                      const Gap(Spacing.xs),
                       Text(
                         '${boss?.hp ?? 5} HP  •  ${boss?.points ?? 500} pts',
                         style: TextStyle(

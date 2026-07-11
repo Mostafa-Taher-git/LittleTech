@@ -200,7 +200,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
             color: isCorrect
                 ? Colors.green.shade900.withValues(alpha: 0.3)
                 : Colors.red.shade900.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
             border: Border.all(
               color: isCorrect
                   ? Colors.green.shade400.withValues(alpha: 0.4)
@@ -244,7 +244,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
               letterSpacing: 2,
             ),
           ),
-          const Gap(Spacing.m),
+          const Gap(Spacing.ms),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(14),
@@ -360,13 +360,13 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () => _executeStrategy(s),
-                  borderRadius: BorderRadius.circular(Radii.ml),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(Radii.ml),
+                      borderRadius: BorderRadius.circular(Radii.md),
                       border: Border.all(
                           color: Colors.white.withValues(alpha: 0.1)),
                     ),
@@ -445,7 +445,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
                     : Colors.red.shade300,
                 size: 18,
               ),
-              const Gap(Spacing.m),
+              const Gap(Spacing.ms),
               Expanded(
                 child: Text(
                   _lastOutcome ?? '',
@@ -824,7 +824,7 @@ class _HitDiceBar extends StatelessWidget {
                     color: isFilled
                         ? (isDefeated ? Colors.green : Colors.red.shade400)
                         : Colors.white.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(Radii.xs),
+                    borderRadius: BorderRadius.circular(Radii.sm),
                     border: Border.all(
                       color: isFilled
                           ? (isDefeated
@@ -994,7 +994,7 @@ class _StatChip extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const Gap(Spacing.xxs),
+        const Gap(Spacing.xs),
         Text(
           value,
           style: TextStyle(

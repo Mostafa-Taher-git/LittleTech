@@ -22,7 +22,7 @@ class StepTile extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(
           color: isCompleted
               ? scheme.secondary.withValues(alpha: 0.3)

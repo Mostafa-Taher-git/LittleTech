@@ -13,7 +13,7 @@ void showErrorToast(BuildContext context, String text) {
       content: Row(
         children: [
           const Icon(Icons.error_outline, color: Colors.white),
-          const Gap(Spacing.m),
+          const Gap(Spacing.ms),
           Expanded(
               child: Text(text, style: const TextStyle(color: Colors.white))),
         ],
@@ -33,7 +33,7 @@ void showSuccessToast(BuildContext context, String text) {
       content: Row(
         children: [
           const Icon(Icons.check_circle_outline, color: Colors.white),
-          const Gap(Spacing.m),
+          const Gap(Spacing.ms),
           Expanded(
               child: Text(text, style: const TextStyle(color: Colors.white))),
         ],
@@ -115,15 +115,15 @@ class ProblemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: scheme.surface,
-      borderRadius: BorderRadius.circular(Radii.ml),
+      borderRadius: BorderRadius.circular(Radii.md),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           decoration: BoxDecoration(
             border: Border.all(color: scheme.outline),
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
           ),
           child: Row(
             children: [
@@ -131,12 +131,12 @@ class ProblemTile extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: scheme.surface,
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child: Icon(Icons.help_outline,
                     size: 18, color: scheme.onSurface.withValues(alpha: 0.6)),
               ),
-              const Gap(Spacing.ml),
+              const Gap(Spacing.md),
               Expanded(
                 child: Text(
                   title,
@@ -171,7 +171,7 @@ class SolutionStepCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(color: scheme.outline),
       ),
       child: Row(
@@ -183,7 +183,7 @@ class SolutionStepCard extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: scheme.primary,
-              borderRadius: BorderRadius.circular(Radii.ms),
+              borderRadius: BorderRadius.circular(Radii.md),
             ),
             child: Text(
               '$stepNumber',
@@ -193,7 +193,7 @@ class SolutionStepCard extends StatelessWidget {
                   fontSize: 14),
             ),
           ),
-          const Gap(Spacing.ml),
+          const Gap(Spacing.md),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 5),

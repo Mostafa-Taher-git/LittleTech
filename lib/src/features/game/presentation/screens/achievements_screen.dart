@@ -74,7 +74,7 @@ class AchievementsScreen extends StatelessWidget {
                             ? Colors.amber.withValues(alpha: 0.08)
                             : Colors.green.withValues(alpha: 0.05)
                         : scheme.surface,
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border: Border.all(
                       color: isDone
                           ? Colors.green.withValues(alpha: 0.3)
@@ -92,7 +92,7 @@ class AchievementsScreen extends StatelessWidget {
                               color: isDone
                                   ? Colors.green.withValues(alpha: 0.1)
                                   : scheme.primary.withValues(alpha: 0.05),
-                              borderRadius: BorderRadius.circular(Radii.ms),
+                              borderRadius: BorderRadius.circular(Radii.md),
                             ),
                             child: Icon(
                               a.icon,
@@ -145,7 +145,7 @@ class AchievementsScreen extends StatelessWidget {
                       if (!isDone) ...[
                         const Gap(Spacing.sm),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(Radii.xs),
+                          borderRadius: BorderRadius.circular(Radii.sm),
                           child: LinearProgressIndicator(
                             value: progressFraction,
                             minHeight: 4,
@@ -235,7 +235,7 @@ class AchievementsScreen extends StatelessWidget {
                     color: isEarned
                         ? badge.color.withValues(alpha: 0.08)
                         : scheme.surface,
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     border: Border.all(
                       color: isEarned
                           ? badge.color.withValues(alpha: 0.3)
@@ -251,7 +251,7 @@ class AchievementsScreen extends StatelessWidget {
                           color: isEarned
                               ? badge.color.withValues(alpha: 0.1)
                               : scheme.primary.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(Radii.ms),
+                          borderRadius: BorderRadius.circular(Radii.md),
                         ),
                         child: Icon(
                           badge.icon,

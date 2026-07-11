@@ -102,7 +102,7 @@ class AltSolutionBanner extends StatelessWidget {
                   foregroundColor: Colors.orange,
                   side: BorderSide(color: Colors.orange.withValues(alpha: 0.4)),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Radii.ms),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                 ),
                 icon: const Icon(Icons.replay, size: 18),

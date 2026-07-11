@@ -204,7 +204,7 @@ class SupTechDialog extends StatelessWidget {
                       height: 4,
                       decoration: BoxDecoration(
                         color: scheme.outline.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(Radii.xxs),
+                        borderRadius: BorderRadius.circular(Radii.sm),
                       ),
                     ),
                   ),
@@ -367,15 +367,15 @@ class _ActionButton extends StatelessWidget {
 
     return Material(
       color: color.withValues(alpha: 0.06 * alpha),
-      borderRadius: BorderRadius.circular(Radii.ml),
+      borderRadius: BorderRadius.circular(Radii.md),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: Border.all(color: color.withValues(alpha: 0.15 * alpha)),
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
           ),
           child: Row(
             children: [
@@ -383,12 +383,12 @@ class _ActionButton extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.1 * alpha),
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                 ),
                 child:
                     Icon(icon, color: color.withValues(alpha: alpha), size: 22),
               ),
-              const Gap(Spacing.ml),
+              const Gap(Spacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

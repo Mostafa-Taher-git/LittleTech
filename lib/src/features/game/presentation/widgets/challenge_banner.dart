@@ -109,7 +109,7 @@ class _ChallengeRow extends StatelessWidget {
                 ),
                 child: Icon(icon, color: iconColor, size: 20),
               ),
-              const Gap(Spacing.ml),
+              const Gap(Spacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

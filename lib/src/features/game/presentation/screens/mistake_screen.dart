@@ -126,7 +126,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
               child: Row(
                 children: [
                   Icon(Icons.search, color: scheme.tertiary, size: 20),
-                  const Gap(Spacing.m),
+                  const Gap(Spacing.ms),
                   Expanded(
                     child: Text(
                       'One of these troubleshooting steps is WRONG. Tap it to identify the mistake.',
@@ -172,14 +172,14 @@ class _MistakeScreenState extends State<MistakeScreen> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: _solved ? null : () => _selectStep(i),
-                        borderRadius: BorderRadius.circular(Radii.ml),
+                        borderRadius: BorderRadius.circular(Radii.md),
                         child: AnimatedContainer(
                           duration: 300.ms,
                           width: double.infinity,
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: bgColor,
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             border: Border.all(color: borderColor, width: 1.5),
                           ),
                           child: Row(
@@ -213,7 +213,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
                                             ),
                                           ),
                               ),
-                              const Gap(Spacing.ml),
+                              const Gap(Spacing.md),
                               Expanded(
                                 child: Text(
                                   text,
@@ -244,7 +244,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: Colors.red.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(Radii.ms),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
                 ),
                 child: Row(
@@ -315,7 +315,7 @@ class _MistakeScreenState extends State<MistakeScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                 ),
                 child: const Text(

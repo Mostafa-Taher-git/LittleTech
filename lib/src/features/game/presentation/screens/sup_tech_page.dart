@@ -78,7 +78,7 @@ class SupTechPage extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(Radii.xl),
+        borderRadius: BorderRadius.circular(Radii.lg),
         border: Border.all(color: const Color(0xFFE9EDF4)),
         boxShadow: [
           BoxShadow(
@@ -310,7 +310,7 @@ class SupTechPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(Radii.ml),
+          borderRadius: BorderRadius.circular(Radii.md),
           border: Border.all(
             color:
                 isSelected ? const Color(0xFF4777EA) : const Color(0xFFE9EDF4),
@@ -430,7 +430,7 @@ class SupTechPage extends StatelessWidget {
                           horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE8C840).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(Radii.s),
+                        borderRadius: BorderRadius.circular(Radii.sm),
                       ),
                       child: const Text(
                         'Buy',

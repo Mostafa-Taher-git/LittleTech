@@ -169,7 +169,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       ),
                     ),
                   ),
-                  const Gap(Spacing.xxxl2),
+                  const Gap(Spacing.xl3),
                   Opacity(
                     opacity: (t - 0.4).clamp(0.0, 1.0),
                     child: Container(

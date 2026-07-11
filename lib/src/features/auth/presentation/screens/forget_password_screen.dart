@@ -63,7 +63,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       style: TextStyle(
                           color: Colors.white54, fontSize: 14, height: 1.5),
                     ),
-                    const Gap(Spacing.xxxl2),
+                    const Gap(Spacing.xl3),
 
                     TextFormField(
                       controller: _usernameCtrl,
@@ -78,13 +78,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.06),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide.none),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Radii.ml),
+                            borderRadius: BorderRadius.circular(Radii.md),
                             borderSide: BorderSide.none),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Radii.ml),
+                          borderRadius: BorderRadius.circular(Radii.md),
                           borderSide: BorderSide(
                               color: scheme.secondary, width: 1.5),
                         ),
@@ -94,7 +94,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           ? 'Enter your username'
                           : null,
                     ),
-                    const Gap(Spacing.xxl2),
+                    const Gap(Spacing.xl2),
 
                     SizedBox(
                       width: double.infinity,

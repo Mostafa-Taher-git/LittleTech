@@ -203,7 +203,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () => _answer(shuffledPos),
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -211,7 +211,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         color: isSelected
                             ? scheme.primary.withValues(alpha: 0.1)
                             : scheme.surface,
-                        borderRadius: BorderRadius.circular(Radii.ml),
+                        borderRadius: BorderRadius.circular(Radii.md),
                         border: Border.all(
                           color: isSelected
                               ? scheme.primary
@@ -242,7 +242,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                             ),
                           ),
-                          const Gap(Spacing.ml),
+                          const Gap(Spacing.md),
                           Expanded(
                             child: Text(
                               option,
@@ -280,7 +280,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   children: [
                     Icon(Icons.lightbulb_outline,
                         color: Colors.orange.shade300, size: 18),
-                    const Gap(Spacing.m),
+                    const Gap(Spacing.ms),
                     Expanded(
                       child: Text(
                         (q['explanation'] as String?) ??
@@ -307,7 +307,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   disabledBackgroundColor:
                       scheme.outline.withValues(alpha: 0.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Radii.ml),
+                    borderRadius: BorderRadius.circular(Radii.md),
                   ),
                 ),
                 child: Text(
@@ -408,7 +408,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 color: isCorrect
                     ? Colors.green.withValues(alpha: 0.05)
                     : Colors.red.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(Radii.ml),
+                borderRadius: BorderRadius.circular(Radii.md),
                 border: Border.all(
                   color: isCorrect
                       ? Colors.green.withValues(alpha: 0.3)

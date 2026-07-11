@@ -204,7 +204,7 @@ class ReviewScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: scheme.onSurface.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(Radii.ml),
+                  borderRadius: BorderRadius.circular(Radii.md),
                   border:
                       Border.all(color: scheme.outline.withValues(alpha: 0.2)),
                 ),
@@ -231,7 +231,7 @@ class ReviewScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(Spacing.xxl2),
+              const Gap(Spacing.xl2),
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -286,7 +286,7 @@ class _PrepResultCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: scheme.surface,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         border: Border.all(
           color: passed
               ? Colors.green.withValues(alpha: 0.3)
@@ -299,7 +299,7 @@ class _PrepResultCard extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(Radii.ms),
+              borderRadius: BorderRadius.circular(Radii.md),
             ),
             child: Icon(icon, color: color, size: 20),
           ),

@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontSize: 14, color: Colors.white54, letterSpacing: 2),
               ),
             ),
-            const Gap(Spacing.xxxxxl),
+            const Gap(Spacing.xl3),
             const SizedBox(
               width: 28,
               height: 28,

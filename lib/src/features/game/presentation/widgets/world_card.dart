@@ -148,7 +148,7 @@ class WorldCard extends StatelessWidget {
                           ),
                           const Gap(Spacing.ms),
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(Radii.s),
+                            borderRadius: BorderRadius.circular(Radii.sm),
                             child: LinearProgressIndicator(
                               value: progress,
                               backgroundColor:
@@ -175,7 +175,7 @@ class WorldCard extends StatelessWidget {
                             ),
                           ),
                           if (totalBosses > 0) ...[
-                            const Gap(Spacing.s),
+                            const Gap(Spacing.sm),
                             Row(
                               children: [
                                 Icon(

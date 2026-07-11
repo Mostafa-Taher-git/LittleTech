@@ -56,8 +56,8 @@ class ProfileScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            scheme.primary,
-                            scheme.primary.withValues(alpha: 0.8),
+                            scheme.primary.withValues(alpha: 0.5),
+                            scheme.primary.withValues(alpha: 0.4),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -148,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                                       fontFamily: 'Montserrat',
                                     ),
                                   ),
-                                  const Gap(Spacing.s),
+                                  const Gap(Spacing.sm),
                                   Text(
                                     'SupTech page',
                                     style: TextStyle(
@@ -173,14 +173,14 @@ class ProfileScreen extends StatelessWidget {
                           value: '${progress.levelsCleared}',
                           scheme: scheme,
                         ),
-                        const Gap(Spacing.m),
+                        const Gap(Spacing.ms),
                         _StatCard(
                           icon: Icons.warning,
                           label: 'Bosses',
                           value: '${progress.bossesDefeated}',
                           scheme: scheme,
                         ),
-                        const Gap(Spacing.m),
+                        const Gap(Spacing.ms),
                         _StatCard(
                           icon: Icons.redeem,
                           label: 'Rewards',
@@ -201,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
                             scheme: scheme,
                           ),
                         ),
-                        const Gap(Spacing.m),
+                        const Gap(Spacing.ms),
                         Expanded(
                           child: _ProfileAction(
                             icon: Icons.bar_chart,
@@ -210,7 +210,7 @@ class ProfileScreen extends StatelessWidget {
                             scheme: scheme,
                           ),
                         ),
-                        const Gap(Spacing.m),
+                        const Gap(Spacing.ms),
                         Expanded(
                           child: _ProfileAction(
                             icon: Icons.wb_sunny,
@@ -347,11 +347,11 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 if (isActive) ...[
-                                  const Gap(Spacing.s),
+                                  const Gap(Spacing.sm),
                                   Icon(Icons.check_circle,
                                       color: frame.color, size: 16),
                                 ] else if (!unlocked) ...[
-                                  const Gap(Spacing.s),
+                                  const Gap(Spacing.sm),
                                   GestureDetector(
                                     onTap: () {
                                       final success = context
@@ -377,7 +377,7 @@ class ProfileScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: scheme.secondary
                                             .withValues(alpha: 0.2),
-                                        borderRadius: BorderRadius.circular(Radii.s),
+                                        borderRadius: BorderRadius.circular(Radii.sm),
                                       ),
                                       child: Text(
                                         'Buy',
@@ -464,7 +464,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 if (isActive) ...[
-                                  const Gap(Spacing.s),
+                                  const Gap(Spacing.sm),
                                   Icon(Icons.check_circle,
                                       color: iconReward.color, size: 16),
                                 ],
@@ -546,7 +546,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 if (isActive) ...[
-                                  const Gap(Spacing.s),
+                                  const Gap(Spacing.sm),
                                   Icon(Icons.check_circle,
                                       color: titleReward.color, size: 16),
                                 ],
@@ -592,7 +592,7 @@ class _StatCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: scheme.surface,
-          borderRadius: BorderRadius.circular(Radii.ml),
+          borderRadius: BorderRadius.circular(Radii.md),
           border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
         ),
         child: Column(
@@ -638,15 +638,15 @@ class _ProfileAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(Radii.ml),
+      borderRadius: BorderRadius.circular(Radii.md),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.ml),
+        borderRadius: BorderRadius.circular(Radii.md),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(
             color: scheme.surface,
-            borderRadius: BorderRadius.circular(Radii.ml),
+            borderRadius: BorderRadius.circular(Radii.md),
             border: Border.all(color: scheme.outline.withValues(alpha: 0.3)),
           ),
           child: Column(
@@ -757,7 +757,7 @@ class _ThemeChip extends StatelessWidget {
                   ? scheme.secondary
                   : scheme.onSurface.withValues(alpha: 0.5),
             ),
-            const Gap(Spacing.s),
+            const Gap(Spacing.sm),
             Text(
               label,
               style: TextStyle(
@@ -769,7 +769,7 @@ class _ThemeChip extends StatelessWidget {
               ),
             ),
             if (!unlocked) ...[
-              const Gap(Spacing.s),
+              const Gap(Spacing.sm),
               GestureDetector(
                 onTap: onUnlockTap,
                 child: Container(
@@ -777,7 +777,7 @@ class _ThemeChip extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: scheme.secondary.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(Radii.s),
+                    borderRadius: BorderRadius.circular(Radii.sm),
                   ),
                   child: Text(
                     'Buy',

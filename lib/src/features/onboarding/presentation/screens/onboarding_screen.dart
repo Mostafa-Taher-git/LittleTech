@@ -84,7 +84,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 Icon(p.icon, size: 64, color: AppColors.accent),
                           ).animate().scale(
                               duration: 500.ms, curve: Curves.easeOutBack),
-                          const Gap(Spacing.xxxl2),
+                          const Gap(Spacing.xl3),
                           Text(
                             p.title,
                             textAlign: TextAlign.center,
@@ -113,12 +113,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 8,
                     decoration: BoxDecoration(
                       color: _page == i ? AppColors.accent : Colors.white24,
-                      borderRadius: BorderRadius.circular(Radii.xs),
+                      borderRadius: BorderRadius.circular(Radii.sm),
                     ),
                   ),
                 ),
               ),
-              const Gap(Spacing.xxxl2),
+              const Gap(Spacing.xl3),
               // Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -154,7 +154,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
               ),
-              const Gap(Spacing.xxxl2),
+              const Gap(Spacing.xl3),
             ],
           ),
         ),
