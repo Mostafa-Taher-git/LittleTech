@@ -620,8 +620,9 @@ class GameCubit extends Cubit<GameState> {
 
   void addPoints(int amount) {
     final progress = state.progress;
-    _safePersist([() => _repository.addPoints(progress, amount)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(points: progress.points + amount);
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void saveQuizResult(String levelId, int correct, int total, int hearts) {
