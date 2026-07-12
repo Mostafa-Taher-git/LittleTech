@@ -10,6 +10,7 @@ import 'package:littletech/src/features/game/constants/game_constants.dart';
 import 'package:littletech/src/features/game/constants/skin_tiers.dart';
 import 'package:littletech/src/features/game/data/models/player_progress.dart';
 import 'package:littletech/src/features/game/data/repositories/game_repository.dart';
+import 'package:littletech/src/features/game/constants/challenges.dart';
 import 'package:littletech/src/features/game/constants/streak_tracker.dart';
 import 'package:littletech/src/core/constants/category_manager.dart';
 
@@ -376,7 +377,14 @@ class GameCubit extends Cubit<GameState> {
 
   void _completeLevel(PlayerProgress progress, int finalStepIndex) {
     final level = state.currentLevel!;
-    final basePoints = level.points * state.pointsMultiplier;
+    final streak = StreakTracker.calculateStreak(progress.playDates);
+    final isTodaysChallenge = ChallengeManager.getDailyChallenge(
+          streak: streak,
+          excludeIds: progress.completedLevelIds,
+        ).levelId ==
+        level.id;
+    final effectiveMultiplier = isTodaysChallenge ? state.pointsMultiplier : 1;
+    final basePoints = level.points * effectiveMultiplier;
 
     int bonusPoints = 0;
     final noSupTech = progress.supTechUsesThisLevel >= 1;
@@ -420,7 +428,7 @@ class GameCubit extends Cubit<GameState> {
       progress.playDates.add(today);
     }
     progress.lastActiveDate = now;
-    if (state.pointsMultiplier > 1) {
+    if (isTodaysChallenge) {
       progress.lastDailyQuestDate = now;
     }
 
@@ -462,8 +470,10 @@ class GameCubit extends Cubit<GameState> {
     final bossPoints = boss?.points ??
         state.currentWorld?.boss.points ??
         GameConstants.fallbackBossPoints;
+    final isWeeklyBoss = boss?.id.startsWith('weekly_') == true;
+    final effectiveMultiplier = isWeeklyBoss ? state.pointsMultiplier : 1;
 
-    progress.points += bossPoints * state.pointsMultiplier;
+    progress.points += bossPoints * effectiveMultiplier;
     progress.bossesDefeated++;
     progress.extraSupTechUses++;
     if (boss?.id != null && !progress.defeatedBossIds.contains(boss!.id)) {
@@ -477,7 +487,7 @@ class GameCubit extends Cubit<GameState> {
       progress.playDates.add(today);
     }
     progress.lastActiveDate = now;
-    if (boss?.id.startsWith('weekly_') == true) {
+    if (isWeeklyBoss) {
       progress.lastWeeklyBossDate = DateTime.now();
     }
 
