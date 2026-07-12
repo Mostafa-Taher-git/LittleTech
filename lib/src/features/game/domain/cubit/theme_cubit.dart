@@ -89,13 +89,14 @@ class ThemeCubit extends Cubit<ThemeData> {
           foregroundColor: cfg.buttonForeground,
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Radii.md)),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Radii.md)),
         contentTextStyle: GoogleFonts.inter(color: Colors.white, fontSize: 14),
       ),
       inputDecorationTheme: InputDecorationTheme(

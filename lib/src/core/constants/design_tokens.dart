@@ -24,7 +24,7 @@ class Radii {
   static const double sm = 10;
   static const double md = 14;
   static const double lg = 20;
-  static const double xxl = lg;  // Alias for compatibility
+  static const double xxl = lg; // Alias for compatibility
   static const double pill = 999;
 }
 
@@ -81,60 +81,60 @@ class CategoryColors {
 
   /// Returns the everyday color for a given category id.
   static Color forId(String id) => switch (id) {
-    'core_components' => coreComponents,
-    'ram' => ram,
-    'operating_system' => operatingSystem,
-    'audio' => audio,
-    'peripherals' => peripherals,
-    'software' => software,
-    'internet' => internet,
-    'storage' => storage,
-    'display' => display,
-    'mobile' => mobile,
-    'gaming' => gaming,
-    'smart_home' => smartHome,
-    'security' => security,
-    'networking' => networking,
-    _ => const Color(0xFF8FC4C2),
-  };
+        'core_components' => coreComponents,
+        'ram' => ram,
+        'operating_system' => operatingSystem,
+        'audio' => audio,
+        'peripherals' => peripherals,
+        'software' => software,
+        'internet' => internet,
+        'storage' => storage,
+        'display' => display,
+        'mobile' => mobile,
+        'gaming' => gaming,
+        'smart_home' => smartHome,
+        'security' => security,
+        'networking' => networking,
+        _ => const Color(0xFF8FC4C2),
+      };
 
   /// Returns the everyday color for a boss visual type (1-14).
   static Color forVisualType(int type) => switch (type) {
-    1 => coreComponents,
-    2 => ram,
-    3 => operatingSystem,
-    4 => audio,
-    5 => peripherals,
-    6 => software,
-    7 => internet,
-    8 => storage,
-    9 => display,
-    10 => mobile,
-    11 => gaming,
-    12 => smartHome,
-    13 => security,
-    14 => networking,
-    _ => const Color(0xFF8FC4C2),
-  };
+        1 => coreComponents,
+        2 => ram,
+        3 => operatingSystem,
+        4 => audio,
+        5 => peripherals,
+        6 => software,
+        7 => internet,
+        8 => storage,
+        9 => display,
+        10 => mobile,
+        11 => gaming,
+        12 => smartHome,
+        13 => security,
+        14 => networking,
+        _ => const Color(0xFF8FC4C2),
+      };
 
   /// Returns the boss encounter color for a boss visual type (1-14).
   static Color forBoss(int type) => switch (type) {
-    1 => coreComponentsBoss,
-    2 => ramBoss,
-    3 => operatingSystemBoss,
-    4 => audioBoss,
-    5 => peripheralsBoss,
-    6 => softwareBoss,
-    7 => internetBoss,
-    8 => storageBoss,
-    9 => displayBoss,
-    10 => mobileBoss,
-    11 => gamingBoss,
-    12 => smartHomeBoss,
-    13 => securityBoss,
-    14 => networkingBoss,
-    _ => const Color(0xFF8FC4C2),
-  };
+        1 => coreComponentsBoss,
+        2 => ramBoss,
+        3 => operatingSystemBoss,
+        4 => audioBoss,
+        5 => peripheralsBoss,
+        6 => softwareBoss,
+        7 => internetBoss,
+        8 => storageBoss,
+        9 => displayBoss,
+        10 => mobileBoss,
+        11 => gamingBoss,
+        12 => smartHomeBoss,
+        13 => securityBoss,
+        14 => networkingBoss,
+        _ => const Color(0xFF8FC4C2),
+      };
 }
 
 /// Rarity colors matching the reward pool tiers.

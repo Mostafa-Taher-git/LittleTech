@@ -232,9 +232,11 @@ class _FramePainter extends CustomPainter {
     canvas.drawCircle(const Offset(0, Radii.md), dotRadius, dotPaint);
     canvas.drawCircle(Offset(size.width, Radii.md), dotRadius, dotPaint);
     canvas.drawCircle(Offset(0, size.height - Radii.md), dotRadius, dotPaint);
-    canvas.drawCircle(Offset(size.width, size.height - Radii.md), dotRadius, dotPaint);
+    canvas.drawCircle(
+        Offset(size.width, size.height - Radii.md), dotRadius, dotPaint);
     canvas.drawCircle(Offset(Radii.md, size.height), dotRadius, dotPaint);
-    canvas.drawCircle(Offset(size.width - Radii.md, size.height), dotRadius, dotPaint);
+    canvas.drawCircle(
+        Offset(size.width - Radii.md, size.height), dotRadius, dotPaint);
   }
 
   void _paintTech(Canvas canvas, Size size) {
@@ -260,20 +262,32 @@ class _FramePainter extends CustomPainter {
     const offset = 4.0;
 
     // Top-left
-    canvas.drawLine(const Offset(offset, offset + bracketSize), const Offset(offset, offset), bracketPaint);
-    canvas.drawLine(const Offset(offset, offset), const Offset(offset + bracketSize, offset), bracketPaint);
+    canvas.drawLine(const Offset(offset, offset + bracketSize),
+        const Offset(offset, offset), bracketPaint);
+    canvas.drawLine(const Offset(offset, offset),
+        const Offset(offset + bracketSize, offset), bracketPaint);
 
     // Top-right
-    canvas.drawLine(Offset(size.width - offset - bracketSize, offset), Offset(size.width - offset, offset), bracketPaint);
-    canvas.drawLine(Offset(size.width - offset, offset), Offset(size.width - offset, offset + bracketSize), bracketPaint);
+    canvas.drawLine(Offset(size.width - offset - bracketSize, offset),
+        Offset(size.width - offset, offset), bracketPaint);
+    canvas.drawLine(Offset(size.width - offset, offset),
+        Offset(size.width - offset, offset + bracketSize), bracketPaint);
 
     // Bottom-left
-    canvas.drawLine(Offset(offset, size.height - offset - bracketSize), Offset(offset, size.height - offset), bracketPaint);
-    canvas.drawLine(Offset(offset, size.height - offset), Offset(offset + bracketSize, size.height - offset), bracketPaint);
+    canvas.drawLine(Offset(offset, size.height - offset - bracketSize),
+        Offset(offset, size.height - offset), bracketPaint);
+    canvas.drawLine(Offset(offset, size.height - offset),
+        Offset(offset + bracketSize, size.height - offset), bracketPaint);
 
     // Bottom-right
-    canvas.drawLine(Offset(size.width - offset - bracketSize, size.height - offset), Offset(size.width - offset, size.height - offset), bracketPaint);
-    canvas.drawLine(Offset(size.width - offset, size.height - offset - bracketSize), Offset(size.width - offset, size.height - offset), bracketPaint);
+    canvas.drawLine(
+        Offset(size.width - offset - bracketSize, size.height - offset),
+        Offset(size.width - offset, size.height - offset),
+        bracketPaint);
+    canvas.drawLine(
+        Offset(size.width - offset, size.height - offset - bracketSize),
+        Offset(size.width - offset, size.height - offset),
+        bracketPaint);
   }
 
   void _paintCircuit(Canvas canvas, Size size) {
@@ -314,7 +328,8 @@ class _FramePainter extends CustomPainter {
 
     // Vias (dots at junctions)
     final viaPaint = Paint()..color = color;
-    canvas.drawCircle(Offset(size.width * 0.15, size.height * 0.3), 3, viaPaint);
+    canvas.drawCircle(
+        Offset(size.width * 0.15, size.height * 0.3), 3, viaPaint);
     canvas.drawCircle(Offset(size.width * 0.3, size.height * 0.5), 3, viaPaint);
     canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.7), 3, viaPaint);
 
@@ -498,7 +513,8 @@ class _FramePainter extends CustomPainter {
     canvas.drawRect(const Rect.fromLTWH(4, 4, 4, 4), markerPaint);
     canvas.drawRect(Rect.fromLTWH(size.width - 8, 4, 4, 4), markerPaint);
     canvas.drawRect(Rect.fromLTWH(4, size.height - 8, 4, 4), markerPaint);
-    canvas.drawRect(Rect.fromLTWH(size.width - 8, size.height - 8, 4, 4), markerPaint);
+    canvas.drawRect(
+        Rect.fromLTWH(size.width - 8, size.height - 8, 4, 4), markerPaint);
   }
 
   void _paintLegendary(Canvas canvas, Size size) {

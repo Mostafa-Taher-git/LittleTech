@@ -333,7 +333,9 @@ class _SkinPainter extends CustomPainter {
 
   void _drawPoseOverlay(Canvas canvas, SkinDefinition skin, double s,
       SupTechPose? pose, double eyeY, double eyeSpacing) {
-    if (pose == null || pose == SupTechPose.none || pose == SupTechPose.neutral) {
+    if (pose == null ||
+        pose == SupTechPose.none ||
+        pose == SupTechPose.neutral) {
       return;
     }
     drawSupTechPoseOverlay(canvas, skin, s, pose, eyeY, eyeSpacing);

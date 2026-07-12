@@ -4,7 +4,6 @@ import 'package:isar/isar.dart';
 import 'package:littletech/src/features/auth/data/services/auth_service.dart';
 import 'package:littletech/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:littletech/src/features/auth/presentation/screens/login_screen.dart';
-import 'package:littletech/src/features/home/presentation/bloc/counter_cubit.dart';
 import 'package:littletech/src/features/home/presentation/screens/home_screen.dart';
 import 'package:littletech/src/features/splash/presentation/screens/splash_screen.dart';
 import 'package:littletech/src/features/game/data/repositories/game_repository.dart';
@@ -27,7 +26,6 @@ class _LittleTechAppState extends State<LittleTechApp> {
 
   late final GameRepository _gameRepo;
   late final GameCubit _gameCubit;
-  late final CounterCubit _counterCubit;
   late final SupTechCustomizationCubit _customizationCubit;
   late final ThemeCubit _themeCubit;
   late final AuthCubit _authCubit;
@@ -37,7 +35,6 @@ class _LittleTechAppState extends State<LittleTechApp> {
     super.initState();
     _gameRepo = GameRepository(widget.isar);
     _gameCubit = GameCubit(_gameRepo, 0);
-    _counterCubit = CounterCubit();
     _customizationCubit = SupTechCustomizationCubit();
     _themeCubit = ThemeCubit();
     _authCubit = AuthCubit();
@@ -77,7 +74,6 @@ class _LittleTechAppState extends State<LittleTechApp> {
       if (!mounted || seq != _authChangeSeq) return;
 
       await _gameCubit.switchUser(newUserId);
-      await _counterCubit.reload();
       await _customizationCubit.reload();
 
       if (!mounted || seq != _authChangeSeq) return;
@@ -101,11 +97,19 @@ class _LittleTechAppState extends State<LittleTechApp> {
   }
 
   @override
+  void dispose() {
+    _gameCubit.close();
+    _customizationCubit.close();
+    _themeCubit.close();
+    _authCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: _authCubit),
-        BlocProvider.value(value: _counterCubit),
         BlocProvider.value(value: _themeCubit),
         BlocProvider.value(value: _customizationCubit),
         BlocProvider.value(value: _gameCubit),

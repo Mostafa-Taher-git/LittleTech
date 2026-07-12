@@ -9,7 +9,8 @@ void showErrorToast(BuildContext context, String text) {
       backgroundColor: colorScheme.error,
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.all(12),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
       content: Row(
         children: [
           const Icon(Icons.error_outline, color: Colors.white),
@@ -29,7 +30,8 @@ void showSuccessToast(BuildContext context, String text) {
       backgroundColor: colorScheme.secondary,
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.all(12),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.md)),
       content: Row(
         children: [
           const Icon(Icons.check_circle_outline, color: Colors.white),

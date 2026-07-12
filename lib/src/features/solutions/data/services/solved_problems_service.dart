@@ -32,6 +32,11 @@ class SolvedProblemsService {
     await prefs.setStringList(key, solved.toList());
   }
 
+  static Future<int> count() async {
+    final solved = await _loadAll();
+    return solved.length;
+  }
+
   static Future<void> unmarkSolved(String problemName) async {
     final uid = await _userId();
     if (uid == null) return;

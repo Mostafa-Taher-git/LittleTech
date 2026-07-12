@@ -110,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? ListView.separated(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: _users.length,
-                                  separatorBuilder: (_, __) => const Gap(Spacing.ms),
+                                  separatorBuilder: (_, __) =>
+                                      const Gap(Spacing.ms),
                                   itemBuilder: (_, i) {
                                     final u = _users[i];
                                     final selected =
@@ -181,8 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(Radii.md),
-                            borderSide: BorderSide(
-                                color: scheme.secondary, width: 1.5),
+                            borderSide:
+                                BorderSide(color: scheme.secondary, width: 1.5),
                           ),
                         ),
                         validator: (v) =>
@@ -221,8 +222,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(Radii.md),
-                            borderSide: BorderSide(
-                                color: scheme.secondary, width: 1.5),
+                            borderSide:
+                                BorderSide(color: scheme.secondary, width: 1.5),
                           ),
                         ),
                         validator: (v) =>
@@ -250,7 +251,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 backgroundColor: scheme.secondary,
                                 foregroundColor: scheme.onSecondary,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(Radii.lg)),
+                                    borderRadius:
+                                        BorderRadius.circular(Radii.lg)),
                               ),
                               onPressed: state is AuthLoading
                                   ? null

@@ -174,7 +174,10 @@ class LevelCard extends StatelessWidget {
                                 ],
                               )
                             : RadialGradient(
-                                colors: [scheme.secondary, scheme.secondary.withValues(alpha: 0.7)],
+                                colors: [
+                                  scheme.secondary,
+                                  scheme.secondary.withValues(alpha: 0.7)
+                                ],
                               ),
                         border: Border.all(
                           color: isBossLevel
@@ -196,9 +199,8 @@ class LevelCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w800,
-                          color: isBossLevel
-                              ? Colors.white
-                              : scheme.onSecondary,
+                          color:
+                              isBossLevel ? Colors.white : scheme.onSecondary,
                         ),
                       ),
                     ),

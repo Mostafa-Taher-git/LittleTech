@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:littletech/src/core/constants/design_tokens.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:littletech/src/core/services/rule_engine.dart';
 import 'package:littletech/src/core/widgets/app_widgets.dart';
-import 'package:littletech/src/features/home/presentation/bloc/counter_cubit.dart';
 import 'package:littletech/src/features/solutions/data/models/problem_solution_model.dart';
 import 'package:littletech/src/features/solutions/data/models/saved_solution_model.dart';
 import 'package:littletech/src/features/solutions/data/services/saved_solutions_service.dart';
@@ -179,7 +177,6 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                       await SolvedProblemsService.markSolved(
                                           widget.problemName);
                                       if (!context.mounted) return;
-                                      context.read<CounterCubit>().increment();
                                       showSuccessToast(
                                           context, 'Great! Problem solved.');
                                     },
@@ -198,7 +195,8 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(Radii.md)),
+                                    borderRadius:
+                                        BorderRadius.circular(Radii.md)),
                               ),
                             ),
                           ),
@@ -211,7 +209,6 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                       await SolvedProblemsService.unmarkSolved(
                                           widget.problemName);
                                       if (!context.mounted) return;
-                                      context.read<CounterCubit>().decrement();
                                       showSuccessToast(context,
                                           'Problem marked as unsolved.');
                                     }
@@ -224,7 +221,8 @@ class _SolutionDetailScreenState extends State<SolutionDetailScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(Radii.md)),
+                                    borderRadius:
+                                        BorderRadius.circular(Radii.md)),
                               ),
                             ),
                           ),

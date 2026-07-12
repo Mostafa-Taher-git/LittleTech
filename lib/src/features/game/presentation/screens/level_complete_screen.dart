@@ -78,10 +78,22 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
   int get _visualTypeForWorld {
     final bosses = widget.world.bosses;
     if (bosses.isNotEmpty) return bosses.first.visualType;
-    final worldIndex = ['core_components', 'ram', 'operating_system', 'audio',
-      'peripherals', 'software', 'internet', 'storage', 'display',
-      'mobile', 'gaming', 'smart_home', 'security', 'networking']
-        .indexOf(widget.world.id);
+    final worldIndex = [
+      'core_components',
+      'ram',
+      'operating_system',
+      'audio',
+      'peripherals',
+      'software',
+      'internet',
+      'storage',
+      'display',
+      'mobile',
+      'gaming',
+      'smart_home',
+      'security',
+      'networking'
+    ].indexOf(widget.world.id);
     return worldIndex >= 0 ? worldIndex + 1 : 1;
   }
 
@@ -160,11 +172,13 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
         break;
       }
     }
-    final nextRank = currentRank < rankThresholds.length - 1 ? currentRank + 1 : currentRank;
+    final nextRank =
+        currentRank < rankThresholds.length - 1 ? currentRank + 1 : currentRank;
     final prevThreshold = rankThresholds[currentRank];
     final nextThreshold = rankThresholds[nextRank];
     final xpProgress = nextThreshold > prevThreshold
-        ? ((currentPoints - prevThreshold) / (nextThreshold - prevThreshold)).clamp(0.0, 1.0)
+        ? ((currentPoints - prevThreshold) / (nextThreshold - prevThreshold))
+            .clamp(0.0, 1.0)
         : 1.0;
 
     return Scaffold(
@@ -210,7 +224,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                       opacity: (t - 0.15).clamp(0.0, 1.0),
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 32),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
@@ -250,10 +265,10 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                           ],
                         ),
                       ).animate().scale(
-                        begin: const Offset(0.8, 0.8),
-                        duration: 500.ms,
-                        curve: Curves.elasticOut,
-                      ),
+                            begin: const Offset(0.8, 0.8),
+                            duration: 500.ms,
+                            curve: Curves.elasticOut,
+                          ),
                     ),
 
                   if (_isBossLevel) const Gap(Spacing.md),
@@ -308,19 +323,22 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                             isFilled ? Icons.star : Icons.star_border,
                             color: isFilled ? Colors.amber : Colors.white24,
                             size: 36,
-                            shadows: isFilled ? [
-                              Shadow(
-                                color: Colors.amber.withValues(alpha: 0.5),
-                                blurRadius: 10,
-                              ),
-                            ] : null,
+                            shadows: isFilled
+                                ? [
+                                    Shadow(
+                                      color:
+                                          Colors.amber.withValues(alpha: 0.5),
+                                      blurRadius: 10,
+                                    ),
+                                  ]
+                                : null,
                           ),
                         );
                       }).animate().scale(
-                        begin: const Offset(0, 0),
-                        duration: 400.ms,
-                        curve: Curves.elasticOut,
-                      ),
+                            begin: const Offset(0, 0),
+                            duration: 400.ms,
+                            curve: Curves.elasticOut,
+                          ),
                     ),
                   ),
 
@@ -394,7 +412,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                   // Stats Card
                   Opacity(
                     opacity: (t - 0.45).clamp(0.0, 1.0),
-                    child: _buildStatsCard(context.read<GameCubit>().state.progress, scheme),
+                    child: _buildStatsCard(
+                        context.read<GameCubit>().state.progress, scheme),
                   ),
 
                   const Gap(Spacing.lg),
@@ -406,7 +425,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                   if (currentRank < nextRank)
                     Opacity(
                       opacity: (t - 0.6).clamp(0.0, 1.0),
-                      child: _buildRankUpBanner(rankNames, currentRank, nextRank, scheme),
+                      child: _buildRankUpBanner(
+                          rankNames, currentRank, nextRank, scheme),
                     ),
 
                   // Reward
@@ -453,7 +473,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
                   // XP Progress Bar
                   Opacity(
                     opacity: (t - 0.7).clamp(0.0, 1.0),
-                    child: _buildXPBar(xpProgress, rankNames, currentRank, nextRank, scheme),
+                    child: _buildXPBar(
+                        xpProgress, rankNames, currentRank, nextRank, scheme),
                   ),
 
                   const SizedBox(height: 24),
@@ -524,11 +545,13 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _statItem(Icons.check_circle, '$accuracy%', 'Accuracy', AppColors.success),
+          _statItem(
+              Icons.check_circle, '$accuracy%', 'Accuracy', AppColors.success),
           _statDivider(),
           _statItem(Icons.timer, timeStr, 'Time', _categoryColor),
           _statDivider(),
-          _statItem(Icons.local_fire_department, '${progress.bossesDefeated}', 'Bosses', Colors.orange),
+          _statItem(Icons.local_fire_department, '${progress.bossesDefeated}',
+              'Bosses', Colors.orange),
         ],
       ),
     );
@@ -596,11 +619,11 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
               color: rarityColor,
               size: 48,
             ),
-                      ).animate().scale(
-                        begin: const Offset(0, 0),
-                        duration: 400.ms,
-                        curve: Curves.elasticOut,
-                      ),
+          ).animate().scale(
+                begin: const Offset(0, 0),
+                duration: 400.ms,
+                curve: Curves.elasticOut,
+              ),
           const Gap(Spacing.sm),
           Text(
             widget.reward!.displayName,
@@ -615,7 +638,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
     );
   }
 
-  Widget _buildRankUpBanner(List<String> rankNames, int currentRank, int nextRank, ColorScheme scheme) {
+  Widget _buildRankUpBanner(List<String> rankNames, int currentRank,
+      int nextRank, ColorScheme scheme) {
     return Padding(
       padding: const EdgeInsets.only(top: 24),
       child: Container(
@@ -663,14 +687,15 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
           ],
         ),
       ).animate().slideX(
-        begin: 0.2,
-        duration: 500.ms,
-        curve: Curves.easeOut,
-      ),
+            begin: 0.2,
+            duration: 500.ms,
+            curve: Curves.easeOut,
+          ),
     );
   }
 
-  Widget _buildXPBar(double progress, List<String> rankNames, int currentRank, int nextRank, ColorScheme scheme) {
+  Widget _buildXPBar(double progress, List<String> rankNames, int currentRank,
+      int nextRank, ColorScheme scheme) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
@@ -752,7 +777,8 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen>
 
     final cubitState = context.read<GameCubit>().state;
     if (cubitState.earnedNoSupTechBonus) {
-      chips.add(_prepChip(Icons.psychology, '+25', 'No Hints', AppColors.success));
+      chips.add(
+          _prepChip(Icons.psychology, '+25', 'No Hints', AppColors.success));
     }
     chips.add(_prepChip(Icons.bolt, '+25', 'First Try', AppColors.success));
 

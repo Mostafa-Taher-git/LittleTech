@@ -273,8 +273,8 @@ class SettingsScreen extends StatelessWidget {
             icons.contains(currentIcon) ? currentIcon! : icons.first;
         return StatefulBuilder(
           builder: (ctx, setDialogState) => AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.lg)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Radii.lg)),
             title: const Text('Choose Your Avatar'),
             content: Wrap(
               spacing: 10,
@@ -328,7 +328,8 @@ class SettingsScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.lg)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Radii.lg)),
         title: Row(
           children: [
             Container(

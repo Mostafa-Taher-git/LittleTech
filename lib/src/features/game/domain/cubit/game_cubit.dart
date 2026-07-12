@@ -194,7 +194,10 @@ class GameCubit extends Cubit<GameState> {
       world = GameData.worlds.first;
     }
     final pending = progress.pendingAchievementIds
-        .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
+        .map((id) => AchievementManager.all
+            .cast<Achievement?>()
+            .firstWhere((a) => a!.id == id, orElse: () => null))
+        .whereType<Achievement>()
         .toList();
     _safePersist([() => _repository.clearPendingAchievements(progress)]);
     emit(GameState(
@@ -222,7 +225,10 @@ class GameCubit extends Cubit<GameState> {
     }
     final skinProgress = _checkAndUnlockProgressionSkins() ?? progress;
     final pending = skinProgress.pendingAchievementIds
-        .map((id) => AchievementManager.all.firstWhere((a) => a.id == id))
+        .map((id) => AchievementManager.all
+            .cast<Achievement?>()
+            .firstWhere((a) => a!.id == id, orElse: () => null))
+        .whereType<Achievement>()
         .toList();
     _safePersist([() => _repository.clearPendingAchievements(skinProgress)]);
     emit(GameState(
@@ -314,8 +320,9 @@ class GameCubit extends Cubit<GameState> {
 
   void addChallengeBonus(int bonusPoints) {
     final progress = state.progress;
-    _safePersist([() => _repository.addPoints(progress, bonusPoints)]);
-    emit(state.copyWith(progress: progress));
+    final updated = progress.copyWith(points: progress.points + bonusPoints);
+    _safePersist([() => _repository.saveProgress(updated)]);
+    emit(state.copyWith(progress: updated));
   }
 
   void startBoss(BossEncounterDef boss) {

@@ -123,8 +123,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(Radii.md),
-                            borderSide: BorderSide(
-                                color: scheme.secondary, width: 1.5),
+                            borderSide:
+                                BorderSide(color: scheme.secondary, width: 1.5),
                           ),
                           errorStyle: TextStyle(color: scheme.error),
                         ),
@@ -166,8 +166,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(Radii.md),
-                            borderSide: BorderSide(
-                                color: scheme.secondary, width: 1.5),
+                            borderSide:
+                                BorderSide(color: scheme.secondary, width: 1.5),
                           ),
                           errorStyle: TextStyle(color: scheme.error),
                         ),
@@ -199,8 +199,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderSide: BorderSide.none),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(Radii.md),
-                            borderSide: BorderSide(
-                                color: scheme.secondary, width: 1.5),
+                            borderSide:
+                                BorderSide(color: scheme.secondary, width: 1.5),
                           ),
                           errorStyle: TextStyle(color: scheme.error),
                         ),
@@ -220,7 +220,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 backgroundColor: scheme.secondary,
                                 foregroundColor: scheme.onSecondary,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(Radii.lg)),
+                                    borderRadius:
+                                        BorderRadius.circular(Radii.lg)),
                               ),
                               onPressed: state is AuthLoading
                                   ? null

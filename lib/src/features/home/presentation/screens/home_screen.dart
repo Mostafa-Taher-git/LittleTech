@@ -9,7 +9,7 @@ import 'package:littletech/src/features/solutions/presentation/screens/saved_sol
 import 'package:littletech/src/features/solutions/presentation/screens/categories_screen.dart';
 import 'package:littletech/src/features/solutions/presentation/screens/search_screen.dart';
 import 'package:littletech/src/features/settings/presentation/screens/settings_screen.dart';
-import 'package:littletech/src/features/home/presentation/bloc/counter_cubit.dart';
+import 'package:littletech/src/features/solutions/data/services/solved_problems_service.dart';
 import 'package:littletech/src/features/game/presentation/screens/world_select_screen.dart';
 import 'package:littletech/src/features/game/presentation/screens/profile_screen.dart';
 import 'package:littletech/src/features/game/presentation/widgets/suptech_avatar.dart';
@@ -111,7 +111,8 @@ class HomeScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color:
                                           Colors.green.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(Radii.md),
+                                      borderRadius:
+                                          BorderRadius.circular(Radii.md),
                                       border: Border.all(
                                           color: Colors.green
                                               .withValues(alpha: 0.3)),
@@ -127,7 +128,8 @@ class HomeScreen extends StatelessWidget {
                                     height: 36,
                                     decoration: BoxDecoration(
                                       color: b.color.withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(Radii.md),
+                                      borderRadius:
+                                          BorderRadius.circular(Radii.md),
                                       border: Border.all(
                                           color:
                                               b.color.withValues(alpha: 0.3)),
@@ -575,8 +577,10 @@ class _StatsCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BlocBuilder<CounterCubit, int>(
-                builder: (_, count) {
+              FutureBuilder<int>(
+                future: SolvedProblemsService.count(),
+                builder: (_, snap) {
+                  final count = snap.data ?? 0;
                   return Text(
                     '$count',
                     style: TextStyle(

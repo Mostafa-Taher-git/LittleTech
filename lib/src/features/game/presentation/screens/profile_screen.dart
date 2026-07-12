@@ -261,8 +261,10 @@ class ProfileScreen extends StatelessWidget {
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: const Text('Not enough points! Need 1000 pts.'),
-                                        backgroundColor: Theme.of(context).colorScheme.error,
+                                        content: const Text(
+                                            'Not enough points! Need 1000 pts.'),
+                                        backgroundColor:
+                                            Theme.of(context).colorScheme.error,
                                         duration: const Duration(seconds: 2),
                                       ),
                                     );
@@ -362,11 +364,16 @@ class ProfileScreen extends StatelessWidget {
                                             .read<GameCubit>()
                                             .setActiveFrame(frame.id);
                                       } else {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           SnackBar(
-                                            content: const Text('Not enough points! Need 1000 pts.'),
-                                            backgroundColor: Theme.of(context).colorScheme.error,
-                                            duration: const Duration(seconds: 2),
+                                            content: const Text(
+                                                'Not enough points! Need 1000 pts.'),
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .error,
+                                            duration:
+                                                const Duration(seconds: 2),
                                           ),
                                         );
                                       }
@@ -377,7 +384,8 @@ class ProfileScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: scheme.secondary
                                             .withValues(alpha: 0.2),
-                                        borderRadius: BorderRadius.circular(Radii.sm),
+                                        borderRadius:
+                                            BorderRadius.circular(Radii.sm),
                                       ),
                                       child: Text(
                                         'Buy',

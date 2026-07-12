@@ -140,8 +140,7 @@ class _BossScreenState extends State<BossScreen> with TickerProviderStateMixin {
     }
   }
 
-  Color _bossColor(int visualType) =>
-      CategoryColors.forVisualType(visualType);
+  Color _bossColor(int visualType) => CategoryColors.forVisualType(visualType);
 
   Widget _buildDefeatedButton() {
     return Container(
