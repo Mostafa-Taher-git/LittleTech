@@ -15,7 +15,7 @@ We release security updates for the following versions:
 
 Instead, please report them via:
 
-- **Email**: security@littletech.app
+- **Email**: mostafa.taher.c1@gmail.com
 - **GitHub Security Advisories**: [Report a vulnerability](https://github.com/Mostafa-Taher-git/LittleTech/security/advisories/new)
 
 ### What to Include
