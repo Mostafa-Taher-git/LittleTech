@@ -97,7 +97,7 @@ LittleTech is designed with these security principles:
 
 For security questions or concerns:
 
-- **Email**: security@littletech.app
+- **Email**: mostafa.taher.c1@gmail.com
 - **PGP Key**: Available on request
 - **Response**: Within 48 hours
 
