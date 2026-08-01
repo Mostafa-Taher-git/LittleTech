@@ -275,7 +275,7 @@ Maintainers will:
 
 **Do not open public issues** for security bugs.
 
-Email: **security@littletech.app** (or GitHub Security Advisories)
+Email: **mostafa.taher.c1@gmail.com** (or GitHub Security Advisories)
 
 Include:
 - Description of vulnerability
@@ -292,7 +292,7 @@ Include:
 | **GitHub Discussions** | Questions, ideas, general chat |
 | **GitHub Issues** | Bug reports, feature requests |
 | **PR Comments** | Code review discussion |
-| **Discord** | Real-time chat (link in repo description) |
+| **Email** | [mostafa.taher.c1@gmail.com](mailto:mostafa.taher.c1@gmail.com) |
 
 ---
 

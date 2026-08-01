@@ -98,10 +98,9 @@ LittleTech is designed with these security principles:
 For security questions or concerns:
 
 - **Email**: mostafa.taher.c1@gmail.com
-- **PGP Key**: Available on request
 - **Response**: Within 48 hours
 
 ---
 
-*Last updated: 2024-01-15*
+*Last updated: 2026-07-12*
 *Version: 1.0*

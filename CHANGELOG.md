@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.0.0] - 2024-01-15
+## [2.0.0] - 2026-07-12
 
 ### Added
 - **Complete rewrite** from v1.x with clean architecture
@@ -104,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | 1.0.0 | 2023-07 | 6 | 174 | Core gameplay, auth, SQLite |
 | 1.1.0 | 2023-09 | 9 | 261 | Gaming/Mobile/Display, themes, shop |
 | 1.2.0 | 2023-11 | 12 | 348 | Smart Home/Security/Networking, quests |
-| 2.0.0 | 2024-01 | 14 | 406 | Rewrite: Bloc, Isar, RuleEngine, bosses, achievements, customization |
+| 2.0.0 | 2026-07 | 14 | 406 | Rewrite: Bloc, Isar, RuleEngine, bosses, achievements, customization |
 
 ---
 

@@ -235,10 +235,6 @@ All items are **earned through gameplay** — no IAP, no ads, no dark patterns.
 
 ## 🗺 Roadmap
 
-- [ ] **Cloud sync (optional)** — encrypted backup to user's Drive/iCloud
-- [ ] **Community levels** — import/export custom problem packs
-- [ ] **AR mode** — overlay diagnostics on real hardware (camera + ML)
-- [ ] **Desktop companion** — sidecar app for PC troubleshooting
 - [ ] **Localization** — ES, FR, DE, AR, ZH, HI, PT, RU, JA, KO
 
 ---
@@ -272,7 +268,7 @@ Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 ```
 MIT License
 
-Copyright (c) 2024 Mostafa Taher
+Copyright (c) 2026 Mostafa Taher
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -301,6 +297,8 @@ copies or substantial portions of the Software.
 | Platform | Link |
 |----------|------|
 | **GitHub** | [Mostafa-Taher-git](https://github.com/Mostafa-Taher-git) |
+| **Website** | [mostafa-web.serveirc.com](https://mostafa-web.serveirc.com) |
+| **Email** | [mostafa.taher.c1@gmail.com](mailto:mostafa.taher.c1@gmail.com) |
 | **Issues** | [Bug Reports & Features](https://github.com/Mostafa-Taher-git/LittleTech/issues) |
 | **Discussions** | [Q&A, Ideas, Showcase](https://github.com/Mostafa-Taher-git/LittleTech/discussions) |
 
