@@ -46,6 +46,7 @@ jobs:
             if ! grep -q "namespace" "$f"; then
               sed -i '/android {/a \    namespace "dev.isar.isar_flutter_libs"' "$f"
             fi
+            sed -i 's/compileSdkVersion [0-9]*/compileSdkVersion 34/g' "$f"
           done
 
       - name: Run Tests

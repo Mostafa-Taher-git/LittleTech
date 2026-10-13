@@ -33,6 +33,9 @@ subprojects {
                         val fallback = if (groupStr.isNotEmpty() && groupStr != "unspecified") groupStr else "dev.isar.${project.name}"
                         setNamespace.invoke(android, fallback)
                     }
+                try {
+                    val setCompileSdk = android.javaClass.getMethod("setCompileSdkVersion", Int::class.javaPrimitiveType)
+                    setCompileSdk.invoke(android, 34)
                 } catch (_: Exception) {}
             }
         }
