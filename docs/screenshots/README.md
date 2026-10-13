@@ -1,40 +1,22 @@
-# Screenshots Placeholder
+# Application Screenshots & Media Assets
 
-Add your app screenshots here for the README to display.
+This directory contains real application screenshots and graphic assets used across the repository and documentation.
 
-## Required Screenshots
+## Available Screenshots
 
-| File | Description | Suggested Size |
-|------|-------------|----------------|
-| `splash.png` | Splash screen | 1080×1920 |
-| `home.png` | World selection screen | 1080×1920 |
-| `level.png` | Level gameplay screen | 1080×1920 |
-| `boss.png` | Boss battle screen | 1080×1920 |
-| `customize.png` | Customization screen | 1080×1920 |
-| `solutions.png` | Solutions library | 1080×1920 |
-| `settings.png` | Settings screen | 1080×1920 |
-
-## How to Capture
-
-```bash
-# Android (connected device)
-adb exec-out screencap -p > docs/screenshots/home.png
-
-# iOS (simulator)
-xcrun simctl io booted screenshot docs/screenshots/home.png
-
-# Flutter integration test (automated)
-flutter drive --target=test_driver/screenshots.dart
-```
+| File | Description | Dimensions |
+|------|-------------|------------|
+| `home.png` | Main Dashboard & Quest Hub (Points, Streaks, Daily Challenges, Weekly Boss) | 1258×1003 |
+| `worlds.png` | Troubleshooting Worlds & Progress Overview (Core Components, RAM, OS, Audio) | 1253×994 |
+| `categories.png` | 14 Troubleshooting Categories Grid | 1255×1006 |
+| `search.png` | Problem Search & Diagnostic Knowledge Finder | 1254×1005 |
+| `customize.png` | Profile & Progression Customization (Themes, Frames, Icons, Titles) | 1250×1000 |
+| `suptech.png` | SupTech AI Companion (Custom Skins, Accessories, Expressions) | 1880×1010 |
+| `settings.png` | Settings & Account Management (Multi-user local auth, offline storage) | 1010×668 |
+| `icon.png` | High-resolution application brand icon | 1024×1024 |
 
 ## Guidelines
 
-- Use **light theme** for consistency
-- Capture on **phone** (not tablet/desktop)
-- Hide **navigation gestures** / status bar if possible
-- Use **real content** (not empty states)
-- Compress: `pngquant --quality=80-90 *.png`
-
-## Placeholder
-
-Until real screenshots are added, the README will show broken image links. Replace this folder's contents with actual captures.
+- Use light theme for visual consistency
+- Capture in full resolution without scaling artifacts
+- Optimize PNG assets before committing

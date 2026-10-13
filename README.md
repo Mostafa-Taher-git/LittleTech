@@ -32,11 +32,29 @@ Each level teaches a **real diagnostic methodology** powered by a procedural **R
 
 ## 📱 Screenshots
 
-| Splash | Home / Worlds | Level Play | Boss Battle | Customization |
-|--------|---------------|------------|-------------|---------------|
-| ![Splash](docs/screenshots/splash.png) | ![Home](docs/screenshots/home.png) | ![Level](docs/screenshots/level.png) | ![Boss](docs/screenshots/boss.png) | ![Customize](docs/screenshots/customize.png) |
+<div align="center">
 
-> *Add screenshots to `docs/screenshots/` and they'll render automatically.*
+### 🎯 Main Hub & Category Progression
+| Dashboard & Daily Quests | Troubleshooting Worlds |
+|:---:|:---:|
+| <img src="docs/screenshots/home.png" alt="LittleTech Dashboard" width="460"/> | <img src="docs/screenshots/worlds.png" alt="Troubleshooting Worlds Progress" width="460"/> |
+
+### 🔍 Diagnostic Engine & Problem Search
+| Real-Time Search & Scenarios | 14 Troubleshooting Domains |
+|:---:|:---:|
+| <img src="docs/screenshots/search.png" alt="Problem Search & Solutions" width="460"/> | <img src="docs/screenshots/categories.png" alt="Troubleshooting Categories" width="460"/> |
+
+### 🎨 Personalization & SupTech Assistant
+| Profile, Themes, Frames & Titles | SupTech AI Companion & Skins |
+|:---:|:---:|
+| <img src="docs/screenshots/customize.png" alt="Profile Customization" width="460"/> | <img src="docs/screenshots/suptech.png" alt="SupTech Assistant Customization" width="460"/> |
+
+### ⚙️ Multi-Account & Offline Settings
+| Account Management & Privacy-First Offline Architecture |
+|:---:|
+| <img src="docs/screenshots/settings.png" alt="Settings and Multi-Account Support" width="560"/> |
+
+</div>
 
 ---
 

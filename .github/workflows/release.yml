@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v2.0.0)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Run Tests
+        run: flutter test --no-pub
+        continue-on-error: true
+
+      - name: Set Release Tag
+        id: set_tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.tag }}" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${{ github.ref_name }}"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Build Android APK
+        id: build_apk
+        run: |
+          flutter build apk --release
+          if [ -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            cp build/app/outputs/flutter-apk/app-release.apk LittleTech-${{ env.RELEASE_TAG }}.apk
+            echo "has_apk=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_apk=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Create GitHub Release via GitHub CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ASSETS=()
+          if [ -f "LittleTech-${{ env.RELEASE_TAG }}.apk" ]; then
+            ASSETS+=("LittleTech-${{ env.RELEASE_TAG }}.apk")
+          fi
+
+          if [ ${#ASSETS[@]} -gt 0 ]; then
+            gh release create "${{ env.RELEASE_TAG }}" "${ASSETS[@]}" \
+              --title "LittleTech ${{ env.RELEASE_TAG }}" \
+              --generate-notes \
+              --draft=false \
+              --prerelease=false
+          else
+            gh release create "${{ env.RELEASE_TAG }}" \
+              --title "LittleTech ${{ env.RELEASE_TAG }}" \
+              --generate-notes \
+              --draft=false \
+              --prerelease=false
+          fi
