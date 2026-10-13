@@ -297,7 +297,7 @@ copies or substantial portions of the Software.
 | Platform | Link |
 |----------|------|
 | **GitHub** | [Mostafa-Taher-git](https://github.com/Mostafa-Taher-git) |
-| **Website** | [mostafa-web.serveirc.com](https://mostafa-web.serveirc.com) |
+| **Website** | [mostafa-web.serveirc.com](https://www.mostafa-taher.duckdns.org/) |
 | **Email** | [mostafa.taher.c1@gmail.com](mailto:mostafa.taher.c1@gmail.com) |
 | **Issues** | [Bug Reports & Features](https://github.com/Mostafa-Taher-git/LittleTech/issues) |
 | **Discussions** | [Q&A, Ideas, Showcase](https://github.com/Mostafa-Taher-git/LittleTech/discussions) |
