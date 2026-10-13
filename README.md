@@ -1,6 +1,6 @@
 # LittleTech — Expert Troubleshooting Gamified Learning App
 
-![LittleTech Banner](assets/icon/banner.png)
+<img src="docs/screenshots/icon.png" alt=" LittleTech icon"  width="50"/> 
 
 > **Learn tech troubleshooting through RPG-style gameplay.** Master 14 real-world IT domains, defeat boss battles, unlock rewards, and build genuine diagnostic skills — all offline, all free.
 
