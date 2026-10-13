@@ -40,6 +40,14 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Patch legacy plugins namespace for AGP 8+
+        run: |
+          for f in $(find "$PUB_CACHE" -path "*isar_flutter_libs*/android/build.gradle" 2>/dev/null); do
+            if ! grep -q "namespace" "$f"; then
+              sed -i '/android {/a \    namespace "dev.isar.isar_flutter_libs"' "$f"
+            fi
+          done
+
       - name: Run Tests
         run: flutter test --no-pub
         continue-on-error: true
