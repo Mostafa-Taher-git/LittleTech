@@ -67,7 +67,7 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: Create GitHub Release via GitHub CLI
+      - name: Create or Update GitHub Release via GitHub CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -76,16 +76,24 @@ jobs:
             ASSETS+=("LittleTech-${{ env.RELEASE_TAG }}.apk")
           fi
 
-          if [ ${#ASSETS[@]} -gt 0 ]; then
-            gh release create "${{ env.RELEASE_TAG }}" "${ASSETS[@]}" \
-              --title "LittleTech ${{ env.RELEASE_TAG }}" \
-              --generate-notes \
-              --draft=false \
-              --prerelease=false
+          if gh release view "${{ env.RELEASE_TAG }}" >/dev/null 2>&1; then
+            echo "Release ${{ env.RELEASE_TAG }} already exists. Uploading assets..."
+            if [ ${#ASSETS[@]} -gt 0 ]; then
+              gh release upload "${{ env.RELEASE_TAG }}" "${ASSETS[@]}" --clobber
+            fi
           else
-            gh release create "${{ env.RELEASE_TAG }}" \
-              --title "LittleTech ${{ env.RELEASE_TAG }}" \
-              --generate-notes \
-              --draft=false \
-              --prerelease=false
+            echo "Creating new release ${{ env.RELEASE_TAG }}..."
+            if [ ${#ASSETS[@]} -gt 0 ]; then
+              gh release create "${{ env.RELEASE_TAG }}" "${ASSETS[@]}" \
+                --title "LittleTech ${{ env.RELEASE_TAG }}" \
+                --generate-notes \
+                --draft=false \
+                --prerelease=false
+            else
+              gh release create "${{ env.RELEASE_TAG }}" \
+                --title "LittleTech ${{ env.RELEASE_TAG }}" \
+                --generate-notes \
+                --draft=false \
+                --prerelease=false
+            fi
           fi
