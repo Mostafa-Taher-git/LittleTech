@@ -40,10 +40,7 @@ flutter_launcher_icons:
   image_path: "assets/icon/icon.png"
   adaptive_icon_background: "#4A9BA8"
   adaptive_icon_foreground: "assets/icon/icon.png"
-  web:
-    generate: true
-    image_path: "assets/icon/icon.png"
-    background_color: "#4A9BA8"
   windows:
     generate: true
     image_path: "assets/icon/icon.png"
+
